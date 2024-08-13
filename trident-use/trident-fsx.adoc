@@ -43,7 +43,7 @@ NOTE: Asegúrese de seguir los pasos de preparación de nodos necesarios para Am
 +
 ** Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
 ** Los volúmenes SMB no son compatibles con el complemento Astra Trident EKS.
-** Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows. Consulte <<Prepárese para aprovisionar los volúmenes de SMB>> para obtener más detalles.
+** Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows. Consulte link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"] para obtener más información.
 
 
 * Antes de Astra Trident 24,02, Trident no podía eliminar los volúmenes creados en el sistema de archivos Amazon FSx que tienen habilitados backups automáticos. Para evitar este problema en Astra Trident 24,02 o una versión posterior, especifique la `fsxFilesystemID`, AWS `apiRegion`, AWS `apikey`, Y AWS `secretKey` En el archivo de configuración de back-end de AWS FSx for ONTAP.

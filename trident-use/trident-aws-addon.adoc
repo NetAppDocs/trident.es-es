@@ -4,7 +4,7 @@ permalink: trident-use/trident-aws-addon.html
 keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
 summary: Añada el complemento Astra Trident EKS al clúster de Kubernetes. 
 ---
-= Configura la versión 23,10 del complemento Astra Trident EKS en el clúster de EKS
+= Configura el complemento EKS de Astra Trident en un clúster de EKS
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -64,9 +64,9 @@ image::../media/aws-eks-05.png[aws llega a 05]
 == Instalar/desinstalar el complemento Astra Trident EKS mediante la CLI
 
 .Instale el complemento Astra Trident EKS mediante la CLI:
-Los siguientes comandos de ejemplo instalan el complemento Astra Trident EKS:
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.`
-`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v23.10.0-eksbuild.1` (con una versión dedicada)
+Los siguientes comandos de ejemplo instalan el complemento EKS de Astra Trident:
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.`
+`eksctl create addon --cluster K8s-arm --name netapp_trident-operator --version v24.2.0-eksbuild.1` (Con una versión dedicada)
 
 .Desinstale el complemento Astra Trident EKS mediante la CLI:
 El siguiente comando desinstala el complemento Astra Trident EKS:
