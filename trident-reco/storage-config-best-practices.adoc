@@ -80,6 +80,12 @@ Además de controlar el tamaño del volumen en la cabina de almacenamiento, tamb
 
 
 
+=== Limite el tamaño máximo de FlexVols creados por Trident
+
+Para configurar el tamaño máximo para FlexVols utilizados como pools para los controladores ONTAP-san-economy y ONTAP-nas-economy, utilice el `limitVolumePoolSize` parámetro en su `backend.json` definición.
+
+
+
 === Configure Trident para utilizar CHAP bidireccional
 
 Puede especificar los nombres de iniciador CHAP y de usuario de destino y las contraseñas en la definición de back-end, y hacer que Trident habilite CHAP en la SVM. Con el `useCHAP` Parámetro en la configuración de back-end, Trident autentica las conexiones iSCSI para los back-ends de ONTAP con CHAP.

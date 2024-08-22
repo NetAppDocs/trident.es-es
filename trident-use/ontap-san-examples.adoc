@@ -163,6 +163,9 @@ El cifrado LUKS no es compatible con NVMe/TCP. | ""
 
 
 | `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
+
+
+| `limitVolumePoolSize` | Tamaño máximo de FlexVol solicitable al usar LUN en back-end económico de ONTAP-san. | "" (no se aplica de forma predeterminada) 
 |===
 
 
