@@ -112,6 +112,13 @@ NOTE: Por ejemplo, si los secretos CHAP se rotaban en la controladora de almacen
 * Faltan LUN
 
 
+*Puntos a tener en cuenta antes de actualizar Trident*
+
+* Si solo se utilizan iGroups por nodo (introducidos en 23,04+), la reparación automática de iSCSI iniciará los análisis de SCSI para todos los dispositivos del bus SCSI.
+* Si solo se utilizan iGroups de ámbito back-end (obsoletos a partir de 23,04), la reparación automática de iSCSI iniciará los nuevos análisis SCSI de los ID exactos de LUN en el bus SCSI.
+* Si se utiliza una combinación de iGroups por nodo y iGroups de ámbito back-end, la reparación automática de iSCSI iniciará los análisis SCSI de los ID exactos de LUN en el bus SCSI.
+
+
 
 
 === Instale las herramientas iSCSI

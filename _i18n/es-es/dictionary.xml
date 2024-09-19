@@ -4330,4 +4330,8 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">Tamaño máximo de FlexVol solicitable al usar LUN en back-end económico de ONTAP-san.</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">Configuración de PVC para importar volúmenes LUKS</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">Para importar volúmenes LUKS dinámicamente, establezca la anotación<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block> en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> e incluya una clase de almacenamiento habilitada para LUKS en la RVP como se muestra en este ejemplo.</block>
+  <block id="eb80be396693610ba21c23b6b222bb73" category="paragraph">*Puntos a tener en cuenta antes de actualizar Trident*</block>
+  <block id="b100864b32a36993557470c9854e7e3a" category="list-text">Si solo se utilizan iGroups por nodo (introducidos en 23,04+), la reparación automática de iSCSI iniciará los análisis de SCSI para todos los dispositivos del bus SCSI.</block>
+  <block id="284bb2f9d2596017aa72985df760fdb3" category="list-text">Si solo se utilizan iGroups de ámbito back-end (obsoletos a partir de 23,04), la reparación automática de iSCSI iniciará los nuevos análisis SCSI de los ID exactos de LUN en el bus SCSI.</block>
+  <block id="0d6cf1de077f00140ee25c03f94e4805" category="list-text">Si se utiliza una combinación de iGroups por nodo y iGroups de ámbito back-end, la reparación automática de iSCSI iniciará los análisis SCSI de los ID exactos de LUN en el bus SCSI.</block>
 </blocks>
