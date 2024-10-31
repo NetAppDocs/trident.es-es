@@ -16,9 +16,9 @@ La cartera de productos de almacenamiento de NetApp se integra con muchos aspect
 
 
 
-== Astra
+== Trident
 
-https://docs.netapp.com/us-en/astra/["Astra"^] Facilita a las empresas la gestión, protección y movimiento de sus cargas de trabajo en contenedores con gran cantidad de datos que se ejecutan en Kubernetes en los clouds públicos y en las instalaciones. Astra aprovisiona y proporciona almacenamiento en contenedores persistente mediante Trident de la cartera de almacenamiento NetApp demostrada y expansiva en el cloud público y en las instalaciones. También ofrece un conjunto amplio de funcionalidades avanzadas de gestión de datos para aplicaciones, como snapshots, backups y restauración, registros de actividades y clonado activo para la protección de datos, recuperación ante desastres/datos, auditoría de datos y casos de uso de migración para cargas de trabajo de Kubernetes.
+https://docs.netapp.com/us-en/trident/["Trident"^] Facilita a las empresas la gestión, la protección y el traslado de sus cargas de trabajo en contenedores ricas en datos que se ejecutan en Kubernetes dentro de los clouds públicos y en las instalaciones. Trident aprovisiona y proporciona almacenamiento en contenedores persistente mediante Trident de la cartera de almacenamiento NetApp demostrada y expansiva en el cloud público y en las instalaciones. También ofrece un conjunto amplio de funcionalidades avanzadas de gestión de datos para aplicaciones, como snapshots, backups y restauración, registros de actividades y clonado activo para la protección de datos, recuperación ante desastres/datos, auditoría de datos y casos de uso de migración para cargas de trabajo de Kubernetes.
 
 
 

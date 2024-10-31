@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-trident.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: Astra Trident sigue una cadencia de lanzamientos de cuatro meses y ofrece tres lanzamientos principales cada año. Cada versión nueva se basa en las versiones anteriores, y ofrece nuevas funciones y mejoras de rendimiento, así como correcciones de errores y mejoras. Le recomendamos que actualice al menos una vez al año para aprovechar las nuevas funciones de Astra Trident. 
+summary: Trident sigue una cadencia de lanzamientos de cuatro meses y ofrece tres versiones principales cada año. Cada versión nueva se basa en las versiones anteriores, y ofrece nuevas funciones y mejoras de rendimiento, así como correcciones de errores y mejoras. Se le anima a actualizar al menos una vez al año para aprovechar las nuevas funciones de Trident. 
 ---
-= Actualice Astra Trident
+= Actualice Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,18 +12,18 @@ summary: Astra Trident sigue una cadencia de lanzamientos de cuatro meses y ofre
 
 
 [role="lead"]
-A partir del lanzamiento de la versión 24,02, Astra Trident sigue una cadencia de lanzamiento de cuatro meses y entrega tres versiones principales cada año. Cada nueva versión se basa en versiones anteriores y proporciona nuevas funciones, mejoras de rendimiento, correcciones de errores y mejoras. Le animamos a que realice una actualización al menos una vez al año para aprovechar las nuevas funciones de Astra Trident.
+A partir de la versión 24,02, Trident sigue una cadencia de lanzamiento de cuatro meses, entregando tres versiones principales cada año. Cada nueva versión se basa en versiones anteriores y proporciona nuevas funciones, mejoras de rendimiento, correcciones de errores y mejoras. Le animamos a actualizar al menos una vez al año para aprovechar las nuevas funciones de Trident.
 
 
 
 == Consideraciones antes de la actualización
 
-Cuando actualice a la versión más reciente de Astra Trident, tenga en cuenta lo siguiente:
+Al actualizar a la versión más reciente de Trident, tenga en cuenta lo siguiente:
 
-* Solo debe haber una instancia de Astra Trident instalada en todos los espacios de nombres en un clúster de Kubernetes determinado.
-* Astra Trident 23,07 y versiones posteriores requieren v1 copias Snapshot de volumen y ya no admite copias Snapshot alfa o beta.
-* Si ha creado Cloud Volumes Service para Google Cloud en link:../trident-use/gcp.html#learn-about-astra-trident-support-for-cloud-volumes-service-for-google-cloud["Tipo de servicio CVS"], debe actualizar la configuración de backend para utilizar el `standardsw` o. `zoneredundantstandardsw` Nivel de servicio al actualizar desde Astra Trident 23,01. Fallo al actualizar el `serviceLevel` en el back-end se puede provocar que se produzcan errores en los volúmenes. Consulte link:../trident-use/gcp.html#cvs-service-type-examples["Muestras de tipo de servicio CVS"] para obtener más detalles.
-* Al actualizar, es importante que proporcione `parameter.fsType` pulg `StorageClasses` Utilizado por Astra Trident. Puede eliminar y volver a crear `StorageClasses` sin interrumpir los volúmenes preexistentes.
+* Solo debe haber una instancia de Trident instalada en todos los espacios de nombres de un clúster de Kubernetes determinado.
+* Trident 23,07 y versiones posteriores requieren v1 copias Snapshot de volumen y ya no admite instantáneas alfa o beta.
+* Si ha creado Cloud Volumes Service para Google Cloud en link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["Tipo de servicio CVS"], debe actualizar la configuración de backend para utilizar el `standardsw` nivel de servicio OR `zoneredundantstandardsw` al actualizar desde Trident 23,01. Si no se actualiza el `serviceLevel` en el backend, se podrían producir errores en los volúmenes. Consulte link:../trident-use/gcp.html#cvs-service-type-examples["Muestras de tipo de servicio CVS"] para obtener más información.
+* Al actualizar, es importante que proporcione `parameter.fsType` el `StorageClasses` que utiliza Trident. Puede eliminar y volver a crear `StorageClasses` sin interrumpir los volúmenes existentes anteriores.
 +
 ** Este es un **requisito** para hacer cumplir https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["contextos de seguridad"^] Para volúmenes SAN.
 ** El directorio https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^] contiene ejemplos, como https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ[`storage-class-basic.yaml.templ`^] y link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`#].
@@ -36,7 +36,7 @@ Cuando actualice a la versión más reciente de Astra Trident, tenga en cuenta l
 
 == Paso 1: Seleccione una versión
 
-Las versiones de Astra Trident siguen una fecha basada `YY.MM` Convención de nomenclatura, donde "YY" es los dos últimos dígitos del año y "MM" es el mes. Las versiones de puntos siguen a `YY.MM.X` convención, donde "X" es el nivel de parche. Deberá seleccionar la versión a la que se actualizará en función de la versión desde la que se actualice.
+Las versiones de Trident siguen una convención de nomenclatura basada en fechas `YY.MM`, donde “YY” es los dos últimos dígitos del año y “MM” es el mes. Las versiones de DOT siguen `YY.MM.X` una convención, donde “X” es el nivel de parche. Deberá seleccionar la versión a la que se actualizará en función de la versión desde la que se actualice.
 
 * Puede realizar una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones de la versión instalada. Por ejemplo, puede actualizar directamente de 23,04 (o cualquier versión de 23,04 puntos) a 24,06.
 * Si va a actualizar desde una versión fuera de la ventana de cuatro versiones, realice una actualización de varios pasos. Utilice las instrucciones de actualización de la link:../earlier-versions.html["versión anterior"] que va a actualizar para actualizar a la versión más reciente que se ajuste a la ventana de cuatro versiones. Por ejemplo, si utiliza 22,01 y desea actualizar a la versión 24,06:
@@ -54,18 +54,18 @@ NOTE: Cuando se actualice con el operador Trident en OpenShift Container Platfor
 
 == Paso 2: Determine el método de instalación original
 
-Para determinar qué versión solías instalar originalmente Astra Trident:
+Para determinar qué versión utilizaba para instalar originalmente Trident:
 
 . Uso `kubectl get pods -n trident` para examinar los pods.
 +
-** Si no existe ningún pod de operador, Astra Trident se instaló mediante `tridentctl`.
-** Si hay un pod de operador, se instaló Astra Trident mediante el operador Trident manualmente o mediante Helm.
+** Si no hay ningún pod de operador, se instaló Trident utilizando `tridentctl`.
+** Si hay un pod de operador, se instaló Trident usando el operador Trident manualmente o usando Helm.
 
 
-. Si hay un pod del operador, utilice `kubectl describe torc` Para determinar si Astra Trident se instaló mediante Helm.
+. Si hay un pod de operador, utilice `kubectl describe torc` para determinar si Trident se instaló con Helm.
 +
-** Si hay una etiqueta Helm, Astra Trident se instaló usando Helm.
-** Si no hay ninguna etiqueta Helm, Astra Trident se instaló manualmente mediante el operador Trident.
+** Si hay una etiqueta Helm, Trident se instaló usando Helm.
+** Si no hay ninguna etiqueta Helm, Trident se instaló manualmente usando el operador Trident.
 
 
 
@@ -74,7 +74,7 @@ Para determinar qué versión solías instalar originalmente Astra Trident:
 
 == Paso 3: Seleccione un método de actualización
 
-Por lo general, debe actualizar utilizando el mismo método que utilizó para la instalación inicial, sin embargo, puede hacerlo link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["desplazarse entre los métodos de instalación"]. Hay dos opciones para actualizar Astra Trident.
+Por lo general, debe actualizar utilizando el mismo método que utilizó para la instalación inicial, sin embargo, puede link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["desplazarse entre los métodos de instalación"]. Existen dos opciones para actualizar Trident.
 
 * link:upgrade-operator.html["Actualice con el operador Trident"]
 +

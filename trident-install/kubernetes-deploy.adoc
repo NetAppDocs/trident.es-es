@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, tanzu, vmware 
-summary: 'Puede instalar Astra Trident con el operador Trident (manualmente o mediante Helm) o con `tridentctl`. En este tema se proporciona información importante para seleccionar el proceso de instalación adecuado.' 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, tanzu, vmware 
+summary: 'Puede instalar Trident usando el operador Trident (manualmente o usando Helm) o con `tridentctl`. En este tema se proporciona información importante para seleccionar el proceso de instalación adecuado.' 
 ---
-= Obtenga más información sobre la instalación de Astra Trident
+= Obtenga información acerca de la instalación de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,24 +12,27 @@ summary: 'Puede instalar Astra Trident con el operador Trident (manualmente o me
 
 
 [role="lead"]
-Para garantizar que Astra Trident se puede instalar en una amplia variedad de entornos y organizaciones, NetApp ofrece múltiples opciones de instalación. Puede instalar Astra Trident con el operador Trident (manualmente o mediante Helm) o con `tridentctl`. En este tema se proporciona información importante para seleccionar el proceso de instalación adecuado.
+Para garantizar que Trident se puede instalar en una amplia variedad de entornos y organizaciones, NetApp ofrece varias opciones de instalación. Puede instalar Trident usando el operador Trident (manualmente o usando Helm) o con `tridentctl`. En este tema se proporciona información importante para seleccionar el proceso de instalación adecuado.
 
 
 
-== Información vital sobre Astra Trident 24,06
+== Información crítica sobre Trident 24,06
 
-* Debe leer la siguiente información crítica sobre Astra Trident.*
+*Debe leer la siguiente información crítica sobre Trident.*
 
-.<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
+.<strong>Información crítica sobre Trident </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1,31 ahora es compatible con Astra Trident. Actualizar Trident antes de actualizar Kubernetes.
-* Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
+[]
+=====
+* Kubernetes 1,31 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
 
 
 
+=====
 ====
 
 
@@ -58,11 +61,11 @@ Seleccione el método de instalación adecuado. También debe revisar las consid
 
 === Utilice el operador Trident
 
-Tanto si se pone en marcha manualmente como si se utiliza Helm, el operador Trident es una forma excelente de simplificar la instalación y gestionar de forma dinámica los recursos de Astra Trident. Incluso puede link:../trident-get-started/kubernetes-customize-deploy.html["Personalice la implementación del operador de Trident"] uso de los atributos de la `TridentOrchestrator` Recurso personalizado (CR).
+Tanto si se implementa manualmente como si se utiliza Helm, el operador Trident es una excelente manera de simplificar la instalación y administrar dinámicamente los recursos de Trident. Incluso puede link:../trident-get-started/kubernetes-customize-deploy.html["Personalice la implementación del operador de Trident"]utilizar los atributos en el `TridentOrchestrator` recurso personalizado (CR).
 
 Algunas de las ventajas de usar el operador Trident son:
 
-.<strong> Astra Trident de objetos cremunidad </strong>
+.Creación de objetos de <strong> Trident.</strong>
 [%collapsible]
 ====
 El operador Trident crea automáticamente los siguientes objetos para la versión de Kubernetes.
@@ -77,13 +80,13 @@ El operador Trident crea automáticamente los siguientes objetos para la versió
 .<strong>Contabilidad de recursos </strong>
 [%collapsible]
 ====
-El operador Trident en el ámbito del clúster gestiona los recursos asociados con una instalación de Astra Trident en el nivel del clúster. Esto mitiga los errores que pueden producirse al mantener los recursos de ámbito de cluster mediante un operador de ámbito de espacio de nombres. Esto es esencial para la reparación automática y la aplicación de parches.
+El operador Trident en el ámbito del clúster gestiona los recursos asociados con una instalación de Trident en el nivel del clúster. Esto mitiga los errores que pueden producirse al mantener los recursos de ámbito de cluster mediante un operador de ámbito de espacio de nombres. Esto es esencial para la reparación automática y la aplicación de parches.
 
 ====
 .<strong> </strong> de capeel de curación de las Ouna
 [%collapsible]
 ====
-El operador supervisa la instalación de Astra Trident y toma activamente medidas para resolver problemas, como cuándo se elimina la implementación o si se modifica accidentalmente. A. `trident-operator-<generated-id>` se crea un pod que asocia un `TridentOrchestrator` CR con una instalación de Astra Trident. Esto garantiza que solo haya una instancia de Astra Trident en el clúster y controle su configuración, asegurándose de que la instalación es idempotente. Cuando se realizan cambios en la instalación (como eliminar el despliegue o el conjunto de nodos), el operador los identifica y los corrige individualmente.
+El operador supervisa la instalación de Trident y toma medidas activas para solucionar problemas, como cuando se elimina el despliegue o se modifica accidentalmente. Se crea un `trident-operator-<generated-id>` pod que asocia un `TridentOrchestrator` CR a una instalación de Trident. Esto garantiza que solo haya una instancia de Trident en el clúster y controla su configuración, asegurándose de que la instalación sea idempotente. Cuando se realizan cambios en la instalación (como eliminar el despliegue o el conjunto de nodos), el operador los identifica y los corrige individualmente.
 
 ====
 .<strong>® actualizaciones en la </strong> existente
@@ -91,7 +94,7 @@ El operador supervisa la instalación de Astra Trident y toma activamente medida
 ====
 Puede actualizar fácilmente una implementación existente con el operador. Sólo tiene que editar el `TridentOrchestrator` CR para realizar actualizaciones de una instalación.
 
-Por ejemplo, piense en una situación en la que necesita habilitar Astra Trident para generar registros de depuración. Para hacer esto, parche su `TridentOrchestrator` para ajustar `spec.debug` para `true`:
+Por ejemplo, considere un escenario en el que debe activar Trident para generar registros de depuración. Para ello, aplique un parche `TridentOrchestrator` a para establecer `spec.debug` en `true`:
 
 [listing]
 ----
@@ -103,28 +106,28 @@ Después `TridentOrchestrator` se actualiza, el operador procesa las actualizaci
 .<strong>Clean reinstallation</strong>
 [%collapsible]
 ====
-El operador Trident en el ámbito del clúster permite eliminar sin problemas los recursos del ámbito del clúster. Los usuarios pueden desinstalar completamente Astra Trident y reinstalarlo fácilmente.
+El operador Trident en el ámbito del clúster permite eliminar sin problemas los recursos del ámbito del clúster. Los usuarios pueden desinstalar completamente Trident y reinstalar fácilmente.
 
 ====
 .Mejora a <strong> de Kubernetes a mano </strong>
 [%collapsible]
 ====
-Cuando la versión de Kubernetes del clúster se actualiza a una versión compatible, el operador actualiza una instalación existente de Astra Trident automáticamente y la cambia para garantizar que cumple los requisitos de la versión de Kubernetes.
+Cuando se actualiza la versión de Kubernetes del clúster a una versión compatible, el operador actualiza una instalación existente de Trident automáticamente y la cambia para garantizar que cumple con los requisitos de la versión de Kubernetes.
 
 
-NOTE: Si se actualiza el clúster a una versión no compatible, el operador evita la instalación de Astra Trident. Si ya se ha instalado Astra Trident con el operador, se muestra una advertencia para indicar que Astra Trident está instalada en una versión de Kubernetes no compatible.
+NOTE: Si el clúster se actualiza a una versión no compatible, el operador impide la instalación de Trident. Si Trident ya se ha instalado con el operador, se muestra una advertencia para indicar que Trident está instalado en una versión de Kubernetes no compatible.
 
 ====
 
 
 === Uso `tridentctl`
 
-Si tiene una puesta en marcha existente que debe actualizarse o si desea personalizar altamente su puesta en marcha, debe tener en cuenta . Este es el método convencional de puesta en marcha de Astra Trident.
+Si tiene un despliegue existente que debe actualizarse o si está buscando personalizar altamente su despliegue, debe considerar . Este es el método convencional de poner en marcha Trident.
 
-Puede hacerlo  Para generar los manifiestos de los recursos de Trident. Esto incluye la implementación, el conjunto demoníaco, la cuenta de servicio y el rol de clúster que crea Astra Trident como parte de su instalación.
+Puede generar los manifiestos para los recursos de Trident. Esto incluye la puesta en marcha, el inicio de datos, la cuenta de servicio y la función de clúster que crea Trident como parte de su instalación.
 
 
-NOTE: A partir de la versión 22.04, las claves AES ya no se regenerarán cada vez que se instale Astra Trident. Con este lanzamiento, Astra Trident instalará un nuevo objeto secreto que persiste en todas las instalaciones. Esto significa que, `tridentctl` En la versión 22.04 puede desinstalar versiones anteriores de Trident, pero las versiones anteriores no pueden desinstalar instalaciones de 22.04. Seleccione la instalación _method_ adecuada.
+NOTE: A partir de la versión 22,04, las claves AES ya no se regenerarán cada vez que se instale Trident. Con esta versión, Trident instalará un nuevo objeto secreto que persiste en todas las instalaciones. Esto significa que `tridentctl` en 22,04 se pueden desinstalar versiones anteriores de Trident, pero las versiones anteriores no pueden desinstalar instalaciones de 22,04. Seleccione la instalación _method_ adecuada.
 
 
 
@@ -136,12 +139,12 @@ Determine el proceso de implementación según el _installation mode_ (Standard,
 ====
 .Instalación estándar
 --
-Esta es la forma más sencilla de instalar Astra Trident y funciona para la mayoría de los entornos que no imponen restricciones de red. El modo de instalación estándar usa registros predeterminados para almacenar Trident necesario (`docker.io`) Y CSI (`registry.k8s.io`) imágenes.
+Esta es la forma más fácil de instalar Trident y funciona en la mayoría de entornos que no imponen restricciones de red. El modo de instalación estándar utiliza registros predeterminados para almacenar (`registry.k8s.io`las imágenes Trident (`docker.io`) y CSI ) necesarias.
 
-Cuando se utiliza el modo estándar, el instalador de Astra Trident:
+Cuando utilice el modo estándar, el instalador de Trident:
 
 * Obtiene las imágenes del contenedor por Internet
-* Crea una implementación o un conjunto de nodos demonset, que hace girar las pods de Astra Trident en todos los nodos elegibles del clúster de Kubernetes
+* Crea un inicio de nodo o una implementación, lo que aumenta la velocidad de giro de los pods de Trident en todos los nodos elegibles del clúster de Kubernetes
 
 
 --
@@ -157,7 +160,7 @@ NOTE: Independientemente de la configuración del registro, las imágenes CSI de
 --
 A continuación se ofrece una descripción general de alto nivel del proceso de instalación remota:
 
-* Despliegue la versión adecuada de `kubectl` En la máquina remota desde la que desea poner en marcha Astra Trident.
+* Implemente la versión adecuada de `kubectl` en el equipo remoto desde donde desea implementar Trident.
 * Copie los archivos de configuración del clúster de Kubernetes y establezca el `KUBECONFIG` variable de entorno en el equipo remoto.
 * Inicie un `kubectl get nodes` Comando para verificar que puede conectarse al clúster de Kubernetes necesario.
 * Complete la implementación desde la máquina remota mediante los pasos de instalación estándar.
@@ -200,8 +203,8 @@ link:kubernetes-deploy-tridentctl.html["Instalación estándar o sin conexión"]
 
 Puede decidir cambiar el método de instalación. Antes de hacerlo, tenga en cuenta lo siguiente:
 
-* Utilice siempre el mismo método para instalar y desinstalar Astra Trident. Si ha implementado con `tridentctl`, debe utilizar la versión adecuada de `tridentctl` Binario para desinstalar Astra Trident. Del mismo modo, si está desplegando con el operador, debe editar el `TridentOrchestrator` CR y SET `spec.uninstall=true` Para desinstalar Astra Trident.
-* Si tiene una implementación basada en operador que desea quitar y utilizar en su lugar `tridentctl` Para poner en marcha Astra Trident, primero debe editar `TridentOrchestrator` y ajustar `spec.uninstall=true` Para desinstalar Astra Trident. A continuación, elimínelo `TridentOrchestrator` y la puesta en marcha del operador. A continuación, puede realizar la instalación mediante `tridentctl`.
+* Utilice siempre el mismo método para instalar y desinstalar Trident. Si ha desplegado con `tridentctl`, debe utilizar la versión apropiada del `tridentctl` binario para desinstalar Trident. Del mismo modo, si está desplegando con el operador, debe editar el `TridentOrchestrator` CR y configurar `spec.uninstall=true` la desinstalación de Trident.
+* Si tiene un despliegue basado en el operador que desea eliminar y utilizar en su lugar `tridentctl` para implementar Trident, primero debe editar `TridentOrchestrator` y establecer `spec.uninstall=true` para desinstalar Trident. A continuación, suprima `TridentOrchestrator` y despliegue del operador. A continuación, puede instalar utilizando `tridentctl`.
 * Si tiene una puesta en marcha manual basada en el operador y desea utilizar la puesta en marcha del operador de Trident basado en Helm, primero debe desinstalar manualmente al operador y, a continuación, llevar a cabo la instalación de Helm. De este modo, Helm puede poner en marcha el operador Trident con las etiquetas y anotaciones necesarias. Si no lo hace, la puesta en marcha del operador de Trident basado en Helm generará un error de validación de la etiqueta y un error de validación de la anotación. Si usted tiene un `tridentctl`La implementación basada en , puede utilizar la puesta en marcha basada en Helm sin que se produzcan problemas.
 
 
@@ -209,7 +212,7 @@ Puede decidir cambiar el método de instalación. Antes de hacerlo, tenga en cue
 
 == Otras opciones de configuración conocidas
 
-Al instalar Astra Trident en productos de la cartera tanzu de VMware:
+Al instalar Trident en productos de la cartera de VMware Tanzu:
 
 * El clúster debe admitir cargas de trabajo con privilegios.
 * La `--kubelet-dir` el indicador se debe establecer en la ubicación del directorio kubelet. De forma predeterminada, esta es `/var/vcap/data/kubelet`.

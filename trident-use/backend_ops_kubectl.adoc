@@ -18,7 +18,7 @@ Obtenga información sobre cómo realizar operaciones de administración de back
 
 == Eliminar un back-end
 
-Eliminando una `TridentBackendConfig`, Usted instruye a Astra Trident a que elimine/conserve los back-ends (basados en `deletionPolicy`). Para eliminar un back-end, asegúrese de que `deletionPolicy` está configurado para eliminar. Para eliminar sólo la `TridentBackendConfig`, asegúrese de que `deletionPolicy` se establece en retener. De esta forma se asegurará de que el backend esté todavía presente y se pueda gestionar utilizando `tridentctl`.
+Al suprimir un `TridentBackendConfig`, indica a Trident que suprima/conserve los back-ends (según `deletionPolicy` ). Para suprimir un backend, asegúrese de que `deletionPolicy` está definido como DELETE. Para suprimir sólo el `TridentBackendConfig`, asegúrese de que `deletionPolicy` está definido en Retener. Esto asegura que el backend todavía está presente y se puede gestionar mediante el uso `tridentctl`.
 
 Ejecute el siguiente comando:
 
@@ -26,7 +26,7 @@ Ejecute el siguiente comando:
 ----
 kubectl delete tbc <tbc-name> -n trident
 ----
-Astra Trident no elimina los secretos de Kubernetes que estaban en uso `TridentBackendConfig`. El usuario de Kubernetes es responsable de limpiar los secretos. Hay que tener cuidado a la hora de eliminar secretos. Solo debe eliminar secretos si no los están utilizando los back-ends.
+Trident no elimina los secretos de Kubernetes que estaban en uso por `TridentBackendConfig`. El usuario de Kubernetes es responsable de limpiar los secretos. Hay que tener cuidado a la hora de eliminar secretos. Solo debe eliminar secretos si no los están utilizando los back-ends.
 
 
 
@@ -46,7 +46,7 @@ También puede ejecutar `tridentctl get backend -n trident` o. `tridentctl get b
 
 Puede haber varias razones para actualizar un back-end:
 
-* Las credenciales del sistema de almacenamiento han cambiado. Para actualizar las credenciales, el secreto Kubernetes que se utiliza en la `TridentBackendConfig` el objeto debe actualizarse. Astra Trident actualizará automáticamente el back-end con las últimas credenciales proporcionadas. Ejecute el siguiente comando para actualizar Kubernetes Secret:
+* Las credenciales del sistema de almacenamiento han cambiado. Para actualizar las credenciales, se debe actualizar el secreto de Kubernetes utilizado en el `TridentBackendConfig` objeto. Trident actualizará automáticamente el backend con las últimas credenciales proporcionadas. Ejecute el siguiente comando para actualizar Kubernetes Secret:
 +
 [listing]
 ----

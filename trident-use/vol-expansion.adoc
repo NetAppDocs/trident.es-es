@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-expansion.html 
 keywords: volumes, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion 
-summary: Astra Trident ofrece a los usuarios de Kubernetes la capacidad de ampliar sus volúmenes una vez que se han creado. Encuentre información sobre las configuraciones que se necesitan para ampliar los volúmenes iSCSI y NFS. 
+summary: Trident ofrece a los usuarios de Kubernetes la capacidad de expandir sus volúmenes una vez que se crean. Encuentre información sobre las configuraciones que se necesitan para ampliar los volúmenes iSCSI y NFS. 
 ---
 = Expanda los volúmenes
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident ofrece a los usuarios de Kubernetes la capacidad de ampli
 
 
 [role="lead"]
-Astra Trident ofrece a los usuarios de Kubernetes la capacidad de ampliar sus volúmenes una vez que se han creado. Encuentre información sobre las configuraciones que se necesitan para ampliar los volúmenes iSCSI y NFS.
+Trident ofrece a los usuarios de Kubernetes la capacidad de expandir sus volúmenes una vez que se crean. Encuentre información sobre las configuraciones que se necesitan para ampliar los volúmenes iSCSI y NFS.
 
 
 
@@ -65,7 +65,7 @@ spec:
       storage: 1Gi
   storageClassName: ontap-san
 ----
-Astra Trident crea un volumen persistente (PV) y lo asocia con esta solicitud de volumen persistente (PVC).
+Trident crea un volumen persistente (VP) y lo asocia con esta reclamación de volumen persistente (RVP).
 
 [listing]
 ----
@@ -83,8 +83,8 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 Conecte el VP a un pod para que se cambie su tamaño. Existen dos situaciones a la hora de cambiar el tamaño de un VP iSCSI:
 
-* Si el VP está conectado a un pod, Astra Trident amplía el volumen en el back-end de almacenamiento, vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos.
-* Cuando se intenta cambiar el tamaño de un VP sin conectar, Astra Trident amplía el volumen en el back-end de almacenamiento. Una vez que la RVP está Unido a un pod, Trident vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos. Kubernetes, después, actualiza el tamaño de RVP después de completar correctamente la operación de ampliación.
+* Si el VP está conectado a un pod, Trident expande el volumen en el backend de almacenamiento, vuelve a escanear el dispositivo y cambia el tamaño del sistema de archivos.
+* Cuando se intenta cambiar el tamaño de un VP no conectado, Trident expande el volumen en el back-end de almacenamiento. Una vez que la RVP está Unido a un pod, Trident vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos. Kubernetes, después, actualiza el tamaño de RVP después de completar correctamente la operación de ampliación.
 
 
 En este ejemplo, se crea un pod que utiliza `san-pvc`.
@@ -151,7 +151,7 @@ spec:
 
 === Paso 5: Validar la expansión
 
-Para validar que la ampliación ha funcionado correctamente, compruebe el tamaño del volumen PVC, PV y Astra Trident:
+Puede validar correctamente la ampliación operativa comprobando el tamaño de la RVP, el VP y el volumen Trident:
 
 [listing]
 ----
@@ -172,7 +172,7 @@ tridentctl get volumes -n trident
 
 == Expanda un volumen NFS
 
-Astra Trident admite la ampliación de volúmenes para los VP de NFS aprovisionados en `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `gcp-cvs`, y. `azure-netapp-files` back-ends.
+Trident admite la expansión de volumen para VP NFS aprovisionados en `ontap-nas`, , , `ontap-nas-economy` `ontap-nas-flexgroup` `gcp-cvs` y `azure-netapp-files` back-ends.
 
 
 
@@ -213,7 +213,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Astra Trident debe crear un PV NFS de 20 MiB para esta RVP:
+Trident debe crear un PV de NFS de 20MiB TB para esta RVP:
 
 [listing]
 ----
@@ -265,7 +265,7 @@ spec:
 
 === Paso 4: Validar la expansión
 
-Puede validar que el tamaño de la configuración ha funcionado correctamente comprobando el tamaño del volumen PVC, PV y Astra Trident:
+Puede validar el tamaño correctamente trabajado comprobando el tamaño de la RVP, el VP y el volumen Trident:
 
 [listing]
 ----

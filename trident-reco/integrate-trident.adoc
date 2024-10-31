@@ -4,7 +4,7 @@ permalink: trident-reco/integrate-trident.html
 keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool, cvs, gcp, volumes 
 summary: Un clúster de Kubernetes suele consistir en dos tipos de nodos, cada uno de los cuales es responsable de diferentes aspectos de la funcionalidad. 
 ---
-= Integre Astra Trident
+= Integre Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,7 +12,7 @@ summary: Un clúster de Kubernetes suele consistir en dos tipos de nodos, cada u
 
 
 [role="lead"]
-Para integrar Astra Trident, los siguientes elementos de diseño y arquitectura requieren integración: Selección y puesta en marcha de controladores, diseño de clase de almacenamiento, diseño de pools virtuales, efecto de la reclamación de volumen persistente (PVC) en el aprovisionamiento de almacenamiento, las operaciones de volumen y la puesta en marcha de servicios OpenShift con Astra Trident.
+Para integrar Trident, los siguientes elementos de diseño y arquitectura requieren integración: Selección y puesta en marcha de controladores, diseño de la clase de almacenamiento, diseño de pools virtuales, reclamación de volumen persistente (RVP) impactos en el aprovisionamiento de almacenamiento, operaciones de volúmenes y puesta en marcha de servicios OpenShift mediante Trident.
 
 
 
@@ -39,7 +39,7 @@ Los controladores de entorno de administración de ONTAP disponibles son:
 
 La elección entre los tres controladores NAS tiene algunas ramificaciones a las funciones, que están disponibles para la aplicación.
 
-Tenga en cuenta que, en las siguientes tablas, no todas las funcionalidades se exponen a través de Astra Trident. El administrador de almacenamiento debe aplicar algunas después del aprovisionamiento si se desea disponer de esta funcionalidad. Las notas al pie de la superíndice distinguen la funcionalidad por característica y controlador.
+Tenga en cuenta que, en las siguientes tablas, no todas las capacidades se exponen a través de Trident. El administrador de almacenamiento debe aplicar algunas después del aprovisionamiento si se desea disponer de esta funcionalidad. Las notas al pie de la superíndice distinguen la funcionalidad por característica y controlador.
 
 [cols="20,10,10,10,10,10,10,10"]
 |===
@@ -54,7 +54,7 @@ Tenga en cuenta que, en las siguientes tablas, no todas las funcionalidades se e
 
 | `ontap-nas-flexgroup` | Yespie de página:1[] | No | Yespie de página:5[] | Sí | Yespie de página:1[] | Sí | Yespie de página:1[] 
 |===
-Astra Trident ofrece 2 controladores SAN para ONTAP, cuyas funciones se muestran a continuación.
+Trident ofrece 2 controladores SAN para ONTAP, cuyas funcionalidades se muestran a continuación.
 
 [cols="20,10,10,10,10,10,10,10"]
 |===
@@ -67,12 +67,7 @@ Astra Trident ofrece 2 controladores SAN para ONTAP, cuyas funciones se muestran
 | `ontap-san-economy` | Sí | Sí | Yespie de página:4[] | Sí | Yespie de página:3[] | Sí | Yespie de página:3[] 
 |===
 [verse]
-Nota al pie de las tablas anteriores:
-Nota:1[]: No gestionado por Astra Trident
-YesFootnote:2[]: Gestionado por Astra Trident, pero no por VP granular
-Nota:3[]: No gestionado por Astra Trident y no por VP granular
-Yesfootnote:4[]: Compatible con volúmenes de bloques sin configurar
-YesFootnote:5[]: Apoyado por Astra Trident
+Nota al pie de las tablas anteriores: Yesfootnote:1[]: No administrado por Trident Yesfootnote:2[]: Administrado por Trident, pero no por PV granular Yesfootnote:3[]: No gestionado por Trident y no por PV granular Yesfootnote:4[]: Soportado para volúmenes de bloque sin procesar Yesfootnote:5[]: Soportado por Trident
 
 Las funciones que no son granulares en los VP se aplican a todo el FlexVolume y todos los VP (es decir, qtrees o LUN de FlexVols compartidos) compartirán un programa común.
 
@@ -107,15 +102,15 @@ La `solidfire-san` El controlador que se utiliza con las plataformas HCI/SolidFi
 | `solidfire-san` | Sí | Sí | Yespie de página:2[] | Sí | Sí | Sí | Yespie de página:1[] 
 |===
 [verse]
-Nota al pie: Yesfonote:1[]: No administrado por Astra Trident Yesfootnote:2[]: Admitido para volúmenes de bloque RAW
+Nota al pie de página: Yesfootnote:1[]: No gestionado por Trident Yesfootnote:2[]: Compatible con volúmenes de bloque sin procesar
 
 
 
 === Controladores de entorno de administración Azure NetApp Files
 
-Astra Trident utiliza `azure-netapp-files` controlador para administrar link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] servicio.
+Trident utiliza `azure-netapp-files` el controlador para administrar link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^]el servicio.
 
-Puede encontrar más información acerca de este controlador y cómo configurarlo en link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuración de back-end de Astra Trident para Azure NetApp Files"^].
+Puede encontrar más información sobre este controlador y cómo configurarlo en link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuración de backend de Trident para Azure NetApp Files"^].
 
 [cols="20,10,10,10,10,10,10"]
 |===
@@ -125,23 +120,23 @@ Puede encontrar más información acerca de este controlador y cómo configurarl
 | `azure-netapp-files` | Sí | Sí | Sí | Sí | Sí | Yespie de página:1[] 
 |===
 [verse]
-Pie de página: Yesfonote:1[]: No administrado por Astra Trident
+Nota al pie de página: YesFootnote:1[]: No administrado por Trident
 
 
 
 === Cloud Volumes Service en el controlador back-end de Google Cloud
 
-Astra Trident utiliza `gcp-cvs` Controlador para vincular con Cloud Volumes Service en Google Cloud.
+Trident usa `gcp-cvs` el controlador para asociarse con el Cloud Volumes Service en Google Cloud.
 
-La `gcp-cvs` La unidad utiliza pools virtuales para abstraer el back-end y permitir a Astra Trident determinar la ubicación del volumen. El administrador define los pools virtuales en `backend.json` archivos. Las clases de almacenamiento utilizan selectores para identificar los pools virtuales por etiqueta.
+ `gcp-cvs`El controlador utiliza pools virtuales para abstraer el back-end y permitir que Trident determine la ubicación del volumen. El administrador define los pools virtuales de los `backend.json` archivos. Las clases de almacenamiento utilizan selectores para identificar los pools virtuales por etiqueta.
 
-* Si se definen pools virtuales en el back-end, Astra Trident intentará crear un volumen en los pools de almacenamiento de Google Cloud a los que están limitados esos pools virtuales.
-* Si no se definen pools virtuales en el back-end, Astra Trident selecciona un pool de almacenamiento de Google Cloud de los pools de almacenamiento disponibles en la región.
+* Si los pools virtuales están definidos en el backend, Trident intentará crear un volumen en los pools de almacenamiento de Google Cloud a los que esos pools virtuales están limitados.
+* Si los pools virtuales no están definidos en el backend, Trident seleccionará un pool de almacenamiento de Google Cloud de los pools de almacenamiento disponibles en la región.
 
 
-Para configurar el back-end de Google Cloud en Astra Trident, debe especificar `projectNumber`, `apiRegion`, y. `apiKey` en el archivo de fondo. Puede encontrar el número de proyecto en la consola de Google Cloud. La clave API se obtiene del archivo de claves privadas de la cuenta de servicio que creó al configurar el acceso de API para Cloud Volumes Service en Google Cloud.
+Para configurar el backend de Google Cloud en Trident, debe especificar `projectNumber`, `apiRegion` y `apiKey` en el archivo backend. Puede encontrar el número de proyecto en la consola de Google Cloud. La clave API se obtiene del archivo de claves privadas de la cuenta de servicio que creó al configurar el acceso de API para Cloud Volumes Service en Google Cloud.
 
-Para obtener información detallada sobre los tipos de servicio y los niveles de servicio de Cloud Volumes Service en Google Cloud, consulte link:../trident-use/gcp.html["Obtenga más información sobre la compatibilidad de Astra Trident con CVS para GCP"].
+Para obtener más información sobre los tipos de servicio y los niveles de servicio de Cloud Volumes Service en Google Cloud, consulte link:../trident-use/gcp.html["Obtén más información sobre el soporte de Trident para CVS para GCP"].
 
 [cols="20,10,10,10,10,10,10"]
 |===
@@ -153,7 +148,7 @@ Para obtener información detallada sobre los tipos de servicio y los niveles de
 [NOTE]
 ====
 .Notas de replicación
-* Astra Trident no gestiona la replicación.
+* Trident no gestiona la replicación.
 * El clon se creará en el mismo pool de almacenamiento que el volumen de origen.
 
 
@@ -170,7 +165,7 @@ Las clases de almacenamiento individuales deben configurarse y aplicarse para cr
 
 El filtrado se puede usar en un objeto de clase de almacenamiento específico para determinar el pool o conjunto de pools de almacenamiento que se utilizarán con esa clase de almacenamiento específica. Se pueden establecer tres conjuntos de filtros en la clase de almacenamiento: `storagePools`, `additionalStoragePools`, y/o. `excludeStoragePools`.
 
-La `storagePools` el parámetro ayuda a restringir el almacenamiento al conjunto de pools que coinciden con cualquier atributo especificado. La `additionalStoragePools` El parámetro se utiliza para ampliar el conjunto de pools que utilizará Astra Trident para el aprovisionamiento junto con el conjunto de pools seleccionados por los atributos y. `storagePools` parámetros. Es posible usar un parámetro de forma independiente o ambos juntos para garantizar que se seleccione el conjunto adecuado de pools de almacenamiento.
+ `storagePools`El parámetro ayuda a restringir el almacenamiento al conjunto de pools que coinciden con los atributos especificados.  `additionalStoragePools`El parámetro se utiliza para ampliar el conjunto de pools que Trident utiliza para el aprovisionamiento junto con el conjunto de pools seleccionados por los atributos y `storagePools` parámetros. Es posible usar un parámetro de forma independiente o ambos juntos para garantizar que se seleccione el conjunto adecuado de pools de almacenamiento.
 
 La `excludeStoragePools` el parámetro se utiliza para excluir específicamente el conjunto de pools enumerado que coincide con los atributos.
 
@@ -190,15 +185,15 @@ Las clases de almacenamiento se pueden diseñar para dirigir el aprovisionamient
 
 === Pools virtuales
 
-Hay pools virtuales disponibles para todos los back-ends de Astra Trident. Puede definir pools virtuales para cualquier back-end a través de cualquier controlador que proporcione Astra Trident.
+Los pools virtuales están disponibles para todos los back-ends de Trident. Puede definir pools virtuales para cualquier backend, utilizando cualquier controlador que proporcione Trident.
 
-Los pools virtuales permiten a un administrador crear un nivel de abstracción sobre los back-ends que se puede hacer referencia a través de las clases de almacenamiento, para obtener mayor flexibilidad y colocación eficiente de los volúmenes en back-ends. Pueden definirse distintos back-ends con la misma clase de servicio. Es más, es posible crear varios pools de almacenamiento en el mismo back-end, pero con características diferentes. Cuando se configura una clase de almacenamiento con un selector con las etiquetas específicas, Astra Trident elige un back-end que coincide con todas las etiquetas de selector para colocar el volumen. Si las etiquetas del selector de clase de almacenamiento coinciden con varios pools de almacenamiento, Astra Trident elegirá una de ellas para aprovisionar el volumen desde.
+Los pools virtuales permiten a un administrador crear un nivel de abstracción sobre los back-ends que se puede hacer referencia a través de las clases de almacenamiento, para obtener mayor flexibilidad y colocación eficiente de los volúmenes en back-ends. Pueden definirse distintos back-ends con la misma clase de servicio. Es más, es posible crear varios pools de almacenamiento en el mismo back-end, pero con características diferentes. Cuando se configura una clase de almacenamiento con un selector con etiquetas específicas, Trident elige un back-end que coincide con todas las etiquetas de selector para colocar el volumen. Si las etiquetas de selector de clase de almacenamiento coinciden con varios pools de almacenamiento, Trident elegirá uno de ellos de los que aprovisionar el volumen.
 
 
 
 == Diseño de pool virtual
 
-Al crear un back-end, generalmente puede especificar un conjunto de parámetros. Era imposible que el administrador creara otro back-end con las mismas credenciales de almacenamiento y con un conjunto de parámetros diferente. Con la introducción de pools virtuales, este problema se ha aliviado. Los pools virtuales son una abstracción de niveles introducida entre el back-end y la clase de almacenamiento de Kubernetes de modo que el administrador puede definir parámetros junto con etiquetas a las que se puede hacer referencia a través de las clases de almacenamiento de Kubernetes como selector, de forma independiente del back-end. Es posible definir pools virtuales para todos los back-ends de NetApp compatibles con Astra Trident. Esta lista incluye HCI de SolidFire/NetApp, ONTAP, Cloud Volumes Service en GCP y Azure NetApp Files.
+Al crear un back-end, generalmente puede especificar un conjunto de parámetros. Era imposible que el administrador creara otro back-end con las mismas credenciales de almacenamiento y con un conjunto de parámetros diferente. Con la introducción de pools virtuales, este problema se ha aliviado. Los pools virtuales son una abstracción de niveles introducida entre el back-end y la clase de almacenamiento de Kubernetes de modo que el administrador puede definir parámetros junto con etiquetas a las que se puede hacer referencia a través de las clases de almacenamiento de Kubernetes como selector, de forma independiente del back-end. Se pueden definir pools virtuales para todos los back-ends de NetApp compatibles con Trident. Esta lista incluye HCI de SolidFire/NetApp, ONTAP, Cloud Volumes Service en GCP y Azure NetApp Files.
 
 
 NOTE: Al definir los pools virtuales, se recomienda no intentar reorganizar el orden de los grupos virtuales existentes en una definición de backend. También es aconsejable no editar/modificar atributos para un pool virtual existente y definir un nuevo pool virtual en su lugar.
@@ -219,7 +214,7 @@ Se pueden diseñar varios pools virtuales con un conjunto específico de aspecto
 
 === Las características de PVC que afectan al aprovisionamiento de almacenamiento
 
-Algunos parámetros que superen la clase de almacenamiento solicitada pueden afectar al proceso de decisión de aprovisionamiento de Astra Trident al crear una RVP.
+Algunos parámetros aparte de la clase de almacenamiento solicitada pueden afectar al proceso de decisiones de aprovisionamiento de Trident al crear una RVP.
 
 
 
@@ -227,7 +222,7 @@ Algunos parámetros que superen la clase de almacenamiento solicitada pueden afe
 
 Al solicitar un almacenamiento a través de un PVC, uno de los campos obligatorios es el modo de acceso. El modo deseado puede afectar el back-end seleccionado para alojar la solicitud de almacenamiento.
 
-Astra Trident intentará igualar el protocolo de almacenamiento que se utiliza con el método de acceso especificado según la siguiente matriz. Es independiente de la plataforma de almacenamiento subyacente.
+Trident intentará hacer coincidir el protocolo de almacenamiento utilizado con el método de acceso especificado de acuerdo con la siguiente matriz. Es independiente de la plataforma de almacenamiento subyacente.
 
 [cols="20,30,30,30"]
 |===
@@ -252,7 +247,7 @@ Si se solicita un PVC ReadWriteMany enviado a una implementación de Trident sin
 Los volúmenes persistentes son, con dos excepciones, objetos inmutables en Kubernetes. Una vez creada, la política de reclamaciones y el tamaño se pueden modificar. Sin embargo, esto no impide que algunos aspectos del volumen se modifiquen fuera de Kubernetes. Esto puede ser deseable para personalizar el volumen para aplicaciones específicas, con el fin de garantizar que la capacidad no se consume accidentalmente, o simplemente mover el volumen a una controladora de almacenamiento diferente por cualquier motivo.
 
 
-NOTE: Los aprovisionadores de árbol de Kubernetes no admiten las operaciones de cambio de tamaño de volumen para NFS o iSCSI VP en este momento. Astra Trident admite la ampliación de volúmenes NFS e iSCSI.
+NOTE: Los aprovisionadores de árbol de Kubernetes no admiten las operaciones de cambio de tamaño de volumen para NFS o iSCSI VP en este momento. Trident admite la expansión de los volúmenes NFS e iSCSI.
 
 Los detalles de conexión del VP no se pueden modificar una vez creado.
 
@@ -260,29 +255,29 @@ Los detalles de conexión del VP no se pueden modificar una vez creado.
 
 === Cree snapshots de volumen bajo demanda
 
-Astra Trident admite la creación de instantáneas de volumen bajo demanda y la creación de EVs a partir de instantáneas utilizando el marco CSI. Las copias Snapshot proporcionan un método cómodo de mantener copias de un momento específico de los datos y poseen un ciclo de vida independiente del VP de origen de Kubernetes. Estas instantáneas se pueden utilizar para clonar EVs.
+Trident admite la creación de instantáneas de volumen bajo demanda y la creación de RVP a partir de instantáneas mediante el marco CSI. Las copias Snapshot proporcionan un método cómodo de mantener copias de un momento específico de los datos y poseen un ciclo de vida independiente del VP de origen de Kubernetes. Estas instantáneas se pueden utilizar para clonar EVs.
 
 
 
 === Crear volúmenes a partir de snapshots
 
-Astra Trident también admite la creación de volúmenes PersistentVolumes a partir de snapshots de volúmenes. Para ello, sólo tiene que crear una reclamación de volumen persistente y mencionar la `datasource` como la snapshot necesaria a partir de la que se debe crear el volumen. Astra Trident se encargará de gestionar esta RVP mediante la creación de un volumen con los datos presentes en la snapshot. Con esta función, es posible duplicar datos entre regiones, crear entornos de prueba, reemplazar un volumen de producción dañado o dañado en su totalidad, o recuperar archivos y directorios específicos y transferirlos a otro volumen adjunto.
+Trident también admite la creación de PersistentVolumes a partir de las snapshots de volúmenes. Para ello, solo tiene que crear una reclamación de volumen persistente y mencionar la `datasource` snapshot necesaria a partir de la que se debe crear el volumen. Trident gestionará la RVP creando un volumen con los datos presentes en la snapshot. Con esta función, es posible duplicar datos entre regiones, crear entornos de prueba, reemplazar un volumen de producción dañado o dañado en su totalidad, o recuperar archivos y directorios específicos y transferirlos a otro volumen adjunto.
 
 
 
 === Mueva volúmenes al clúster
 
-Los administradores de almacenamiento pueden mover volúmenes entre agregados y controladoras en el clúster de ONTAP de forma no disruptiva al consumidor de almacenamiento. Esta operación no afecta al clúster Astra Trident o Kubernetes, siempre y cuando el agregado de destino sea el que utilice la SVM a la que Astra Trident tenga acceso. Lo que es importante: Si el agregado se ha añadido recientemente a la SVM, deberá actualizar el back-end añadiendo de nuevo a Astra Trident. Esto hará que Astra Trident vuelva a realizar el inventario de las SVM para que se reconozca el nuevo agregado.
+Los administradores de almacenamiento pueden mover volúmenes entre agregados y controladoras en el clúster de ONTAP de forma no disruptiva al consumidor de almacenamiento. Esta operación no afecta a Trident ni al clúster de Kubernetes, siempre y cuando el agregado de destino sea una a la que tenga acceso la SVM a la que utiliza Trident. Lo que es más importante, si se acaba de añadir el agregado a la SVM, se deberá actualizar el back-end volviendo a añadirlo a Trident. Esto activará que Trident vuelva a inventariar la SVM con el fin de reconocer el nuevo agregado.
 
-Sin embargo, Astra Trident no admite automáticamente la transferencia de volúmenes entre back-ends. Esto incluye entre SVM en el mismo clúster, entre clústeres o en una plataforma de almacenamiento diferente (incluso si ese sistema de almacenamiento está conectado a Astra Trident).
+Sin embargo, Trident no admite automáticamente el movimiento de volúmenes entre back-ends. Esto incluye entre las SVM del mismo clúster, entre clústeres o en una plataforma de almacenamiento diferente (aunque dicho sistema de almacenamiento sea una que esté conectado a Trident).
 
-Si se copia un volumen en otra ubicación, es posible utilizar la función de importación de volúmenes para importar los volúmenes actuales a Astra Trident.
+Si se copia un volumen en otra ubicación, es posible que se use la función de importación de volúmenes para importar los volúmenes actuales a Trident.
 
 
 
 === Expanda los volúmenes
 
-Astra Trident admite el cambio de tamaño de VP iSCSI y NFS. De este modo, los usuarios pueden cambiar el tamaño de sus volúmenes directamente desde la capa de Kubernetes. La expansión de volumen es posible para las principales plataformas de almacenamiento de NetApp, como ONTAP, HCI de SolidFire/NetApp y back-ends de Cloud Volumes Service. Para permitir una posible expansión más adelante, establezca `allowVolumeExpansion` para `true` En el tipo de almacenamiento asociado con el volumen. Siempre que sea necesario cambiar el tamaño del volumen persistente, edite el `spec.resources.requests.storage` Anotación en la reclamación de volumen persistente al tamaño de volumen requerido. Trident se ocupa automáticamente de ajustar el tamaño del volumen en el clúster de almacenamiento.
+Trident admite el cambio de tamaño de VP de NFS e iSCSI. De este modo, los usuarios pueden cambiar el tamaño de sus volúmenes directamente desde la capa de Kubernetes. La expansión de volumen es posible para las principales plataformas de almacenamiento de NetApp, como ONTAP, HCI de SolidFire/NetApp y back-ends de Cloud Volumes Service. Para permitir una posible expansión más adelante, establezca `allowVolumeExpansion` en `true` en el StorageClass asociado con el volumen. Siempre que sea necesario cambiar el tamaño del volumen persistente, edite la `spec.resources.requests.storage` anotación en la reclamación Volumen persistente al tamaño de volumen deseado. Trident se ocupa automáticamente de ajustar el tamaño del volumen en el clúster de almacenamiento.
 
 
 
@@ -290,11 +285,11 @@ Astra Trident admite el cambio de tamaño de VP iSCSI y NFS. De este modo, los u
 
 La importación de volúmenes ofrece la posibilidad de importar un volumen de almacenamiento existente en un entorno de Kubernetes. Actualmente es compatible con `ontap-nas`, `ontap-nas-flexgroup`, `solidfire-san`, `azure-netapp-files`, y. `gcp-cvs` de windows Esta función es útil cuando se pasa una aplicación existente a Kubernetes o durante escenarios de recuperación ante desastres.
 
-Cuando utilice las ONTAP y. `solidfire-san` controladores, utilice el comando `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml` Para importar un volumen existente a Kubernetes y que Astra Trident gestione. El archivo PVC YLMA o JSON que se usa en el comando import volume señala a una clase de almacenamiento que identifica a Astra Trident como el aprovisionador. Cuando se utiliza un back-end de HCI/SolidFire de NetApp, asegúrese de que los nombres de los volúmenes sean únicos. Si los nombres de los volúmenes se duplican, clone el volumen en un nombre único de modo que la función de importación de volumen pueda distinguir entre ellos.
+Cuando use la ONTAP y `solidfire-san` los controladores, utilice el comando `tridentctl import volume <backend-name> <volume-name> -f /path/pvc.yaml` para importar un volumen existente a Kubernetes que gestionará Trident. El archivo RVP YAML o JSON utilizado en el comando de importación del volumen señala a una clase de almacenamiento que identifica a Trident como el aprovisionador. Cuando se utiliza un back-end de HCI/SolidFire de NetApp, asegúrese de que los nombres de los volúmenes sean únicos. Si los nombres de los volúmenes se duplican, clone el volumen en un nombre único de modo que la función de importación de volumen pueda distinguir entre ellos.
 
-Si la `azure-netapp-files` o. `gcp-cvs` se utiliza el controlador, utilice el comando `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` Para importar el volumen a Kubernetes que gestiona Astra Trident. Esto garantiza una referencia de volumen única.
+Si `azure-netapp-files` se utiliza el controlador o `gcp-cvs`, use el comando `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` para importar el volumen a Kubernetes que gestionará Trident. Esto garantiza una referencia de volumen única.
 
-Una vez ejecutado el comando anterior, Astra Trident encontrará el volumen en el back-end y leerá su tamaño. Añadirá (y sobrescribirá automáticamente si es necesario) el tamaño de volumen de la RVP configurada. A continuación, Astra Trident crea el nuevo VP y Kubernetes enlaza la RVP con el VP.
+Cuando se ejecuta el comando anterior, Trident encontrará el volumen en el backend y leerá su tamaño. Añadirá (y sobrescribirá automáticamente si es necesario) el tamaño de volumen de la RVP configurada. A continuación, Trident crea el nuevo VP y Kubernetes enlaza la RVP al VP.
 
 Si se puso en marcha un contenedor de modo que requería la RVP específica importada, este permanecería en estado pendiente hasta que el par PVC/VP se enlaza a través del proceso de importación del volumen. Una vez enlazados el par PVC/PV, el contenedor debería aparecer, siempre que no haya otros problemas.
 
@@ -443,6 +438,6 @@ Si su clúster OpenShift ya se está ejecutando y, por lo tanto, Trident se ha i
 
 === Implementar el servicio de métricas
 
-Con las variables de Ansible definidas en el archivo de hosts/inventario, ponga en marcha el servicio con Ansible. Si va a implementar en el momento de la instalación de OpenShift, el PV se creará y utilizará automáticamente. Si va a poner en marcha mediante los libros de estrategia de componentes, después de la instalación de OpenShift, Ansible creará cualquier RVP necesario y, después de que Astra Trident haya aprovisionado almacenamiento para ellos, pondrá en marcha el servicio.
+Con las variables de Ansible definidas en el archivo de hosts/inventario, ponga en marcha el servicio con Ansible. Si va a implementar en el momento de la instalación de OpenShift, el PV se creará y utilizará automáticamente. Si va a poner en marcha mediante los libros de estrategia de componentes, después de la instalación de OpenShift, Ansible crea las RVP necesarias y, después de que Trident haya aprovisionado almacenamiento para ellos, pone en marcha el servicio.
 
 Las variables anteriores y el proceso de implementación pueden cambiar con cada versión de OpenShift. Asegúrese de revisar y seguir link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guía de implementación de OpenShift de redhat"^] para su versión de modo que esté configurada para su entorno.

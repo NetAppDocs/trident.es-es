@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-operator-mirror.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, mirrored, registry, registries 
-summary: Es posible poner en marcha manualmente el operador de Trident para instalar Astra Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. 
+keywords: deploy, Trident, methods, operator, tridentctl, mirrored, registry, registries 
+summary: Puede implementar manualmente el operador Trident para instalar Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Trident se almacenan en un registro privado. 
 ---
 = Implemente manualmente el operador Trident (modo sin conexión).
 :hardbreaks:
@@ -12,24 +12,27 @@ summary: Es posible poner en marcha manualmente el operador de Trident para inst
 
 
 [role="lead"]
-Es posible poner en marcha manualmente el operador de Trident para instalar Astra Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. Si no dispone de un registro de imágenes privado, utilice link:kubernetes-deploy-operator.html["proceso de implementación estándar"].
+Puede implementar manualmente el operador Trident para instalar Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Trident se almacenan en un registro privado. Si no dispone de un registro de imágenes privado, utilice el link:kubernetes-deploy-operator.html["proceso de implementación estándar"].
 
 
 
-== Información vital sobre Astra Trident 24,06
+== Información crítica sobre Trident 24,10
 
-* Debe leer la siguiente información crítica sobre Astra Trident.*
+*Debe leer la siguiente información crítica sobre Trident.*
 
-.<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
+.<strong>Información crítica sobre Trident </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1,31 ahora es compatible con Astra Trident. Actualizar Trident antes de actualizar Kubernetes.
-* Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
+[]
+=====
+* Kubernetes 1,31 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
 
 
 
+=====
 ====
 
 
@@ -71,19 +74,19 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 
 === Paso 1: Descargue el paquete de instalación de Trident
 
-El paquete de instalación de Astra Trident incluye todo lo necesario para poner en marcha al operador de Trident e instalar Astra Trident. Descargue y extraiga la versión más reciente del instalador de Trident link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
+El paquete de instalación de Trident contiene todo lo necesario para implementar el operador Trident e instalar Trident. Descargue y extraiga la última versión del instalador de Trident de link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.06.0/trident-installer-24.06.0.tar.gz
-tar -xf trident-installer-24.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
+tar -xf trident-installer-24.10.0.tar.gz
 cd trident-installer
 ----
 
 
 === Paso 2: Cree la `TridentOrchestrator` CRD
 
-Cree el `TridentOrchestrator` Definición de recurso personalizado (CRD). Creará una `TridentOrchestrator` Recursos personalizados más adelante. Use la versión adecuada de CRD YAML en `deploy/crds` para crear la `TridentOrchestrator` CRD:
+Cree la `TridentOrchestrator` definición de recursos personalizados (CRD). Posteriormente, creará `TridentOrchestrator` recursos personalizados. Utilice la versión YAML de CRD adecuada en `deploy/crds` para crear el `TridentOrchestrator` CRD:
 
 [listing]
 ----
@@ -93,17 +96,17 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 
 === Paso 3: Actualice la ubicación del registro en el operador
 
-En `/deploy/operator.yaml`, actualice `image: docker.io/netapp/trident-operator:24.06.0` para reflejar la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Por ejemplo:
+En `/deploy/operator.yaml`, actualice `image: docker.io/netapp/trident-operator:24.10.0` para reflejar la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Por ejemplo:
 
-* `image: <your-registry>/trident-operator:24.06.0` si todas sus imágenes están ubicadas en un registro.
-* `image: <your-registry>/netapp/trident-operator:24.06.0` Si su imagen Trident se encuentra en un registro diferente de sus imágenes CSI.
+* `image: <your-registry>/trident-operator:24.10.0` si todas sus imágenes están ubicadas en un registro.
+* `image: <your-registry>/netapp/trident-operator:24.10.0` Si su imagen Trident se encuentra en un registro diferente de sus imágenes CSI.
 
 
 
 
 === Paso 4: Ponga en marcha el operador de Trident
 
-El instalador de Astra Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados. El archivo de paquete es una forma sencilla de poner en marcha el operador e instalar Astra Trident con una configuración predeterminada.
+El instalador de Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados. El archivo bundle es una manera fácil de implementar el operador e instalar Trident usando una configuración predeterminada.
 
 * Para los clústeres que ejecutan Kubernetes 1,24, utilice `bundle_pre_1_25.yaml`.
 * Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice `bundle_post_1_25.yaml`.
@@ -165,19 +168,17 @@ Su link:../trident-get-started/requirements.html#container-images-and-correspond
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:24.06"
-tridentImage: "<your-registry>/trident:24.06.0"
+autosupportImage: "<your-registry>/trident-autosupport:24.10"
+tridentImage: "<your-registry>/trident:24.10.0"
 ----
 --
 .Imágenes en diferentes registros
 --
-Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicaciones de registro.
-
 [listing]
 ----
-imageRegistry: "<your-registry>/sig-storage"
-autosupportImage: "<your-registry>/netapp/trident-autosupport:24.06"
-tridentImage: "<your-registry>/netapp/trident:24.06.0"
+imageRegistry: "<your-registry>"
+autosupportImage: "<your-registry>/trident-autosupport:24.10"
+tridentImage: "<your-registry>/trident:24.10.0"
 ----
 --
 ====
@@ -185,7 +186,7 @@ tridentImage: "<your-registry>/netapp/trident:24.06.0"
 
 === Paso 6: Cree el `TridentOrchestrator` E instale Trident
 
-Ahora puede crear el `TridentOrchestrator` E instale Astra Trident. Si lo desea, puede ir más allá link:kubernetes-customize-deploy.html["Personalice su instalación de Trident"] uso de los atributos de la `TridentOrchestrator` espec. En el siguiente ejemplo se muestra una instalación donde las imágenes Trident y CSI se encuentran en diferentes registros.
+Ahora puede crear `TridentOrchestrator` e instalar Trident. Si lo desea, puede link:kubernetes-customize-deploy.html["Personalice su instalación de Trident"]utilizar los atributos de la `TridentOrchestrator` especificación. En el siguiente ejemplo se muestra una instalación donde las imágenes Trident y CSI se encuentran en diferentes registros.
 
 [listing]
 ----
@@ -202,32 +203,32 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/netapp/trident-autosupport:24.06
+  Autosupport Image:  <your-registry>/trident-autosupport:24.10
   Debug:              true
-  Image Registry:     <your-registry>/sig-storage
+  Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/netapp/trident:24.06.0
+  Trident Image:      <your-registry>/trident:24.10.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/netapp/trident-autosupport:24.06
+    Autosupport Image:          <your-registry>/trident-autosupport:24.10
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
     Http Request Timeout:       90s
     Image Pull Secrets:
-    Image Registry:       <your-registry>/sig-storage
+    Image Registry:       <your-registry>
     k8sTimeout:           30
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/netapp/trident:24.06.0
+    Trident Image:        <your-registry>/trident:24.10.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v24.06.0
+  Version:                v24.10.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -250,20 +251,20 @@ El estado de `TridentOrchestrator` Indica si la instalación se realizó correct
 | Estado | Descripción 
 
 
-| Instalación | El operador está instalando Astra Trident con este método `TridentOrchestrator` CR. 
+| Instalación | El operador está instalando Trident con este `TridentOrchestrator` CR. 
 
 
-| Instalado | Astra Trident se ha instalado correctamente. 
+| Instalado | Trident se ha instalado correctamente. 
 
 
-| Desinstalando | El operador está desinstalando Astra Trident, porque
+| Desinstalando | El operador está desinstalando Trident, porque
 `spec.uninstall=true`. 
 
 
-| Desinstalado | Astra Trident se desinstala. 
+| Desinstalado | Trident se ha desinstalado. 
 
 
-| Error | El operador no pudo instalar, aplicar parches, actualizar o desinstalar Astra Trident; el operador intentará recuperarse automáticamente de este estado. Si este estado continúa, necesitará solucionar problemas. 
+| Error | El operador no ha podido instalar, aplicar parches, actualizar o desinstalar Trident; el operador intentará automáticamente recuperarse de este estado. Si este estado continúa, necesitará solucionar problemas. 
 
 
 | Actualizando | El operador está actualizando una instalación existente. 
@@ -275,7 +276,7 @@ El estado de `TridentOrchestrator` Indica si la instalación se realizó correct
 
 === Uso del estado de creación de pod
 
-Para confirmar si la instalación de Astra Trident ha finalizado, revise el estado de los pods creados:
+Puede confirmar si la instalación de Trident ha finalizado revisando el estado de los pods creados:
 
 [listing]
 ----
@@ -292,7 +293,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 
 === Uso `tridentctl`
 
-Puede utilizar `tridentctl` Para comprobar la versión de Astra Trident instalada.
+Puede utilizar `tridentctl` para comprobar la versión de Trident instalada.
 
 [listing]
 ----
@@ -301,6 +302,6 @@ Puede utilizar `tridentctl` Para comprobar la versión de Astra Trident instalad
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 24.06.0        | 24.06.0        |
+| 24.10.0        | 24.10.0        |
 +----------------+----------------+
 ----

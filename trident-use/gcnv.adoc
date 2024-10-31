@@ -12,17 +12,17 @@ summary:
 
 
 [role="lead"]
-Ahora puede configurar Google Cloud NetApp Volumes como back-end para Astra Trident. Puede adjuntar volúmenes de NFS con un back-end de Google Cloud NetApp Volumes.
+Ahora puede configurar Google Cloud NetApp Volumes como back-end para Trident. Puede adjuntar volúmenes de NFS con un back-end de Google Cloud NetApp Volumes.
 
 [listing]
 ----
- Google Cloud NetApp Volumes is a tech preview feature in Astra Trident 24.06.
+ Google Cloud NetApp Volumes is a tech preview feature in Trident 24.06.
 ----
 
 
 == Detalles del controlador de Google Cloud NetApp Volumes
 
-Astra Trident proporciona la `google-cloud-netapp-volumes` unidad para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+Trident proporciona `google-cloud-netapp-volumes` el controlador para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -39,3 +39,67 @@ RWO, ROX, RWX, RWOP
 `nfs`
 
 |===
+
+
+== Identidad de nube para GKE
+
+La identidad de cloud permite a los pods de Kubernetes acceder a los recursos de Google Cloud autenticándose como identidad de carga de trabajo en lugar de proporcionando credenciales explícitas de Google Cloud.
+
+Para aprovechar la identidad de la nube en Google Cloud, debes tener:
+
+* Un clúster de Kubernetes puesto en marcha mediante GKE.
+* Identidad de carga de trabajo y emisor de oidc configurados en el cluster de GKE.
+* Astra Trident instalado que incluye el `cloudProvider` para `"GCP"` especificar y `cloudIdentity` especificar la identidad de la carga de trabajo.
++
+[role="tabbed-block"]
+====
+.Operador de Trident
+--
+Para instalar Astra Trident mediante el operador Trident, edite `tridentorchestrator_cr.yaml` en Establecer `cloudProvider` en `"GCP"` y establezca `cloudIdentity` en `iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com`.
+
+Por ejemplo:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "GCP"
+  cloudIdentity: 'iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com'
+----
+--
+.Timón
+--
+Establezca los valores para los indicadores *cloud-provider (CP)* y *cloud-identity (CI)* utilizando las siguientes variables de entorno:
+
+`export CP="GCP"`
+`export ANNOTATION="iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"`
+
+En el siguiente ejemplo se instala Astra Trident y se establece `cloudProvider` en GCP mediante la variable de entorno `$CP` y se establece el `cloudIdentity` uso de la variable de entorno `$ANNOTATION` :
+
+[listing]
+----
+helm install trident trident-operator-100.2406.0.tgz --set cloudProvider=$CP --set cloudIdentity="$ANNOTATION"
+----
+--
+.<code>tridentctl</code>
+--
+Establezca los valores para los indicadores *cloud provider* y *cloud identity* utilizando las siguientes variables de entorno:
+
+`export CP="GCP"`
+`export ANNOTATION="iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"`
+
+En el siguiente ejemplo, se instala Astra Trident y se establece `cloud-provider` la marca en `$CP`, y `cloud-identity` en `$ANNOTATION`:
+
+[listing]
+----
+tridentctl install --cloud-provider=$CP --cloud-identity="$ANNOTATION" -n trident
+----
+--
+====
+

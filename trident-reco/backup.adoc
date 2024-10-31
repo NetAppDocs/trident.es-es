@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/backup.html 
 keywords: data protection, replication, dr, disaster recovery, snapmirror, back up, snapshot, element, volume replication 
-summary: Obtén más información sobre las opciones de protección y recuperación para Astra Trident y los volúmenes creados con Astra Trident. Debería tener una estrategia de protección y recuperación de datos para cada aplicación con un requisito de persistencia. 
+summary: Conozca las opciones de protección y recuperación para Trident y volúmenes creados mediante Trident. Debería tener una estrategia de protección y recuperación de datos para cada aplicación con un requisito de persistencia. 
 ---
 = Protección de datos y recuperación ante desastres
 :hardbreaks:
@@ -12,19 +12,19 @@ summary: Obtén más información sobre las opciones de protección y recuperaci
 
 
 [role="lead"]
-Obtén más información sobre las opciones de protección y recuperación para Astra Trident y los volúmenes creados con Astra Trident. Debería tener una estrategia de protección y recuperación de datos para cada aplicación con un requisito de persistencia.
+Conozca las opciones de protección y recuperación para Trident y volúmenes creados mediante Trident. Debería tener una estrategia de protección y recuperación de datos para cada aplicación con un requisito de persistencia.
 
 
 
-== Replicación y recuperación de Astra Trident
+== Replicación y recuperación de Trident
 
-Puede crear un backup para restaurar Astra Trident en caso de un desastre.
+Puede crear un backup para restaurar Trident en caso de desastre.
 
 
 
-=== Replicación de Astra Trident
+=== Replicación de Trident
 
-Astra Trident utiliza CRD de Kubernetes para almacenar y gestionar su propio estado y el clúster ETCD de Kubernetes para almacenar sus metadatos.
+Trident utiliza CRD de Kubernetes para almacenar y gestionar su propio estado y el clúster etcd de Kubernetes para almacenar sus metadatos.
 
 .Pasos
 . Realice una copia de seguridad del clúster etcd de Kubernetes mediante  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes: Realizar backups de un clúster etcd"^].
@@ -37,9 +37,9 @@ NOTE: Le recomendamos que proteja la SVM en la que reside FlexVol con una relaci
 
 
 
-=== Recuperación de Astra Trident
+=== Recuperación de Trident
 
-Con los CRD de Kubernetes y la snapshot etcd del clúster de Kubernetes, puedes recuperar Astra Trident.
+Con los CRD de Kubernetes y la instantánea etcd del clúster de Kubernetes, puede recuperar Trident.
 
 .Pasos
 . Desde la SVM de destino, monte el volumen que contiene los certificados y archivos de datos ETCD de Kubernetes en el host que se configurará como nodo maestro.
@@ -52,7 +52,7 @@ Con los CRD de Kubernetes y la snapshot etcd del clúster de Kubernetes, puedes 
 
 == Replicación y recuperación de SVM
 
-Astra Trident no puede configurar relaciones de replicación; sin embargo, el administrador de almacenamiento puede utilizar https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["SnapMirror de ONTAP"^] Para replicar una SVM.
+Trident no puede configurar las relaciones de replicación; sin embargo, el administrador de almacenamiento puede utilizar https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-concept.html["SnapMirror de ONTAP"^] para replicar una SVM.
 
 En caso de desastre, puede activar la SVM de destino de SnapMirror para empezar a servir datos. Puede volver al primario cuando se restauran los sistemas.
 
@@ -70,7 +70,7 @@ Tenga en cuenta lo siguiente al usar la función de replicación de SVM de SnapM
 
 Puede utilizar link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-svm-replication-workflow-concept.html["ONTAP: Replicación de SnapMirror SVM"^] Para crear la relación de replicación de SVM.
 
-SnapMirror le permite configurar opciones para controlar lo que se va a replicar. Necesitará saber qué opciones seleccionó al realizar la preformación <<Recuperación de SVM mediante Astra Trident>>.
+SnapMirror le permite configurar opciones para controlar lo que se va a replicar. Necesitará saber qué opciones seleccionó al realizar la preformación <<Recuperación de SVM mediante Trident>>.
 
 * link:https://docs.netapp.com/us-en/ontap/data-protection/replicate-entire-svm-config-task.html["-identity-preserve true"^] Replica toda la configuración de la SVM.
 * link:https://docs.netapp.com/us-en/ontap/data-protection/exclude-lifs-svm-replication-task.html["-descarte-configs red"^] Excluye las LIF y la configuración de red relacionada.
@@ -79,9 +79,9 @@ SnapMirror le permite configurar opciones para controlar lo que se va a replicar
 
 
 
-=== Recuperación de SVM mediante Astra Trident
+=== Recuperación de SVM mediante Trident
 
-Astra Trident no detecta automáticamente fallos de SVM. En caso de desastre, el administrador puede iniciar manualmente la conmutación por error de Trident en la nueva SVM.
+Trident no detecta automáticamente los fallos de SVM. En caso de desastre, el administrador puede iniciar manualmente la conmutación por error de Trident en la nueva SVM.
 
 .Pasos
 . Cancelar las transferencias programadas y continuas de SnapMirror, interrumpir la relación de replicación, detener la SVM de origen y, a continuación, activar la SVM de destino de SnapMirror.
@@ -96,7 +96,7 @@ Astra Trident no detecta automáticamente fallos de SVM. En caso de desastre, el
 . Si especificó `-identity-preserve false` o. `discard-config network`, debe rebotar todos los pods de aplicación.
 +
 
-NOTE: Si especificó `-identity-preserve true`, Todos los volúmenes aprovisionados por Astra Trident comienzan a servir datos cuando se activa la SVM de destino.
+NOTE: Si especificó `-identity-preserve true`, todos los volúmenes aprovisionados por Trident comienzan a servir datos cuando se activa la SVM de destino.
 
 
 
@@ -104,9 +104,9 @@ NOTE: Si especificó `-identity-preserve true`, Todos los volúmenes aprovisiona
 
 == Replicación y recuperación de volúmenes
 
-Astra Trident no puede configurar las relaciones de replicación de SnapMirror; sin embargo, el administrador de almacenamiento puede utilizar link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["Replicación y recuperación SnapMirror de ONTAP"^] Para replicar volúmenes creados por Astra Trident.
+Trident no puede configurar las relaciones de replicación de SnapMirror; sin embargo, el administrador de almacenamiento puede utilizar link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-disaster-recovery-concept.html["Replicación y recuperación SnapMirror de ONTAP"^] para replicar volúmenes creados por Trident.
 
-Luego, podrá importar los volúmenes recuperados a Astra Trident mediante link:../trident-use/vol-import.html["importación de volumen tridentctl"].
+Luego, es posible importar los volúmenes recuperados a Trident con link:../trident-use/vol-import.html["importación de volumen tridentctl"].
 
 
 NOTE: La importación no es compatible con `ontap-nas-economy`,  `ontap-san-economy`, o. `ontap-flexgroup-economy` de windows
@@ -126,11 +126,3 @@ link:../trident-use/vol-snapshots.html["Copias de Snapshot de volumen"]
 link:https://docs.netapp.com/us-en/ontap/data-protection/manage-local-snapshot-copies-concept.html["Snapshots de ONTAP"^]
 
 
-
-
-
-== Replicación de aplicaciones de Astra Control Center
-
-Con Astra Control, puede replicar datos y cambios de aplicaciones de un clúster a otro mediante las funcionalidades de replicación asíncrona de SnapMirror.
-
-link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["Astra Control: Replique aplicaciones en un sistema remoto mediante la tecnología SnapMirror"^]

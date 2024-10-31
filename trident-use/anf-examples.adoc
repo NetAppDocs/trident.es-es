@@ -18,10 +18,10 @@ Obtenga más información sobre las opciones de configuración de back-end NFS y
 
 == Opciones de configuración del back-end
 
-Astra Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en los pools de capacidad que están disponibles en la ubicación solicitada y que coincidan con el nivel de servicio y la subred solicitados.
+Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en los pools de capacidad que están disponibles en la ubicación solicitada y coincidir con el nivel de servicio y la subred solicitados.
 
 
-NOTE: Astra Trident no admite pools de capacidad de calidad de servicio manual.
+NOTE: Trident no admite pools de capacidad de calidad de servicio manual.
 
 Los back-ends de Azure NetApp Files proporcionan estas opciones de configuración.
 
@@ -106,7 +106,7 @@ NOTE: Para obtener más información sobre las funciones de red, consulte link:h
 
 === Permisos y recursos necesarios
 
-Si recibes un error “No se han encontrado pools de capacidad” al crear una RVP, es probable que el registro de tu aplicación no tenga los permisos y recursos necesarios (subred, red virtual, pool de capacidad) asociados. Si la depuración está habilitada, Astra Trident registrará los recursos de Azure detectados cuando se cree el back-end. Compruebe que se está utilizando un rol adecuado.
+Si recibes un error “No se han encontrado pools de capacidad” al crear una RVP, es probable que el registro de tu aplicación no tenga los permisos y recursos necesarios (subred, red virtual, pool de capacidad) asociados. Si DEBUG está habilitado, Trident registrará los recursos de Azure detectados al crear el backend. Compruebe que se está utilizando un rol adecuado.
 
 Los valores para `resourceGroups`, `netappAccounts`, `capacityPools`, `virtualNetwork`, y. `subnet` puede especificarse utilizando nombres cortos o completos. En la mayoría de las situaciones, se recomiendan nombres completos, ya que los nombres cortos pueden coincidir con varios recursos con el mismo nombre.
 
@@ -146,7 +146,7 @@ Puede controlar el aprovisionamiento de volúmenes predeterminado especificando 
 `exportRule` Debe ser una lista separada por comas con cualquier combinación de direcciones IPv4 o subredes IPv4 en notación CIDR. Ignorada para volúmenes de SMB. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Controla la visibilidad del directorio .snapshot | "falso" 
+| `snapshotDir` | Controla la visibilidad del directorio .snapshot | “True” para NFSv4 “false” para NFSv3 
 
 
 | `size` | El tamaño predeterminado de los volúmenes nuevos | "100 G" 
@@ -163,7 +163,7 @@ Los ejemplos siguientes muestran configuraciones básicas que dejan la mayoría 
 .Configuración mínima
 [%collapsible]
 ====
-Ésta es la configuración mínima absoluta del back-end. Con esta configuración, Astra Trident detecta todas sus cuentas de NetApp, pools de capacidad y subredes delegadas en Azure NetApp Files en la ubicación configurada, y coloca volúmenes nuevos en uno de esos pools y subredes de forma aleatoria. Porque `nasType` se omite, la `nfs` El valor predeterminado es aplicable, y el back-end aprovisionará para volúmenes NFS.
+Ésta es la configuración mínima absoluta del back-end. Con esta configuración, Trident detecta todas sus cuentas de NetApp, pools de capacidad y subredes delegadas en Azure NetApp Files en la ubicación configurada, y coloca volúmenes nuevos en uno de esos pools y subredes de forma aleatoria. Dado que `nasType` se omite, `nfs` se aplica el valor predeterminado y el back-end se aprovisionará para los volúmenes de NFS.
 
 Esta configuración es ideal cuando solo se está empezando a usar Azure NetApp Files y probando cosas, pero en la práctica va a querer proporcionar un ámbito adicional para los volúmenes que aprovisione.
 
@@ -234,7 +234,7 @@ spec:
 .Configuración de niveles de servicio específica con filtros de pools de capacidad
 [%collapsible]
 ====
-Esta configuración de back-end coloca volúmenes en las de Azure `eastus` ubicación en una `Ultra` pool de capacidad. Astra Trident detecta automáticamente todas las subredes delegadas en Azure NetApp Files en esa ubicación y coloca un volumen nuevo en una de ellas de forma aleatoria.
+Esta configuración de backend coloca los volúmenes en la ubicación de Azure `eastus` en un `Ultra` pool de capacidad. Trident detecta automáticamente todas las subredes delegadas en Azure NetApp Files en esa ubicación y coloca un volumen nuevo en una de ellas de forma aleatoria.
 
 [listing]
 ----
@@ -330,7 +330,7 @@ storage:
 .Configuración de topologías admitidas
 [%collapsible]
 ====
-Astra Trident facilita el aprovisionamiento de volúmenes para cargas de trabajo según regiones y zonas de disponibilidad. El `supportedTopologies` bloque en esta configuración de backend se utiliza para proporcionar una lista de regiones y zonas por backend. Los valores de región y zona especificados aquí deben coincidir con los valores de región y zona de las etiquetas de cada nodo de clúster de Kubernetes. Estas regiones y zonas representan la lista de valores permitidos que se pueden proporcionar en una clase de almacenamiento. Para las clases de almacenamiento que contengan un subconjunto de las regiones y zonas proporcionadas en un back-end, Astra Trident creará volúmenes en la región y la zona mencionadas. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"].
+Trident facilita el aprovisionamiento de volúmenes para cargas de trabajo según regiones y zonas de disponibilidad. El `supportedTopologies` bloque en esta configuración de backend se utiliza para proporcionar una lista de regiones y zonas por backend. Los valores de región y zona especificados aquí deben coincidir con los valores de región y zona de las etiquetas de cada nodo de clúster de Kubernetes. Estas regiones y zonas representan la lista de valores permitidos que se pueden proporcionar en una clase de almacenamiento. Para las clases de almacenamiento que contienen un subconjunto de las regiones y zonas proporcionadas en un backend, Trident crea volúmenes en la región y zona mencionadas. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"].
 
 [listing]
 ----

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/ports.html 
-keywords: astra trident, port, ports 
-summary: Obtenga más información sobre los puertos a los que Astra Trident se comunica. 
+keywords: Trident, port, ports 
+summary: Obtenga más información acerca de los puertos con los que Trident se comunica. 
 ---
-= Puertos Astra Trident
+= Puertos Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: Obtenga más información sobre los puertos a los que Astra Trident se 
 
 
 [role="lead"]
-Obtenga más información sobre los puertos que utiliza Astra Trident para la comunicación.
+Obtenga más información sobre los puertos que Trident utiliza para la comunicación.
 
 
 
-== Puertos Astra Trident
+== Puertos Trident
 
-Astra Trident se comunica mediante los siguientes puertos:
+Trident se comunica a través de los siguientes puertos:
 
 [cols="2,4"]
 |===

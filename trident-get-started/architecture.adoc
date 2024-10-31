@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-get-started/architecture.html 
 keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
-summary: Astra Trident se ejecuta como un pod de controladora único más un pod de nodo en cada nodo trabajador del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident. 
+summary: Trident se ejecuta como un pod de controladora más un pod de nodo en cada nodo trabajador del clúster. El pod de nodo debe ejecutarse en cualquier host en el que desee potencialmente montar un volumen de Trident. 
 ---
-= Arquitectura de Astra Trident
+= Arquitectura de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,22 +12,22 @@ summary: Astra Trident se ejecuta como un pod de controladora único más un pod
 
 
 [role="lead"]
-Astra Trident se ejecuta como un pod de controladora único más un pod de nodo en cada nodo trabajador del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.
+Trident se ejecuta como un pod de controladora más un pod de nodo en cada nodo trabajador del clúster. El pod de nodo debe ejecutarse en cualquier host en el que desee potencialmente montar un volumen de Trident.
 
 
 
 == Descripción de los pods de la controladora y los pods de nodo
 
-Astra Trident se pone en marcha como un único <<Pod de controladora de Trident>> y uno o más <<Pods de nodos de Trident>> En el clúster de Kubernetes y utiliza los contenedores estándar de Kubernetes _CSI Sidecar Containers_ para simplificar la implementación de los complementos CSI. link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Contenedores Sidecar de Kubernetes CSI"^] Los mantiene la comunidad de Kubernetes Storage.
+Trident se pone en marcha como <<Pod de controladora de Trident>>uno o más <<Pods de nodos de Trident>> en el clúster de Kubernetes y utiliza contenedores Sidecar Containers_ estándar de Kubernetes _CSI para simplificar la implementación de los complementos CSI. link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Contenedores Sidecar de Kubernetes CSI"^] Los mantiene la comunidad de Kubernetes Storage.
 
-Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selectores de nodos"^] y.. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["toleraciones y tintes"^] se utilizan para restringir un pod para ejecutarse en un nodo concreto o preferido. Durante la instalación de Astra Trident, puede configurar los selectores de nodos y las toleraciones para la controladora y los pods de nodos.
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selectores de nodos"^] y link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["toleraciones y tintes"^] se utilizan para restringir que un pod se ejecute en un nodo específico o preferido. Durante la instalación de Trident, se pueden configurar selectores de nodos y toleraciones para pods de nodos y controladoras.
 
 * El complemento de la controladora se ocupa del aprovisionamiento y la gestión de volúmenes, como snapshots y redimensionamiento.
 * El complemento de nodo se encarga de conectar el almacenamiento al nodo.
 
 
-.Astra Trident puesto en marcha en el clúster de Kubernetes
-image::../media/trident-arch.png[Diagrama de la arquitectura de Astra Trident en el clúster de Kubernetes.]
+.Trident puesto en marcha en el clúster de Kubernetes
+image::../media/trident-arch.png[Diagrama de la arquitectura Trident en el clúster de Kubernetes.]
 
 
 
@@ -61,7 +61,7 @@ image::../media/node-pod.png[Diagrama del Trident Node Pod que ejecuta el comple
 
 == Arquitecturas de clúster de Kubernetes compatibles
 
-Astra Trident es compatible con las siguientes arquitecturas de Kubernetes:
+Trident es compatible con las siguientes arquitecturas de Kubernetes:
 
 [cols="3,1,2"]
 |===

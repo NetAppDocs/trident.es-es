@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backend-kubectl.html 
 keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, create backends 
-summary: 'Un back-end define la relación entre Astra Trident y un sistema de almacenamiento. Le indica a Astra Trident cómo se comunica con ese sistema de almacenamiento y cómo debe aprovisionar volúmenes a partir de él. Una vez instalado Astra Trident, el siguiente paso es crear un back-end. La `TridentBackendConfig` Custom Resource Definition (CRD) permite crear y gestionar back-ends de Trident directamente a través de la interfaz de Kubernetes. Para ello, utilice `kubectl` O la herramienta CLI equivalente para su distribución de Kubernetes.' 
+summary: 'Un back-end define la relación entre Trident y un sistema de almacenamiento. Indica a Trident cómo se comunica con ese sistema de almacenamiento y cómo debe aprovisionar volúmenes a partir de él. Después de instalar Trident, el siguiente paso es crear un backend. La `TridentBackendConfig` definición de recursos personalizados (CRD) le permite crear y administrar backends de Trident directamente a través de la interfaz de Kubernetes. Para ello, puede utilizar `kubectl` o la herramienta CLI equivalente para su distribución de Kubernetes.' 
 ---
 = Cree back-ends con kubectl
 :hardbreaks:
@@ -12,24 +12,24 @@ summary: 'Un back-end define la relación entre Astra Trident y un sistema de al
 
 
 [role="lead"]
-Un back-end define la relación entre Astra Trident y un sistema de almacenamiento. Le indica a Astra Trident cómo se comunica con ese sistema de almacenamiento y cómo debe aprovisionar volúmenes a partir de él. Una vez instalado Astra Trident, el siguiente paso es crear un back-end. La `TridentBackendConfig` Custom Resource Definition (CRD) permite crear y gestionar back-ends de Trident directamente a través de la interfaz de Kubernetes. Para ello, utilice `kubectl` O la herramienta CLI equivalente para su distribución de Kubernetes.
+Un back-end define la relación entre Trident y un sistema de almacenamiento. Indica a Trident cómo se comunica con ese sistema de almacenamiento y cómo debe aprovisionar volúmenes a partir de él. Después de instalar Trident, el siguiente paso es crear un backend. La `TridentBackendConfig` definición de recursos personalizados (CRD) le permite crear y administrar backends de Trident directamente a través de la interfaz de Kubernetes. Para ello, puede utilizar `kubectl` o la herramienta CLI equivalente para su distribución de Kubernetes.
 
 
 
 == `TridentBackendConfig`
 
-`TridentBackendConfig` (`tbc`, `tbconfig`, `tbackendconfig`) Es un CRD con nombre y frontend que le permite administrar los back-ends de Astra Trident utilizando `kubectl`. Ahora, los administradores de Kubernetes y almacenamiento pueden crear y gestionar back-ends directamente a través de la CLI de Kubernetes sin necesidad de una utilidad de línea de comandos dedicada (`tridentctl`).
+`TridentBackendConfig` (`tbc`, , `tbconfig` `tbackendconfig` ) Es una interfaz CRD con nombre que permite gestionar los backend de Trident mediante `kubectl`. Los administradores de Kubernetes y de almacenamiento ahora pueden crear y gestionar back-ends directamente mediante la CLI de Kubernetes sin necesidad de una utilidad de línea de comandos dedicada (`tridentctl`).
 
 Sobre la creación de un `TridentBackendConfig` objeto, sucede lo siguiente:
 
-* Astra Trident crea automáticamente un back-end en función de la configuración que proporcione. Esto se representa internamente como un `TridentBackend` (`tbe`, `tridentbackend`) CR.
-* La `TridentBackendConfig` está vinculado de manera exclusiva a un `TridentBackend` Eso fue creado por Astra Trident.
+* Trident crea automáticamente un backend basado en la configuración que proporcione. Esto se representa internamente como un `TridentBackend` (`tbe`, `tridentbackend`) CR.
+* El `TridentBackendConfig` está vinculado exclusivamente a una `TridentBackend` que fue creada por Trident.
 
 
 Cada uno `TridentBackendConfig` mantiene una asignación de uno a uno con un `TridentBackend`. El primero es la interfaz que se ofrece al usuario para diseñar y configurar los back-ends. El segundo es cómo Trident representa el objeto back-end real.
 
 
-WARNING: `TridentBackend` Astra Trident crea automáticamente CRS. Usted *no debe* modificarlos. Si desea realizar actualizaciones a los back-ends, modifique el `TridentBackendConfig` objeto.
+WARNING: `TridentBackend` Trident crea los CRS automáticamente. Usted *no debe* modificarlos. Si desea realizar actualizaciones en los back-ends, haga esto modificando el `TridentBackendConfig` objeto.
 
 Consulte el siguiente ejemplo para ver el formato del `TridentBackendConfig` CR:
 
@@ -68,7 +68,7 @@ La `spec` la sección también incluye `credentials` y.. `deletionPolicy` campos
 NOTE: El nombre de un back-end se define mediante `spec.backendName`. Si no se especifica, el nombre del backend se establece en el nombre del `TridentBackendConfig` objeto (metadata.name). Se recomienda establecer explícitamente nombres de backend mediante `spec.backendName`.
 
 
-TIP: Back-ends creados con `tridentctl` no tienen asociado `TridentBackendConfig` objeto. Se pueden optar por gestionar estos back-ends con `kubectl` mediante la creación de un `TridentBackendConfig` CR. Se debe tener cuidado para especificar parámetros de configuración idénticos (como `spec.backendName`, `spec.storagePrefix`, `spec.storageDriverName`, y así sucesivamente). Astra Trident enlazará automáticamente los recién creados `TridentBackendConfig` con el backend preexistente.
+TIP: Los back-ends que se crearon con `tridentctl` no tienen un objeto asociado `TridentBackendConfig`. Puede optar por gestionar dichos back-ends con `kubectl` creando una `TridentBackendConfig` CR. Se debe tener cuidado de especificar parámetros de configuración idénticos ( `spec.backendName`como , , , `spec.storagePrefix` `spec.storageDriverName` etc.). Trident enlazará automáticamente los recién creados `TridentBackendConfig` con el backend preexistente.
 
 
 
@@ -76,7 +76,7 @@ TIP: Back-ends creados con `tridentctl` no tienen asociado `TridentBackendConfig
 
 Para crear un nuevo back-end mediante `kubectl`, debe hacer lo siguiente:
 
-. Cree un https://kubernetes.io/docs/concepts/configuration/secret/["Secreto Kubernetes"^]. El secreto contiene las credenciales que Astra Trident necesita para comunicarse con el clúster/servicio de almacenamiento.
+. Create a https://kubernetes.io/docs/concepts/configuration/secret/["Secreto Kubernetes"^]. El secreto contiene las credenciales que Trident necesita para comunicarse con el clúster/servicio de almacenamiento.
 . Cree un `TridentBackendConfig` objeto. Este contiene detalles sobre el servicio/clúster de almacenamiento y hace referencia al secreto creado en el paso anterior.
 
 
@@ -231,12 +231,12 @@ La fase puede tomar uno de los siguientes valores:
 * `Unbound`: Representado usando `""`. La `TridentBackendConfig` el objeto no está enlazado a un back-end. Creadas recientemente `TridentBackendConfig` CRS se encuentra en esta fase de forma predeterminada. Tras cambiar la fase, no puede volver a «sin límites».
 * `Deleting`: La `TridentBackendConfig` CR `deletionPolicy` se ha configurado para eliminar. Cuando la `TridentBackendConfig` La CR se elimina y pasa al estado de supresión.
 +
-** Si no existen reclamaciones de volumen persistente (RVP) en el back-end, eliminando el `TridentBackendConfig` Como resultado, Astra Trident elimina el back-end, así como el `TridentBackendConfig` CR.
+** Si no existen reclamaciones de volumen persistentes (RVP) en el back-end, si se elimina el Trident, tanto el `TridentBackendConfig` back-end como la `TridentBackendConfig` CR.
 ** Si uno o más EVs están presentes en el backend, pasa a un estado de supresión. La `TridentBackendConfig` Posteriormente, CR también entra en fase de eliminación. El back-end y. `TridentBackendConfig` Se eliminan sólo después de que se hayan eliminado todas las EVs.
 
 
 * `Lost`: El backend asociado con `TridentBackendConfig` La CR se eliminó accidental o deliberadamente y la `TridentBackendConfig` CR todavía tiene una referencia al backend eliminado. La `TridentBackendConfig` La CR puede ser eliminada independientemente de la `deletionPolicy` valor.
-* `Unknown`: Astra Trident no puede determinar el estado o la existencia del backend asociado con `TridentBackendConfig` CR. Por ejemplo, si el servidor API no responde o si el `tridentbackends.trident.netapp.io` Falta CRD. Esto puede requerir intervención.
+* `Unknown`: Trident no puede determinar el estado o la existencia del backend asociado al `TridentBackendConfig` CR. Por ejemplo, si el servidor API no responde o si falta el `tridentbackends.trident.netapp.io` CRD. Esto puede requerir intervención.
 
 
 En esta fase, se ha creado un backend. Hay varias operaciones que se pueden realizar además, como link:backend_ops_kubectl.html["actualizaciones back-end y eliminaciones backend"^].
@@ -293,7 +293,7 @@ status:
   message: Backend 'ontap-san-backend' created
   phase: Bound
 ----
-`backendInfo` contiene el `backendName` y la `backendUUID` del backend que se creó en respuesta a la `TridentBackendConfig` CR. La `lastOperationStatus` el campo representa el estado de la última operación de `TridentBackendConfig` CR, que se puede activar por el usuario (por ejemplo, el usuario ha cambiado algo en `spec`) O activado por Astra Trident (por ejemplo, durante el reinicio de Astra Trident). Puede ser un éxito o un fracaso. `phase` representa el estado de la relación entre el `TridentBackendConfig` CR y el back-end. En el ejemplo anterior, `phase` Tiene el valor enlazado, lo que significa que `TridentBackendConfig` CR está asociado con el backend.
+`backendInfo` Contiene los `backendName` y el `backendUUID` del backend que se creó en respuesta a la `TridentBackendConfig` CR. El `lastOperationStatus` campo representa el estado de la última operación `TridentBackendConfig` del CR, que puede ser activada por el usuario (por ejemplo, el usuario cambió algo en `spec`) o activada por Trident (por ejemplo, durante los reinicios de Trident). Puede ser Success o Failed. `phase` Representa el estado de la relación entre `TridentBackendConfig` el CR y el backend. En el ejemplo anterior, `phase` tiene el valor bound, lo que significa que `TridentBackendConfig` el CR está asociado al backend.
 
 Puede ejecutar el `kubectl -n trident describe tbc <tbc-cr-name>` comando para obtener detalles de los registros de eventos.
 

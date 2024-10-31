@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize 
-summary: Puede utilizar el instalador de Astra Trident para personalizar la implementación. 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: Se puede usar el instalador de Trident para personalizar la implementación. 
 ---
 = Personalice la instalación trimentctl
 :hardbreaks:
@@ -12,13 +12,16 @@ summary: Puede utilizar el instalador de Astra Trident para personalizar la impl
 
 
 [role="lead"]
-Puede utilizar el instalador de Astra Trident para personalizar la instalación.
+Puede usar el instalador de Trident para personalizar la instalación.
 
 
 
 == Obtenga más información sobre el instalador
 
-El instalador de Astra Trident le permite personalizar atributos. Por ejemplo, si ha copiado la imagen de Trident en un repositorio privado, puede especificar el nombre de la imagen mediante `--trident-image`. Si ha copiado la imagen Trident así como las imágenes sidecar CSI necesarias en un repositorio privado, puede que sea preferible especificar la ubicación de ese repositorio mediante el `--image-registry` switch, que toma la forma `<registry FQDN>[:port]`.
+El instalador de Trident le permite personalizar atributos. Por ejemplo, si ha copiado la imagen Trident en un repositorio privado, puede especificar el nombre de la imagen mediante `--trident-image`. Si ha copiado la imagen Trident, así como las imágenes de sidecar CSI necesarias en un repositorio privado, es preferible especificar la ubicación de ese repositorio mediante el `--image-registry` switch, que toma el formulario `<registry FQDN>[:port]`.
+
+
+IMPORTANT: Al instalar Trident en un repositorio privado, si está utilizando el `--image-registry` conmutador para especificar la ubicación del repositorio, no lo utilice `/netapp/` en la ruta de acceso del repositorio. Por ejemplo: `./tridentctl install --image-registry <image-registry> -n <namespace>`
 
 Si utiliza una distribución de Kubernetes, donde `kubelet` mantiene los datos en una ruta distinta de la habitual `/var/lib/kubelet`, puede especificar la ruta alternativa mediante `--kubelet-dir`.
 

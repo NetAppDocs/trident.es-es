@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-custom-name.html 
 keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
-summary: 'Astra Trident admite la asignación de nombres y etiquetas significativos a los volúmenes creados de forma que sea más fácil identificar, supervisar la gestión y asignar fácilmente los volúmenes a los recursos de Kubernetes respectivos (RVP).' 
+summary: 'Trident admite la asignación de nombres y etiquetas significativos a los volúmenes creados para que sea más fácil identificar, supervisar la gestión y asignar fácilmente los volúmenes a los respectivos recursos de Kubernetes (RVP).' 
 ---
 = Personalizar nombres y etiquetas de volúmenes
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Astra Trident admite la asignación de nombres y etiquetas significati
 
 
 [role="lead"]
-Con Astra Trident, puedes asignar nombres y etiquetas significativos a los volúmenes que creas. Esto le ayuda a identificar y asignar fácilmente volúmenes a sus respectivos recursos de Kubernetes (RVP). También puede definir plantillas en el nivel de back-end para crear nombres de volúmenes y etiquetas personalizadas; los volúmenes que cree, importe o clone respetarán las plantillas.
+Con Trident puede asignar nombres y etiquetas significativos a los volúmenes que cree. Esto le ayuda a identificar y asignar fácilmente volúmenes a sus respectivos recursos de Kubernetes (RVP). También puede definir plantillas en el nivel de back-end para crear nombres de volúmenes y etiquetas personalizadas; los volúmenes que cree, importe o clone respetarán las plantillas.
 
 
 
@@ -117,7 +117,7 @@ Las plantillas de nombre personalizado se pueden definir en el nivel raíz y/o d
 
 . En el caso de las importaciones de volúmenes, las etiquetas se actualizan solo si el volumen existente tiene etiquetas en un formato específico. Por ejemplo `{"provisioning":{"Cluster":"ClusterA", "PVC": "pvcname"}}`: .
 . En el caso de importaciones de volúmenes gestionados, el nombre del volumen sigue a la plantilla de nombres definida en el nivel raíz en la definición de backend.
-. Astra Trident no admite el uso de un operador de segmentos con el prefijo de almacenamiento.
-. Si las plantillas no dan como resultado nombres de volúmenes únicos, Astra Trident añadirá algunos caracteres aleatorios para crear nombres de volumen únicos.
-. Si el nombre personalizado de un volumen de ahorro de NAS supera los 64 caracteres de longitud, Astra Trident asignará el nombre a los volúmenes según la convención de nomenclatura existente. Para el resto de los controladores ONTAP, si el nombre del volumen supera el límite de nombre, se produce un error en el proceso de creación de volúmenes.
+. Trident no admite el uso de un operador de segmentos con el prefijo de almacenamiento.
+. Si las plantillas no dan como resultado nombres de volúmenes únicos, Trident añadirá algunos caracteres aleatorios para crear nombres de volúmenes únicos.
+. Si el nombre personalizado para un volumen económico NAS supera los 64 caracteres de longitud, Trident asignará un nombre a los volúmenes de acuerdo con la convención de nomenclatura existente. Para el resto de los controladores ONTAP, si el nombre del volumen supera el límite de nombre, se produce un error en el proceso de creación de volúmenes.
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-snapshots.html 
 keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
-summary: 'Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) permiten copias puntuales de volúmenes. Es posible crear una copia Snapshot de un volumen creado con Astra Trident, importar una copia de Snapshot creada fuera de Astra Trident, crear un volumen nuevo a partir de una copia de Snapshot existente y recuperar datos de volumen de copias Snapshot.' 
+summary: 'Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) permiten copias puntuales de volúmenes. Es posible crear una copia Snapshot de un volumen creado con Trident, importar una copia de Snapshot creada fuera de Trident, crear un volumen nuevo a partir de una copia de Snapshot existente y recuperar datos de volumen de copias de Snapshot.' 
 ---
 = Trabajar con instantáneas
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) p
 
 
 [role="lead"]
-Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) permiten copias puntuales de volúmenes. Es posible crear una copia Snapshot de un volumen creado con Astra Trident, importar una copia de Snapshot creada fuera de Astra Trident, crear un volumen nuevo a partir de una copia de Snapshot existente y recuperar datos de volumen de copias Snapshot.
+Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) permiten copias puntuales de volúmenes. Es posible crear una copia Snapshot de un volumen creado con Trident, importar una copia de Snapshot creada fuera de Trident, crear un volumen nuevo a partir de una copia de Snapshot existente y recuperar datos de volumen de copias de Snapshot.
 
 
 
@@ -35,7 +35,7 @@ NOTE: No cree una controladora Snapshot si crea instantáneas de volumen bajo de
 .Pasos
 . Cree un `VolumeSnapshotClass`. Para obtener más información, consulte link:../trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["VolumeSnapshotClass"].
 +
-** La `driver` Señala el controlador CSI de Astra Trident.
+** Los `driver` puntos al controlador CSI de Trident.
 ** `deletionPolicy` puede ser `Delete` o. `Retain`. Cuando se establece en `Retain`, la instantánea física subyacente en el clúster de almacenamiento se conserva incluso cuando `VolumeSnapshot` el objeto se ha eliminado.
 +
 .Ejemplo
@@ -141,16 +141,16 @@ spec:
 
 == Importe una copia de Snapshot de volumen
 
-Astra Trident es compatible con el link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Proceso de snapshot aprovisionado previamente de Kubernetes"^] para habilitar al administrador de clúster para crear un `VolumeSnapshotContent` Objetos e importación de copias de Snapshot creadas fuera de Astra Trident.
+Trident admite link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Proceso de snapshot aprovisionado previamente de Kubernetes"^]para permitir que el administrador de clúster cree `VolumeSnapshotContent` un objeto e importe copias de Snapshot creadas fuera de Trident.
 
 .Antes de empezar
-Astra Trident debe haber creado o importado el volumen principal del snapshot.
+Trident debe haber creado o importado el volumen principal de la snapshot.
 
 .Pasos
-. *Administrador del clúster:* Crear un `VolumeSnapshotContent` objeto que hace referencia a la instantánea de backend. Esto inicia el flujo de trabajo de las copias Snapshot en Astra Trident.
+. *Cluster admin:* Crear un `VolumeSnapshotContent` objeto que haga referencia a la instantánea backend. De esta forma, se inicia el flujo de trabajo Snapshot en Trident.
 +
 ** Especifique el nombre de la instantánea de backend en `annotations` como `trident.netapp.io/internalSnapshotName: <"backend-snapshot-name">`.
-** Especifique `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` pulg `snapshotHandle`. Esta es la única información que el snapshot externo proporciona a Astra Trident en la `ListSnapshots` llame.
+** Especifique `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` en `snapshotHandle`. Esta es la única información proporcionada a Trident por el Snapshotter externo en la `ListSnapshots` llamada.
 +
 
 NOTE: La `<volumeSnapshotContentName>` No siempre se puede coincidir con el nombre de instantánea de backend debido a restricciones de nomenclatura de CR.
@@ -193,7 +193,7 @@ spec:
   source:
     volumeSnapshotContentName: import-snap-content
 ----
-. *Procesamiento interno (no se requiere ninguna acción):* El Snapshotter externo reconoce el recién creado `VolumeSnapshotContent` y ejecuta el `ListSnapshots` llame. Astra Trident crea el `TridentSnapshot`.
+. *Procesamiento interno (no se requiere acción):* El Snapshotter externo reconoce el recién creado `VolumeSnapshotContent` y ejecuta la `ListSnapshots` llamada. Trident crea el `TridentSnapshot`.
 +
 ** El dispositivo de instantáneas externo establece el `VolumeSnapshotContent` para `readyToUse` y la `VolumeSnapshot` para `true`.
 ** Trident vuelve `readyToUse=true`.
@@ -244,7 +244,7 @@ NOTE: Cuando se restaura una copia Snapshot, se sobrescribe la configuración de
 
 == Eliminar un VP con snapshots asociadas
 
-Cuando se elimina un volumen persistente con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un “estado de eliminación”. Quite las snapshots de volumen para eliminar el volumen de Astra Trident.
+Cuando se elimina un volumen persistente con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un “estado de eliminación”. Quite las copias de Snapshot de volumen para eliminar el volumen de Trident.
 
 
 

@@ -2,11 +2,11 @@
 section: trident-get-started
 title: Manos a la obra
 entries:
-- title: Obtenga más información sobre Astra Trident
+- title: Obtenga más información sobre Trident
   entries:
-  - title: Descripción general de Astra Trident
+  - title: Información general de Trident
     url: "/trident-get-started/intro.html"
-  - title: Arquitectura de Astra Trident
+  - title: Arquitectura de Trident
     url: "/trident-get-started/architecture.html"
   - title: Conceptos
     entries:

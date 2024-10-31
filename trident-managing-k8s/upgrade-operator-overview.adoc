@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-operator-overview.html 
 keywords: upgrade, trident, operator, helm, controller, daemonset, node pods, rolling upgrade, zero downtime 
-summary: Antes de usar el operador Trident para actualizar Astra Trident, debe comprender los procesos en segundo plano que se producen durante la actualización. Esto incluye cambios en la controladora Trident, en el pod de controladora y en los pods de nodos, así como en el DaemonSet de nodos que permiten actualizaciones graduales. 
+summary: Antes de usar el operador Trident para actualizar Trident, debe comprender los procesos en segundo plano que ocurren durante la actualización. Esto incluye cambios en la controladora Trident, en el pod de controladora y en los pods de nodos, así como en el DaemonSet de nodos que permiten actualizaciones graduales. 
 ---
 = Comprender el flujo de trabajo de actualización del operador
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Antes de usar el operador Trident para actualizar Astra Trident, debe c
 
 
 [role="lead"]
-Antes de usar el operador Trident para actualizar Astra Trident, debe comprender los procesos en segundo plano que se producen durante la actualización. Esto incluye cambios en la controladora Trident, en el pod de controladora y en los pods de nodos, así como en el DaemonSet de nodos que permiten actualizaciones graduales.
+Antes de usar el operador Trident para actualizar Trident, debe comprender los procesos en segundo plano que ocurren durante la actualización. Esto incluye cambios en la controladora Trident, en el pod de controladora y en los pods de nodos, así como en el DaemonSet de nodos que permiten actualizaciones graduales.
 
 
 
 == Manejo de actualizaciones del operador Trident
 
-Uno de los muchos link:../trident-get-started/kubernetes-deploy.html["Ventajas del uso del operador Trident"] Para instalar y actualizar Astra Trident es la gestión automática de los objetos de Astra Trident y Kubernetes sin interrumpir los volúmenes montados existentes. De esta forma, Astra Trident puede admitir renovaciones sin tiempos de inactividad o incluso link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_actualizaciones sucesivas_"^]. En concreto, el operador Trident se comunica con el clúster de Kubernetes para:
+Uno de los link:../trident-get-started/kubernetes-deploy.html["Ventajas del uso del operador Trident"]muchos que instalan y actualizan Trident es la gestión automática de objetos Trident y Kubernetes sin interrumpir los volúmenes montados existentes. De esta forma, Trident puede admitir renovaciones sin tiempos de inactividad o link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_actualizaciones sucesivas_"^]. En concreto, el operador Trident se comunica con el clúster de Kubernetes para:
 
 * Elimine y vuelva a crear la implementación de Trident Controller y DaemonSet de nodos.
 * Sustituya el pod de la controladora de Trident y los pods de nodos de Trident por nuevas versiones.
@@ -30,7 +30,7 @@ Uno de los muchos link:../trident-get-started/kubernetes-deploy.html["Ventajas d
 
 
 
-TIP: Para obtener más información sobre la arquitectura de Astra Trident en el clúster de Kubernetes, consulte link:trident-concepts/intro.html#astra-trident-architecture["Arquitectura de Astra Trident"].
+TIP: Para obtener más información sobre la arquitectura de Trident en el clúster de Kubernetes, consulte link:trident-concepts/intro.html#trident-architecture["Arquitectura de Trident"].
 
 
 
@@ -40,7 +40,7 @@ Cuando inicie una actualización con el operador Trident:
 
 . El operador *Trident*:
 +
-.. Detecta la versión instalada actualmente de Astra Trident (versión _n_).
+.. Detecta la versión instalada actualmente de Trident (versión _n_).
 .. Actualiza todos los objetos de Kubernetes, incluidos CRD, RBAC y Trident SVC.
 .. Elimina la implementación de Trident Controller para la versión _n_.
 .. Crea la implementación de Trident Controller para la versión _n+1_.

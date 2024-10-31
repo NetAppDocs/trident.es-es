@@ -32,14 +32,14 @@ kubectl get storageclass
 ----
 kubectl get storageclass <storage-class> -o json
 ----
-* Para ver las clases de almacenamiento sincronizado de Astra Trident, ejecute el siguiente comando:
+* Para ver las clases de almacenamiento sincronizado de Trident, ejecute el siguiente comando:
 
 
 [listing]
 ----
 tridentctl get storageclass
 ----
-* Para ver la información detallada de la clase de almacenamiento sincronizado de Astra Trident, ejecute el siguiente comando:
+* Para ver los detalles de la clase de almacenamiento sincronizado de Trident, ejecute el siguiente comando:
 
 
 [listing]
@@ -76,7 +76,7 @@ NOTE: Solo debe haber una clase de almacenamiento predeterminada en el clúster 
 
 == Identifique el back-end para una clase de almacenamiento
 
-Este es un ejemplo del tipo de preguntas que puede responder con el JSON que `tridentctl` Salidas para objetos de backend de Astra Trident. Utiliza la `jq` utilidad, que puede necesitar instalar primero.
+Este es un ejemplo del tipo de preguntas que puede responder con el JSON que `tridentctl` genera los objetos de backend Trident. Esto utiliza la `jq` utilidad, que es posible que tenga que instalar primero.
 
 [listing]
 ----
@@ -94,7 +94,7 @@ kubectl delete storageclass <storage-class>
 ----
 `<storage-class>` debe sustituirse por su clase de almacenamiento.
 
-Cualquier volumen persistente que se cree a través de esta clase de almacenamiento no cambiará y Astra Trident seguirá gestionarlo.
+Todos los volúmenes persistentes que se hayan creado a través de esta clase de almacenamiento permanecerán intactos, y Trident continuará gestionándolos.
 
 
-NOTE: Astra Trident pone en práctica un espacio en blanco `fsType` para los volúmenes que crea. Para los back-ends de iSCSI, se recomienda aplicar `parameters.fsType` En el tipo de almacenamiento. Debe eliminar las clases de almacenamiento existentes y volver a crearlas con `parameters.fsType` especificado.
+NOTE: Trident aplica un espacio en blanco `fsType` para los volúmenes que crea. En el caso de los back-ends iSCSI, se recomienda aplicar `parameters.fsType` en la clase de almacenamiento. Debe eliminar StorageClasses existentes y volver a crearlos con `parameters.fsType` los especificados.

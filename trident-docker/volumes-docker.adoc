@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/volumes-docker.html 
-keywords: create volumes, astra trident, trident for docker, docker, docker volume 
-summary: 'Para crear volúmenes, utilice el estándar `docker volume` Los comandos con el nombre del controlador Astra Trident se especifican cuando es necesario.' 
+keywords: create volumes, Trident, trident for docker, docker, docker volume 
+summary: 'Para crear volúmenes, utilice los comandos estándar `docker volume` con el nombre de controlador Trident especificado cuando sea necesario.' 
 ---
 = Trabaje con volúmenes
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Para crear volúmenes, utilice el estándar `docker volume` Los comand
 
 
 [role="lead"]
-Puede crear, clonar y eliminar volúmenes fácilmente siguiendo el estándar `docker volume` Los comandos con el nombre del controlador Astra Trident se especifican cuando es necesario.
+Es posible crear, clonar y quitar volúmenes fácilmente mediante los comandos estándar `docker volume` con el nombre de controlador de Trident especificado cuando se necesita.
 
 
 
@@ -24,7 +24,7 @@ Puede crear, clonar y eliminar volúmenes fácilmente siguiendo el estándar `do
 ----
 docker volume create -d netapp --name firstVolume
 ----
-* Cree un volumen con una instancia específica de Astra Trident:
+* Cree un volumen con una instancia específica de Trident:
 +
 [listing]
 ----
@@ -62,13 +62,13 @@ IMPORTANT: Cuando utilice la `solidfire-san` driver, el ejemplo anterior elimina
 
 
 
-Realice los siguientes pasos para actualizar Astra Trident for Docker.
+Realice los siguientes pasos para actualizar Trident para Docker.
 
 
 
 == Clonar un volumen
 
-Cuando utilice la `ontap-nas`, `ontap-san`, `solidfire-san`, y. `gcp-cvs storage drivers`, Astra Trident puede clonar volúmenes. Cuando utilice la `ontap-nas-flexgroup` o. `ontap-nas-economy` controladores, no se admite la clonación. La creación de un volumen nuevo a partir de un volumen existente dará como resultado la creación de una copia de Snapshot nueva.
+Al utilizar `ontap-nas` , , , `ontap-san`, `solidfire-san` y `gcp-cvs storage drivers`, Trident puede clonar volúmenes. Al utilizar `ontap-nas-flexgroup` los controladores o `ontap-nas-economy`, no se admite la clonación. La creación de un volumen nuevo a partir de un volumen existente dará como resultado la creación de una copia de Snapshot nueva.
 
 * Examine el volumen para enumerar las instantáneas:
 +
@@ -130,4 +130,4 @@ docker volume rm volFromSnap
 
 == Acceso a volúmenes creados externamente
 
-Puede acceder a los dispositivos de bloque creados externamente (o a sus clones) mediante contenedores con Trident *only* si no tienen particiones y si su sistema de archivos es compatible con Astra Trident (por ejemplo: An `ext4`-formateado `/dev/sdc1` No se podrá acceder a él a través de Astra Trident).
+Puede acceder a dispositivos de bloque creados externamente (o a sus clones) mediante contenedores utilizando Trident *Only* si no tienen particiones y si su sistema de archivos es compatible con Trident (por ejemplo: Un `ext4`-formateado `/dev/sdc1` no será accesible a través de Trident).
