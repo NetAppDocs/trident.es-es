@@ -268,7 +268,7 @@ spec:
 .Identidad de nube para GKE
 [%collapsible]
 ====
-En este ejemplo se instala Astra Trident para usarlo con una identidad de nube en un clúster de GKE.
+En este ejemplo se instala Trident para su uso con una identidad de nube en un clúster de GKE.
 
 [listing]
 ----
