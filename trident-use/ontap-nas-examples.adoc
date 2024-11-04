@@ -172,6 +172,9 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 
 
 | `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
+
+
+| `denyNewVolumePools` | Restringe `ontap-nas-economy` los back-ends de la creación de nuevos volúmenes de FlexVol para contener sus Qtrees. Solo se utilizan los FlexVols preexistentes para aprovisionar nuevos VP. |  
 |===
 
 NOTE: Usar grupos de políticas de QoS con Trident requiere ONTAP 9 Intersight 8 o posterior. Debe usar un grupo de políticas de calidad de servicio no compartido y asegurarse de que el grupo de políticas se aplique a cada componente individualmente. Un grupo de políticas de calidad de servicio compartido aplica el techo máximo para el rendimiento total de todas las cargas de trabajo.
