@@ -106,7 +106,6 @@ Si necesita ayuda con Trident, cree un paquete de soporte con `tridentctl logs -
 
 == Si quiere más información
 
-* link:https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Blogs de Trident"^]
+* link:https://github.com/NetApp/trident["Recursos de Trident"^]
 * link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
-* link:https://netapp.io/["NetApp.io"^]
 

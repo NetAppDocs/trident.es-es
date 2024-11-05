@@ -97,7 +97,7 @@ NOTE: Cuando el agregado se actualiza en SVM, se actualiza automáticamente en T
 | `limitAggregateUsage` | Error al aprovisionar si el uso supera este porcentaje. Si estás usando un backend de Amazon FSx for NetApp ONTAP, no especifiques  `limitAggregateUsage`. El proporcionado `fsxadmin` y `vsadmin` no contiene los permisos necesarios para recuperar el uso de agregados y limitarlo mediante Trident. | "" (no se aplica de forma predeterminada) 
 
 
-| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. También restringe el tamaño máximo de los volúmenes que gestiona para qtrees y LUN. | '' (no se aplica por defecto) 
+| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. Además, restringe el tamaño máximo de los volúmenes que gestiona para las LUN. | '' (no se aplica por defecto) 
 
 
 | `lunsPerFlexvol` | El número máximo de LUN por FlexVol debe estar comprendido entre [50 y 200] | `100` 
@@ -125,6 +125,12 @@ Puede `formatOptions` usarse para especificar argumentos de línea de comandos p
 *Compatible `ontap-san` `ontap-san-economy` solo para conductores y.*
  a| 
 
+
+
+| `limitVolumePoolSize` | Tamaño máximo de FlexVol solicitable al usar LUN en back-end económico de ONTAP-san. | "" (no se aplica de forma predeterminada) 
+
+
+| `denyNewVolumePools` | Restringe `ontap-san-economy` los back-ends para que no creen nuevos volúmenes de FlexVol para contener sus LUN. Solo se utilizan los FlexVols preexistentes para aprovisionar nuevos VP. |  
 |===
 
 
@@ -184,12 +190,6 @@ El cifrado LUKS no es compatible con NVMe/TCP. | ""
 
 
 | `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
-
-
-| `limitVolumePoolSize` | Tamaño máximo de FlexVol solicitable al usar LUN en back-end económico de ONTAP-san. | "" (no se aplica de forma predeterminada) 
-
-
-| `denyNewVolumePools` | Restringe `ontap-san-economy` los back-ends para que no creen nuevos volúmenes de FlexVol para contener sus LUN. Solo se utilizan los FlexVols preexistentes para aprovisionar nuevos VP. |  
 |===
 
 

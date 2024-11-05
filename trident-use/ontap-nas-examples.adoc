@@ -93,10 +93,7 @@ NOTE: Cuando la lista de agregados se actualiza en SVM, la lista se actualiza au
 | "" 
 
 
-| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. También restringe el tamaño máximo de los volúmenes que gestiona para qtrees y LUN, y la `qtreesPerFlexvol` Permite personalizar el número máximo de qtrees por FlexVol. | '' (no se aplica por defecto) 
-
-
-| `lunsPerFlexvol` | El número máximo de LUN por FlexVol debe estar comprendido entre [50 y 200] | «100» 
+| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. Además restringe el tamaño máximo de los volúmenes que gestiona para qtrees y la `qtreesPerFlexvol` opción permite personalizar el número máximo de qtrees por FlexVol. | '' (no se aplica por defecto) 
 
 
 | `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Ejemplo, {«api»:false, «method»:true}
@@ -119,7 +116,10 @@ No utilizar `debugTraceFlags` a menos que esté solucionando problemas y necesit
 | `useREST` | Parámetro booleano para usar las API DE REST de ONTAP.  `useREST` Cuando se define en `true`, Trident utiliza las API REST DE ONTAP para comunicarse con el backend; cuando se define en `false`, Trident utiliza llamadas de ONTAP ZAPI para comunicarse con el backend. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión Trident 24,06 y ONTAP 9.15,1 o posterior, `userREST` se establece en `true` de forma predeterminada; cambie `useREST` a `false` Usar llamadas ZAPI de ONTAP. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 
 
-| `limitVolumePoolSize` | Tamaño máximo de FlexVol solicitable cuando se utilizan qtrees en el back-end económico de ONTAP-nas. | "" (no se aplica de forma predeterminada) 
+| `limitVolumePoolSize` | Tamaño máximo de FlexVol que se puede solicitar cuando se utilizan qtrees en el back-end económico de ONTAP-nas. | "" (no se aplica de forma predeterminada) 
+
+
+| `denyNewVolumePools` | Restringe `ontap-nas-economy` los back-ends de la creación de nuevos volúmenes de FlexVol para contener sus Qtrees. Solo se utilizan los FlexVols preexistentes para aprovisionar nuevos VP. |  
 |===
 
 
@@ -132,7 +132,7 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | Parámetro | Descripción | Predeterminado 
 
 
-| `spaceAllocation` | Asignación de espacio para las LUN | verdadero 
+| `spaceAllocation` | Asignación de espacio para Qtrees | verdadero 
 
 
 | `spaceReserve` | Modo de reserva de espacio; «ninguno» (fino) o «volumen» (grueso) | ninguno 
@@ -172,9 +172,6 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 
 
 | `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
-
-
-| `denyNewVolumePools` | Restringe `ontap-nas-economy` los back-ends de la creación de nuevos volúmenes de FlexVol para contener sus Qtrees. Solo se utilizan los FlexVols preexistentes para aprovisionar nuevos VP. |  
 |===
 
 NOTE: Usar grupos de políticas de QoS con Trident requiere ONTAP 9 Intersight 8 o posterior. Debe usar un grupo de políticas de calidad de servicio no compartido y asegurarse de que el grupo de políticas se aplique a cada componente individualmente. Un grupo de políticas de calidad de servicio compartido aplica el techo máximo para el rendimiento total de todas las cargas de trabajo.
