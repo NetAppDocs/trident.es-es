@@ -1,0 +1,195 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-use-execution-hooks.html 
+keywords: trident, protect, execution hooks 
+summary: Puede crear un gancho de ejecución personalizado para una aplicación mediante Trident Protect. Necesita tener permisos de propietario, administrador o miembro para crear enlaces de ejecución. 
+---
+= Gestionar enlaces de ejecución
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un enlace de ejecución es una acción personalizada que puede configurar para que se ejecute junto con una operación de protección de datos de una aplicación gestionada. Por ejemplo, si dispone de una aplicación de base de datos, puede utilizar un enlace de ejecución para pausar todas las transacciones de la base de datos antes de realizar una instantánea y reanudar las transacciones una vez completada la instantánea. De este modo se garantiza la creación de instantáneas coherentes con la aplicación.
+
+
+
+== Tipos de enlaces de ejecución
+
+Trident Protect admite los siguientes tipos de enlaces de ejecución, según cuándo se pueden ejecutar:
+
+* Copia previa de Snapshot
+* Possnapshot
+* Previo al backup
+* Después del backup
+* Después de la restauración
+* Después de la conmutación al respaldo
+
+
+
+
+=== Orden de ejecución
+
+Cuando se ejecuta una operación de protección de datos, los eventos de enlace de ejecución tienen lugar en el siguiente orden:
+
+. Los ganchos de ejecución de preoperación personalizados aplicables se ejecutan en los contenedores adecuados. Puede crear y ejecutar tantos ganchos de prefuncionamiento personalizados como necesite, pero el orden de ejecución de estos enlaces antes de la operación no está garantizado ni configurable.
+. Se realiza la operación de protección de datos.
+. Los enlaces de ejecución de post-operación personalizados aplicables se ejecutan en los contenedores adecuados. Puede crear y ejecutar tantos enlaces de post-operación personalizados como necesite, pero el orden de ejecución de estos enlaces después de la operación no está garantizado ni configurable.
+
+
+Si crea varios enlaces de ejecución del mismo tipo (por ejemplo, presnapshot), no se garantiza el orden de ejecución de esos enlaces. Sin embargo, el orden de ejecución de ganchos de diferentes tipos está garantizado. Por ejemplo, el siguiente es el orden de ejecución de una configuración que tiene todos los diferentes tipos de ganchos:
+
+. Ganchos presnapshot ejecutados
+. Ganchos posteriores a la instantánea ejecutados
+. Ganchos de precopia de seguridad ejecutados
+. Se han ejecutado los enlaces posteriores a la copia de seguridad
+
+
+
+NOTE: El ejemplo de orden anterior solo se aplica cuando se ejecuta un backup que no utiliza una snapshot existente.
+
+
+NOTE: Siempre debe probar sus secuencias de comandos de ejecución de enlace antes de habilitarlas en un entorno de producción. Puede utilizar el comando 'kubectl exec' para probar cómodamente los scripts. Después de habilitar los enlaces de ejecución en un entorno de producción, pruebe las copias Snapshot y backups resultantes para garantizar que sean coherentes. Para ello, puede clonar la aplicación en un espacio de nombres temporal, restaurar la instantánea o la copia de seguridad y, a continuación, probar la aplicación.
+
+
+
+== Notas importantes sobre los enlaces de ejecución personalizados
+
+Tenga en cuenta lo siguiente al planificar enlaces de ejecución para sus aplicaciones.
+
+* Un enlace de ejecución debe utilizar una secuencia de comandos para realizar acciones. Muchos enlaces de ejecución pueden hacer referencia al mismo script.
+* Trident Protect requiere que los scripts que los enlaces de ejecución utilizan se escriban en formato de scripts de shell ejecutables.
+* El tamaño del script está limitado a 96 KB.
+* Trident Protect utiliza la configuración de enlace de ejecución y cualquier criterio de coincidencia para determinar qué enlaces se aplican a una operación de instantánea, copia de seguridad o restauración.
+
+
+
+NOTE: Debido a que los enlaces de ejecución a menudo reducen o desactivan por completo la funcionalidad de la aplicación con la que se ejecutan, siempre debe intentar minimizar el tiempo que tardan los enlaces de ejecución personalizados. Si inicia una operación de copia de seguridad o de instantánea con los enlaces de ejecución asociados pero, a continuación, la cancela, los ganchos pueden ejecutarse si ya se ha iniciado la operación de copia de seguridad o de Snapshot. Esto significa que la lógica utilizada en un enlace de ejecución posterior a la copia de seguridad no puede suponer que la copia de seguridad se ha completado.
+
+
+
+== Filtros de gancho de ejecución
+
+Al agregar o editar un enlace de ejecución para una aplicación, puede agregar filtros al enlace de ejecución para gestionar qué contenedores coincidirá el enlace. Los filtros son útiles para aplicaciones que usan la misma imagen de contenedor en todos los contenedores, pero pueden usar cada imagen para un propósito diferente (como Elasticsearch). Los filtros le permiten crear escenarios donde los enlaces de ejecución se ejecutan en algunos, pero no necesariamente todos los contenedores idénticos. Si crea varios filtros para un único enlace de ejecución, se combinan con un operador y lógico. Puede tener hasta 10 filtros activos por gancho de ejecución.
+
+Cada filtro que agregue a un enlace de ejecución utiliza una expresión regular para hacer coincidir los contenedores del clúster. Cuando un gancho coincide con un contenedor, el gancho ejecutará su script asociado en ese contenedor. Las expresiones regulares para los filtros utilizan la sintaxis expresión regular 2 (RE2), que no admite la creación de un filtro que excluye contenedores de la lista de coincidencias. Para obtener información sobre la sintaxis que soporta Trident Protect para expresiones regulares en filtros de enlace de ejecución, consulte https://github.com/google/re2/wiki/Syntax["Soporte de sintaxis de expresión regular 2 (RE2)"^].
+
+
+NOTE: Si se agrega un filtro de espacio de nombres a un enlace de ejecución que se ejecuta después de una operación de restauración o clonado y el origen y destino de la restauración o clonado se encuentran en diferentes espacios de nombres, el filtro de espacio de nombres solo se aplica al espacio de nombres de destino.
+
+
+
+== Ejemplos de gancho de ejecución
+
+Visite el https://github.com/NetApp/Verda["Proyecto Verda GitHub de NetApp"] para descargar ganchos de ejecución reales para aplicaciones populares como Apache Cassandra y Elasticsearch. También puede ver ejemplos y obtener ideas para estructurar sus propios enlaces de ejecución personalizados.
+
+
+
+== Cree un enlace de ejecución
+
+Puede crear un gancho de ejecución personalizado para una aplicación mediante Trident Protect. Necesita tener permisos de propietario, administrador o miembro para crear enlaces de ejecución.
+
+[role="tabbed-block"]
+====
+.Utilice un CR
+--
+. Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-hook.yaml`.
+. Configure los siguientes atributos para que coincidan con su entorno Trident Protect y la configuración de clúster:
++
+** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
+** *Spec.applicationRef*: (_required_) El nombre de Kubernetes de la aplicación para la que ejecutar el hook de ejecución.
+** *Spec.stage*: (_required_) Una cadena que indica qué etapa durante la acción debe ejecutarse el gancho de ejecución. Los posibles valores son los siguientes:
++
+*** Pre
+*** Publicación
+
+
+** *Spec.action*: (_required_) Una cadena que indica qué acción tomará el gancho de ejecución, asumiendo que los filtros de enlace de ejecución especificados coinciden. Los posibles valores son los siguientes:
++
+*** Snapshot
+*** Backup
+*** Restaurar
+*** Conmutación al respaldo
+
+
+** *Spec.enabled*: (_Optional_) Indica si este enlace de ejecución está habilitado o desactivado. Si no se especifica, el valor predeterminado es TRUE.
+** *Spec.hookSource*: (_required_) Una cadena que contiene el script hook codificado en base64.
+** *SPEC.TIMEOUT*: (_Optional_) Un número que define cuánto tiempo en minutos se permite ejecutar el gancho de ejecución. El valor mínimo es 1 minuto y el valor predeterminado es 25 minutos si no se especifica.
+** *Spec.arguments*: (_Optional_) Una lista YAML de argumentos que puede especificar para el enlace de ejecución.
+** *Spec.matchingCriteria*: (_Optional_) Una lista opcional de pares de valores clave de criterios, cada par que forma un filtro de enlace de ejecución. Puede agregar hasta 10 filtros por gancho de ejecución.
+** *Spec.matchingCriteria.type*: (_Optional_) Una cadena que identifica el tipo de filtro de gancho de ejecución. Los posibles valores son los siguientes:
++
+*** ConteneerImage
+*** Nombre del contenedor
+*** PodName
+*** PodLabel
+*** Nombre del espacio de nombre
+
+
+** *Spec.matchingCriteria.value*: (_Optional_) Una cadena o expresión regular que identifica el valor del filtro de enlace de ejecución.
++
+Ejemplo YAML:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHook
+metadata:
+  name: example-hook-cr
+  namespace: my-app-namespace
+  annotations:
+    astra.netapp.io/astra-control-hook-source-id: /account/test/hookSource/id
+spec:
+  applicationRef: my-app-name
+  stage: Pre
+  action: Snapshot
+  enabled: true
+  hookSource: IyEvYmluL2Jhc2gKZWNobyAiZXhhbXBsZSBzY3JpcHQiCg==
+  timeout: 10
+  arguments:
+    - FirstExampleArg
+    - SecondExampleArg
+  matchingCriteria:
+    - type: containerName
+      value: mysql
+    - type: containerImage
+      value: bitnami/mysql
+    - type: podName
+      value: mysql
+    - type: namespaceName
+      value: mysql-a
+    - type: podLabel
+      value: app.kubernetes.io/component=primary
+    - type: podLabel
+      value: helm.sh/chart=mysql-10.1.0
+    - type: podLabel
+      value: deployment-type=production
+----
+
+
+. Después de rellenar el archivo CR con los valores correctos, aplique el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook.yaml
+----
+
+
+--
+.Utilice la CLI
+--
+. Cree el enlace de ejecución, sustituyendo los valores entre paréntesis por información de su entorno. Por ejemplo:
++
+[source, console]
+----
+tridentctl protect create exechook <my_exec_hook_name> --action <action_type> --app <app_to_use_hook> --stage <pre_or_post_stage> --source-file <script-file>
+----
+
+
+--
+====

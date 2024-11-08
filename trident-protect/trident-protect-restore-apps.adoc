@@ -1,0 +1,425 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-restore-apps.html 
+keywords: trident, protect, restore, data, backup 
+summary: Es posible usar Trident Protect para restaurar la aplicación desde una snapshot o un backup. La restauración a partir de una snapshot existente será más rápida cuando se restaure la aplicación en el mismo clúster. 
+---
+= Restaure las aplicaciones
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible usar Trident Protect para restaurar la aplicación desde una snapshot o un backup. La restauración a partir de una snapshot existente será más rápida cuando se restaure la aplicación en el mismo clúster.
+
+
+NOTE: Al restaurar una aplicación, todos los ganchos de ejecución configurados para la aplicación se restauran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
+
+
+
+== Restauración desde un backup a un espacio de nombres diferente
+
+Cuando se restaura un backup en un espacio de nombres diferente con BackupRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo, pero la aplicación restaurada no se protege de forma automática mediante Trident Protect. Para proteger la aplicación restaurada, debe crear una aplicación CR para la aplicación restaurada para que esté protegida por Trident Protect.
+
+[role="tabbed-block"]
+====
+.Utilice un CR
+--
+. Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-backup-restore-cr.yaml`.
+. En el archivo creado, configure los siguientes atributos:
++
+** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
+** *Spec.appArchivePath*: La ruta dentro de AppVault donde se almacena el contenido de la copia de seguridad. Puede utilizar el siguiente comando para buscar esta ruta:
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *Spec.appVaultRef*: (_required_) El nombre del AppVault donde se almacena el contenido de la copia de seguridad.
+** *spec.namespaceMapping*: La asignación del espacio de nombres de origen de la operación de restauración al espacio de nombres de destino. Reemplace `my-source-namespace` y `my-destination-namespace` con la información de su entorno.
+** *Spec.storageClassMapping*: La asignación de la clase de almacenamiento de origen de la operación de restauración a la clase de almacenamiento de destino. Reemplace `destinationStorageClass` y `sourceStorageClass` con la información de su entorno.
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1o
+kind: BackupRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appArchivePath: my-backup-path
+  appVaultRef: appvault-name
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+
+
+. (_Optional_) Si necesita seleccionar solo ciertos recursos de la aplicación para restaurar, agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
++
+** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usa `include or exclude` para incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
++
+*** *ResourceFilter.resourceMatchers*: Matriz de objetos resourceMatcher.
++
+**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
+**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
+**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
+**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. Después de rellenar `trident-protect-backup-restore-cr.yaml` el archivo con los valores correctos, aplique el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-restore-cr.yaml
+----
+
+
+--
+.Utilice la CLI
+--
+. Restaure la copia de seguridad en un espacio de nombres diferente, sustituyendo valores entre paréntesis por información de su entorno. El `namespace-mapping` argumento utiliza espacios de nombres separados por dos puntos para asignar espacios de nombres de origen a los espacios de nombres de destino correctos en el formato `source1:dest1,source2:dest2`. Por ejemplo:
++
+[source, console]
+----
+tridentctl protect create backuprestore <my_restore_name> --backup <backup_namespace>/<backup_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+--
+====
+
+
+== Restaure desde un backup al espacio de nombres original
+
+Es posible restaurar un backup en el espacio de nombres original en cualquier momento.
+
+
+NOTE: Al restaurar un backup en un espacio de nombres con recursos existentes, no se alterará ningún recurso que comparta los nombres con los que aparecen en el backup. Para restaurar todos los recursos de un backup, elimine y vuelva a crear el espacio de nombres de destino, o restaure el backup en un nuevo espacio de nombres.
+
+[role="tabbed-block"]
+====
+.Utilice un CR
+--
+. Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-backup-ipr-cr.yaml`.
+. En el archivo creado, configure los siguientes atributos:
++
+** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
+** *Spec.appArchivePath*: La ruta dentro de AppVault donde se almacena el contenido de la copia de seguridad. Puede utilizar el siguiente comando para buscar esta ruta:
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *Spec.appVaultRef*: (_required_) El nombre del AppVault donde se almacena el contenido de la copia de seguridad.
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupInplaceRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appArchivePath: my-backup-path
+  appVaultRef: appvault-name
+----
+
+
+. (_Optional_) Si necesita seleccionar solo ciertos recursos de la aplicación para restaurar, agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
++
+** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usa `include or exclude` para incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
++
+*** *ResourceFilter.resourceMatchers*: Matriz de objetos resourceMatcher.
++
+**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
+**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
+**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
+**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. Después de rellenar `trident-protect-backup-ipr-cr.yaml` el archivo con los valores correctos, aplique el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-ipr-cr.yaml
+----
+
+
+--
+.Utilice la CLI
+--
+. Restaure la copia de seguridad en el espacio de nombres original, sustituyendo valores entre paréntesis por información de su entorno. El `backup` argumento utiliza un espacio de nombres y un nombre de copia de seguridad en el formato `<namespace>/<name>`. Por ejemplo:
++
+[source, console]
+----
+tridentctl protect create backupinplacerestore <my_restore_name> --backup <namespace/backup_to_restore>
+----
+
+
+--
+====
+
+
+== Restauración desde una copia snapshot a un espacio de nombres diferente
+
+Puede restaurar datos desde una copia Snapshot con un archivo de recurso personalizado (CR) en un espacio de nombres diferente o en el espacio de nombres de origen original. Cuando se restaura una snapshot en un espacio de nombres diferente con SnapshotRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo, pero la aplicación restaurada no queda protegida de forma automática mediante Trident Protect. Para proteger la aplicación restaurada, debe crear una aplicación CR para la aplicación restaurada para que esté protegida por Trident Protect.
+
+[role="tabbed-block"]
+====
+.Utilice un CR
+--
+. Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-snapshot-restore-cr.yaml`.
+. En el archivo creado, configure los siguientes atributos:
++
+** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
+** *Spec.appVaultRef*: (_required_) El nombre del AppVault donde se almacena el contenido de la instantánea.
+** *Spec.appArchivePath*: La ruta dentro de AppVault donde se almacena el contenido de la instantánea. Puede utilizar el siguiente comando para buscar esta ruta:
++
+[source, console]
+----
+kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *spec.namespaceMapping*: La asignación del espacio de nombres de origen de la operación de restauración al espacio de nombres de destino. Reemplace `my-source-namespace` y `my-destination-namespace` con la información de su entorno.
+** *Spec.storageClassMapping*: La asignación de la clase de almacenamiento de origen de la operación de restauración a la clase de almacenamiento de destino. Reemplace `destinationStorageClass` y `sourceStorageClass` con la información de su entorno.
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-snapshot-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+  storageClassMapping:
+    destination: "${destinationStorageClass}"
+    source: "${sourceStorageClass}"
+----
+
+
+. (_Optional_) Si necesita seleccionar solo ciertos recursos de la aplicación para restaurar, agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
++
+** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usa `include or exclude` para incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
++
+*** *ResourceFilter.resourceMatchers*: Matriz de objetos resourceMatcher.
++
+**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
+**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
+**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
+**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. Después de rellenar `trident-protect-snapshot-restore-cr.yaml` el archivo con los valores correctos, aplique el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-restore-cr.yaml
+----
+
+
+--
+.Utilice la CLI
+--
+. Restaure la instantánea en un espacio de nombres diferente, reemplazando los valores entre paréntesis por información de su entorno.
++
+** El `snapshot` argumento utiliza un espacio de nombres y un nombre de instantánea en el formato `<namespace>/<name>`.
+** El `namespace-mapping` argumento utiliza espacios de nombres separados por dos puntos para asignar espacios de nombres de origen a los espacios de nombres de destino correctos en el formato `source1:dest1,source2:dest2`.
++
+Por ejemplo:
+
++
+[source, console]
+----
+tridentctl protect create snapshotrestore <my_restore_name> --snapshot <namespace/snapshot_to_restore> --namespace-mapping <source_to_destination_namespace_mapping>
+----
+
+
+
+
+--
+====
+
+
+== Restauración desde una copia Snapshot al espacio de nombres original
+
+Es posible restaurar una copia de Snapshot en el espacio de nombres original en cualquier momento.
+
+[role="tabbed-block"]
+====
+.Utilice un CR
+--
+. Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-snapshot-ipr-cr.yaml`.
+. En el archivo creado, configure los siguientes atributos:
++
+** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
+** *Spec.appVaultRef*: (_required_) El nombre del AppVault donde se almacena el contenido de la instantánea.
+** *Spec.appArchivePath*: La ruta dentro de AppVault donde se almacena el contenido de la instantánea. Puede utilizar el siguiente comando para buscar esta ruta:
++
+[source, console]
+----
+kubectl get snapshots <SNAPSHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotInplaceRestore
+metadata:
+  name: my-cr-name
+  namespace: my-app-namespace
+spec:
+  appVaultRef: appvault-name
+    appArchivePath: my-snapshot-path
+----
+
+
+. (_Optional_) Si necesita seleccionar solo ciertos recursos de la aplicación para restaurar, agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
++
+** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usa `include or exclude` para incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
++
+*** *ResourceFilter.resourceMatchers*: Matriz de objetos resourceMatcher.
++
+**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
+**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
+**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
+**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "include"
+    resourceMatchers:
+      group: my-resource-group
+      kind: my-resource-kind
+      version: my-resource-version
+      names: ["my-resource-names"]
+      namespaces: ["my-resource-namespaces"]
+      labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
+. Después de rellenar `trident-protect-snapshot-ipr-cr.yaml` el archivo con los valores correctos, aplique el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
+----
+
+
+--
+.Utilice la CLI
+--
+. Restaure la instantánea en el espacio de nombres original, reemplazando los valores entre paréntesis por información de su entorno. Por ejemplo:
++
+[source, console]
+----
+tridentctl protect create snapshotinplacerestore <my_restore_name> --snapshot <snapshot_to_restore>
+----
+
+
+--
+====
+
+
+== Compruebe el estado de una operación de restauración
+
+Puede usar la línea de comandos para comprobar el estado de una operación de restauración en curso, que se completó o con errores.
+
+.Pasos
+. Utilice el siguiente comando para recuperar el estado de la operación de restauración, sustituyendo valores de entre corchetes con información de su entorno:
++
+[source, console]
+----
+kubectl get backuprestore -n <namespace_name> <my_restore_cr_name> -o jsonpath='{.status}'
+----
+

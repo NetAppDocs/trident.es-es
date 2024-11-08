@@ -42,6 +42,12 @@ indexpage:
       url: "/trident-use/manage-stor-class.html"
     - title: Realizar operaciones de volumen
       url: "/trident-use/vol-operations.html"
+  - title: Gestión y protección de datos avanzadas
+    links:
+    - title: Protección de datos avanzada con Trident Protect
+      url: "/trident-protect/learn-about-trident-protect.html"
+    - title: Implemente Trident Protect
+      url: "/trident-protect/trident-protect-installation.html"
   - title: Demostraciones y tutoriales
     links:
     - title: Vídeos de Trident
