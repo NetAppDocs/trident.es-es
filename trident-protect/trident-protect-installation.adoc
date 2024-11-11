@@ -24,7 +24,7 @@ Si su entorno cumple los requisitos de protección Trident, puede seguir estos p
 +
 [source, console]
 ----
-helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
 . Utilice Helm para instalar Trident Protect. Sustituir `<name_of_cluster>` por un nombre de clúster, que se asignará al clúster y se utilizará para identificar backups y snapshots de este clúster:
 +
@@ -65,6 +65,7 @@ netapp/trident-autosupport:24.10.0
 netapp/exechook:24.10.0
 netapp/resourcebackup:24.10.0
 netapp/resourcerestore:24.10.0
+netapp/resourcedelete:24.10.0
 bitnami/kubectl:1.30.2
 kubebuilder/kube-rbac-proxy:v0.16.0
 ----
@@ -108,7 +109,7 @@ kubectl create secret docker-registry regcred --docker-username=<registry-userna
 +
 [source, console]
 ----
-helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart/index.yaml
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
 . Cree un archivo denominado `protectValues.yaml` que contenga los siguientes valores de Trident Protect:
 +
