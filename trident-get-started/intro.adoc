@@ -62,31 +62,31 @@ https://www.netapp.com/azure/azure-netapp-files/["Azure NetApp Files"^] Es un se
 link:https://www.netapp.com/cloud-services/cloud-volumes-ontap/["Cloud Volumes ONTAP"^] Es un dispositivo de almacenamiento exclusivamente de software que ejecuta el software para la gestión de datos ONTAP en el cloud.
 
 ====
-.Cloud Volumes Service para Google Cloud
+.NetApp Volumes para Google Cloud
 [%collapsible]
 ====
-link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["Cloud Volumes Service de NetApp para Google Cloud"^] Es un servicio de archivos nativo del cloud que proporciona volúmenes de NAS en NFS y SMB con rendimiento all-flash.
+link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["NetApp Volumes para Google Cloud"^] Es un servicio de almacenamiento de archivos completamente gestionado en Google Cloud que ofrece un almacenamiento de archivos de alto rendimiento y clase empresarial.
 
-====
-.Software Element
-[%collapsible]
 ====
 https://www.netapp.com/data-management/element-software/["Elemento"^] permite al administrador de almacenamiento consolidar cargas de trabajo garantizando el rendimiento y haciendo posible un espacio de almacenamiento simplificado y optimizado.
 
+[]
 ====
-.NetApp HCI
-[%collapsible]
+
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] simplifica la gestión y el escalado del centro de datos mediante la automatización de las tareas rutinarias y permite que los administradores de la infraestructura se centren en funciones más importantes.
 
 Trident puede aprovisionar y gestionar dispositivos de almacenamiento para aplicaciones en contenedores directamente en la plataforma de almacenamiento subyacente de NetApp HCI.
 
+[]
 ====
-.ONTAP de NetApp
-[%collapsible]
+
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["ONTAP de NetApp"^] Es el sistema operativo de almacenamiento unificado multiprotocolo de NetApp que proporciona capacidades avanzadas de gestión de datos para cualquier aplicación.
 
 Los sistemas ONTAP tienen configuraciones all-flash, híbridas o all-HDD y ofrecen muchos modelos de puesta en marcha diferentes, como hardware a medida (FAS y AFF), unidad genérica (ONTAP Select) y solo cloud (Cloud Volumes ONTAP). Trident admite estos modelos de puesta en marcha de ONTAP.
+
+[]
+====
 
 ====
