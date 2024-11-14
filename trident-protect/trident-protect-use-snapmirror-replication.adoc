@@ -458,7 +458,7 @@ k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath=
 
 NOTE: En el paso 2 del procedimiento de conmutación por error, incluya el `spec.promotedSnapshot` campo en el archivo AppMirrorRelationship CR y establezca su valor en el nombre base que registró en el paso 3 anterior.
 
-. Realice los pasos de resincronización inversa en <<Reverse resync a failed over replication>>.
+. Realice los pasos de resincronización inversa en <<Resincronización inversa de una relación de replicación fallida>>.
 . Habilite las programaciones de protección en el nuevo clúster de origen.
 
 
@@ -485,13 +485,17 @@ Con Trident Protect, puede obtener un «fallo» tras una operación de recuperac
 Este proceso se inicia desde una relación que ha completado una conmutación al nodo de respaldo a un destino e implica los siguientes pasos:
 
 * Comience con un estado de conmutación al respaldo.
-* Realice una resincronización inversa de la relación.
-* Invierta la replicación.
+* Vuelva a sincronizar la relación de replicación.
++
+
+CAUTION: No realice una operación de resincronización normal, ya que esto descartará los datos escritos en el clúster de destino durante el procedimiento de conmutación por error.
+
+* Invierta la dirección de replicación.
 
 
 .Pasos
-. Realice <<Resync a failed over replication>>los pasos
-. Realice <<Reverse resync a failed over replication>>los pasos
+. Realice <<Resincronización inversa de una relación de replicación fallida>>los pasos.
+. Realice <<Invertir dirección de replicación de aplicaciones>>los pasos.
 
 
 
