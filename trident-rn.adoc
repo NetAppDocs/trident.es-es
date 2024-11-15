@@ -63,7 +63,7 @@ link:./trident-protect/learn-about-trident-protect.html["Obtenga más informaci�
 
 ==== Mejoras experimentales
 
-* Se ha agregado una vista previa técnica para el soporte de Fibre Channel en el controlador ONTAP-SAN. Consulte link:../trident-use/fcp.html["Compatibilidad con Fibre Channel"].
+* Se ha agregado una vista previa técnica para el soporte de Fibre Channel en el controlador ONTAP-SAN. Consulte link:./trident-use/fcp.html["Compatibilidad con Fibre Channel"].
 
 
 
