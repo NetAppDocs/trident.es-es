@@ -69,7 +69,12 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `password` | Contraseña para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales |  
 
 
-| `storagePrefix` | El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede actualizar después de configurarlo | «trident» 
+| `storagePrefix`  a| 
+El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede actualizar después de configurarlo
+
+
+NOTE: Al utilizar ONTAP-nas-economy y un prefijo de almacenamiento con 24 caracteres o más, los qtrees no tendrán el prefijo de almacenamiento incrustado, pero estarán en el nombre del volumen.
+| «trident» 
 
 
 | `aggregate`  a| 
