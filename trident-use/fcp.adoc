@@ -1,0 +1,209 @@
+---
+sidebar: sidebar 
+permalink: trident-use/fcp.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, iscsi, scsi, scsi over fc, fibre channel, fcp, kubernetes clusters, self-healing, healing. 
+summary:  
+---
+= Compatibilidad con Fibre Channel (FC)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ahora se puede utilizar el protocolo Fibre Channel (FC) con Trident para aprovisionar y gestionar recursos de almacenamiento en el sistema ONTAP.
+
+*SCSI sobre canal de fibra (FC) es una función de vista previa técnica en la versión Trident 24,10.*
+
+Fibre Channel es un protocolo adoptado de forma generalizada en entornos de almacenamiento empresarial debido a su alto rendimiento, fiabilidad y escalabilidad. Proporciona un canal de comunicación robusto y eficiente para dispositivos de almacenamiento, lo que permite transferencias de datos rápidas y seguras. Al utilizar SCSI sobre Fibre Channel, puede aprovechar su infraestructura de almacenamiento basada en SCSI existente y beneficiarse de las funcionalidades de alto rendimiento y larga distancia de Fibre Channel. Permite consolidar los recursos de almacenamiento y crear redes de área de almacenamiento (SAN) eficaces y escalables que pueden gestionar grandes cantidades de datos con una baja latencia.
+
+Con la función FC con Trident, puede hacer lo siguiente: * Provisionar dinámicamente RVP utilizando una especificación de despliegue. * Tomar instantáneas de volumen y crear un nuevo volumen a partir de la instantánea. * Clonar un FC-PVC existente. * Redimensionar un volumen ya implementado.
+
+
+
+== Requisitos previos
+
+Configure los ajustes de nodo y red necesarios para FC.
+
+
+
+=== Ajustes de red
+
+. Obtenga el WWPN de las interfaces de destino. Consulte link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["se muestra la interfaz de red"^] si desea obtener más información.
+. Obtenga el WWPN de las interfaces del iniciador (host).
++
+Consulte las utilidades del sistema operativo host correspondientes.
+
+. Configure la división en zonas en el switch de FC mediante WWPN del host y el destino.
++
+Consulte la documentación nueva del proveedor de switches para obtener más información.
+
++
+Consulte la siguiente documentación de ONTAP para obtener más detalles:
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["Información general sobre la división en zonas de Fibre Channel y FCoE"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"^]
+
+
+
+
+
+
+=== Prepare el nodo de trabajo
+
+Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Para preparar los nodos de trabajo para FC, debe instalar las herramientas necesarias.
+
+.Instale las herramientas FC
+Instale las herramientas de FC mediante los comandos del sistema operativo.
+
+* Cuando utilice nodos de trabajo que ejecutan RHEL/RedHat CoreOS con VP iSCSI, especifique el `discard` MountOption en StorageClass para realizar un reclamación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de redhat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8 O POSTERIOR
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
+----
+. Compruebe que la versión de iscsi-initiator-utils sea 6.2.0.874-2.el7 o posterior:
++
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `iscsid` y.. `multipathd` están en ejecución:
++
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
+. Activar e iniciar `iscsi`:
++
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
+
+
+--
+.Ubuntu
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
+. Compruebe que la versión Open-iscsi sea 2.0.874-5ubuntu2.10 o posterior (para bionic) o 2.0.874-7.1ubuntu6.1 o posterior (para focal):
++
+[listing]
+----
+dpkg -l open-iscsi
+----
+. Configure el escaneo en manual:
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `open-iscsi` y.. `multipath-tools` están habilitadas y en ejecución:
++
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
++
+
+NOTE: Para Ubuntu 18.04, debe descubrir los puertos de destino con `iscsiadm` antes de comenzar `open-iscsi` Para que se inicie el daemon iSCSI. También puede modificar el `iscsi` servicio para empezar `iscsid` automáticamente.
+
+
+
+--
+====
+
+
+== Cree una configuración de backend
+
+Cree un backend Trident para `ontap-san` el controlador y `fcp` como sanType.
+
+Consulte:
+
+* link:..trident-use/ontap-san-prep.html["Prepárese para configurar el back-end con los controladores SAN de ONTAP"]
+* link:..trident-use/ontap-san-examples.html["Opciones y ejemplos de configuración DE SAN ONTAP"^]
+
+
+.Ejemplo de configuración de back-end con FC
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-san
+spec:
+  version: 1
+  backendName: ontap-san-backend
+  storageDriverName: ontap-san
+  managementLIF: 10.0.0.1
+  sanType: fcp
+  svm: trident_svm
+  credentials:
+    name: backend-tbc-ontap-san-secret
+----
+
+
+== Cree una clase de almacenamiento
+
+Para obtener más información, consulte:
+
+* link:..trident-docker/stor-config.html["Opciones de configuración de almacenamiento"^]
+
+
+.Ejemplo de clase de almacenamiento
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fcp-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  protocol: "fcp"
+  storagePool: "aggr1"
+allowVolumeExpansion: True
+----

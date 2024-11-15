@@ -4,6 +4,9 @@ title: Utilizar Trident
 entries:
 - title: Prepare el nodo de trabajo
   url: "/trident-use/worker-node-prep.html"
+  entries:
+  - title: SCSI sobre Fibre Channel (FC)
+    url: "/trident-use/fcp.html"
 - title: Configurar y gestionar back-ends
   entries:
   - title: Descripción general
