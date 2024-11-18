@@ -4417,8 +4417,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="d58e744bd40cf0f8373ee5b2c7d11387" category="open-title">Descargar plugin para CPU Mac AMD64</block>
   <block id="fd3e558ef6c1af851bddabf0eb1945d7" category="open-title">Descargar plugin para CPU Mac ARM64</block>
   <block id="412a5def83fe5329b38679035cfea675" category="list-text">Activar permisos de ejecución para el binario:</block>
-  <block id="9bd9e61654b5ae02837f94c50605b5e3" category="list-text">Copie el plugin binario a la ruta de su elección:</block>
-  <block id="42be0effe300120c50a16b27b8feac25" category="list-text">Opcionalmente, para instalar el binario globalmente, copie el binario del plugin a una ruta global. Por ejemplo<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block>: O<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block> (es posible que necesite Privileges elevado):</block>
   <block id="b23c395acc963a69b0a5f06a20bb4887" category="section-title">Consulte la ayuda del complemento de la CLI de Trident</block>
   <block id="305f79cb740685921820521a57e525e5" category="paragraph">Puede utilizar las funciones de ayuda del plugin incorporado para obtener ayuda detallada sobre las capacidades del plugin:</block>
   <block id="09b4818c610e8f967a9f5257455a3a2a" category="list-text">Utilice la función de ayuda para ver la guía de uso:</block>
@@ -4986,4 +4984,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="aedb73fd0ccffbcf4bb3a5bc721b9603" category="list-text">Tome las snapshots de volumen y cree un volumen nuevo a partir de la copia de Snapshot.</block>
   <block id="aa2fd96b8dfdeb6aaaf2bb11da1413aa" category="list-text">Clone un FC-PVC existente.</block>
   <block id="de35bb06ba09c90d091b31450c61efd7" category="list-text">Cambie el tamaño de un volumen ya implementado.</block>
+  <block id="15286900a0d0667ffc4d515aeec6a1d2" category="list-text">Copie el binario del plugin a una ubicación definida en su variable PATH. Por ejemplo,<block ref="7512824c50c61ea8d89d0f193a4f72d1" prefix=" " category="inline-code"></block> o<block ref="ad2e864ce1a99daa836c3449f3ba705d" prefix=" " category="inline-code"></block> (puede que necesite Privileges elevado):</block>
+  <block id="b3062a04e26d499596575c6767c02c16" category="list-text">De manera opcional, puede copiar el binario en una ubicación del directorio inicial. En este caso, es posible que necesite agregar la ubicación a la variable PATH:</block>
 </blocks>
