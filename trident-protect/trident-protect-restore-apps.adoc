@@ -25,6 +25,9 @@ NOTE: Al restaurar una aplicación, todos los ganchos de ejecución configurados
 
 Cuando se restaura un backup en un espacio de nombres diferente con BackupRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo, pero la aplicación restaurada no se protege de forma automática mediante Trident Protect. Para proteger la aplicación restaurada, debe crear una aplicación CR para la aplicación restaurada para que esté protegida por Trident Protect.
 
+
+NOTE: Al restaurar un backup en un espacio de nombres diferente con los recursos existentes, no se alterará ningún recurso que comparta los nombres con los que aparecen en el backup. Para restaurar todos los recursos del backup, elimine y vuelva a crear el espacio de nombres objetivo, o restaure el backup en un nuevo espacio de nombres.
+
 [role="tabbed-block"]
 ====
 .Utilice un CR
@@ -121,9 +124,6 @@ tridentctl protect create backuprestore <my_restore_name> --backup <backup_names
 == Restaure desde un backup al espacio de nombres original
 
 Es posible restaurar un backup en el espacio de nombres original en cualquier momento.
-
-
-NOTE: Al restaurar un backup en un espacio de nombres con recursos existentes, no se alterará ningún recurso que comparta los nombres con los que aparecen en el backup. Para restaurar todos los recursos de un backup, elimine y vuelva a crear el espacio de nombres de destino, o restaure el backup en un nuevo espacio de nombres.
 
 [role="tabbed-block"]
 ====
