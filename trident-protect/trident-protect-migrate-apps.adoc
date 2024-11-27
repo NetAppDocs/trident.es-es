@@ -101,6 +101,7 @@ spec:
 ====
 .Restaure la instantánea con un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-snapshot-restore-cr.yaml`.
 . En el archivo creado, configure los siguientes atributos:
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Restaure la instantánea mediante la interfaz de línea de comandos
 --
+.Pasos
 . Restaure la instantánea en un espacio de nombres diferente, reemplazando los valores entre paréntesis por información de su entorno.
 +
 ** El `snapshot` argumento utiliza un espacio de nombres y un nombre de instantánea en el formato `<namespace>/<name>`.

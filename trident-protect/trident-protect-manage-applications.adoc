@@ -32,6 +32,7 @@ Debe crear un CR de aplicación para cada aplicación que desee gestionar con Tr
 ====
 .Agregar una aplicación mediante un CR
 --
+.Pasos
 . Cree el archivo CR de la aplicación de destino:
 +
 .. Cree el archivo de recursos personalizados (CR) y asígnele un nombre (por ejemplo, `maria-app.yaml`).
@@ -64,6 +65,7 @@ spec:
 --
 .Agregue una aplicación mediante la CLI
 --
+.Pasos
 . Cree y aplique la definición de la aplicación, sustituyendo los valores entre paréntesis por la información de su entorno. Puede incluir espacios de nombres y recursos en la definición de la aplicación mediante listas separadas por comas con los argumentos que se muestran en el siguiente ejemplo:
 +
 [source, console]

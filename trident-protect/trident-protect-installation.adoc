@@ -23,6 +23,7 @@ NOTE: De forma predeterminada, Trident Protect recopila información de soporte 
 ====
 .Instale Trident Protect de NetApp
 --
+.Pasos
 . Añada el repositorio Helm de Trident:
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: Debe configurar la virtualización para que funcione la funcionalidad de c
 --
 Puede instalar Trident Protect desde un registro de imágenes privado si su clúster de Kubernetes no puede acceder a Internet. En estos ejemplos, reemplace los valores entre paréntesis por información de su entorno:
 
+.Pasos
 . Tire de las siguientes imágenes a su máquina local, actualice las etiquetas y, a continuación, empújelas en su registro privado:
 +
 [source, console]

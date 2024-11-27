@@ -26,6 +26,7 @@ Puede crear una snapshot bajo demanda en cualquier momento.
 ====
 .Cree una instantánea con un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-snapshot-cr.yaml`.
 . En el archivo creado, configure los siguientes atributos:
 +
@@ -64,6 +65,7 @@ kubectl apply -f trident-protect-snapshot-cr.yaml
 --
 .Cree una copia Snapshot mediante la CLI
 --
+.Pasos
 . Cree la instantánea, reemplazando valores entre paréntesis con información de su entorno. Por ejemplo:
 +
 [source, console]
@@ -84,6 +86,7 @@ Puede realizar una copia de seguridad de una aplicación en cualquier momento.
 ====
 .Cree una copia de seguridad con un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-backup-cr.yaml`.
 . En el archivo creado, configure los siguientes atributos:
 +
@@ -129,6 +132,7 @@ kubectl apply -f trident-protect-backup-cr.yaml
 --
 .Cree un backup con la interfaz de línea de comandos
 --
+.Pasos
 . Cree el backup sustituyendo valores entre paréntesis con información de su entorno. Por ejemplo:
 +
 [source, console]
@@ -149,6 +153,7 @@ La política de protección protege una aplicación mediante la creación de sna
 ====
 .Crear un horario mediante un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-schedule-cr.yaml`.
 . En el archivo creado, configure los siguientes atributos:
 +
@@ -208,6 +213,7 @@ kubectl apply -f trident-protect-schedule-cr.yaml
 --
 .Cree una programación con la CLI
 --
+.Pasos
 . Cree el programa de protección, reemplazando los valores entre paréntesis con información de su entorno. Por ejemplo:
 +
 

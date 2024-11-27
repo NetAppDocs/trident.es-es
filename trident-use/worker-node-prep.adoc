@@ -35,7 +35,7 @@ NOTE: Recomendamos ONTAP 9,12 o posterior para NVMe/TCP.
 .Herramientas de SCSI sobre FC
 *SCSI sobre canal de fibra (FC) es una función de vista previa técnica en la versión Trident 24,10.*
 
-link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["Instale las herramientas iSCSI"] Si utiliza `ontap-san` con sanType `fcp` (SCSI sobre FC).
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["Instale las herramientas FC"] Si utiliza `ontap-san` con sanType `fcp` (SCSI sobre FC).
 
 Consulte link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"] si desea obtener más información.
 
@@ -325,3 +325,77 @@ cat /etc/nvme/hostnqn
 ----
 
 WARNING: Trident modifica `ctrl_device_tmo` el valor para garantizar que NVMe no se rinde en la ruta si deja de funcionar. No cambie esta configuración.
+
+
+
+== Instale las herramientas FC
+
+Instale las herramientas de FC mediante los comandos del sistema operativo.
+
+* Cuando se utilicen nodos de trabajador que ejecutan RHEL/RedHat CoreOS con VP FC, especifique `discard` mountOption en StorageClass para realizar la recuperación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de redhat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8 O POSTERIOR
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que `multipathd` se está ejecutando:
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que `multipath-tools` está activado y en ejecución:
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

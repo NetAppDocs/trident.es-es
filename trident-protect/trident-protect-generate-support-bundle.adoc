@@ -20,6 +20,7 @@ Trident Protect permite a los administradores generar paquetes que incluyen info
 ====
 .Cree un paquete de soporte mediante un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre (por ejemplo, `trident-protect-support-bundle.yaml`).
 . Configure los siguientes atributos:
 +
@@ -65,6 +66,7 @@ kubectl apply -f trident-protect-support-bundle.yaml
 --
 .Cree un bundle de soporte mediante la CLI
 --
+.Pasos
 . Cree el paquete de soporte, reemplazando valores entre paréntesis con la información del entorno.  `trigger-type`Determina si el grupo se crea inmediatamente o si la hora de creación está determinada por la programación, y puede ser `Manual` o. `Scheduled` El valor predeterminado es `Manual`.
 +
 Por ejemplo:

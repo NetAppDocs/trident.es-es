@@ -97,6 +97,7 @@ Puede crear un gancho de ejecución personalizado para una aplicación mediante 
 ====
 .Utilice un CR
 --
+.Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-hook.yaml`.
 . Configure los siguientes atributos para que coincidan con su entorno Trident Protect y la configuración de clúster:
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .Utilice la CLI
 --
+.Pasos
 . Cree el enlace de ejecución, sustituyendo los valores entre paréntesis por información de su entorno. Por ejemplo:
 +
 [source, console]
