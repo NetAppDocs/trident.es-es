@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-restore-apps.html
 keywords: trident, protect, restore, data, backup 
 summary: Es posible usar Trident Protect para restaurar la aplicación desde una snapshot o un backup. La restauración a partir de una snapshot existente será más rápida cuando se restaure la aplicación en el mismo clúster. 
 ---
-= Restaure las aplicaciones
+= Restaure aplicaciones mediante Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

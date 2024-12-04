@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: Puede crear un gancho de ejecución personalizado para una aplicación mediante Trident Protect. Necesita tener permisos de propietario, administrador o miembro para crear enlaces de ejecución. 
 ---
-= Gestionar enlaces de ejecución
+= Gestionar los enlaces de ejecución de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
