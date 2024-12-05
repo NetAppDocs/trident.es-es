@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/intro.html 
-keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, node pod, controller pod, pods, csi, sidecar 
 summary: 'Trident es un proyecto de código abierto totalmente compatible y mantenido por NetApp. Se ha diseñado para ayudarle a cumplir las demandas de persistencia de sus aplicaciones en contenedores mediante interfaces estándar del sector, como la Container Storage Interface (CSI).' 
 ---
 = Obtenga más información sobre Trident
@@ -26,17 +26,6 @@ Trident también proporciona integración directa con el ecosistema de Docker pa
 
 
 NOTE: Si es la primera vez que usa Kubernetes, deberá familiarizarse con el link:https://kubernetes.io/docs/home/["Conceptos y herramientas de Kubernetes"^].
-
-
-
-== Realice la prueba de Trident
-
-Para realizar una prueba, solicite acceso a «Puesta en marcha y clonación sencilla de almacenamiento persistente para cargas de trabajo en contenedores» link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["Versión de prueba de NetApp"^] mediante una imagen de laboratorio lista para usar. La unidad de prueba proporciona un entorno de pruebas con un clúster de Kubernetes de tres nodos y Trident instalado y configurado. Esta es una excelente manera de familiarizarse con Trident y explorar sus características.
-
-Otra opción es la link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Guía de instalación de Kubeadm"] Proporcionado por Kubernetes.
-
-
-NOTE: No utilice un clúster de Kubernetes creado con estas instrucciones en un entorno de producción. Use las guías de puesta en marcha de producción proporcionadas por su distribución para clústeres listos para la producción.
 
 
 
