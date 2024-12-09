@@ -37,7 +37,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `managementLIF` | La dirección IP de un clúster o una LIF de gestión de SVM. Se puede especificar un nombre de dominio completo (FQDN). Se puede configurar para utilizar direcciones IPv6 si Trident se instaló con el indicador IPv6. Las direcciones IPv6 deben definirse entre corchetes, `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]` como . Para una conmutación de sitios MetroCluster fluida, consulte <<mcc-best>>. | “10.0.0.1”, “[2001:1234:abcd::fefe]” 
 
 
-| `dataLIF` | Dirección IP de LIF de protocolo. *No especifique para iSCSI.* Trident utiliza link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Asignación de LUN selectiva de ONTAP"^] para descubrir las LIF iSCSI necesarias para establecer una sesión de rutas múltiples. Se genera una advertencia si `dataLIF` se define explícitamente. *Omitir para MetroCluster.* Consulte la <<mcc-best>>. | Derivado del SVM 
+| `dataLIF` | Dirección IP de LIF de protocolo. Se puede configurar para utilizar direcciones IPv6 si Trident se instaló con el indicador IPv6. Las direcciones IPv6 deben definirse entre corchetes, `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]` como . *No especifique para iSCSI.* Trident utiliza link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Asignación de LUN selectiva de ONTAP"^] para descubrir las LIF iSCSI necesarias para establecer una sesión de rutas múltiples. Se genera una advertencia si `dataLIF` se define explícitamente. *Omitir para MetroCluster.* Consulte la <<mcc-best>>. | Derivado del SVM 
 
 
 | `svm` | Máquina virtual de almacenamiento que usar

@@ -144,13 +144,6 @@ A partir del lanzamiento de la versión 24,10, Astra Trident cambia la marca a T
 
 
 
-=== Amortización
-
-* Se ha eliminado el soporte para EOL Windows Server 2019.
-
-
-
-
 == Cambios en 24,02
 
 
