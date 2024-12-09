@@ -36,7 +36,7 @@ Configure los ajustes de nodo y red necesarios para FC.
 
 === Ajustes de red
 
-. Obtenga el WWPN de las interfaces de destino. Consulte link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["se muestra la interfaz de red"^] si desea obtener más información.
+. Obtenga el WWPN de las interfaces de destino. Consulte https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["se muestra la interfaz de red"^] si desea obtener más información.
 . Obtenga el WWPN de las interfaces del iniciador (host).
 +
 Consulte las utilidades del sistema operativo host correspondientes.
