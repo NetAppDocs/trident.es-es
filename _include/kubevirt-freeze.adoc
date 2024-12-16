@@ -1,0 +1,31 @@
+= 
+:allow-uri-read: 
+
+
+Trident Protect 24,10 y 24.10.1 y versiones posteriores tienen un comportamiento distinto al proteger las aplicaciones que se ejecutan en máquinas virtuales de KubeVirt. En ambas versiones, puede habilitar o deshabilitar la congelación y descongelación del sistema de archivos durante las operaciones de protección de datos.
+
+[NOTE]
+====
+Para todas las versiones de Trident Protect, para activar o desactivar la funcionalidad de congelación automática en entornos de OpenShift, es posible que deba otorgar permisos con privilegios al espacio de nombres de la aplicación. Por ejemplo:
+
+[source, console]
+----
+oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
+----
+====
+.Trident Protect 24,10
+Trident Protect 24,10 no garantiza automáticamente un estado coherente para los sistemas de archivos de máquinas virtuales KubeVirt durante las operaciones de protección de datos. Si desea proteger los datos de las máquinas virtuales KubeVirt con Trident Protect 24,10, debe habilitar manualmente la funcionalidad de congelación/descongelación para los sistemas de archivos antes de la operación de protección de datos. Esto garantiza que los sistemas de archivos estén en un estado consistente.
+
+Puede configurar Trident Protect 24,10 para gestionar la congelación y descongelación del sistema de archivos de la máquina virtual durante las operaciones de protección de datos, mediante link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configurar la virtualización"^]el siguiente comando:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
+----
+.Trident Protect 24.10.1 y posterior
+A partir de Trident Protect 24.10.1, Trident Protect congela y descongela automáticamente los sistemas de archivos KubeVirt durante las operaciones de protección de datos. De manera opcional, puede deshabilitar este comportamiento automático mediante el siguiente comando:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
+----

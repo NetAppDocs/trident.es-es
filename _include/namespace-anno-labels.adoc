@@ -1,0 +1,83 @@
+= Etiquetas y anotaciones del espacio de nombres durante las operaciones de restauración y conmutación al nodo de respaldo
+:allow-uri-read: 
+
+
+
+
+== Etiquetas y anotaciones del espacio de nombres durante las operaciones de restauración y conmutación al nodo de respaldo
+
+Durante las operaciones de restauración y conmutación al nodo de respaldo, se realizan etiquetas y anotaciones en el espacio de nombres de destino que coincidan con las etiquetas y anotaciones en el espacio de nombres de origen. Se añaden etiquetas o anotaciones del espacio de nombres origen que no existen en el espacio de nombres destino, y las etiquetas o anotaciones que ya existan se sobrescriben para que coincidan con el valor del espacio de nombres origen. Las etiquetas o anotaciones que sólo existen en el espacio de nombres de destino permanecen sin cambios.
+
+
+NOTE: Si utiliza RedHat OpenShift, es importante tener en cuenta el papel fundamental de las anotaciones de espacio de nombres en entornos OpenShift. Las anotaciones del espacio de nombres garantizan que los pods restaurados cumplan los permisos y las configuraciones de seguridad adecuados definidos por las restricciones de contexto de seguridad (SCCs) de OpenShift y puedan acceder a los volúmenes sin problemas de permiso. Para obtener más información, consulte la https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/authentication_and_authorization/managing-pod-security-policies["Documentación de restricciones de contexto de seguridad de OpenShift"^].
+
+Puede evitar que se sobrescriban anotaciones específicas en el espacio de nombres de destino mediante el establecimiento de la variable de entorno de Kubernetes `RESTORE_SKIP_NAMESPACE_ANNOTATIONS` antes de llevar a cabo la operación de restauración o conmutación por error. Por ejemplo:
+
+[source, console]
+----
+kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+----
+Si instaló la aplicación de origen con Helm con el `--create-namespace` indicador, se le dará un tratamiento especial a la `name` clave de etiqueta. Durante el proceso de restauración o recuperación tras fallos, Trident protege esta etiqueta al espacio de nombres de destino, pero actualiza el valor al valor del espacio de nombres de destino si el valor del origen coincide con el espacio de nombres de origen. Si este valor no coincide con el espacio de nombres de origen, se copia al espacio de nombres de destino sin cambios.
+
+
+
+=== Ejemplo
+
+El siguiente ejemplo presenta un espacio de nombres de origen y destino, cada uno con anotaciones y etiquetas diferentes. Puede ver el estado del espacio de nombres de destino antes y después de la operación, así como cómo las anotaciones y etiquetas se combinan o sobrescriben en el espacio de nombres de destino.
+
+
+
+==== Antes de la operación de restauración o conmutación por error
+
+En la siguiente tabla se muestra el estado del ejemplo de espacios de nombres de origen y destino antes de la operación de restauración o conmutación por error:
+
+[cols="1,2a,2a"]
+|===
+| Espacio de nombres | Anotaciones | Etiquetas 
+
+
+| Espacio de nombres ns-1 (origen)  a| 
+* anotación.uno/clave: “updatedvalue”
+* anotación.dos/clave: “verdadero”
+
+ a| 
+* entorno=producción
+* cumplimiento=hipaa
+* name=ns-1
+
+
+
+
+| Espacio de nombres ns-2 (destino)  a| 
+* anotación.uno/tecla: “verdadero”
+* anotación.tres/clave: “falso”
+
+ a| 
+* role=base de datos
+
+
+|===
+
+
+==== Después de la operación de restauración
+
+En la siguiente tabla se muestra el estado del espacio de nombres de destino de ejemplo después de la operación de restauración o conmutación por error. Se han agregado algunas claves, algunas se han sobrescrito y la `name` etiqueta se ha actualizado para que coincida con el espacio de nombres de destino:
+
+[cols="1,2a,2a"]
+|===
+| Espacio de nombres | Anotaciones | Etiquetas 
+
+
+| Espacio de nombres ns-2 (destino)  a| 
+* anotación.uno/clave: “updatedvalue”
+* anotación.dos/clave: “verdadero”
+* anotación.tres/clave: “falso”
+
+ a| 
+* name=ns-2
+* cumplimiento=hipaa
+* entorno=producción
+* role=base de datos
+
+
+|===

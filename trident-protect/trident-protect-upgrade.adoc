@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-upgrade.html 
+keywords: trident, protect, netapp, upgrade, new, version 
+summary: Puede actualizar Trident Protect a la última versión para aprovechar las nuevas funciones o correcciones de errores. 
+---
+= Actualice Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede actualizar Trident Protect a la última versión para aprovechar las nuevas funciones o correcciones de errores.
+
+Para actualizar Trident Protect, realice los siguientes pasos.
+
+.Pasos
+. Actualice el repositorio de Trident Helm:
++
+[source, console]
+----
+helm repo update
+----
+. Actualice los CRD de Trident Protect:
++
+[source, console]
+----
+helm upgrade trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.1  --namespace trident-protect
+----
+. Actualizar Trident Protect:
++
+[source, console]
+----
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2410.1 --namespace trident-protect
+----
+

@@ -14,7 +14,10 @@ summary: Proteger todas las aplicaciones mediante la toma de snapshots y backups
 
 
 [role="lead"]
-Proteger todas las aplicaciones mediante la toma de snapshots y backups a través de una política de protección automatizada o de manera ad hoc.
+Puede proteger todas las aplicaciones gestionadas por Trident Protect al tomar copias Snapshot y backups usando una política de protección automatizada o ad hoc.
+
+
+NOTE: Puede configurar Trident Protect para congelar y descongelar sistemas de archivos durante las operaciones de protección de datos. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Obtenga más información sobre cómo configurar la congelación del sistema de archivos con Trident Protect"].
 
 
 
