@@ -5022,5 +5022,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">Actualizar Trident Protect:</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">Si corresponde, se congelan los sistemas de archivos. <block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>.</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">Los sistemas de archivos congelados se descongelan, si corresponde.</block>
-  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*ResourceFilter.resourceMatchers*: Una matriz de objetos resourceMatcher. Si define varios elementos en esta matriz, coinciden como una OPERACIÓN OR y los campos dentro de cada elemento (grupo, tipo, versión) coinciden como una operación AND.</block>
+  <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*ResourceFilter.resourceMatchers*: Una matriz de objetos resourceMatcher. Si define varios elementos en esta matriz, coinciden como una OPERACIÓN OR y los campos dentro de cada elemento (grupo, tipo, versión) coinciden como una operación AND.</block>
 </blocks>
