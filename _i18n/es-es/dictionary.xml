@@ -4476,9 +4476,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="1c7b9a68982aa2ad5f1d69eeb5bdf99e" category="inline-link-macro">Restaure los datos del backup</block>
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>.</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">Clone en otro clúster</block>
-  <block id="1fe732d5921038b3ec81023b7a5d8068" category="paragraph">Para clonar una aplicación en un clúster diferente (realizar un clon entre clústeres), crear una instantánea o realizar un backup y restaurar los datos en otro clúster. Asegúrese de que Trident Protect está instalado en el clúster de destino.</block>
-  <block id="884bacf23a56346ab0468809c6cb7145" category="list-text">Asegúrese de que se ha configurado el CR de AppVault para el depósito de almacenamiento de objetos que contiene la copia de seguridad o la instantánea en el clúster de destino.</block>
-  <block id="f5c64bf182766988d3561488bae5bf83" category="list-text">En el clúster de destino, realice una de las siguientes acciones, según si se creó una snapshot o un backup:</block>
   <block id="181aa092ab965b34bcee90e25056f876" category="section-title">Migre aplicaciones de una clase de almacenamiento a otra clase de almacenamiento</block>
   <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">Puede migrar aplicaciones de una clase de almacenamiento a otra clase de almacenamiento restaurando una instantánea a otra clase de almacenamiento de destino.</block>
   <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">Por ejemplo (excluyendo los secretos de la CR de restauración):</block>
@@ -5020,4 +5017,10 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="f266533c568f7d6d2cb55d3ef8fa6b5b" category="list-text">En la página *Configure selected add-ons settings*, haga lo siguiente:</block>
   <block id="effa92215c770083617150adc291c130" category="list-text">Expanda la *Configuración opcional* y modifique según sea necesario.</block>
   <block id="c44618c9f0d840029b691a1dee65b927" category="paragraph"><block ref="7111ba434e6642bb1d25b7f45b940c41" prefix="" category="inline-code"></block></block>
+  <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">Para clonar una aplicación en un clúster diferente (realizar un clon entre clústeres), crear un backup en el clúster de origen y, a continuación, restaurar el backup en un clúster diferente. Asegúrese de que Trident Protect está instalado en el clúster de destino.</block>
+  <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">Replicación de SnapMirror</block>
+  <block id="f6acb98f21e25882aaaa267339abcc92" category="admonition">Puede replicar una aplicación entre diferentes clusters mediante <block ref="69314cba6d14bf88b8e850c978056766" category="inline-link-macro-rx"></block>.</block>
+  <block id="fe961357dbe4b6bf8b5503f4919ea35c" category="list-text">Asegúrese de que el CR de AppVault para el depósito de almacenamiento de objetos que contiene la copia de seguridad se haya configurado en el clúster de destino.</block>
+  <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">restaure los datos del backup</block>
+  <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">En el clúster de destino, <block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>.</block>
 </blocks>
