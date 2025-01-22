@@ -43,6 +43,7 @@ Puede crear una snapshot bajo demanda en cualquier momento.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -112,6 +113,7 @@ Puede realizar una copia de seguridad de una aplicación en cualquier momento.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Backup
 metadata:
@@ -186,6 +188,7 @@ La política de protección protege una aplicación mediante la creación de sna
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:
