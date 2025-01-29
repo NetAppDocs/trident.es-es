@@ -102,7 +102,7 @@ En la siguiente tabla se muestra el estado del espacio de nombres de destino de 
 
 == Restauración desde un backup a un espacio de nombres diferente
 
-Cuando se restaura un backup en un espacio de nombres diferente con BackupRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo, pero la aplicación restaurada no se protege de forma automática mediante Trident Protect. Para proteger la aplicación restaurada, debe crear una aplicación CR para la aplicación restaurada para que esté protegida por Trident Protect.
+Cuando se restaura un backup en un espacio de nombres diferente con BackupRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree backups o snapshots bajo demanda, o establezca una programación de protección.
 
 
 NOTE: Al restaurar un backup en un espacio de nombres diferente con los recursos existentes, no se alterará ningún recurso que comparta los nombres con los que aparecen en el backup. Para restaurar todos los recursos del backup, elimine y vuelva a crear el espacio de nombres objetivo, o restaure el backup en un nuevo espacio de nombres.
@@ -314,7 +314,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 == Restauración desde una copia snapshot a un espacio de nombres diferente
 
-Puede restaurar datos desde una copia Snapshot con un archivo de recurso personalizado (CR) en un espacio de nombres diferente o en el espacio de nombres de origen original. Cuando se restaura una snapshot en un espacio de nombres diferente con SnapshotRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo, pero la aplicación restaurada no queda protegida de forma automática mediante Trident Protect. Para proteger la aplicación restaurada, debe crear una aplicación CR para la aplicación restaurada para que esté protegida por Trident Protect.
+Puede restaurar datos desde una copia Snapshot con un archivo de recurso personalizado (CR) en un espacio de nombres diferente o en el espacio de nombres de origen original. Al restaurar una snapshot en un espacio de nombres diferente con SnapshotRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree backups o snapshots bajo demanda, o establezca una programación de protección.
 
 [role="tabbed-block"]
 ====
