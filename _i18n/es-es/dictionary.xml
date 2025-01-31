@@ -4540,7 +4540,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="77c9498d5c74a08af1c5918bd5fd8ee1" category="paragraph">Cuando no se habilita el directorio Snapshot, Trident Protect elige la funcionalidad normal de backup, que consume temporalmente el espacio del pool de capacidad durante el proceso de backup. En este caso, asegúrese de que haya espacio suficiente disponible en el pool de capacidad para crear un volumen temporal del tamaño del volumen del que se va a realizar el backup.</block>
   <block id="2efd4c8775ce47d6aa29183091d2a4e2" category="paragraph">La aplicación está lista para backup y restauración con Trident Protect. Otras aplicaciones también pueden utilizar cada RVP para realizar backups y restauraciones de datos.</block>
   <block id="697f51e8965440d487236d46d469510d" category="summary">Comience verificando la preparación de su entorno operativo, clústeres de aplicaciones, aplicaciones y licencias. Asegúrese de que su entorno cumpla los siguientes requisitos para poner en marcha y operar Trident Protect.</block>
-  <block id="f52842953ff751bb11c3849b84337de2" category="section-title">Trident protege la compatibilidad con Kubernetes</block>
   <block id="c8f91050b5ec3e677d9c7e16e424f9bc" category="paragraph">Trident Protect es compatible con una amplia gama de ofertas de Kubernetes totalmente gestionadas y autogestionadas, entre las que se incluyen:</block>
   <block id="480c9b5f979d1ce95ea2a58b09826d1b" category="list-text">Amazon Elastic Kubernetes Service (EKS)</block>
   <block id="974030a30a48754684d05541fd5e96c9" category="list-text">Google Kubernetes Engine (GKE)</block>
@@ -5024,4 +5023,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="375efef64643c8aa6bb8e0ba2159a82a" category="list-text">Active los permisos de ejecución para el binario del plugin:</block>
   <block id="eefd51253afc93c1ad54658882a65dec" category="list-text">Opcionalmente, puede copiar el binario del plugin a una ubicación en su directorio principal. En este caso, se recomienda asegurarse de que la ubicación forma parte de la variable PATH:</block>
   <block id="75b0e724fe59ed9d6eda0fcd4679bfee" category="admonition">Copiar el plugin a una ubicación en su variable PATH le permite usar el plugin escribiendo<block ref="d4845d5856667a10aee97f3404a35627" prefix=" " category="inline-code"></block> o<block ref="e89ec374c6edc886ea12d28524834e68" prefix=" " category="inline-code"></block> desde cualquier ubicación.</block>
+  <block id="dc5b2d9ecd49d3e5ee37059e2d80512f" category="section-title">La compatibilidad de clústeres de Kubernetes de Trident protege</block>
+  <block id="9ac0dd27d420b7b48ca72e463ae95e18" category="inline-link">estas instrucciones</block>
+  <block id="664d28801abc192d5c7dfd7bfa758e98" category="admonition">Asegúrese de que el clúster en el que instala Trident Protect está configurado con un controlador de instantáneas en ejecución y los CRD relacionados. Para instalar un controlador de instantánea, consulte<block ref="5d66944a2971d1b9b5f332812a6e737b" category="inline-link-rx"></block> .</block>
 </blocks>
