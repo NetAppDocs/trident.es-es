@@ -16,3 +16,5 @@ entries:
     url: "/trident-reco/security-reco.html"
   - title: Configuración de clave unificada de Linux (LUKS)
     url: "/trident-reco/security-luks.html"
+  - title: Cifrado en tránsito de Kerberos
+    url: "/trident-reco/kerberos-inflight-encryption.html"

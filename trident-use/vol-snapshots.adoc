@@ -242,6 +242,98 @@ NOTE: Cuando se restaura una copia Snapshot, se sobrescribe la configuración de
 
 
 
+== Restauración de volumen sin movimiento a partir de una copia de Snapshot
+
+Trident permite restaurar volumen rápida y in situ a partir de una snapshot mediante `TridentActionSnapshotRestore` (TASR) CR. Esta CR funciona como una acción imprescindible de Kubernetes y no persiste una vez que finaliza la operación.
+
+Trident soporta la restauración de instantáneas en `ontap-san` , , `ontap-san-economy`, , `ontap-nas`, `ontap-nas-flexgroup` `azure-netapp-files` , `gcp-cvs`, `google-cloud-netapp-volumes` y `solidfire-san` los conductores.
+
+.Antes de empezar
+Debe tener una snapshot de volumen disponible y la RVP vinculada.
+
+* Compruebe que el estado de la RVP es de enlace.
++
+[listing]
+----
+kubectl get pvc
+----
+* Compruebe que la copia de Snapshot de volumen esté lista para utilizarse.
++
+[listing]
+----
+kubectl get vs
+----
+
+
+.Pasos
+. Cree el CR de TASR. En este ejemplo, se crea una CR para la RVP `pvc1` y una instantánea de volumen `pvc1-snapshot`.
++
+
+NOTE: El TASR CR debe estar en un espacio de nombres donde exista la PVC y VS.
+
+
+
+[listing]
+----
+cat tasr-pvc1-snapshot.yaml
+
+apiVersion: trident.netapp.io/v1
+kind: TridentActionSnapshotRestore
+metadata:
+  name: trident-snap
+  namespace: trident
+spec:
+  pvcName: pvc1
+  volumeSnapshotName: pvc1-snapshot
+----
+. Aplique el CR para restaurar a partir de la instantánea. Este ejemplo restaura desde la instantánea `pvc1`.
++
+[listing]
+----
+kubectl create -f tasr-pvc1-snapshot.yaml
+
+tridentactionsnapshotrestore.trident.netapp.io/trident-snap created
+----
+
+
+.Resultados
+Trident restaura los datos a partir de la copia Snapshot. Es posible verificar el estado de restauración de la Snapshot.
+
+[listing]
+----
+kubectl get tasr -o yaml
+
+apiVersion: trident.netapp.io/v1
+items:
+- apiVersion: trident.netapp.io/v1
+  kind: TridentActionSnapshotRestore
+  metadata:
+    creationTimestamp: "2023-04-14T00:20:33Z"
+    generation: 3
+    name: trident-snap
+    namespace: trident
+    resourceVersion: "3453847"
+    uid: <uid>
+  spec:
+    pvcName: pvc1
+    volumeSnapshotName: pvc1-snapshot
+  status:
+    startTime: "2023-04-14T00:20:34Z"
+    completionTime: "2023-04-14T00:20:37Z"
+    state: Succeeded
+kind: List
+metadata:
+  resourceVersion: ""
+----
+[NOTE]
+====
+* En la mayoría de los casos, Trident no vuelve a intentar automáticamente la operación en caso de fallo. Deberá realizar la operación de nuevo.
+* Es posible que el administrador deba conceder permiso al usuario de Kubernetes sin acceso de administrador para crear una CR TASR en su espacio de nombres de la aplicación.
+
+
+====
+
+
 == Eliminar un VP con snapshots asociadas
 
 Cuando se elimina un volumen persistente con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un “estado de eliminación”. Quite las copias de Snapshot de volumen para eliminar el volumen de Trident.
