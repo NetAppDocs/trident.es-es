@@ -5186,4 +5186,17 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1,25 - 1,32</block>
   <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1,25 - 1,32</block>
   <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0</block>
+  <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">Restauración desde un backup en otro clúster</block>
+  <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">Puede restaurar un backup a otro clúster si hay un problema con el clúster original.</block>
+  <block id="17e2d63e3b45ecbfe13bcc32fec929d0" category="paragraph">*Antes de empezar*</block>
+  <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">Asegúrese de que se cumplen los siguientes requisitos previos:</block>
+  <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">El clúster de destino tiene instalado Trident Protect.</block>
+  <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">El clúster de destino tiene acceso a la ruta de bloque de la misma AppVault que el clúster de origen, en la que se almacena el backup.</block>
+  <block id="0425d0358a4cba7a7cce5ddd727ab6a2" category="list-text">Compruebe la disponibilidad de AppVault CR en el clúster de destino mediante el complemento de CLI de Trident Protect:</block>
+  <block id="1ff83a5266e9e025c2984e0c10dea90e" category="admonition">Asegúrese de que el espacio de nombres destinado para la restauración de la aplicación exista en el clúster de destino.</block>
+  <block id="8d433ae9a21c49e9e5433ebd408605c0" category="list-text">Visualice el contenido de las copias de seguridad del AppVault disponible desde el clúster de destino:</block>
+  <block id="378e6f0ba7080535a4462b5311befb40" category="paragraph">Al ejecutar este comando, se muestran las copias de seguridad disponibles en AppVault, incluidos sus clústeres de origen, los nombres de aplicaciones correspondientes, las marcas de tiempo y las rutas de archivo.</block>
+  <block id="053aba80de03f3fdf626d1c858342330" category="list-text">Restaure la aplicación en el clúster de destino mediante el nombre de AppVault y la ruta de archivo:</block>
+  <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">Si BackupRestore CR no está disponible, puede usar el comando mencionado en el paso 2 para ver el contenido de la copia de seguridad.</block>
+  <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">Utilice el siguiente comando para restaurar la aplicación, sustituyendo valores entre paréntesis por información de su entorno. El argumento de asignación de espacio de nombres utiliza espacios de nombres separados por dos puntos para asignar espacios de nombres de origen a los espacios de nombres de destino correctos con el formato source1:DEST1,source2:DEST2. Por ejemplo:</block>
 </blocks>
