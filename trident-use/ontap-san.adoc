@@ -26,7 +26,7 @@ Trident proporciona los siguientes controladores de almacenamiento SAN para comu
 
 
 | `ontap-san`  a| 
-ISCSI
+SCSI iSCSI sobre FC (versión preliminar técnica en Trident 24,10)
  a| 
 Bloque
  a| 
@@ -37,7 +37,7 @@ Sin sistema de archivos; dispositivo de bloque sin procesar
 
 
 | `ontap-san`  a| 
-ISCSI
+SCSI iSCSI sobre FC (versión preliminar técnica en Trident 24,10)
  a| 
 Sistema de archivos
  a| 
