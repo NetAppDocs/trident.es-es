@@ -54,7 +54,7 @@ Restricción opcional de los tamaños de volumen. Valor por defecto: '' (no forz
 
 |===
 
-TIP: No utilizar `storagePrefix` (Incluido el valor predeterminado) para los back-ends de Element. De forma predeterminada, la `solidfire-san` el controlador ignorará este ajuste y no utilizará un prefijo. Se recomienda utilizar un tenantID específico para la asignación de volúmenes de Docker o utilizar los datos de atributos que se rellenan con la versión de Docker, la información del controlador y el nombre sin formato de Docker en casos en los que se pueda haber utilizado cualquier comando de asignación de nombres.
+TIP: No utilice `storagePrefix` (incluido el valor predeterminado) para los back-ends de elementos. De forma predeterminada, el `solidfire-san` controlador ignorará esta configuración y no utilizará un prefijo. NetApp recomienda usar un tenantID específico para la asignación de volúmenes de Docker o el uso de los datos del atributo que se rellenan con la versión de Docker, la información del controlador y el nombre sin procesar de Docker en casos en los que se haya utilizado cualquier munging del nombre.
 
 Las opciones predeterminadas están disponibles para evitar tener que especificarlas en cada volumen que cree. La `size` la opción está disponible para todos los tipos de controladoras. Consulte la sección ONTAP Configuration para obtener un ejemplo de cómo establecer el tamaño de volumen predeterminado.
 
@@ -90,9 +90,9 @@ Dirección IP de LIF de gestión de ONTAP. Es posible especificar un nombre de d
 | `dataLIF`  a| 
 Dirección IP de LIF de protocolo.
 
-*Controladores NAS ONTAP*: Recomendamos especificar `dataLIF`. Si no se encuentra, Trident recupera los LIF de datos desde la SVM. Puede especificar un nombre de dominio completo (FQDN) para las operaciones de montaje de NFS, lo que permite crear un DNS round-robin para lograr el equilibrio de carga entre varios LIF de datos.
+*Controladores NAS de ONTAP*: NetApp recomienda especificar `dataLIF`. Si no se encuentra, Trident recupera los LIF de datos desde la SVM. Puede especificar un nombre de dominio completo (FQDN) para las operaciones de montaje de NFS, lo que permite crear un DNS round-robin para lograr el equilibrio de carga entre varios LIF de datos.
 
-*Controladores SAN ONTAP*: No se especifica para iSCSI. Trident utiliza link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Asignación de LUN selectiva de ONTAP"^] para descubrir las LIF iSCSI necesarias para establecer una sesión de rutas múltiples. Se genera una advertencia si `dataLIF` se define explícitamente.
+*Controladores SAN ONTAP*: No especifique para iSCSI o FC. Trident utiliza link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Asignación de LUN selectiva de ONTAP"^] para detectar las LIF iSCSI o FC necesarias para establecer una sesión multivía. Se genera una advertencia si `dataLIF` se define explícitamente.
  a| 
 `10.0.0.2`
 
@@ -169,7 +169,7 @@ El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300],
 
  a| 
 `sanType`
-| *Compatible solo para `ontap-san` el conductor.* Utilice para seleccionar `iscsi` para iSCSI, `nvme` para NVMe/TCP o `fcp` para SCSI over Fibre Channel (FC). *'fcp' (SCSI sobre FC) es una función de previsualización técnica en la versión Trident 24,10.* | `iscsi` si está en blanco 
+| *Compatible solo para `ontap-san` el conductor.* Utilice para seleccionar `iscsi` para iSCSI, `nvme` para NVMe/TCP o `fcp` para SCSI over Fibre Channel (FC). | `iscsi` si está en blanco 
 
 
 | `limitVolumePoolSize` | *Compatible `ontap-san-economy` `ontap-san-economy` solo para conductores y.* Limita el tamaño de FlexVol en los controladores económicos de ONTAP ONTAP-nas y ONTAP-SAN.  a| 
@@ -260,7 +260,7 @@ Opción SAN para seleccionar el tipo de sistema de archivos, de forma predetermi
 
 
 | `tieringPolicy`  a| 
-Política de organización en niveles que se va a utilizar, el valor predeterminado es `none`; `snapshot-only` Para configuraciones anteriores a ONTAP 9,5 SVM-DR
+Política de organización en niveles que se debe utilizar, el valor por defecto es `none`.
  a| 
 `none`
 
@@ -269,16 +269,16 @@ Política de organización en niveles que se va a utilizar, el valor predetermin
 
 === Opciones de escala
 
-La `ontap-nas` y.. `ontap-san` Los controladores crean un ONTAP FlexVol para cada volumen Docker. ONTAP admite un máximo de 1000 FlexVols por nodo del clúster con un máximo de 12,000 FlexVols. Si los requisitos de su volumen de Docker se ajustan a esa limitación, el `ontap-nas` El controlador es la solución NAS preferida debido a las características adicionales que ofrece FlexVols, como las copias Snapshot granulares en Docker-volume y el clonado.
+Los `ontap-nas` controladores y `ontap-san` crean un ONTAP FlexVol para cada volumen Docker. ONTAP admite hasta 1000 FlexVols por nodo del clúster con un máximo de 12.000 volúmenes FlexVol Si los requisitos de volumen Docker se ajustan a esta limitación, `ontap-nas` el controlador es la solución NAS preferida debido a las funciones adicionales que ofrece FlexVols, como las copias Snapshot granulares de volumen Docker y el clonado.
 
 Si necesita más volúmenes de Docker de los que pueden alojar los límites de FlexVol, seleccione la `ontap-nas-economy` o la `ontap-san-economy` controlador.
 
-La `ontap-nas-economy` El controlador crea volúmenes Docker como ONTAP Qtrees dentro de un pool de FlexVols gestionados automáticamente. Qtrees ofrece un escalado mucho mayor, hasta 100,000 por nodo de clúster y 2,400,000 por clúster, a expensas de algunas funciones. La `ontap-nas-economy` El controlador no admite el clonado o copias Snapshot granulares en volúmenes de Docker.
+ `ontap-nas-economy`El controlador crea volúmenes de Docker como qtrees de ONTAP dentro de un pool de FlexVol Volumes Qtrees gestionados automáticamente ofrecen un escalado mucho mayor, hasta 100.000 PB por nodo del clúster y 2.400.000 PB por clúster, a expensas de algunas funciones.  `ontap-nas-economy`El controlador no admite copias Snapshot granulares de volumen Docker ni clonado.
 
 
 NOTE: La `ontap-nas-economy` Actualmente, Docker Swarm no admite el controlador, porque Swarm no orqueste la creación de volúmenes entre varios nodos.
 
-La `ontap-san-economy` El controlador crea volúmenes Docker como LUN de ONTAP en un pool compartido de FlexVols gestionados automáticamente. De este modo, cada FlexVol no está restringido a solo un LUN y ofrece una mejor escalabilidad para cargas DE trabajo SAN. Según la cabina de almacenamiento, ONTAP admite hasta 16384 LUN por clúster. Dado que los volúmenes son LUN en el interior, este controlador admite copias Snapshot granulares en Docker y clonado de volúmenes.
+ `ontap-san-economy`El controlador crea volúmenes de Docker como LUN de ONTAP dentro de un pool compartido de volúmenes de FlexVol gestionados automáticamente de esta forma, cada FlexVol no se limita a un solo LUN y ofrece una mejor escalabilidad para cargas de trabajo SAN. Según la cabina de almacenamiento, ONTAP admite hasta 16384 LUN por clúster. Dado que los volúmenes son LUN en el interior, este controlador admite copias Snapshot granulares en Docker y clonado de volúmenes.
 
 Elija `ontap-nas-flexgroup` el controlador para aumentar el paralelismo hacia un único volumen que pueda crecer hasta alcanzar el rango de petabytes con miles de millones de archivos. Algunos casos de uso ideales para FlexGroups incluyen IA/ML/DL, Big Data y análisis, creación de software, streaming, repositorios de archivos, etc. Trident utiliza todos los agregados asignados a una SVM cuando se aprovisiona un volumen de FlexGroup. La compatibilidad con FlexGroup en Trident también tiene las siguientes consideraciones:
 
@@ -467,6 +467,24 @@ Consulte las siguientes páginas si quiere más información:
   "username":"vsadmin",
   "password":"password",
   "sanType": "nvme",
+  "useREST": true
+}
+----
+====
+.Ejemplo de SCSI sobre FC para el controlador <code> ONTAP-san</code>
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ontap-san-backend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "sanType": "fcp",
+  "svm": "trident_svm",
+  "username":"vsadmin",
+  "password":"password",
   "useREST": true
 }
 ----

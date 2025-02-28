@@ -12,7 +12,7 @@ summary: Obtén más información sobre las opciones de configuración del back-
 
 
 [role="lead"]
-Obtén más información sobre las opciones de configuración del back-end de NFS para Google Cloud NetApp Volumes y revisa los ejemplos de configuración.
+Obtén más información sobre las opciones de configuración del back-end para Google Cloud NetApp Volumes y revisa los ejemplos de configuración.
 
 
 
@@ -59,6 +59,9 @@ Cada back-end aprovisiona volúmenes en una única región de Google Cloud. Para
 
 
 | `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Ejemplo, `{"api":false, "method":true}`. No lo utilice a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 
+
+
+| `nasType` | Configure la creación de volúmenes NFS o SMB. Las opciones son `nfs`, `smb` o nulo. El valor predeterminado es nulo en volúmenes de NFS. | `nfs` 
 
 
 | `supportedTopologies` | Representa una lista de regiones y zonas soportadas por este backend. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"]. Por ejemplo:
@@ -165,6 +168,38 @@ spec:
     client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/myproject-prod%40my-gcnv-project.iam.gserviceaccount.com
   credentials:
     name: backend-tbc-gcnv-secret
+----
+====
+.Configuración para volúmenes SMB
+[%collapsible]
+====
+[listing]
+----
+
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcnv1
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: '123456789'
+  location: asia-east1
+  serviceLevel: flex
+  nasType: smb
+  apiKey:
+    type: service_account
+    project_id: cloud-native-data
+    client_email: trident-sample@cloud-native-data.iam.gserviceaccount.com
+    client_id: '123456789737813416734'
+    auth_uri: https://accounts.google.com/o/oauth2/auth
+    token_uri: https://oauth2.googleapis.com/token
+    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+    client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/trident-sample%40cloud-native-data.iam.gserviceaccount.com
+  credentials:
+    name: backend-tbc-gcnv-secret
+
 ----
 ====
 .Configuración con filtro StoragePools
@@ -400,11 +435,7 @@ Después de identificar y corregir el problema con el archivo de configuración,
 
 
 
-== Más ejemplos
-
-
-
-=== Ejemplos de definición de la clase de almacenamiento
+== Definiciones de clases de almacenamiento
 
 La siguiente es una definición básica `StorageClass` que hace referencia al backend anterior.
 
@@ -454,6 +485,67 @@ parameters:
 
 ----
 Para obtener más información sobre las clases de almacenamiento, consulte link:../trident-use/create-stor-class.html["Cree una clase de almacenamiento"^].
+
+
+
+=== Definiciones de ejemplo de volúmenes SMB
+
+Uso `nasType`, `node-stage-secret-name`, y.  `node-stage-secret-namespace`, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory.
+
+.Configuración básica en el espacio de nombres predeterminado
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: "default"
+
+----
+====
+.Uso de diferentes secretos por espacio de nombres
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+====
+.Uso de diferentes secretos por volumen
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-sc-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: ${pvc.name}
+  csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+----
+====
+
+NOTE: `nasType: smb` Filtra los pools que admiten volúmenes SMB. `nasType: nfs` o. `nasType: null` Filtros para pools NFS.
 
 
 

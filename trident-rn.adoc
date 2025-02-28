@@ -19,7 +19,97 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== ¿Cuáles son las novedades de 24,10
+== ¿Cuáles son las novedades de 25,02
+
+A partir de Trident 25,02, el nuevo resumen de los novedades proporciona detalles sobre mejoras, correcciones y bloqueos para versiones de Trident y Trident Protect.
+
+
+
+=== Trident
+
+
+
+==== Mejoras
+
+* *Kubernetes*:
++
+** Se ha añadido compatibilidad con ONTAP ASA R2 para iSCSI.
+** Se añadió compatibilidad con la desconexión forzada para volúmenes ONTAP-NAS durante los escenarios de apagado de nodos sin gracia. Los nuevos volúmenes ONTAP-NAS ahora utilizarán políticas de exportación por volumen que gestiona Trident. Se proporcionó una ruta de actualización para que los volúmenes existentes transitaran al nuevo modelo de política de exportación en la no publicación sin afectar a las cargas de trabajo activas.
+** Se ha añadido la anotación cloneFromSnapshot.
+** Compatibilidad añadida para la clonación de volúmenes de espacios de nombres entre nombres.
+** Se ha añadido la configuración de backend automática para el complemento EKS y la instalación basada en timón para Amazon FSx for NetApp ONTAP.
+** Soluciones de análisis de reparación automática de iSCSI mejoradas para iniciar análisis mediante host, canal, destino e ID de LUN exactos.
+** Añadido soporte para Kubernetes 1,32.
+
+
+* *OpenShift*:
++
+** Se añadió compatibilidad con la preparación automática de nodos iSCSI para RHCOS en clústeres ROSA.
+** Se ha añadido soporte para la virtualización de OpenShift para controladores ONTAP.
+
+
+* Se añadió compatibilidad con Fibre Channel en el controlador ONTAP-SAN.
+* Se añadió soporte NVMe LUKS.
+* Se ha cambiado a imagen de rasguño para todas las imágenes base.
+* Se han agregado la detección y el registro del estado de conexión iSCSI cuando las sesiones iSCSI deben iniciar sesión, pero no (link:https://github.com/NetApp/trident/issues/961["Problema n.o 961"]).
+* Se añadió compatibilidad con volúmenes SMB con el controlador google-cloud-NetApp-Volumes.
+* Se ha agregado compatibilidad para permitir que los volúmenes de ONTAP omitan la cola de recuperación durante la eliminación.
+* Se ha añadido soporte para sustituir las imágenes predeterminadas mediante SHAs en lugar de etiquetas.
+* Se ha añadido image-pull-secrets flag al instalador de tridentctl.
+
+
+
+
+==== Soluciones
+
+* *Kubernetes*:
++
+** Se corrigieron las direcciones IP del nodo que faltaban de las políticas de exportación automáticas (link:https://github.com/NetApp/trident/issues/965["Problema n.o 965"]).
+** Se corrigió el cambio prematuro de políticas de exportación automática a políticas por volumen para ONTAP-NAS-Economy.
+** Credenciales de configuración de backend fijas para admitir todas las particiones ARN de AWS disponibles (link:https://github.com/NetApp/trident/issues/913["Problema n.o 913"]).
+** Se ha añadido la opción para desactivar la reconciliación del configurador automático en el operador Trident (link:https://github.com/NetApp/trident/issues/924["Problema n.o 924"]).
+** Añadido securityContext para csi-resizer container (link:https://github.com/NetApp/trident/issues/976["Problema n.o 976"]).
+** Se han eliminado los cierres de sesión de los portales no CHAP que no están en mal estado durante la reparación automática de iSCSI (link:https://github.com/NetApp/trident/issues/961["Problema n.o 961"]).
+
+
+
+
+
+
+=== Trident Protect
+
+NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de aplicaciones de Kubernetes con estado respaldadas por los sistemas de almacenamiento de NetApp ONTAP y el aprovisionador de almacenamiento CSI de NetApp Trident.
+
+
+
+==== Mejoras
+
+* Se agregó soporte de backup y restauración para máquinas virtuales de virtualización KubeVirt / OpenShift para el almacenamiento volumeMode: File y volumeMode: Bloque (dispositivo sin procesar) a la replicación de almacenamiento ya disponible a través de AppMirrorRelationship.
+* Se ha añadido la capacidad de controlar el comportamiento de congelación a nivel de aplicación para entornos Kubevirt.
+* Se ha agregado soporte para configurar conexiones proxy AutoSupport.
+* Se agregó la capacidad de definir un secreto para el cifrado de los transmisores de datos (KOPIA / Restic).
+* Se ha añadido la capacidad de ejecutar manualmente un gancho de ejecución.
+* Se ha añadido la capacidad de configurar las restricciones de contexto de seguridad (SCCs) durante la instalación de Trident Protect.
+* Se ha añadido soporte para configurar nodeSelector durante la instalación de Trident Protect.
+* Se ha añadido soporte para el proxy de salida HTTP / HTTPS para objetos AppVault.
+* Filtro de recursos ampliado para permitir la exclusión de recursos de ámbito de cluster.
+* Se ha agregado soporte para el token de sesión de AWS en las credenciales de AppVault de S3.
+* Se ha agregado soporte para la recopilación de recursos después de los ganchos de ejecución previos a la instantánea.
+
+
+
+
+==== Soluciones
+
+* Se mejoró la gestión de volúmenes temporales para omitir la cola de recuperación de volúmenes de ONTAP.
+* Las anotaciones SCC ahora se restauran a los valores originales.
+* Eficiencia de restauración mejorada con compatibilidad para operaciones en paralelo.
+* Soporte mejorado para tiempos de espera de conexión de ejecución para aplicaciones de mayor tamaño.
+
+
+
+
+== Cambios en 24,10
 
 
 
@@ -63,7 +153,7 @@ link:./trident-protect/learn-about-trident-protect.html["Obtenga más informaci�
 
 ==== Mejoras experimentales
 
-* Se ha agregado una vista previa técnica para el soporte de Fibre Channel en el controlador ONTAP-SAN. Consulte link:./trident-use/fcp.html["Compatibilidad con Fibre Channel"].
+* Se ha agregado una vista previa técnica para el soporte de Fibre Channel en el controlador ONTAP-SAN.
 
 
 
@@ -112,7 +202,7 @@ A partir del lanzamiento de la versión 24,10, Astra Trident cambia la marca a T
 * Se ha añadido la capacidad de reparación automática de iSCSI para iniciar análisis de SCSI con un ID de LUN exacto si se están utilizando iGroups obsoletos (link:https://github.com/NetApp/trident/issues/883["Problema n.o 883"]).
 * Se ha añadido compatibilidad con operaciones de clones de volúmenes y cambio de tamaño que se permite incluso cuando el back-end está en modo suspendido.
 * Se ha agregado la capacidad de los ajustes de registro configurados por el usuario para que la controladora Trident se propague a los pods de nodos de Trident.
-* Se ha agregado soporte en Trident para usar REST DE forma predeterminada, en lugar de ZAPI para las versiones 9.15.1 y posteriores de ONTAP.
+* Se ha añadido compatibilidad en Trident para utilizar REST DE forma predeterminada, en lugar de ONTAPI (ZAPI) para las versiones 9.15.1 y posteriores de ONTAP.
 * Se ha añadido soporte para nombres de volúmenes y metadatos personalizados en los back-ends de almacenamiento de ONTAP para los nuevos volúmenes persistentes.
 * Se ha mejorado `azure-netapp-files` el controlador (ANF) para habilitar automáticamente el directorio Snapshot de forma predeterminada cuando las opciones de montaje de NFS se establecen para utilizar NFS versión 4.x.
 * Se ha añadido soporte para Bottlerocket para volúmenes NFS.
@@ -138,7 +228,7 @@ A partir del lanzamiento de la versión 24,10, Astra Trident cambia la marca a T
 * Se ha corregido el tridentctl para ignorar los mensajes de advertencia de Kubernetes (link:https://github.com/NetApp/trident/issues/892["Problema n.o 892"]).
 * Se ha cambiado la prioridad de la controladora Trident `SecurityContextConstraint` a `0` (link:https://github.com/NetApp/trident/issues/887["Problema n.o 887"]).
 * Los controladores ONTAP ahora aceptan tamaños de volumen inferiores a 20MiB (link:https://github.com/NetApp/trident/issues/885["Problema[#885"]).
-* Se corrigió Trident para evitar la reducción de FlexVols durante la operación de cambio de tamaño para el controlador ONTAP-SAN.
+* Se corrigió un Trident para evitar que se redujeran los volúmenes de FlexVol durante la operación de cambio de tamaño del controlador ONTAP-SAN.
 * Se corrigió un error de importación de volúmenes de ANF con NFS v4,1.
 
 
@@ -158,7 +248,7 @@ A partir del lanzamiento de la versión 24,10, Astra Trident cambia la marca a T
 
 * Se ha añadido soporte para instalar Trident como complemento en el clúster EKS desde la consola EKS.
 * Se ha añadido la capacidad para configurar y deshabilitar la reparación automática de iSCSI (link:https://github.com/NetApp/trident/issues/864["Problema n.o 864"]).
-* Se ha añadido la personalidad de FSx a los controladores de ONTAP para permitir la integración con AWS IAM y SecretsManager, y para permitir que Trident elimine volúmenes FSx con backups (link:https://github.com/NetApp/trident/issues/453["Problema n.o 453"]).
+* Se ha añadido la personalidad de Amazon FSx a los controladores de ONTAP para permitir la integración con IAM y SecretsManager de AWS, y para permitir que Trident elimine volúmenes FSx con backups (link:https://github.com/NetApp/trident/issues/453["Problema n.o 453"]).
 
 
 
@@ -242,7 +332,7 @@ Añadido soporte para Kubernetes 1,28.
 
 ==== Trident
 
-* Se han corregido las solicitudes de ZAPI de ONTAP para garantizar que se consulten los números de serie de LUN al obtener atributos de LUN para identificar y corregir dispositivos iSCSI fantasma durante las operaciones de almacenamiento en caché de nodos.
+* Se han corregido las solicitudes de ONTAPI (ZAPI) para garantizar que se consultan los números de serie de LUN al obtener atributos de LUN para identificar y corregir dispositivos iSCSI fantasma durante las operaciones de almacenamiento en caché de nodos.
 * Arreglado el manejo de errores en el código del controlador de almacenamiento (link:https://github.com/NetApp/trident/issues/816["Problema n.o 816"^]).
 * Se corrigió el cambio de tamaño de la cuota al utilizar controladores ONTAP con use-rest=true.
 * Creación de clones LUN fijos en ontap-san-economy.
@@ -389,11 +479,11 @@ IMPORTANT: Kubernetes 1,27 ahora es compatible con Trident. Actualice Trident an
 
 
 .Trident
-* Se ha agregado compatibilidad para volúmenes SMB con Amazon FSX para ONTAP al controlador de almacenamiento ontap-nas.
+* Se añadió soporte para volúmenes SMB con Amazon FSx para NetApp ONTAP en el controlador de almacenamiento ONTAP-nas.
 * Se añadió soporte para permisos NTFS cuando se utilizan volúmenes SMB.
 * Se ha agregado soporte para pools de almacenamiento para volúmenes de GCP con el nivel de servicio CVS.
 * Se ha añadido compatibilidad para el uso opcional de flexgroupagregarList al crear FlexGroups con el controlador de almacenamiento ontap-nas-flexgroup.
-* Rendimiento mejorado para el controlador de almacenamiento ONTAP-nas-Economy al gestionar múltiples FlexVols.
+* Rendimiento mejorado para el controlador de almacenamiento económico de ONTAP-nas al gestionar varios volúmenes de FlexVol
 * Actualizaciones de datLIF activadas para todas las controladoras de almacenamiento NAS de ONTAP.
 * Se han actualizado la convención de nomenclatura Trident Deployment y DemonSet para reflejar el sistema operativo del nodo del host.
 

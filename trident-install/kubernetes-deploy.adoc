@@ -16,7 +16,7 @@ Para garantizar que Trident se puede instalar en una amplia variedad de entornos
 
 
 
-== Información crítica sobre Trident 24,10
+== Información crítica sobre Trident 25,02
 
 *Debe leer la siguiente información crítica sobre Trident.*
 

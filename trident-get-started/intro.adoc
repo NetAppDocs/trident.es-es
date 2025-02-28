@@ -18,7 +18,7 @@ Trident es un proyecto de código abierto totalmente compatible y mantenido por 
 
 == ¿Qué es Trident?
 
-NetApp Trident permite el consumo y la gestión de recursos de almacenamiento en todas las plataformas de almacenamiento más conocidas de NetApp, ya sea en el cloud público o en las instalaciones, incluidos ONTAP (AFF, FAS, Select, Cloud, Amazon FSx para NetApp ONTAP), el software Element (NetApp HCI, SolidFire), el servicio Azure NetApp Files y Cloud Volumes Service en Google Cloud.
+NetApp Trident permite el consumo y la gestión de recursos de almacenamiento en todas las plataformas de almacenamiento de NetApp más conocidas, ya sea en el cloud público o en las instalaciones, incluidos los clústeres de ONTAP en las instalaciones (AFF, Cloud Volumes ONTAP y ASA), ONTAP Select, FAS, el software Element (NetApp HCI, SolidFire), Azure NetApp Files, Amazon FSx para NetApp ONTAP y Cloud Volumes Service en Google Cloud.
 
 Trident es una interfaz de almacenamiento de contenedores (CSI) que ordena el almacenamiento dinámico conforme a la normativa que se integra de forma nativa con link:https://kubernetes.io/["Kubernetes"^]. Trident se ejecuta como un pod de controladora más un pod de nodo en cada nodo trabajador del clúster. Consulte link:../trident-get-started/architecture.html["Arquitectura de Trident"] para obtener más información.
 
@@ -76,6 +76,6 @@ Trident puede aprovisionar y gestionar dispositivos de almacenamiento para aplic
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["ONTAP de NetApp"^] Es el sistema operativo de almacenamiento unificado multiprotocolo de NetApp que proporciona capacidades avanzadas de gestión de datos para cualquier aplicación.
 
-Los sistemas ONTAP tienen configuraciones all-flash, híbridas o all-HDD y ofrecen muchos modelos de puesta en marcha diferentes, como hardware a medida (FAS y AFF), unidad genérica (ONTAP Select) y solo cloud (Cloud Volumes ONTAP). Trident admite estos modelos de puesta en marcha de ONTAP.
+Los sistemas ONTAP tienen configuraciones all-flash, híbridas o únicamente HDD y ofrecen distintos modelos de puesta en marcha: Clústeres ASA, FAS y AFA en las instalaciones, ONTAP Select y Cloud Volumes ONTAP. Trident admite estos modelos de puesta en marcha de ONTAP.
 
 ====

@@ -18,7 +18,7 @@ En Trident, los volúmenes cifrados con LUKS utilizan el cifrado y el modo aes-x
 
 .Antes de empezar
 * Los nodos de trabajo deben tener instalado cryptsetup 2.1 o superior (pero inferior a 3.0). Si desea más información, visite link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: Cryptsetup"^].
-* Por motivos de rendimiento, recomendamos que los nodos de trabajo admitan las nuevas instrucciones estándar de cifrado avanzado (AES-ni). Para verificar el soporte de AES-ni, ejecute el siguiente comando:
+* Por motivos de rendimiento, NetApp recomienda que los nodos de trabajo admitan las instrucciones nuevas estándar de cifrado avanzado (AES-NI). Para verificar el soporte de AES-ni, ejecute el siguiente comando:
 +
 [listing]
 ----

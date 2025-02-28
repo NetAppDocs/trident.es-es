@@ -49,10 +49,10 @@ Tenga en cuenta que, en las siguientes tablas, no todas las capacidades se expon
 | `ontap-nas` | Sí | Sí | Yespie de página:5[] | Sí | Yespie de página:1[] | Sí | Yespie de página:1[] 
 
 
-| `ontap-nas-economy` | Yespie de página:3[] | Yespie de página:3[] | Yespie de página:5[] | Sí | Yespie de página:3[] | Sí | Yespie de página:3[] 
+| `ontap-nas-economy` | Nota de la oferta:3[] | Nota de la oferta:3[] | Yespie de página:5[] | Sí | Nota de la oferta:3[] | Sí | Nota de la oferta:3[] 
 
 
-| `ontap-nas-flexgroup` | Yespie de página:1[] | No | Yespie de página:5[] | Sí | Yespie de página:1[] | Sí | Yespie de página:1[] 
+| `ontap-nas-flexgroup` | Yespie de página:1[] | NO | Yespie de página:5[] | Sí | Yespie de página:1[] | Sí | Yespie de página:1[] 
 |===
 Trident ofrece 2 controladores SAN para ONTAP, cuyas funcionalidades se muestran a continuación.
 
@@ -64,10 +64,10 @@ Trident ofrece 2 controladores SAN para ONTAP, cuyas funcionalidades se muestran
 | `ontap-san` | Sí | Sí | Yespie de página:4[] | Sí | Yespie de página:1[] | Sí | Yespie de página:1[] 
 
 
-| `ontap-san-economy` | Sí | Sí | Yespie de página:4[] | Sí | Yespie de página:3[] | Sí | Yespie de página:3[] 
+| `ontap-san-economy` | Sí | Sí | Yespie de página:4[] | Sí | Nota de la oferta:3[] | Sí | Nota de la oferta:3[] 
 |===
 [verse]
-Nota al pie de las tablas anteriores: Yesfootnote:1[]: No administrado por Trident Yesfootnote:2[]: Administrado por Trident, pero no por PV granular Yesfootnote:3[]: No gestionado por Trident y no por PV granular Yesfootnote:4[]: Soportado para volúmenes de bloque sin procesar Yesfootnote:5[]: Soportado por Trident
+Nota al pie de las tablas anteriores: Yesfootnote:1[]: No administrado por Trident Yesfootnote:2[]: Administrado por Trident, pero no por PV NOfootnote:3[]: No gestionado por Trident y no por PV granular Yesfootnote:4[]: Admitido para volúmenes de bloque sin procesar Yesfootnote:5[]: Admitido por Trident
 
 Las funciones que no son granulares en los VP se aplican a todo el FlexVolume y todos los VP (es decir, qtrees o LUN de FlexVols compartidos) compartirán un programa común.
 
@@ -247,7 +247,7 @@ Si se solicita un PVC ReadWriteMany enviado a una implementación de Trident sin
 Los volúmenes persistentes son, con dos excepciones, objetos inmutables en Kubernetes. Una vez creada, la política de reclamaciones y el tamaño se pueden modificar. Sin embargo, esto no impide que algunos aspectos del volumen se modifiquen fuera de Kubernetes. Esto puede ser deseable para personalizar el volumen para aplicaciones específicas, con el fin de garantizar que la capacidad no se consume accidentalmente, o simplemente mover el volumen a una controladora de almacenamiento diferente por cualquier motivo.
 
 
-NOTE: Los aprovisionadores de árbol de Kubernetes no admiten las operaciones de cambio de tamaño de volumen para NFS o iSCSI VP en este momento. Trident admite la expansión de los volúmenes NFS e iSCSI.
+NOTE: Los aprovisionadores en árbol de Kubernetes no admiten en este momento las operaciones de cambio de tamaño de volúmenes para VP FC, NFS o iSCSI. Trident admite la expansión de volúmenes NFS, iSCSI y FC.
 
 Los detalles de conexión del VP no se pueden modificar una vez creado.
 
@@ -277,7 +277,7 @@ Si se copia un volumen en otra ubicación, es posible que se use la función de 
 
 === Expanda los volúmenes
 
-Trident admite el cambio de tamaño de VP de NFS e iSCSI. De este modo, los usuarios pueden cambiar el tamaño de sus volúmenes directamente desde la capa de Kubernetes. La expansión de volumen es posible para las principales plataformas de almacenamiento de NetApp, como ONTAP, HCI de SolidFire/NetApp y back-ends de Cloud Volumes Service. Para permitir una posible expansión más adelante, establezca `allowVolumeExpansion` en `true` en el StorageClass asociado con el volumen. Siempre que sea necesario cambiar el tamaño del volumen persistente, edite la `spec.resources.requests.storage` anotación en la reclamación Volumen persistente al tamaño de volumen deseado. Trident se ocupa automáticamente de ajustar el tamaño del volumen en el clúster de almacenamiento.
+Trident admite el cambio de tamaño de VP de NFS, iSCSI y FC. De este modo, los usuarios pueden cambiar el tamaño de sus volúmenes directamente desde la capa de Kubernetes. La expansión de volumen es posible para las principales plataformas de almacenamiento de NetApp, como ONTAP, HCI de SolidFire/NetApp y back-ends de Cloud Volumes Service. Para permitir una posible expansión más adelante, establezca `allowVolumeExpansion` en `true` en el StorageClass asociado con el volumen. Siempre que sea necesario cambiar el tamaño del volumen persistente, edite la `spec.resources.requests.storage` anotación en la reclamación Volumen persistente al tamaño de volumen deseado. Trident se ocupa automáticamente de ajustar el tamaño del volumen en el clúster de almacenamiento.
 
 
 
@@ -292,12 +292,6 @@ Si `azure-netapp-files` se utiliza el controlador o `gcp-cvs`, use el comando `t
 Cuando se ejecuta el comando anterior, Trident encontrará el volumen en el backend y leerá su tamaño. Añadirá (y sobrescribirá automáticamente si es necesario) el tamaño de volumen de la RVP configurada. A continuación, Trident crea el nuevo VP y Kubernetes enlaza la RVP al VP.
 
 Si se puso en marcha un contenedor de modo que requería la RVP específica importada, este permanecería en estado pendiente hasta que el par PVC/VP se enlaza a través del proceso de importación del volumen. Una vez enlazados el par PVC/PV, el contenedor debería aparecer, siempre que no haya otros problemas.
-
-
-
-== Implementar servicios OpenShift
-
-Los servicios de clúster de valor añadido de OpenShift proporcionan una funcionalidad importante a los administradores de clúster y a las aplicaciones que se alojan. Sin embargo, el almacenamiento que utilizan estos servicios puede aprovisionarse con los recursos locales de nodos, esto limita con frecuencia la capacidad, el rendimiento, la capacidad de recuperación y la sostenibilidad del servicio. Sin embargo, al aprovechar una cabina de almacenamiento empresarial para ofrecer la capacidad de estos servicios se puede mejorar considerablemente el servicio. Al igual que sucede con todas las aplicaciones, OpenShift y los administradores de almacenamiento deberían trabajar estrechamente para determinar cuáles son las mejores opciones para cada uno de ellos. La documentación de Red Hat debe utilizarse en gran medida para determinar los requisitos y garantizar que se satisfagan las necesidades de tamaño y rendimiento.
 
 
 

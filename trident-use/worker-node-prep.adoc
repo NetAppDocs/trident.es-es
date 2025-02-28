@@ -30,11 +30,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvmetcp-volumes["Instale las herramientas NVMe"] si está utilizando `ontap-san` Para el protocolo de memoria no volátil rápida (NVMe) sobre TCP (NVMe/TCP).
 
 
-NOTE: Recomendamos ONTAP 9,12 o posterior para NVMe/TCP.
+NOTE: NetApp recomienda ONTAP 9,12 o posterior para NVMe/TCP.
 
 .Herramientas de SCSI sobre FC
-*SCSI sobre canal de fibra (FC) es una función de vista previa técnica en la versión Trident 24,10.*
-
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["Instale las herramientas FC"] Si utiliza `ontap-san` con sanType `fcp` (SCSI sobre FC).
 
 Consulte link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"] si desea obtener más información.
@@ -264,7 +262,7 @@ En el siguiente ejemplo, se establece el intervalo de reparación automática de
 
 [listing]
 ----
-helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2502.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .tridentctl
@@ -328,7 +326,42 @@ WARNING: Trident modifica `ctrl_device_tmo` el valor para garantizar que NVMe no
 
 
 
-== Instale las herramientas FC
+== Volúmenes SCSI sobre FC
+
+Ahora se puede utilizar el protocolo Fibre Channel (FC) con Trident para aprovisionar y gestionar recursos de almacenamiento en el sistema ONTAP.
+
+
+
+=== Requisitos previos
+
+Configure los ajustes de nodo y red necesarios para FC.
+
+
+
+==== Ajustes de red
+
+. Obtenga el WWPN de las interfaces de destino. Consulte https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["se muestra la interfaz de red"^] si desea obtener más información.
+. Obtenga el WWPN de las interfaces del iniciador (host).
++
+Consulte las utilidades del sistema operativo host correspondientes.
+
+. Configure la división en zonas en el switch de FC mediante WWPN del host y el destino.
++
+Consulte la documentación nueva del proveedor de switches para obtener más información.
+
++
+Consulte la siguiente documentación de ONTAP para obtener más detalles:
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["Información general sobre la división en zonas de Fibre Channel y FCoE"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"^]
+
+
+
+
+
+
+=== Instale las herramientas FC
 
 Instale las herramientas de FC mediante los comandos del sistema operativo.
 

@@ -16,7 +16,7 @@ Puede desplegar el operador Trident e instalar Trident con Helm. Este proceso se
 
 
 
-== Información crítica sobre Trident 24,10
+== Información crítica sobre Trident 25,02
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
@@ -56,7 +56,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ Especifique un archivo YAML con anulaciones. Esto se puede especificar varias ve
 Especifique anulaciones en la línea de comandos.
 
 |===
-Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute el siguiente comando donde `100.2410.0` es la versión de Trident que está instalando:
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute el siguiente comando donde `100.2502.0` es la versión de Trident que está instalando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -241,6 +241,13 @@ WARNING: No elimine la afinidad predeterminada del archivo values.yaml. Cuando d
 
 
 | `nodePrep` | Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.* |  
+
+
+| `ontapConfigurator`  a| 
+Habilita o deshabilita la configuración automática del back-end de Trident y las clases de almacenamiento para Amazon FSx. Utilice los siguientes parámetros junto con `ontapConfigurator` para activar la configuración de backend automática:
+`enabled`: Defina en `true` para activar la configuración de backend automática.
+`svms`: Contiene la lista de identificadores del sistema de archivos para los que se creará la configuración de backend automática. - `authType`: Establece el tipo de autenticación para la autenticación SVM. Para AWS, actualmente es compatible con la autenticación basada en arn («awsarn»).  `fsxnID`- : Establece el ID del sistema de archivos de AWS FSx. Ejemplo: “fs-0dfeaa884a68b1cab”. - `protocols` - Especifica la lista de protocolos soportados para la configuración automática de backend; “nfs”, “iscsi” o ambos.
+|  
 |===
 
 

@@ -280,9 +280,6 @@ Trident proporciona la capacidad de gestionar dinámicamente políticas de expor
 NOTE: No utilice la traducción de direcciones de red (NAT) cuando utilice políticas de exportación dinámicas. Con NAT, el controlador de almacenamiento ve la dirección NAT de frontend y no la dirección de host IP real, por lo que el acceso se denegará cuando no se encuentre ninguna coincidencia en las reglas de exportación.
 
 
-NOTE: En Trident 24,10, `ontap-nas` el controlador de almacenamiento seguirá funcionando como en las versiones anteriores; no se ha realizado ningún cambio en el controlador ONTAP-nas. Solo `ontap-nas-economy` el controlador de almacenamiento tendrá control de acceso granular basado en el volumen en Trident 24,10.
-
-
 
 ==== Ejemplo
 
@@ -307,7 +304,7 @@ NOTE: Al usar esta función, debe asegurarse de que la unión raíz de la SVM te
 
 A continuación se ofrece una explicación del funcionamiento de esta función utilizando el ejemplo anterior:
 
-* `autoExportPolicy` se establece en `true`. Esto indica que Trident crea una política de exportación para cada volumen aprovisionado con este back-end para `svm1` la SVM y administra la adición y eliminación de reglas mediante `autoexportCIDRs` bloques de direcciones. Hasta que un volumen se conecta a un nodo, el volumen usa una política de exportación vacía sin reglas para evitar el acceso no deseado a ese volumen. Cuando se publica un volumen en un nodo, Trident crea una política de exportación con el mismo nombre que el qtree subyacente que contiene la IP de nodo en el bloque CIDR especificado. Estas IP también se agregarán a la política de exportación utilizada por la FlexVol principal.
+* `autoExportPolicy` se establece en `true`. Esto indica que Trident crea una política de exportación para cada volumen aprovisionado con este back-end para `svm1` la SVM y administra la adición y eliminación de reglas mediante `autoexportCIDRs` bloques de direcciones. Hasta que un volumen se conecta a un nodo, el volumen usa una política de exportación vacía sin reglas para evitar el acceso no deseado a ese volumen. Cuando se publica un volumen en un nodo, Trident crea una política de exportación con el mismo nombre que el qtree subyacente que contiene la IP de nodo en el bloque CIDR especificado. Estas IP también se agregarán a la política de exportación utilizada por la FlexVol volume principal
 +
 ** Por ejemplo:
 +
@@ -369,7 +366,7 @@ Si se actualiza la dirección IP de un nodo activo, debe reiniciar el pod de Tri
 Con un poco de preparación adicional, puede aprovisionar volúmenes SMB con `ontap-nas` de windows
 
 
-WARNING: Debe configurar tanto los protocolos NFS como SMB/CIFS en la SVM para crear un `ontap-nas-economy` Volumen SMB para ONTAP en las instalaciones. Si no se configura ninguno de estos protocolos, se producirá un error en la creación del volumen de SMB.
+WARNING: Debe configurar tanto los protocolos NFS como SMB/CIFS en la SVM para crear `ontap-nas-economy` un volumen SMB para los clústeres de ONTAP en las instalaciones. Si no se configura ninguno de estos protocolos, se producirá un error en la creación del volumen de SMB.
 
 
 NOTE: `autoExportPolicy` No es compatible con los volúmenes de SMB.

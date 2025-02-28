@@ -68,7 +68,7 @@ Valor para `max-volumes` varía en función de varios criterios específicos de 
 
 La `max-volumes` El valor es el total de volúmenes aprovisionados en todos los nodos del clúster de ONTAP, no en un nodo ONTAP individual. Como resultado, es posible que encuentre algunas condiciones en las que un nodo de un clúster de ONTAP pueda tener muchos más o menos volúmenes aprovisionados de Trident que otro nodo.
 
-Por ejemplo, un clúster ONTAP de dos nodos tiene la capacidad de alojar un máximo de 2000 FlexVolumes. Tener el recuento de volumen máximo establecido en 1250 parece muy razonable. Sin embargo, si solo https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["agregados"^] De un nodo se asigna a la SVM, o los agregados asignados de un nodo no se pueden aprovisionar con (por ejemplo, debido a capacidad), el otro nodo se convierte en el destino para todos los volúmenes aprovisionados de Trident. Esto significa que es posible alcanzar el límite de volumen para ese nodo antes que el `max-volumes` Se alcanza el valor, lo que repercute tanto en Trident como en otras operaciones de volúmenes que utilizan ese nodo. *Puede evitar esta situación asegurándose de que los agregados de cada nodo del clúster están asignados a la SVM que utiliza Trident en los mismos números.*
+Por ejemplo, un clúster ONTAP de dos nodos puede alojar un máximo de 2000 volúmenes FlexVol. Tener el recuento de volumen máximo establecido en 1250 parece muy razonable. Sin embargo, si solo https://library.netapp.com/ecmdocs/ECMP1368859/html/GUID-3AC7685D-B150-4C1F-A408-5ECEB3FF0011.html["agregados"^] de un nodo se asigna a la SVM o los agregados asignados desde un nodo no se pueden aprovisionar con respecto (por ejemplo, debido a la capacidad), el otro nodo se convierte en el destino para todos los volúmenes aprovisionados de Trident. Esto significa que se puede alcanzar el límite de volumen para ese nodo antes de `max-volumes` alcanzar el valor, lo que afecta tanto al Trident como a otras operaciones de volumen que usan ese nodo. *Puede evitar esta situación asegurándose de que los agregados de cada nodo del clúster están asignados a la SVM que utiliza Trident en los mismos números.*
 
 
 
@@ -159,13 +159,13 @@ storage:
 * Debe aplicar los grupos de políticas por volumen, de modo que cada volumen obtenga el rendimiento entero según lo especifique el grupo de políticas. No se admiten los grupos de políticas compartidas.
 
 
-Para obtener más información sobre los grupos de políticas de calidad de servicio, consulte https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/TOC__qos.html["Comandos de calidad de servicio de ONTAP 9.8"^].
+Para obtener más información acerca de los grupos de políticas de QoS, consulte https://docs.netapp.com/us-en/ontap/concepts/manual-pages.html["Referencia de comandos del ONTAP"^] .
 
 
 
 === Limite el acceso a recursos de almacenamiento a los miembros del clúster de Kubernetes
 
-La limitación del acceso a los volúmenes NFS y a las LUN de iSCSI creadas por Trident es un componente crucial del sistema de seguridad para la puesta en marcha de Kubernetes. Si lo hace, se evita que los hosts que no forman parte del clúster de Kubernetes accedan a los volúmenes y que potencialmente modifiquen los datos de forma inesperada.
+La limitación del acceso a los volúmenes de NFS, LUN de iSCSI y LUN de FC que ha creado Trident es un componente crucial de la política de seguridad de su puesta en marcha de Kubernetes. Si lo hace, se evita que los hosts que no forman parte del clúster de Kubernetes accedan a los volúmenes y que potencialmente modifiquen los datos de forma inesperada.
 
 Es importante comprender que los espacios de nombres son el límite lógico de los recursos en Kubernetes. Se supone que los recursos del mismo espacio de nombres se pueden compartir; sin embargo, es importante destacar que no existe ninguna funcionalidad entre espacios de nombres. Esto significa que aunque los VP sean objetos globales, cuando están enlazados a una RVP solo pueden acceder a ellos mediante POD que están en el mismo espacio de nombres. *Es fundamental asegurarse de que los espacios de nombres se utilizan para proporcionar la separación cuando sea apropiado.*
 
@@ -289,7 +289,7 @@ A continuación se enumeran algunas de las prácticas recomendadas. Busque en el
 *ONTAP*
 
 * https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Prácticas recomendadas y guía de implementación de NFS"^]
-* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Guía de administración de SAN"^] (Para iSCSI)
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Administración de SAN"^] (Para iSCSI)
 * http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-rhel-cg/home.html["Configuración exprés de iSCSI para RHEL"^]
 
 

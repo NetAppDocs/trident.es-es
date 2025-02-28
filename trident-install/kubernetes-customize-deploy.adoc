@@ -46,7 +46,7 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | `debug` | Active la depuración para Trident | `false` 
 
 
-| `enableForceDetach` | `ontap-san`, `ontap-san-economy` y `ontap-nas-economy` sólo. Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a los administradores de clústeres la capacidad de migrar de forma segura cargas de trabajo con volúmenes montados a nodos nuevos en caso de que un nodo se vuelva en mal estado. | `false` 
+| `enableForceDetach` | `ontap-san`, , `ontap-san-economy`, `ontap-nas` y `ontap-nas-economy` sólo. Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a los administradores de clústeres la capacidad de migrar de forma segura cargas de trabajo con volúmenes montados a nodos nuevos en caso de que un nodo se vuelva en mal estado. | `false` 
 
 
 | `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | `false` 
@@ -68,7 +68,7 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 automáticamente | `false` 
 
 
-| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:24.10"` 
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:25.02"` 
 
 
 | `autosupportProxy` | La dirección/puerto de un proxy para enviar AutoSupport
@@ -81,7 +81,7 @@ Telemetría | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato de registro Trident que se va a utilizar [text,json] | `"text"` 
 
 
-| `tridentImage` | Imagen Trident para instalar | `"netapp/trident:24.10"` 
+| `tridentImage` | Imagen Trident para instalar | `"netapp/trident:25.02"` 
 
 
 | `imageRegistry` | Ruta de acceso al registro interno, del formato
@@ -116,6 +116,9 @@ Telemetría | `"http://proxy.example.com:8888"`
 
 
 | `nodePrep` | Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.* |  
+
+
+| `enableAutoBackendConfig` | Habilita la configuración de backend automática, que crea sin problemas clases de backend y almacenamiento basadas en parámetros de entrada. | Sin valores predeterminados; opcional 
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del pod, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
@@ -124,10 +127,10 @@ NOTE: Para obtener más información sobre el formato de los parámetros del pod
 
 === Detalles acerca de forzar separación
 
-Forzar separación está disponible sólo para `ontap-san`, `ontap-san-economy` y. `onatp-nas-economy` Antes de habilitar la desconexión forzada, se debe habilitar el cierre de nodos (NGN) no controlado en el clúster de Kubernetes. Para obtener más información, consulte link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Cierre de nodo sin gracia"^].
+Forzar separación está disponible para `ontap-san`, , , , `ontap-san-economy` `onatp-nas` y `onatp-nas-economy` sólo. Antes de habilitar la desconexión forzada, se debe habilitar el cierre de nodos (NGN) no controlado en el clúster de Kubernetes. LAS NGN están habilitadas de manera predeterminada para Kubernetes 1,28 y posteriores. Para obtener más información, consulte link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Cierre de nodo sin gracia"^].
 
 
-NOTE: Cuando se utiliza `ontap-nas-economy` el controlador, es necesario establecer el `autoExportPolicy` parámetro en la configuración de backend para `true` que Trident pueda restringir el acceso desde el nodo de Kubernetes con la contaminación aplicada mediante políticas de exportación gestionadas.
+NOTE: Cuando se utiliza `ontap-nas` el controlador o `ontap-nas-economy`, es necesario establecer el `autoExportPolicy` parámetro en la configuración de back-end para `true` que Trident pueda restringir el acceso desde el nodo Kubernetes con la contaminación aplicada mediante políticas de exportación gestionadas.
 
 
 WARNING: Dado que Trident se basa en LAS NGN de Kubernetes, no elimine `out-of-service` los daños de un nodo en mal estado hasta que se reprogramen todas las cargas de trabajo no tolerables. La aplicación o eliminación imprudente de la contaminación puede poner en peligro la protección de datos de back-end.

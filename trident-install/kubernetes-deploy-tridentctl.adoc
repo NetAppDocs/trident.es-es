@@ -16,7 +16,7 @@ Puede instalar Trident mediante `tridentctl`. Este proceso se aplica a instalaci
 
 
 
-== Información crítica sobre Trident 24,10
+== Información crítica sobre Trident 25,02
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
@@ -75,8 +75,8 @@ El paquete del instalador de Trident crea un pod Trident, configura los objetos 
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz
-tar -xf trident-installer-24.10.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
+tar -xf trident-installer-25.02.0.tar.gz
 cd trident-installer
 ----
 
@@ -98,14 +98,14 @@ Instale Trident en el espacio de nombres deseado ejecutando `tridentctl install`
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:24.10 --trident-image <your-registry>/trident:24.10.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
 ----
 --
 .Imágenes en diferentes registros
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:24.10 --trident-image <your-registry>/trident:24.10.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:25.02 --trident-image <your-registry>/trident:25.02.0
 ----
 --
 ====
@@ -126,7 +126,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=24.10.0
+INFO Trident REST interface is up.                 version=25.02.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -166,7 +166,7 @@ Puede utilizar `tridentctl` para comprobar la versión de Trident instalada.
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 24.10.0        | 24.10.0        |
+| 25.02.0        | 25.02.0        |
 +----------------+----------------+
 ----
 
