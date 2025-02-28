@@ -107,6 +107,13 @@ Cuando se restaura un backup en un espacio de nombres diferente con BackupRestor
 
 NOTE: Al restaurar un backup en un espacio de nombres diferente con los recursos existentes, no se alterará ningún recurso que comparta los nombres con los que aparecen en el backup. Para restaurar todos los recursos del backup, elimine y vuelva a crear el espacio de nombres objetivo, o restaure el backup en un nuevo espacio de nombres.
 
+.Antes de empezar
+Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración de S3 que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
+
+* Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.
+* Consulte el documento para https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentación de AWS IAM"^] obtener más información acerca de las credenciales con recursos de AWS.
+
+
 [role="tabbed-block"]
 ====
 .Utilice un CR
@@ -213,6 +220,13 @@ tridentctl-protect create backuprestore <my_restore_name> --backup <backup_names
 
 Es posible restaurar un backup en el espacio de nombres original en cualquier momento.
 
+.Antes de empezar
+Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración de S3 que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
+
+* Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.
+* Consulte el documento para https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentación de AWS IAM"^] obtener más información acerca de las credenciales con recursos de AWS.
+
+
 [role="tabbed-block"]
 ====
 .Utilice un CR
@@ -316,12 +330,17 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 Puede restaurar un backup a otro clúster si hay un problema con el clúster original.
 
-*Antes de empezar*
-
+.Antes de empezar
 Asegúrese de que se cumplen los siguientes requisitos previos:
 
 * El clúster de destino tiene instalado Trident Protect.
 * El clúster de destino tiene acceso a la ruta de bloque de la misma AppVault que el clúster de origen, en la que se almacena el backup.
+* Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
++
+** Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.
+** Consulte el documento para https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentación de AWS"^] obtener más información acerca de las credenciales con recursos de AWS.
+
+
 
 
 .Pasos
@@ -356,7 +375,6 @@ Al ejecutar este comando, se muestran las copias de seguridad disponibles en App
 | production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
 | production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
 +-------------+-----------+--------+-----------------+--------------------------+-------------+
-
 ----
 . Restaure la aplicación en el clúster de destino mediante el nombre de AppVault y la ruta de archivo:
 
@@ -425,6 +443,13 @@ tridentctl-protect create backuprestore <restore_name> --namespace-mapping <sour
 == Restauración desde una copia snapshot a un espacio de nombres diferente
 
 Puede restaurar datos desde una copia Snapshot con un archivo de recurso personalizado (CR) en un espacio de nombres diferente o en el espacio de nombres de origen original. Al restaurar una snapshot en un espacio de nombres diferente con SnapshotRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree backups o snapshots bajo demanda, o establezca una programación de protección.
+
+.Antes de empezar
+Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración de S3 que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
+
+* Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.
+* Consulte el documento para https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentación de AWS IAM"^] obtener más información acerca de las credenciales con recursos de AWS.
+
 
 [role="tabbed-block"]
 ====
@@ -539,6 +564,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespac
 == Restauración desde una copia Snapshot al espacio de nombres original
 
 Es posible restaurar una copia de Snapshot en el espacio de nombres original en cualquier momento.
+
+.Antes de empezar
+Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración de S3 que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
+
+* Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.
+* Consulte el documento para https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentación de AWS IAM"^] obtener más información acerca de las credenciales con recursos de AWS.
+
 
 [role="tabbed-block"]
 ====
