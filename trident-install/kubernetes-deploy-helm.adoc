@@ -52,7 +52,7 @@ Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-depl
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Utilice `helm install` y especifique un nombre para la implementación como en el siguiente ejemplo, donde `100.2404.0` se encuentra la versión de Trident que está instalando.
+. Utilice `helm install` y especifique un nombre para la implementación como en el siguiente ejemplo, donde `100.2502.0` se encuentra la versión de Trident que está instalando.
 +
 [listing]
 ----

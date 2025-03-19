@@ -52,10 +52,14 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | `false` 
 
 
-| `cloudProvider` | Establezca en `"Azure"` Cuando se utilizan identidades gestionadas o una identidad de nube en un clúster de AKS. Establecer en «AWS» cuando se utiliza una identidad de nube en un clúster de EKS. | `""` 
+| `cloudProvider`  a| 
+Establecer como `"Azure"` cuando se utilizan identidades gestionadas o una identidad de nube en un clúster de AKS. Establecer como `"AWS"` cuando se utiliza una identidad de nube en un clúster de EKS. Establecer como `"GCP"` cuando se utiliza una identidad de nube en un clúster de GKE.
+| `""` 
 
 
-| `cloudIdentity` | Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx») cuando utilice la identidad de cloud en un clúster de AKS. Establezca el rol de AWS IAM ('eks.amazonaws.com/role-arn: arn:aws:iam::123456:ROLE/Trident-ROLE) cuando utilice la identidad de cloud en un clúster de EKS. | `""` 
+| `cloudIdentity`  a| 
+Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx») cuando utilice la identidad de cloud en un clúster de AKS. Establezca el rol de AWS IAM ('eks.amazonaws.com/role-arn: arn:aws:iam::123456:ROLE/Trident-ROLE') cuando utilice la identidad de cloud en un clúster de EKS. Se establece en la identidad de la nube («iam.gke.io/gcp-service-account: xxxx@mygcpproject.iam.gserviceaccount.com») cuando se utiliza la identidad de la nube en un clúster de GKE.
+| `""` 
 
 
 | `IPv6` | Instale Trident sobre IPv6 | falso 

@@ -492,7 +492,7 @@ IMPORTANT: Kubernetes 1,27 ahora es compatible con Trident. Actualice Trident an
 === Amortización
 
 * Kubernetes: Se ha actualizado el mínimo admitido de Kubernetes a 1.21.
-* Ya no se deben especificar LIF de datos al realizar la configuración `ontap-san` o. `ontap-san-economy` de windows
+* Ya no se deben especificar LIF de datos durante la configuración de `ontap-san` los controladores o. `ontap-san-economy`
 
 
 
@@ -518,7 +518,7 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 
 * Se ha solucionado un problema específico del back-end de ONTAP creado mediante `credentials` el campo no se puede conectar durante la actualización 22.07.0 (link:https://github.com/NetApp/trident/issues/759["Número 759"^]).
 * **Docker:** se ha solucionado un problema que provocaba que el complemento para volúmenes de Docker no empezara en algunos entornos (link:https://github.com/NetApp/trident/issues/548["Número 548"^] y.. link:https://github.com/NetApp/trident/issues/760["Número 760"^]).
-* Se ha solucionado el problema de SLM específico de los back-ends DE SAN de ONTAP para garantizar que solo se publicara un subconjunto de LIF de datos que pertenecen a nodos de generación de informes.
+* Se solucionó el problema de SLM específico de los back-ends de SAN de ONTAP para garantizar que solo se publica un subconjunto de LIF de datos que pertenecen a los nodos de generación de informes.
 * Se ha solucionado un problema de rendimiento por el que se realizaron análisis innecesarios de LUN iSCSI al conectar un volumen.
 * Se han eliminado reintentos granulares dentro del flujo de trabajo de iSCSI de Trident para producir fallos rápidamente y reducir los intervalos de reintentos externos.
 * Se solucionó un problema cuando se devolvió un error al vaciar un dispositivo iSCSI cuando ya se había vaciado el dispositivo multivía correspondiente.
@@ -665,7 +665,7 @@ Se ha quitado el controlador E-Series (desactivado desde 20.07).
 
 * *Kubernetes:* aumente el tiempo de reintento de retroceso de registro de nodos para clústeres grandes.
 * Problema fijo donde el controlador Azure-netapp-files podría confundirse con varios recursos con el mismo nombre.
-* Los LIF de datos IPv6 DE SAN de ONTAP ahora funcionan si se especifican con paréntesis.
+* Las LIF de datos de SAN IPv6 de ONTAP funcionan ahora si se especifica con paréntesis.
 * Un problema fijo en el que intentar importar un volumen ya importado devuelve EOF dejando PVC en estado pendiente. (link:https://github.com/NetApp/trident/issues/489["GitHub número 489"])
 * Se solucionó el problema cuando el rendimiento de Trident se ralentiza al crear más de 32 snapshots en un volumen de SolidFire.
 * Se reemplazó SHA-1 por SHA-256 en la creación de certificados SSL.

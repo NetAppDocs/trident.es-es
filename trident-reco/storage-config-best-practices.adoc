@@ -195,7 +195,7 @@ Si ejecuta estos comandos, puede restringir el acceso de los nodos de Kubernetes
 
 === Desactivar `showmount` Para la SVM de la aplicación
 
-La `showmount` Con la función, un cliente NFS puede consultar a la SVM para obtener una lista de exportaciones NFS disponibles. Un pod puesto en marcha en el clúster de Kubernetes puede ejecutar el `showmount -e` Comando en la LIF de datos y recibe una lista de montajes disponibles, incluidos los a los que no tiene acceso. Aunque esto, por sí solo, no supone un compromiso con la seguridad, proporciona información innecesaria, potencialmente que ayuda a un usuario no autorizado a conectarse con una exportación NFS.
+ `showmount`La función permite que un cliente NFS consulte a la SVM para obtener una lista de exportaciones NFS disponibles. Un pod puesto en marcha en el clúster de Kubernetes puede emitir `showmount -e` el comando contra el y recibir una lista de los montajes disponibles, incluidos los a los que no tiene acceso. Aunque esto, por sí solo, no supone un compromiso con la seguridad, proporciona información innecesaria, potencialmente que ayuda a un usuario no autorizado a conectarse con una exportación NFS.
 
 Debe desactivar `showmount` Con el comando CLI de ONTAP a nivel de la SVM:
 
