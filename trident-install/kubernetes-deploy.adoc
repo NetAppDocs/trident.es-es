@@ -49,7 +49,7 @@ Independientemente de la ruta de instalación, debe tener:
 
 
 
-TIP: Si usted no se ha familiarizado con el link:../trident-concepts/intro.html["conceptos básicos"^], ahora es un gran momento para hacerlo.
+TIP: Si no te has familiarizado con ellink:../trident-get-started/intro.html["conceptos básicos"^], ahora es un buen momento para hacerlo.
 
 
 

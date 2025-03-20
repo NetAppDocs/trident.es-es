@@ -118,7 +118,7 @@ No utilizar `debugTraceFlags` a menos que esté solucionando problemas y necesit
 | `smbShare` | Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes. Este parámetro es opcional para ONTAP en las instalaciones. Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` 
 
 
-| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP.  `useREST` Cuando se define en `true`, Trident utiliza las API REST DE ONTAP para comunicarse con el backend; cuando se establece en `false`, Trident utiliza llamadas ONTAPI (ZAPI) para comunicarse con el backend. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión Trident 24,06 y ONTAP 9.15.1 o posterior, `useREST` se establece en `true` de forma predeterminada; cambie `useREST` a `false` Usar llamadas ONTAPI (ZAPI). | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
+| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP.  `useREST` Cuando se define en `true`, Trident utiliza las API REST DE ONTAP para comunicarse con el backend; cuando se establece en `false`, Trident utiliza llamadas ONTAPI (ZAPI) para comunicarse con el backend. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontapi` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión Trident 24,06 y ONTAP 9.15.1 o posterior, `useREST` se establece en `true` de forma predeterminada; cambie `useREST` a `false` Usar llamadas ONTAPI (ZAPI). | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 
 
 | `limitVolumePoolSize` | Tamaño máximo de FlexVol que se puede solicitar cuando se utilizan qtrees en el back-end económico de ONTAP-nas. | "" (no se aplica de forma predeterminada) 
@@ -223,7 +223,7 @@ El cálculo es el siguiente:
 ----
 Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
 ----
-Para snapshotReserve = 50 % y la solicitud de RVP = 5 GIB, el tamaño total del volumen es 2/.5 = 10 GIB y el tamaño disponible es de 5 GIB, lo que es lo que solicitó el usuario en la solicitud de RVP. La `volume show` el comando debería mostrar resultados similares a los de este ejemplo:
+Para snapshotReserve = 50 % y la solicitud de RVP = 5 GIB, el tamaño total del volumen es 5/.5 = 10 GIB y el tamaño disponible es de 5 GIB, lo que es lo que solicitó el usuario en la solicitud de RVP. El `volume show` comando debería mostrar resultados similares a este ejemplo:
 
 image::../media/volume-show-nas.png[Muestra el resultado del comando volume show.]
 
