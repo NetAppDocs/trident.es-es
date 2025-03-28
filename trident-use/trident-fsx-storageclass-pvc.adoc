@@ -12,7 +12,7 @@ summary: 'Al usar Trident con Amazon FSx para NetApp ONTAP, puedes garantizar qu
 
 
 [role="lead"]
-Configure un objeto StorageClass de Kubernetes y cree la clase de almacenamiento para indicar a Trident cómo se aprovisionan los volúmenes. Cree un volumen persistente (VP) y una reclamación de volumen persistente (RVP) que utilice el tipo de almacenamiento de Kubernetes configurado para solicitar acceso al VP. A continuación, puede montar el VP en un pod.
+Configure un objeto StorageClass de Kubernetes y cree la clase de almacenamiento para indicar a Trident cómo se aprovisionan los volúmenes. Cree una reclamación de volumen persistente (RVP) que utilice el StorageClass de Kubernetes configurado para solicitar acceso al VP. A continuación, puede montar el VP en un pod.
 
 
 
@@ -80,13 +80,13 @@ basic-csi    csi.trident.netapp.io   15h
 
 
 
-== Cree el VP y la RVP
+== Cree la RVP
 
-A. link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_Volumen persistente_"^] (PV) es un recurso de almacenamiento físico aprovisionado por el administrador del clúster en un clúster de Kubernetes. La https://kubernetes.io/docs/concepts/storage/persistent-volumes["_Claim de volumen persistente_"^] (RVP) es una solicitud para acceder al volumen persistente en el clúster.
+Una https://kubernetes.io/docs/concepts/storage/persistent-volumes["_Claim de volumen persistente_"^] (RVP) es una solicitud para acceder al volumen persistente en el clúster.
 
 La RVP se puede configurar para solicitar almacenamiento de un determinado tamaño o modo de acceso. Mediante el StorageClass asociado, el administrador del clúster puede controlar mucho más que el tamaño de los volúmenes persistentes y el modo de acceso, como el rendimiento o el nivel de servicio.
 
-Después de crear el VP y la RVP, puede montar el volumen en un pod.
+Después de crear la RVP, puede montar el volumen en un pod.
 
 
 
@@ -161,20 +161,6 @@ storageClassName: protection-gold
 === Cree el VP y la RVP
 
 .Pasos
-. Cree el VP.
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. Compruebe el estado de PV.
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
 . Cree la RVP.
 +
 [listing]
@@ -186,11 +172,14 @@ kubectl create -f pvc.yaml
 [listing]
 ----
 kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
 ----
 
 
+[listing]
+----
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
 Consulte el link:../trident-reference/objects.html["Objetos de Kubernetes y Trident"] para obtener más detalles sobre cómo interactúan las clases de almacenamiento con los `PersistentVolumeClaim` parámetros y para controlar la forma en que Trident aprovisiona los volúmenes.
 
 
