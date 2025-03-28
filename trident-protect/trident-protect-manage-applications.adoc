@@ -39,7 +39,13 @@ Debe definir cada aplicación que desee gestionar con Trident Protect. Puede def
 .. Configure los siguientes atributos:
 +
 *** *metadata.name*: (_required_) El nombre del recurso personalizado de la aplicación. Tenga en cuenta el nombre que elija porque otros archivos CR necesarios para las operaciones de protección hacen referencia a este valor.
-*** *spec.includedNamespaces*: (_required_) Utilice etiquetas de espacio de nombres o un nombre de espacio de nombres para especificar espacios de nombres en los que existen los recursos de la aplicación. El espacio de nombres de la aplicación debe formar parte de esta lista.
+*** *spec.includedNamespaces*: (_required_) Utilice el espacio de nombres y el selector de etiquetas para especificar los espacios de nombres y recursos que utiliza la aplicación. El espacio de nombres de la aplicación debe formar parte de esta lista. El selector de etiquetas es opcional y se puede utilizar para filtrar recursos dentro de cada espacio de nombres especificado.
+*** *spec.includedClusterScopedResources*: (_Optional_) Utilice este atributo para especificar los recursos de ámbito de cluster que se incluirán en la definición de la aplicación. Este atributo le permite seleccionar estos recursos en función de su grupo, versión, tipo y etiquetas.
++
+**** *GroupVersionKind*: (_required_) Especifica el grupo API, la versión y el tipo del recurso de ámbito de cluster.
+**** *LabelSelector*: (_Optional_) Filtra los recursos de ámbito de cluster en función de sus etiquetas.
+
+
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Opcional_) Esta anotación solo es aplicable a aplicaciones definidas desde máquinas virtuales, como en entornos KubeVirt, donde los sistemas de archivos se congelan antes que las instantáneas. Especifique si esta aplicación puede escribir en el sistema de archivos durante una instantánea. Si se define en true, la aplicación ignora la configuración global y puede escribir en el sistema de archivos durante una instantánea. Si se define en false, la aplicación ignora la configuración global y el sistema de archivos se congela durante una instantánea. Si se especifica pero la aplicación no tiene máquinas virtuales en la definición de la aplicación, la anotación se ignora. Si no se especifica, la aplicación sigue la link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Valor de congelación de Global Trident Protect"].
 +
 [NOTE]
@@ -66,10 +72,23 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-  - labelSelector: {}
-    namespace: namespace-1
-  - labelSelector: {}
-    namespace: namespace-2
+    - namespace: namespace-1
+      labelSelector:
+        matchLabels:
+          app: example-app
+    - namespace: namespace-2
+      labelSelector:
+        matchLabels:
+          app: another-example-app
+  includedClusterScopedResources:
+    - groupVersionKind:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        version: v1
+      labelSelector:
+        matchLabels:
+          mylabel: test
+
 ----
 
 
