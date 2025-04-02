@@ -17,7 +17,7 @@ Despliegue la aplicación de muestra.
 .Pasos
 . Monte el volumen en un pod.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pv-pod.yaml
 ----
@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 Estos ejemplos muestran configuraciones básicas para conectar el PVC a un pod: *Configuración básica*:
 
 +
-[listing]
+[source, console]
 ----
 kind: Pod
 apiVersion: v1
@@ -52,7 +52,7 @@ NOTE: Puede supervisar el progreso con `kubectl get pod --watch`.
 
 . Compruebe que el volumen está montado en `/my/mount/path`.
 +
-[listing]
+[source, console]
 ----
 kubectl exec -it pv-pod -- df -h /my/mount/path
 ----
@@ -65,7 +65,7 @@ Filesystem                                                        Size  Used  Av
 ----
 Ahora puede eliminar el Pod. La aplicación Pod ya no existirá, pero el volumen permanecerá.
 
-[listing]
+[source, console]
 ----
 kubectl delete pod pv-pod
 ----

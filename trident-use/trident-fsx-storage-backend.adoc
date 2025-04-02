@@ -21,7 +21,7 @@ Para crear un backend de almacenamiento, debe crear un archivo de configuración
 ====
 .YAML
 --
-[listing]
+[source, YAML]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -42,7 +42,7 @@ spec:
 --
 .JSON
 --
-[listing]
+[source, JSON]
 ----
 {
   "apiVersion": "trident.netapp.io/v1",
@@ -74,7 +74,7 @@ Ejecute los siguientes comandos para crear y validar la configuración de backen
 
 * Cree la configuración de backend de Trident (TBC) desde el archivo yaml y ejecute el siguiente comando:
 +
-[listing]
+[source, console]
 ----
 kubectl create -f backendconfig.yaml -n trident
 ----
@@ -85,7 +85,7 @@ tridentbackendconfig.trident.netapp.io/backend-tbc-ontap-nas created
 ----
 * Validar que la configuración de backend de Trident (TBC) se ha creado correctamente:
 +
-[listing]
+[source, console]
 ----
 Kubectl get tbc -n trident
 ----
@@ -115,13 +115,13 @@ Para obtener información detallada sobre el conductor, consulte link:../trident
 
 Una vez creado el archivo de configuración, ejecute este comando para crearlo dentro de su EKS:
 
-[listing]
+[source, console]
 ----
 kubectl create -f configuration_file
 ----
 Para verificar el estado, ejecute este comando:
 
-[listing]
+[source, console]
 ----
 kubectl get tbc -n trident
 ----
@@ -226,10 +226,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 `""` 
 
 
-| `credentials` | Especifique las credenciales de FSx SVM que se van a almacenar en AWS Secret Manager.
-- `name`: Nombre de recurso de Amazon (ARN) del secreto, que contiene las credenciales de SVM.
-- `type`: Establecer en `awsarn`.
-Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Cree un secreto de AWS Secrets Manager"^] si quiere más información. |  
+| `credentials` | Especifique las credenciales de FSX SVM para almacenarlas en AWS Secrets Manager.  `name`- : Nombre de recurso de Amazon (ARN) del secreto, que contiene las credenciales de SVM.  `type`- : Establecido en `awsarn`. Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Cree un secreto de AWS Secrets Manager"^] si desea obtener más información. |  
 |===
 
 
@@ -289,7 +286,7 @@ Para poder aprovisionar volúmenes de SMB con el `ontap-nas` conductor, debe ten
 * Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
 * Al menos un secreto Trident que contiene sus credenciales de Active Directory. Para generar secreto `smbcreds`:
 +
-[listing]
+[source, console]
 ----
 kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
 ----
@@ -305,13 +302,13 @@ La `vserver cifs share create` comando comprueba la ruta especificada en la opci
 
 .. Cree un recurso compartido de SMB asociado con la SVM especificada:
 +
-[listing]
+[source, console]
 ----
 vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
 ----
 .. Compruebe que se ha creado el recurso compartido:
 +
-[listing]
+[source, console]
 ----
 vserver cifs share show -share-name share_name
 ----

@@ -19,11 +19,13 @@ NOTE: Para autenticarse mediante un rol de AWS IAM, debe tener un clúster de Ku
 
 
 
-== Crear secreto de AWS Secret Manager
+== Crear secreto de AWS Secrets Manager
 
-En este ejemplo, se crea un secreto de AWS Secret Manager para almacenar las credenciales de Trident CSI:
+Como Trident emitirá API con un Vserver FSx para gestionar el almacenamiento por usted, necesitará credenciales para hacerlo. La forma segura de pasar esas credenciales es a través de un secreto de AWS Secrets Manager. Por lo tanto, si aún no tiene uno, deberá crear un secreto de AWS Secrets Manager que contenga las credenciales de la cuenta vsadmin.
 
-[listing]
+En este ejemplo, se crea un secreto de AWS Secrets Manager para almacenar las credenciales de Trident CSI:
+
+[source, console]
 ----
 aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials"\
   --secret-string "{\"username\":\"vsadmin\",\"password\":\"<svmpassword>\"}"
@@ -32,18 +34,19 @@ aws secretsmanager create-secret --name trident-secret --description "Trident CS
 
 == Crear política de IAM
 
+Trident también necesita permisos de AWS para ejecutarse correctamente. Por lo tanto, debe crear una política que proporcione a Trident los permisos que necesita.
+
 Los siguientes ejemplos crean una política de IAM mediante la CLI de AWS:
 
-[listing]
+[source, console]
 ----
 aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document file://policy.json
-  --description "This policy grants access to Trident CSI to FSxN and Secret manager"
+  --description "This policy grants access to Trident CSI to FSxN and Secrets manager"
 ----
 *Ejemplo de Política JSON*:
 
-[listing]
+[source, JSON]
 ----
-policy.json:
 {
     "Statement": [
         {
@@ -70,57 +73,11 @@ policy.json:
     "Version": "2012-10-17"
 }
 ----
-Para habilitar la configuración de backend automática para Amazon FSx, agregue las siguientes acciones al `policy.json` archivo mientras crea una política de IAM:
-
-* `"fsx:CreateStorageVirtualMachine"`
-* `"fsx:DescribeStorageVirtualMachines"`
-* `"secretsmanager:CreateSecret"`
-* `"secretsmanager:DeleteSecret"`
-* `"secretsmanager:TagResource"`
-
-
-*Ejemplo de archivo JSON de políticas para la configuración automática de backend*:
-
-[listing]
-----
-
- policy.json:
-{
-    "Statement": [
-        {
-            "Action": [
-                "fsx:CreateStorageVirtualMachine",
-                "fsx:DescribeFileSystems",
-                "fsx:DescribeStorageVirtualMachines",
-                "fsx:DescribeVolumes",
-                "fsx:CreateVolume",
-                "fsx:RestoreVolumeFromSnapshot",
-                "fsx:DescribeStorageVirtualMachines",
-                "fsx:UntagResource",
-                "fsx:UpdateVolume",
-                "fsx:TagResource",
-                "fsx:DeleteVolume"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        },
-        {
-            "Action": [
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:CreateSecret",
-                "secretsmanager:DeleteSecret",
-                "secretsmanager:TagResource"
-            ],
-            "Effect": "Allow",
-            "Resource": "arn:aws:secretsmanager:<aws-region>:<aws-account-id>:secret:*"
-        }
-    ],
-    "Version": "2012-10-17"
-}
-----
 
 
 === Cree un rol de IAM para la cuenta de servicio
+
+Una vez creada la política, úsela al crear el rol que se asignará a la cuenta de servicio en la que Trident ejecutará:
 
 [role="tabbed-block"]
 ====
@@ -128,12 +85,12 @@ Para habilitar la configuración de backend automática para Amazon FSx, agregue
 --
 [listing]
 ----
-aws iam create-role --role-name trident-controller \
+aws iam create-role --role-name AmazonEKS_FSxN_CSI_DriverRole \
   --assume-role-policy-document file://trust-relationship.json
 ----
 *archivo trust-relationship.json:*
 
-[listing]
+[source, JSON]
 ----
 {
     "Version": "2012-10-17",
@@ -157,18 +114,19 @@ Actualice los siguientes valores en el `trust-relationship.json` archivo:
 
 * *<account_id>* - Su ID de cuenta de AWS
 * *<oidc_provider>* - El OIDC de su clúster EKS. Puede obtener oidc_provider ejecutando:
-
-
-[listing]
++
+[source, console]
 ----
 aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer"\
   --output text | sed -e "s/^https:\/\///"
 ----
+
+
 *Adjuntar el rol de IAM con la política de IAM*:
 
 Una vez creado el rol, adjunte la política (que se creó en el paso anterior) al rol mediante este comando:
 
-[listing]
+[source, console]
 ----
 aws iam attach-role-policy --role-name my-role --policy-arn <IAM policy ARN>
 ----
@@ -176,13 +134,13 @@ aws iam attach-role-policy --role-name my-role --policy-arn <IAM policy ARN>
 
 Verifique que su proveedor de OIDC está asociado al clúster. Puede verificarlo con este comando:
 
-[listing]
+[source, console]
 ----
 aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
 ----
-Utilice el siguiente comando para asociar IAM OIDC al cluster:
+Si la salida está vacía, utilice el siguiente comando para asociar IAM OIDC al cluster:
 
-[listing]
+[source, console]
 ----
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ----
@@ -191,10 +149,10 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 --
 En el siguiente ejemplo, se crea un rol de IAM para la cuenta de servicio en EKS:
 
-[listing]
+[source, console]
 ----
 eksctl create iamserviceaccount --name trident-controller --namespace trident \
-  --cluster <my-cluster> --role-name <AmazonEKS_FSxN_CSI_DriverRole> --role-only \
+  --cluster <my-cluster> --role-name AmazonEKS_FSxN_CSI_DriverRole --role-only \
   --attach-policy-arn <IAM-Policy ARN> --approve
 ----
 --

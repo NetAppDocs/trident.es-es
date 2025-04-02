@@ -24,7 +24,7 @@ Configure un objeto StorageClass de Kubernetes y cree la clase de almacenamiento
 
 El https://kubernetes.io/docs/concepts/storage/storage-classes/["Objeto de Kubernetes StorageClass"^] identifica el Trident como el aprovisionador que se usa para esa clase y le indica a Trident cómo aprovisionar un volumen. Por ejemplo:
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -38,7 +38,7 @@ parameters:
 ----
 Para aprovisionar volúmenes de NFSv3 TB en AWS Bottlerocket, agregue el necesario `mountOptions` a la clase de almacenamiento:
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -63,21 +63,24 @@ Consulte el link:../trident-reference/objects.html["Objetos de Kubernetes y Trid
 .Pasos
 . Este es un objeto de Kubernetes, así que use `kubectl` Para crear en Kubernetes.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f storage-class-ontapnas.yaml
 ----
 . Ahora deberías ver una clase de almacenamiento *basic-csi* tanto en Kubernetes como en Trident, y Trident debería haber descubierto los pools en el back-end.
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
 
 ----
-
-
 
 
 == Cree la RVP
@@ -97,7 +100,7 @@ Después de crear la RVP, puede montar el volumen en un pod.
 ====
 Este manifiesto de ejemplo muestra un PV básico de 10Gi que está asociado con StorageClass `basic-csi`.
 
-[listing]
+[source, YAML]
 ----
 apiVersion: v1
 kind: PersistentVolume
@@ -123,7 +126,7 @@ Estos ejemplos muestran opciones básicas de configuración de PVC.
 .PVC con acceso RWX
 Este ejemplo muestra una PVC básica con acceso RWX que está asociada con una clase de almacenamiento llamada `basic-csi`.
 
-[listing]
+[source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -140,9 +143,8 @@ spec:
 .PVC con NVMe/TCP
 En este ejemplo se muestra una PVC básica para NVMe/TCP con acceso RWX asociada con una clase de almacenamiento llamada `protection-gold`.
 
-[listing]
+[source, YAML]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -163,13 +165,13 @@ storageClassName: protection-gold
 .Pasos
 . Cree la RVP.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pvc.yaml
 ----
 . Verifique el estado de la RVP.
 +
-[listing]
+[source, console]
 ----
 kubectl get pvc
 ----

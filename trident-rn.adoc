@@ -37,7 +37,6 @@ A partir de Trident 25,02, el resumen de las novedades proporciona detalles sobr
 ** Se añadió compatibilidad con la desconexión forzada para volúmenes ONTAP-NAS durante los escenarios de apagado de nodos sin gracia. Los nuevos volúmenes ONTAP-NAS ahora utilizarán políticas de exportación por volumen que gestiona Trident. Se proporcionó una ruta de actualización para que los volúmenes existentes transitaran al nuevo modelo de política de exportación en la no publicación sin afectar a las cargas de trabajo activas.
 ** Se ha añadido la anotación cloneFromSnapshot.
 ** Compatibilidad añadida para la clonación de volúmenes de espacios de nombres entre nombres.
-** Se ha añadido la configuración de backend automática para el complemento EKS y la instalación basada en timón para Amazon FSx for NetApp ONTAP.
 ** Soluciones de análisis de reparación automática de iSCSI mejoradas para iniciar análisis mediante host, canal, destino e ID de LUN exactos.
 ** Añadido soporte para Kubernetes 1,32.
 

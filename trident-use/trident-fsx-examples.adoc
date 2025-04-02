@@ -110,10 +110,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 `""` 
 
 
-| `credentials` | Especifique las credenciales de FSx SVM que se van a almacenar en AWS Secret Manager.
-- `name`: Nombre de recurso de Amazon (ARN) del secreto, que contiene las credenciales de SVM.
-- `type`: Establecer en `awsarn`.
-Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Cree un secreto de AWS Secrets Manager"^] si quiere más información. |  
+| `credentials` | Especifique las credenciales de FSX SVM para almacenarlas en AWS Secrets Manager.  `name`- : Nombre de recurso de Amazon (ARN) del secreto, que contiene las credenciales de SVM.  `type`- : Establecido en `awsarn`. Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Cree un secreto de AWS Secrets Manager"^] si desea obtener más información. |  
 |===
 
 
@@ -121,7 +118,7 @@ Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create
 
 Puede cambiar la LIF de datos después de la configuración inicial. Para ello, ejecute el siguiente comando para proporcionar el nuevo archivo JSON de back-end con dataLIF actualizado.
 
-[listing]
+[source, console]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
@@ -183,7 +180,7 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 ====
 Uso `nasType`, `node-stage-secret-name`, y. `node-stage-secret-namespace`, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory. Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
 
-[listing]
+[source, console]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,10 +194,10 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
 ====
-.Configuración para AWS FSx para ONTAP con administrador secreto
+.Configuración para AWS FSx para ONTAP con Secrets Manager
 [%collapsible]
 ====
-[listing]
+[source, console]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
