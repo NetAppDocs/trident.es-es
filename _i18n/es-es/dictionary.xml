@@ -5483,4 +5483,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">Reemplace<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block> por el ARN del rol que se creó en el paso anterior.</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">Compruebe la versión actual de su complemento FSxN Trident CSI. Sustituya<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> por el nombre del clúster.</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">Actualice el complemento a la versión devuelta bajo ACTUALIZACIÓN DISPONIBLE en la salida del paso anterior.</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp no recomienda el uso de crecimiento automático de FlexVol en todos los controladores de ONTAP, excepto ONTAP-san. Como solución alternativa, Trident admite el uso de la reserva Snapshot y escala los volúmenes de FlexVol en consecuencia.</block>
 </blocks>

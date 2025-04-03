@@ -65,6 +65,7 @@ RWO, ROX, RWX, RWOP
 * Uso `ontap-san-economy` solo si se espera que el número de uso de volúmenes persistentes sea superior a link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["Límites de volumen ONTAP compatibles"^].
 * Uso `ontap-nas-economy` solo si se espera que el número de uso de volúmenes persistentes sea superior a link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["Límites de volumen ONTAP compatibles"^] y la `ontap-san-economy` no se puede utilizar el conductor.
 * No utilizar `ontap-nas-economy` si prevé la necesidad de protección de datos, recuperación ante desastres o movilidad.
+* NetApp no recomienda el uso de crecimiento automático de FlexVol en todos los controladores de ONTAP, excepto ONTAP-san. Como solución alternativa, Trident admite el uso de la reserva Snapshot y escala los volúmenes de FlexVol en consecuencia.
 
 
 ====
