@@ -33,9 +33,11 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvm
 NOTE: NetApp recomienda ONTAP 9,12 o posterior para NVMe/TCP.
 
 .Herramientas de SCSI sobre FC
+Consulte link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"]para obtener más información sobre cómo configurar los hosts SAN FC y FC-NVMe.
+
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["Instale las herramientas FC"] Si utiliza `ontap-san` con sanType `fcp` (SCSI sobre FC).
 
-Consulte link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Formas de configurar hosts de SAN FC FC-NVMe"] si desea obtener más información.
+*Puntos a tener en cuenta*: * SCSI sobre FC es compatible con los entornos OpenShift y KubeVirt. * SCSI sobre FC no es compatible con Docker. * La reparación automática de iSCSI no es aplicable a SCSI a través de FC.
 
 
 
@@ -165,7 +167,7 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
 +
 
-NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+NOTE: Asegúrese de `/etc/multipath.conf` que contiene `find_multipaths no` en `defaults`.
 
 . Asegúrese de que así sea `iscsid` y.. `multipathd` están en ejecución:
 +
@@ -217,7 +219,7 @@ sudo service multipath-tools restart
 ----
 +
 
-NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+NOTE: Asegúrese de `/etc/multipath.conf` que contiene `find_multipaths no` en `defaults`.
 
 . Asegúrese de que así sea `open-iscsi` y.. `multipath-tools` están habilitadas y en ejecución:
 +
@@ -386,7 +388,7 @@ sudo mpathconf --enable --with_multipathd y --find_multipaths n
 ----
 +
 
-NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+NOTE: Asegúrese de `/etc/multipath.conf` que contiene `find_multipaths no` en `defaults`.
 
 . Asegúrese de que `multipathd` se está ejecutando:
 +
@@ -420,7 +422,7 @@ sudo service multipath-tools restart
 ----
 +
 
-NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+NOTE: Asegúrese de `/etc/multipath.conf` que contiene `find_multipaths no` en `defaults`.
 
 . Asegúrese de que `multipath-tools` está activado y en ejecución:
 +
