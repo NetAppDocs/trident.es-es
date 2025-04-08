@@ -15,6 +15,9 @@ summary: Utilice los punteros que se proporcionan aquí para solucionar problema
 Utilice los punteros que se proporcionan aquí para solucionar problemas que podrían surgir durante la instalación y el uso de Trident.
 
 
+NOTE: Si necesita ayuda con Trident, cree un paquete de soporte que utilice `tridentctl logs -a -n trident` y envíelo al soporte de NetApp.
+
+
 
 == Resolución de problemas generales
 
