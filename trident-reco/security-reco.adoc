@@ -47,7 +47,7 @@ ONTAP de NetApp proporciona cifrado de datos en reposo para proteger los datos c
 
 * Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Trident será habilitado para NAE.
 +
-** Puede establecer el estado de cifrado de NVE `""` para crear volúmenes con la función NAE habilitada.
+** Puede establecer la marca de cifrado de NVE `""` para crear volúmenes con la función NAE habilitada.
 
 
 * Si NAE no está habilitado en el back-end, cualquier volumen aprovisionado en Trident tendrá la función NVE habilitada, a menos que establezca la marca de cifrado de NVE en `false` la configuración de back-end.
