@@ -16,11 +16,13 @@ summary: 'El recurso personalizado de bloque (CR) para Trident Protect se conoce
 [role="lead"]
 El recurso personalizado de bloque (CR) para Trident Protect se conoce como AppVault. Los objetos de AppVault son la representación declarativa del flujo de trabajo de Kubernetes de un bloque de almacenamiento. Un AppVault CR contiene las configuraciones necesarias para que un bloque se utilice en operaciones de protección, como backups, snapshots, operaciones de restauración y replicación de SnapMirror. Solo los administradores pueden crear AppVaults.
 
+Debe crear un CR de AppVault manualmente o mediante la línea de comandos cuando realice operaciones de protección de datos en una aplicación, y AppVault CR debe residir en el clúster donde está instalado Trident Protect. AppVault CR es específico de su entorno; puede utilizar los ejemplos de esta página como guía al crear AppVault CRS.
+
 
 
 == Configurar la autenticación y las contraseñas de AppVault
 
-Antes de crear un objeto AppVault, debe asegurarse de que AppVault y el transmisor de datos que elija puedan autenticarse con el proveedor y cualquier recurso relacionado.
+Antes de crear un CR de AppVault, debe asegurarse de que el AppVault y el transmisor de datos que elija puedan autenticarse con el proveedor y cualquier recurso relacionado.
 
 
 
