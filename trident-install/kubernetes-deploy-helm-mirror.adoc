@@ -53,7 +53,7 @@ IMPORTANT: Al instalar Trident en un repositorio privado, si está utilizando el
 +
 [listing]
 ----
-helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
 . Utilice `helm install` y especifique un nombre para el despliegue y la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos, `100.2502.0` es la versión de Trident que está instalando.
 +
