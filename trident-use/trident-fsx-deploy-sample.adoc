@@ -12,7 +12,7 @@ summary: Obtenga información acerca de las opciones de configuración de back-e
 
 
 [role="lead"]
-Despliegue la aplicación de muestra.
+Cuando se crean la clase de almacenamiento y la RVP, puede montar el PV en un pod. Esta sección enumera el comando de ejemplo y la configuración para adjuntar el PV a un pod.
 
 .Pasos
 . Monte el volumen en un pod.
