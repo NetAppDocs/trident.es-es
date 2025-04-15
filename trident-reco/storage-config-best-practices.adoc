@@ -136,7 +136,7 @@ Tenga en cuenta lo siguiente al crear grupos de políticas de calidad de servici
 
 [listing]
 ----
-  ---
+---
 version: 1
 storageDriverName: ontap-nas
 managementLIF: 0.0.0.0
@@ -147,14 +147,15 @@ password: pass
 defaults:
   qosPolicy: standard-pg
 storage:
-- labels:
-    performance: extreme
-  defaults:
-    adaptiveQosPolicy: extremely-adaptive-pg
-- labels:
-    performance: premium
-  defaults:
-    qosPolicy: premium-pg
+  - labels:
+      performance: extreme
+    defaults:
+      adaptiveQosPolicy: extremely-adaptive-pg
+  - labels:
+      performance: premium
+    defaults:
+      qosPolicy: premium-pg
+
 ----
 * Debe aplicar los grupos de políticas por volumen, de modo que cada volumen obtenga el rendimiento entero según lo especifique el grupo de políticas. No se admiten los grupos de políticas compartidas.
 

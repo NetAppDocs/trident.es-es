@@ -38,7 +38,7 @@ Aprovisione el volumen de manera thin o thick, de manera predeterminada, es thin
 
 
 | `snapshotPolicy`  a| 
-Esto establecerá la política de instantáneas en el valor deseado. El valor predeterminado es `none`, es decir, no se creará automáticamente instantáneas para el volumen. A menos que el administrador de almacenamiento lo modifique, existe una política llamada "predeterminada" en todos los sistemas de ONTAP que crea y retiene seis copias Snapshot cada hora, dos días y dos semanas. Los datos conservados en una instantánea se pueden recuperar navegando hacia la `.snapshot` directorio en cualquier directorio del volumen.
+Esto establecerá la política de instantáneas en el valor deseado. El valor predeterminado es `none`, lo que significa que no se crearán instantáneas automáticamente para el volumen. A menos que el administrador de almacenamiento lo modifique, existe una política denominada «predeterminada» en todos los sistemas de ONTAP, que crea y retiene seis snapshots cada hora, dos diarios y dos semanales. Los datos conservados en una instantánea se pueden recuperar si se navega hasta `.snapshot` el directorio de cualquier directorio del volumen.
 
 
 
@@ -189,36 +189,35 @@ Utilice 512 o 4096, de forma predeterminada en 512 o en la entrada de configurac
 
 Consulte el siguiente archivo de configuración de ejemplo con definiciones de QoS:
 
-[listing]
+[source, json]
 ----
 {
-    "...": "..."
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----
 En la configuración anterior, tenemos tres definiciones de normas: Bronce, plata y oro. Estos nombres son arbitrarios.

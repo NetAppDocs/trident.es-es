@@ -25,7 +25,7 @@ kubectl create -f pv-pod.yaml
 Estos ejemplos muestran configuraciones básicas para conectar el PVC a un pod: *Configuración básica*:
 
 +
-[source, console]
+[source, yaml]
 ----
 kind: Pod
 apiVersion: v1

@@ -60,7 +60,7 @@ Trident es compatible con link:https://learn.microsoft.com/en-us/azure/active-di
 --
 Para instalar Trident con el operador Trident, edite `tridentorchestrator_cr.yaml` en `cloudProvider` `"Azure"` . Por ejemplo:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -114,7 +114,7 @@ Para instalar Trident mediante el operador Trident, edite `tridentorchestrator_c
 
 Por ejemplo:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -125,7 +125,7 @@ spec:
   namespace: trident
   imagePullPolicy: IfNotPresent
   cloudProvider: "Azure"
-  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' # Edit
 ----
 --
 .Timón

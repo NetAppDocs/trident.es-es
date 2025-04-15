@@ -33,7 +33,7 @@ WARNING: `TridentBackend` Trident crea los CRS automáticamente. Usted *no debe*
 
 Consulte el siguiente ejemplo para ver el formato del `TridentBackendConfig` CR:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -91,6 +91,9 @@ Cree un secreto que contenga las credenciales de acceso para el back-end. Esto e
 [listing]
 ----
 kubectl -n trident create -f backend-tbc-ontap-san-secret.yaml
+----
+[source, yaml]
+----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -195,7 +198,7 @@ Ya está listo para crear su `TridentBackendConfig` CR. En este ejemplo, un back
 ----
 kubectl -n trident create -f backend-tbc-ontap-san.yaml
 ----
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
@@ -262,14 +265,14 @@ Además, también puede obtener un volcado YLMA/JSON de `TridentBackendConfig`.
 ----
 kubectl -n trident get tbc backend-tbc-ontap-san -o yaml
 ----
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
-  creationTimestamp: "2021-04-21T20:45:11Z"
+  creationTimestamp: 2021-04-21T20:45:11Z
   finalizers:
-  - trident.netapp.io
+    - trident.netapp.io
   generation: 1
   name: backend-tbc-ontap-san
   namespace: trident

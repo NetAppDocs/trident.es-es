@@ -21,19 +21,19 @@ Busque información sobre problemas conocidos y limitaciones cuando use Trident 
 .Solución alternativa
 . Desactivar el plugin.
 +
-[listing]
+[source, console]
 ----
 docker plugin disable -f netapp:latest
 ----
 . Quitar el plugin.
 +
-[listing]
+[source, console]
 ----
 docker plugin rm -f netapp:latest
 ----
 . Vuelva a instalar el plugin proporcionando el extra `config` parámetro.
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
 ----
@@ -55,7 +55,7 @@ NOTE: Esta es una limitación de cliente de Docker. El cliente interpretará un 
 * Los plugins de volúmenes (incluido Trident) deben ejecutarse de forma independiente en cada nodo de un clúster de Swarm. Debido a la forma en que funciona ONTAP y cómo funcionan los `ontap-nas` controladores y `ontap-san`, son los únicos que pueden operar dentro de estas limitaciones.
 
 
-El resto de los conductores están sujetos a problemas como las condiciones de la carrera que pueden dar lugar a la creación de un gran número de volúmenes para una sola solicitud sin un claro “ganador”; por ejemplo, Element tiene una función que permite que los volúmenes tengan el mismo nombre pero ID diferentes.
+El resto de los pilotos están sujetos a problemas como condiciones de carrera que pueden resultar en la creación de un gran número de volúmenes para una sola solicitud sin un claro “ganador”; por ejemplo, Element tiene una característica que permite que los volúmenes tengan el mismo nombre pero diferentes ID.
 
 NetApp ha proporcionado comentarios al equipo de Docker, pero no tiene ningún indicio de recurso futuro.
 
