@@ -52,10 +52,16 @@ image::../media/aws-eks-03.png[aws llega a 03]
 +
 image::../media/aws-eks-04.png[aws llega a 04]
 
-. Siga el esquema de configuración *Add-On* y establezca el parámetro Valores de configuración en la sección *Valores de configuración* en el Role-arn que creó en el paso anterior (Paso 1).
+. Siga el esquema de configuración *Add-On* y establezca el parámetro Valores de configuración en la sección *Valores de configuración* en el Role-arn que creó en el paso anterior (Paso 1). El valor debe tener el siguiente formato:
 +
-El valor debe tener el siguiente formato `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`: .
+[source, JSON]
+----
+{
 
+  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'"
+
+}
+----
 +
 
 NOTE: Si selecciona Sustituir para el método de resolución de conflictos, una o más de las configuraciones del complemento existente se pueden sobrescribir con la configuración del complemento Amazon EKS. Si no habilita esta opción y existe un conflicto con la configuración existente, se producirá un error en la operación. Puede utilizar el mensaje de error resultante para solucionar el conflicto. Antes de seleccionar esta opción, asegúrese de que el complemento de Amazon EKS no gestiona la configuración que necesita para autogestionar.
@@ -83,7 +89,7 @@ kubectl get pods -n trident
 
 .Instale el complemento NetApp Trident EKS mediante la interfaz de línea de comandos:
 El siguiente comando de ejemplo instala el complemento Trident EKS:
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (Con una versión dedicada)
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.02.1-eksbuild.1` (Con una versión dedicada)
 
 .Desinstale el complemento NetApp Trident EKS mediante la interfaz de línea de comandos:
 El siguiente comando desinstala el complemento Trident EKS:
