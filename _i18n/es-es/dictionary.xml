@@ -5147,7 +5147,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="fc61af20b92225aae2a169587940eb14" category="doc">Clone volúmenes en espacios de nombres</block>
   <block id="7d3b4ba16dd9908f0a9572976f62cb92" category="paragraph">Con Trident, puede crear nuevos volúmenes con volúmenes o copias de volúmenes existentes desde un espacio de nombres diferente dentro del mismo clúster de Kubernetes.</block>
   <block id="12bf911acc3865647e24aa6cc61fad9d" category="paragraph">Antes de clonar volúmenes, asegúrese de que los back-ends de origen y de destino sean del mismo tipo y tengan la misma clase de almacenamiento.</block>
-  <block id="0338234dde0d63169da560597ab080e5" category="paragraph">Puede configurar el clonado de volúmenes NFS en unos pocos pasos.</block>
   <block id="9e556d1188a1d7d3f911546d9c8f70f1" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> Configure la PVC de origen para clonar el volumen</block>
   <block id="4f371bbe8ba542b2ca00eb9f3a3a2716" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block> Cree la RVP del clon en el espacio de nombres de destino</block>
   <block id="a77fe76c8980416f14767484ab56a324" category="paragraph">El propietario del espacio de nombres de destino crea una RVP para clonar la RVP del espacio de nombres de origen.</block>
@@ -5514,4 +5513,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">Realice la instalación mediante el operador certificado de OpenShift</block>
   <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">Instale Trident mediante OpenShift OperatorHub</block>
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">Cambie del operador de la comunidad Trident al operador certificado de OpenShift</block>
+  <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Puede configurar el clonado de volúmenes en unos pocos pasos.</block>
+  <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident crea el VP y su volumen de almacenamiento de back-end.</block>
 </blocks>

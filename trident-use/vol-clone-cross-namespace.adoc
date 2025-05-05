@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-clone-cross-namespace.html 
-keywords: volref, volume reference, clone, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing, volumesnapshots 
+keywords: volref, volume reference, clone, pvc, pv, namespace, cvna, cross-namespace, sharing, volumesnapshots 
 summary: Con Trident, puede crear nuevos volúmenes con volúmenes o copias de volúmenes existentes desde un espacio de nombres diferente dentro del mismo clúster K8s. 
 ---
 = Clone volúmenes en espacios de nombres
@@ -24,7 +24,7 @@ Antes de clonar volúmenes, asegúrese de que los back-ends de origen y de desti
 
 == Inicio rápido
 
-Puede configurar el clonado de volúmenes NFS en unos pocos pasos.
+Puede configurar el clonado de volúmenes en unos pocos pasos.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Uno"] Configure la PVC de origen para clonar el volumen
 [role="quick-margin-para"]
@@ -69,7 +69,7 @@ spec:
       storage: 100Gi
 ----
 +
-Trident crea el VP y su volumen de almacenamiento NFS de back-end.
+Trident crea el VP y su volumen de almacenamiento de back-end.
 
 +
 [NOTE]
