@@ -15,7 +15,7 @@ summary: Si utiliza Red Hat OpenShift, puede instalar Trident con un operador.
 Para pasar del Operador de Trident de la Comunidad de NetApp al Operador de Trident Certificado de Red Hat OpenShift, deberá desinstalar el Operador de la Comunidad e instalar el Operador certificado mediante el Centro de operadores.
 
 .Antes de empezar
-Antes de comenzar la instalación, link:../trident-get-started/requirements.html/["Preparar el entorno para la instalación de Trident"].
+Antes de comenzar la instalación, link:../trident-get-started/requirements.html["Preparar el entorno para la instalación de Trident"].
 
 
 
