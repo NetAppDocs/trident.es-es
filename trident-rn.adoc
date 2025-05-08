@@ -19,7 +19,27 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== ¿Cuáles son las novedades de 25,02
+== ¿Cuáles son las novedades de 25.02.1
+
+
+
+=== Trident
+
+
+
+==== Soluciones
+
+* *Kubernetes*:
++
+** Se ha solucionado un problema en el operador Trident por el que los nombres y las versiones de las imágenes de sidecar se rellenaban incorrectamente al utilizar un registro de imágenes no predeterminado (link:https://github.com/NetApp/trident/issues/983["Problema n.o 983"]).
+** Se ha solucionado el problema por el que las sesiones multivía no se podían recuperar durante un retorno al nodo de respaldo de ONTAP (link:https://github.com/NetApp/trident/issues/961["Problema n.o 961"]).
+
+
+
+
+
+
+== Cambios en 25,02
 
 A partir de Trident 25,02, el resumen de las novedades proporciona detalles sobre mejoras, correcciones y bloqueos para versiones de Trident y Trident Protect.
 
@@ -103,6 +123,28 @@ NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de dato
 * Las anotaciones SCC ahora se restauran a los valores originales.
 * Eficiencia de restauración mejorada con compatibilidad para operaciones en paralelo.
 * Soporte mejorado para tiempos de espera de conexión de ejecución para aplicaciones de mayor tamaño.
+
+
+
+
+== Cambios en 24.10.1
+
+
+
+=== Mejoras
+
+* *Kubernetes*: Agregado soporte para Kubernetes 1,32.
+* Se han agregado la detección y el registro del estado de conexión iSCSI cuando las sesiones iSCSI deben iniciar sesión, pero no (link:https://github.com/NetApp/trident/issues/961["Problema n.o 961"]).
+
+
+
+
+=== Soluciones
+
+* Se corrigieron las direcciones IP del nodo que faltaban de las políticas de exportación automáticas (link:https://github.com/NetApp/trident/issues/965["Problema n.o 965"]).
+* Se corrigió el cambio prematuro de políticas de exportación automática a políticas por volumen para ONTAP-NAS-Economy.
+* Se han actualizado las dependencias de Trident y Trident-ASUP para abordar CVE-2024-45337 y CVE-2024-45310.
+* Se han eliminado los cierres de sesión de los portales no CHAP que no están en mal estado durante la reparación automática de iSCSI (link:https://github.com/NetApp/trident/issues/961["Problema n.o 961"]).
 
 
 

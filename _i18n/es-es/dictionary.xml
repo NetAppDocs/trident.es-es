@@ -4986,7 +4986,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="cd2793aaeed5e7f0429f516ecf5eb130" category="list-text"><block ref="8a4b824281db82475bec9857f32bde41" category="inline-link-rx"></block> (Para iSCSI)</block>
   <block id="23db1fababbb1ae99bf5bf19e6f6f47b" category="list-text">NetApp recomienda clonar un volumen inactivo.</block>
   <block id="3ca0a694ceba360e6f67566a611b37fb" category="paragraph">Los volúmenes son la unidad básica de aprovisionamiento, compuestos por extremos back-end, como recursos compartidos NFS y LUN iSCSI y FC. En Kubernetes, estos corresponden directamente a<block ref="3f91308865b7567ae097573f6d0519e9" prefix=" " category="inline-code"></block>. Cuando crea un volumen, asegúrese de que tiene una clase de almacenamiento, que determina dónde se puede aprovisionar ese volumen junto con un tamaño.</block>
-  <block id="5a8746628add05005005c4b1b98f52a6" category="section-title">¿Cuáles son las novedades de 25,02</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">Se ha añadido compatibilidad con ONTAP ASA R2 para iSCSI.</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">Se añadió compatibilidad con la desconexión forzada para volúmenes ONTAP-NAS durante los escenarios de apagado de nodos sin gracia. Los nuevos volúmenes ONTAP-NAS ahora utilizarán políticas de exportación por volumen que gestiona Trident. Se proporcionó una ruta de actualización para que los volúmenes existentes transitaran al nuevo modelo de política de exportación en la no publicación sin afectar a las cargas de trabajo activas.</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">Se ha añadido la anotación cloneFromSnapshot.</block>
@@ -5515,4 +5514,13 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Puede configurar el clonado de volúmenes en unos pocos pasos.</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident crea el VP y su volumen de almacenamiento de back-end.</block>
   <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">Antes de comenzar la instalación, <block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>.</block>
+  <block id="c9611d3f195e70e59294887ffd815bd1" category="section-title">¿Cuáles son las novedades de 25.02.1</block>
+  <block id="d72c3d84865c2955b89cbf6e0ec00ada" category="inline-link-macro">Problema n.o 983</block>
+  <block id="ac76c3fcac41a10bd5f709108875e6c6" category="list-text">Se ha solucionado un problema en el operador Trident por el que los nombres y las versiones de las imágenes de sidecar se rellenaban incorrectamente al utilizar un registro de imágenes no predeterminado (<block ref="524f95fe3800e5d3ef82e615d679c539" category="inline-link-macro-rx"></block>).</block>
+  <block id="7bc2d7846b2e95d3f64a4d4f4b53cc3c" category="list-text">Se ha solucionado el problema por el que las sesiones multivía no se podían recuperar durante un retorno al nodo de respaldo de ONTAP (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>).</block>
+  <block id="212dff1a74c955a52357c5a67478720d" category="section-title">Cambios en 25,02</block>
+  <block id="ef5363598e9b6f09c42a4f11b7798e31" category="section-title">Cambios en 24.10.1</block>
+  <block id="fe28e2a5f749261aca15de7b9e5841d0" category="list-text">*Kubernetes*: Agregado soporte para Kubernetes 1,32.</block>
+  <block id="3da21bcb163e7e142caada3e22ac014f" category="list-text">Se han actualizado las dependencias de Trident y Trident-ASUP para abordar CVE-2024-45337 y CVE-2024-45310.</block>
+  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">Se han eliminado los cierres de sesión de los portales no CHAP que no están en mal estado durante la reparación automática de iSCSI (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>).</block>
 </blocks>
