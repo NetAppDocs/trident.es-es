@@ -78,10 +78,10 @@ Para utilizar Trident, se necesitan uno o varios de los siguientes back-ends adm
 
 
 
-== Compatibilidad de Trident con la virtualización de KubeVirt y OpenShift
+== Compatibilidad de Trident con KubeVirt y OpenShift Virtualization
 
 .Controladores de almacenamiento compatibles:
-Trident admite los siguientes controladores de ONTAP para la virtualización de KubeVirt y OpenShift:
+Trident admite los siguientes controladores de ONTAP para KubeVirt y OpenShift Virtualization:
 
 * ontap-nas
 * economía ONTAP-nas
@@ -174,7 +174,7 @@ No
 
 Aunque Trident no admite oficialmente sistemas operativos específicos, se sabe que los siguientes funcionan:
 
-* Versiones de RedHat CoreOS (RHCOS) compatibles con OpenShift Container Platform (AMD64 y ARM64)
+* Versiones de Red Hat Enterprise Linux CoreOS (RHCOS) compatibles con OpenShift Container Platform (AMD64 y ARM64)
 * RHEL 8+ (AMD64 Y ARM64)
 +
 

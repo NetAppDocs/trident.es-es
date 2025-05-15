@@ -196,7 +196,7 @@ sudo modprobe nvme-tcp
 
 Instale las herramientas de FC mediante los comandos del sistema operativo.
 
-* Cuando se utilicen nodos de trabajador que ejecutan RHEL/RedHat CoreOS con VP FC, especifique `discard` mountOption en StorageClass para realizar la recuperación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de redhat"^].
+* Cuando se utilicen nodos de trabajo que ejecuten RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con VP FC, especifique `discard` mountOption en StorageClass para realizar la recuperación de espacio inline. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de Red Hat"^].
 
 
 [role="tabbed-block"]

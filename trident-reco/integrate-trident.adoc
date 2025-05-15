@@ -319,7 +319,7 @@ Opcionalmente, el servicio de registro puede implementarse tanto para aplicacion
 Configurar las variables de Ansible de acuerdo con el método de puesta en marcha es importante para garantizar que los servicios subyacentes utilizan el almacenamiento correcto. Veamos las opciones para cada uno de los métodos de despliegue.
 
 
-NOTE: Las siguientes tablas solo incluyen las variables relevantes para la configuración del almacenamiento en relación con el servicio de registro. Puede encontrar otras opciones en link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentación de registro de RedHat OpenShift"^] que deben revisarse, configurarse y utilizarse en función de la puesta en marcha.
+NOTE: Las siguientes tablas solo incluyen las variables relevantes para la configuración del almacenamiento en relación con el servicio de registro. Puede encontrar otras opciones en link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentación de registro de Red Hat OpenShift"^] las que se deben revisar, configurar y utilizar según su implementación.
 
 Las variables de la siguiente tabla harán que el libro de estrategia de Ansible cree un VP y una RVP para el servicio de registro con los detalles proporcionados. Este método es significativamente menos flexible que usar la tableta playbook de instalación de componentes después de la instalación de OpenShift; sin embargo, si tiene volúmenes existentes disponibles, es una opción.
 
@@ -378,7 +378,7 @@ Si su clúster OpenShift ya se está ejecutando y, por lo tanto, Trident se ha i
 
 Si va a implementar el registro como parte del proceso de instalación inicial de OpenShift, sólo tendrá que seguir el proceso de implementación estándar. Ansible configurará y pondrá en marcha los servicios y los objetos de OpenShift necesarios para que el servicio esté disponible tan pronto como finalice Ansible.
 
-No obstante, si se pone en marcha después de la instalación inicial, Ansible deberá usar el libro de estrategia de los componentes. Este proceso puede cambiar ligeramente con diferentes versiones de OpenShift, así que asegúrese de leer y seguir link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Documentación de Red Hat OpenShift Container Platform 3.11"^] para su versión.
+No obstante, si se pone en marcha después de la instalación inicial, Ansible deberá usar el libro de estrategia de los componentes. Este proceso puede cambiar ligeramente con diferentes versiones de OpenShift, así que asegúrese de leer y seguir link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Documentación de Red Hat OpenShift Container Platform 3,11"^] para su versión.
 
 
 
@@ -434,4 +434,4 @@ Si su clúster OpenShift ya se está ejecutando y, por lo tanto, Trident se ha i
 
 Con las variables de Ansible definidas en el archivo de hosts/inventario, ponga en marcha el servicio con Ansible. Si va a implementar en el momento de la instalación de OpenShift, el PV se creará y utilizará automáticamente. Si va a poner en marcha mediante los libros de estrategia de componentes, después de la instalación de OpenShift, Ansible crea las RVP necesarias y, después de que Trident haya aprovisionado almacenamiento para ellos, pone en marcha el servicio.
 
-Las variables anteriores y el proceso de implementación pueden cambiar con cada versión de OpenShift. Asegúrese de revisar y seguir link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guía de implementación de OpenShift de redhat"^] para su versión de modo que esté configurada para su entorno.
+Las variables anteriores y el proceso de implementación pueden cambiar con cada versión de OpenShift. Asegúrese de revisar y seguir link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guía de implementación de OpenShift de Red Hat"^]la versión de modo que esté configurada para el entorno.
