@@ -418,7 +418,7 @@ Para obtener más información sobre las clases de almacenamiento, consulte link
 
 === Definiciones de ejemplo de volúmenes SMB
 
-Uso `nasType`, `node-stage-secret-name`, y.  `node-stage-secret-namespace`, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory.
+Con `nasType`, `node-stage-secret-name` y  `node-stage-secret-namespace`, puede especificar un volumen SMB y proporcionar las credenciales de Active Directory necesarias. Se puede utilizar cualquier usuario/contraseña de Active Directory con permisos o sin permisos para el secreto de etapa de nodos.
 
 .Configuración básica en el espacio de nombres predeterminado
 [%collapsible]
