@@ -216,8 +216,6 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-
-
 . Opcionalmente, en el clúster de origen, realice una instantánea de cierre de la aplicación de origen. Esta copia Snapshot se utiliza como base de la aplicación en el clúster de destino. Si omite este paso, deberá esperar a que se ejecute la siguiente instantánea programada para que tenga una instantánea reciente.
 +
 [role="tabbed-block"]
