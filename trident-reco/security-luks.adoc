@@ -16,6 +16,9 @@ Puede habilitar la configuración de clave unificada de Linux (LUKS) para cifrar
 
 En Trident, los volúmenes cifrados con LUKS utilizan el cifrado y el modo aes-xts-plain64, como recomienda link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
+
+NOTE: El cifrado LUKS no es compatible con los sistemas ASA r2. Para obtener información sobre los sistemas ASA r2, consulte link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Obtenga información sobre los sistemas de almacenamiento R2 de ASA"^] .
+
 .Antes de empezar
 * Los nodos de trabajo deben tener instalado cryptsetup 2.1 o superior (pero inferior a 3.0). Si desea más información, visite link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: Cryptsetup"^].
 * Por motivos de rendimiento, NetApp recomienda que los nodos de trabajo admitan las instrucciones nuevas estándar de cifrado avanzado (AES-NI). Para verificar el soporte de AES-ni, ejecute el siguiente comando:

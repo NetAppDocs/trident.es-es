@@ -16,9 +16,13 @@ summary: Es posible usar Trident Protect para restaurar la aplicación desde una
 [role="lead"]
 Es posible usar Trident Protect para restaurar la aplicación desde una snapshot o un backup. La restauración a partir de una snapshot existente será más rápida cuando se restaure la aplicación en el mismo clúster.
 
+[NOTE]
+====
+* Al restaurar una aplicación, todos los ganchos de ejecución configurados para la aplicación se restauran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
+* Se permite restaurar desde una copia de seguridad a un espacio de nombres diferente o al original en volúmenes qtree. Sin embargo, no se permite restaurar desde una instantánea a un espacio de nombres diferente o al original en volúmenes qtree.
 
-NOTE: Al restaurar una aplicación, todos los ganchos de ejecución configurados para la aplicación se restauran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
 
+====
 
 
 == Etiquetas y anotaciones del espacio de nombres durante las operaciones de restauración y conmutación al nodo de respaldo
@@ -97,6 +101,22 @@ En la siguiente tabla se muestra el estado del espacio de nombres de destino de 
 * role=base de datos
 
 
+|===
+
+
+== Anotaciones admitidas
+
+Esta sección enumera las anotaciones compatibles para configurar diversos comportamientos en el sistema. Si el usuario no configura una anotación explícitamente, el sistema utilizará el valor predeterminado.
+
+[cols="1,1,3,1"]
+|===
+| Anotación | Tipo | Descripción | Valor predeterminado 
+
+
+| protect.trident.netapp.io/tiempo-de-espera-del-transportador-de-datos-sec | cadena | El tiempo máximo (en segundos) permitido para que la operación de transferencia de datos permanezca detenida. | 300 
+
+
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | entero | El límite de tamaño máximo (en megabytes) para el caché de contenido de Kopia. | 1000 
 |===
 
 

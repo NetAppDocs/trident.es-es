@@ -16,7 +16,7 @@ Puede desplegar el operador Trident e instalar Trident con Helm. Este proceso se
 
 
 
-== Información crítica sobre Trident 25,02
+== Información crítica sobre Trident 25,06
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
@@ -25,7 +25,7 @@ Puede desplegar el operador Trident e instalar Trident con Helm. Este proceso se
 ====
 []
 =====
-* Kubernetes 1,32 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Kubernetes 1,33 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -55,7 +55,7 @@ IMPORTANT: Al instalar Trident en un repositorio privado, si está utilizando el
 ----
 helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident/trident-operator
 ----
-. Utilice `helm install` y especifique un nombre para el despliegue y la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos, `100.2502.0` es la versión de Trident que está instalando.
+. Utilice `helm install` y especifique un nombre para el despliegue y la ubicación del registro de imágenes. link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"]Puede estar ubicado en un registro o registros diferentes, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos, `100.2506.0` es la versión de Trident que está instalando.
 +
 [role="tabbed-block"]
 ====
@@ -63,14 +63,14 @@ helm repo add netapp-trident https://artifacthub.io/packages/helm/netapp-trident
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2506.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 .Imágenes en diferentes registros
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:25.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:25.02 --set tridentImage=<your-registry>/trident:25.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2506.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:25.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:25.06 --set tridentImage=<your-registry>/trident:25.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -102,17 +102,17 @@ Especifique un archivo YAML con anulaciones. Esto se puede especificar varias ve
 Especifique anulaciones en la línea de comandos.
 
 |===
-Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute el siguiente comando donde `100.2502.0` es la versión de Trident que está instalando:
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute el siguiente comando donde `100.2506.0` es la versión de Trident que está instalando:
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 Para agregar el valor nodePrep, ejecute el siguiente comando:
 
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2506.0  --create-namespace --namespace trident --set nodePrep={iscsi}
 ----
 
 

@@ -9,7 +9,7 @@ summary: Trident admite la creación de relaciones de mirroring entre los volúm
 
 
 [role="lead"]
-Trident admite las relaciones de mirroring entre un volumen de origen en un clúster y el volumen de destino en el clúster con relación entre iguales para replicar datos para la recuperación ante desastres. Puede utilizar una definición de recursos personalizados (CRD) con nombre para realizar las siguientes operaciones:
+Trident admite las relaciones de mirroring entre un volumen de origen en un clúster y el volumen de destino en el clúster con relación entre iguales para replicar datos para la recuperación ante desastres.  Puede utilizar una definición de recurso personalizado (CRD) con espacio de nombres, denominada relación de espejo Trident (TMR), para realizar las siguientes operaciones:
 
 * Crear relaciones de mirroring entre volúmenes (RVP)
 * Elimine las relaciones de reflejo entre volúmenes
@@ -27,6 +27,13 @@ Asegúrese de que se cumplen los siguientes requisitos previos antes de comenzar
 .Clústeres ONTAP
 * *Trident*: La versión 22,10 o posterior de Trident debe existir tanto en los clústeres de Kubernetes de origen como de destino que utilizan ONTAP como backend.
 * *Licencias*: Las licencias asíncronas de SnapMirror de ONTAP que utilizan el paquete de protección de datos deben estar habilitadas en los clústeres de ONTAP de origen y de destino. Consulte https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["Información general sobre las licencias de SnapMirror en ONTAP"^] si desea obtener más información.
++
+A partir de ONTAP 9.10.1, todas las licencias se proporcionan como archivo de licencia de NetApp (NLF), que es un solo archivo que admite varias funciones. Consulte link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["Licencias incluidas con ONTAP One"^] si desea obtener más información.
+
++
+
+NOTE: Sólo se admite la protección asincrónica SnapMirror.
+
 
 
 .Interconexión
@@ -39,8 +46,10 @@ IMPORTANT: Compruebe que los nombres de las SVM utilizados en la relación de re
 
 
 .Controladores compatibles
-* La replicación de volúmenes es compatible con los controladores ontap-nas y ontap-san.
+NetApp Trident admite la replicación de volúmenes con la tecnología NetApp SnapMirror utilizando clases de almacenamiento respaldadas por los siguientes controladores: **  `ontap-nas` : NFS **  `ontap-san` : iSCSI **  `ontap-san` :FC **  `ontap-san` :NVMe/TCP (requiere la versión mínima de ONTAP 9.15.1)
 
+
+NOTE: La replicación de volúmenes mediante SnapMirror no es compatible con los sistemas ASA r2. Para obtener información sobre los sistemas ASA r2, consulte link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Obtenga información sobre los sistemas de almacenamiento R2 de ASA"^] .
 
 
 

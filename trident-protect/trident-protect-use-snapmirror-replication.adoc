@@ -100,6 +100,18 @@ NOTE: Puede configurar Trident Protect para congelar y descongelar sistemas de a
 
 
 
+== Ganchos de ejecución durante operaciones de conmutación por error e inversas
+
+Al usar la relación AppMirror para proteger su aplicación, hay comportamientos específicos relacionados con los ganchos de ejecución que debe tener en cuenta durante las operaciones de conmutación por error y de reversión.
+
+* Durante la conmutación por error, los ganchos de ejecución se copian automáticamente del clúster de origen al de destino. No es necesario volver a crearlos manualmente. Tras la conmutación por error, los ganchos de ejecución permanecen en la aplicación y se ejecutarán durante cualquier acción relevante.
+* Durante la resincronización inversa, se eliminan todos los ganchos de ejecución existentes en la aplicación. Cuando la aplicación de origen se convierte en la aplicación de destino, estos ganchos de ejecución dejan de ser válidos y se eliminan para impedir su ejecución.
+
+
+Para obtener más información sobre los ganchos de ejecución, consulte link:../trident-protect/trident-protect-use-execution-hooks.html["Gestionar los enlaces de ejecución de Trident Protect"] .
+
+
+
 == Configurar una relación de replicación
 
 La configuración de una relación de replicación implica lo siguiente:
@@ -216,11 +228,21 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. Opcionalmente, en el clúster de origen, realice una instantánea de cierre de la aplicación de origen. Esta copia Snapshot se utiliza como base de la aplicación en el clúster de destino. Si omite este paso, deberá esperar a que se ejecute la siguiente instantánea programada para que tenga una instantánea reciente.
+. Opcionalmente, en el clúster de origen, tome una instantánea de la aplicación de origen. Esta copia Snapshot se utiliza como base de la aplicación en el clúster de destino. Si omite este paso, deberá esperar a que se ejecute la siguiente instantánea programada para que tenga una instantánea reciente.
++
+[NOTE]
+====
+Además del programa que se proporciona a continuación, se recomienda crear un programa de instantáneas diarias independiente con un período de retención de 7 días para mantener una instantánea común entre los clústeres de ONTAP emparejados. Esto garantiza que las instantáneas estén disponibles hasta por 7 días, pero el período de retención se puede personalizar según las necesidades del usuario.
+
+Si se produce una conmutación por error, el sistema puede usar estas instantáneas hasta por 7 días para operaciones inversas. Este enfoque agiliza y optimiza el proceso, ya que solo se transfieren los cambios realizados desde la última instantánea, no todos los datos.
+
+Si un programa existente para la aplicación ya cumple con los requisitos de retención deseados, no se requieren programas adicionales.
+
+====
 +
 [role="tabbed-block"]
 ====
-.Tome una instantánea de cierre con un CR
+.Tome una instantánea con un CR
 --
 .. Cree un programa de replicación para la aplicación de origen:
 +
@@ -271,7 +293,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Cierre una instantánea mediante la CLI
+.Tome una instantánea utilizando la CLI
 --
 .. Cree la instantánea, reemplazando valores entre paréntesis con información de su entorno. Por ejemplo:
 +

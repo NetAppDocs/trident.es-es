@@ -94,6 +94,51 @@ spec:
 
 
 
+. (_Opcional_) Agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
++
+** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usar `Include` o `Exclude` incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
++
+*** *ResourceFilter.resourceMatchers*: Una matriz de objetos resourceMatcher. Si define varios elementos en esta matriz, coinciden como una OPERACIÓN OR y los campos dentro de cada elemento (grupo, tipo, versión) coinciden como una operación AND.
++
+**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
+**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
+**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
+**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
+**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
++
+
+NOTE: Cuando ambos  `resourceFilter` y  `labelSelector` se utilizan,  `resourceFilter` corre primero y luego  `labelSelector` Se aplica a los recursos resultantes.
+
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+spec:
+  resourceFilter:
+    resourceSelectionCriteria: "Include"
+    resourceMatchers:
+      - group: my-resource-group-1
+        kind: my-resource-kind-1
+        version: my-resource-version-1
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+      - group: my-resource-group-2
+        kind: my-resource-kind-2
+        version: my-resource-version-2
+        names: ["my-resource-names"]
+        namespaces: ["my-resource-namespaces"]
+        labelSelectors: ["trident.netapp.io/os=linux"]
+----
+
+
+
+
+
+
 . Después de crear la CR de la aplicación para que coincida con su entorno, aplique la CR. Por ejemplo:
 +
 [source, console]
@@ -125,6 +170,14 @@ tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespa
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
++
+Puedes utilizar  `--resource-filter-include` y  `--resource-filter-exclude` banderas para incluir o excluir recursos según  `resourceSelectionCriteria` como grupo, tipo, versión, etiquetas, nombres y espacios de nombres, como se muestra en el siguiente ejemplo:
+
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --resource-filter-include "group=my-resource-group,kind=my-resource-kind,version=my-resource-version,names=my-resource-names,namespaces=my-resource-namespaces,labelSelectors=trident.netapp.io/os=linux"
 ----
 
 

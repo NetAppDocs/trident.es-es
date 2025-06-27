@@ -16,6 +16,13 @@ summary: Puede actualizar Trident Protect a la última versión para aprovechar 
 [role="lead"]
 Puede actualizar Trident Protect a la última versión para aprovechar las nuevas funciones o correcciones de errores.
 
+[NOTE]
+====
+Al actualizar desde la versión 24.10, las instantáneas que se ejecutan durante la actualización podrían fallar. Este fallo no impide la creación de instantáneas futuras, ya sean manuales o programadas. Si una instantánea falla durante la actualización, puede crear una nueva manualmente para garantizar la protección de su aplicación.
+
+Para evitar posibles fallos, puede desactivar todas las instantáneas programadas antes de la actualización y volver a activarlas después. Sin embargo, esto puede provocar que se pierdan las instantáneas programadas durante el periodo de actualización.
+
+====
 Para actualizar Trident Protect, realice los siguientes pasos.
 
 .Pasos
@@ -27,14 +34,32 @@ helm repo update
 ----
 . Actualice los CRD de Trident Protect:
 +
+
+NOTE: Este paso es necesario si estás actualizando desde una versión anterior a la 25.06, ya que los CRD ahora están incluidos en la tabla de Trident Protect Helm.
+
++
+.. Ejecute este comando para cambiar la administración de CRD de  `trident-protect-crds` a  `trident-protect` :
++
 [source, console]
 ----
-helm upgrade trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0  --namespace trident-protect
+kubectl get crd | grep protect.trident.netapp.io | awk '{print $1}' | xargs -I {} kubectl patch crd {} --type merge -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "trident-protect"}}}'
 ----
+.. Ejecute este comando para eliminar el secreto de Helm para el  `trident-protect-crds` cuadro:
++
+
+NOTE: No desinstale el  `trident-protect-crds` Gráfico usando Helm, ya que esto podría eliminar sus CRD y cualquier dato relacionado.
+
++
+[source, console]
+----
+kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
+----
+
+
 . Actualizar Trident Protect:
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2502.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
 ----
 

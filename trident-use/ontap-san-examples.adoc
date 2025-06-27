@@ -14,6 +14,13 @@ summary: Obtenga más información acerca de cómo crear y utilizar controladore
 [role="lead"]
 Aprenda a crear y utilizar controladores SAN de ONTAP con su instalación de Trident. Esta sección proporciona ejemplos de configuración de backend y detalles para la asignación de back-ends a StorageClasses.
 
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^] Varían de otros sistemas ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento. Estas variaciones afectan el uso de ciertos parámetros, como se indica. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Obtenga más información sobre las diferencias entre los sistemas ASA r2 y otros sistemas ONTAP"^].
+
+
+NOTE: Sólo el  `ontap-san` El controlador (con protocolos iSCSI y NVMe/TCP) es compatible con sistemas ASA r2.
+
+En la configuración del backend de Trident, no es necesario especificar que su sistema es ASA r2. Al seleccionar  `ontap-san` como el  `storageDriverName` Trident detecta automáticamente el sistema ASA r2 o el sistema ONTAP tradicional. Algunos parámetros de configuración del backend no son aplicables a los sistemas ASA r2, como se indica en la tabla a continuación.
+
 
 
 == Opciones de configuración del back-end
@@ -56,7 +63,7 @@ NOTE: Si utiliza las credenciales «vsadmin», `managementLIF` debe ser la de la
 *Omitir para MetroCluster.* Ver <<mcc-best>>. | Derivado si una SVM `managementLIF` está especificado 
 
 
-| `useCHAP` | Use CHAP para autenticar iSCSI para los controladores SAN de ONTAP [Boolean]. Establezca como `true` para que Trident configure y utilice CHAP bidireccional como la autenticación predeterminada para la SVM especificada en el back-end. Consulte link:ontap-san-prep.html["Prepárese para configurar el back-end con los controladores SAN de ONTAP"] para obtener más información. | `false` 
+| `useCHAP` | Use CHAP para autenticar iSCSI para los controladores SAN de ONTAP [Boolean]. Establezca como `true` para que Trident configure y utilice CHAP bidireccional como la autenticación predeterminada para la SVM especificada en el back-end. Consulte link:ontap-san-prep.html["Prepárese para configurar el back-end con los controladores SAN de ONTAP"] para obtener más información. *No compatible con FCP o NVMe/TCP.* | `false` 
 
 
 | `chapInitiatorSecret` | Secreto CHAP del iniciador. Obligatorio si `useCHAP=true` | "" 
@@ -101,13 +108,13 @@ Agregado para el aprovisionamiento (opcional; si se establece, se debe asignar a
 
 NOTE: Cuando el agregado se actualiza en SVM, se actualiza automáticamente en Trident sondeando SVM sin tener que reiniciar la controladora Trident. Cuando se haya configurado un agregado específico en Trident para aprovisionar volúmenes, si se cambia el nombre de este agregado o se saca de la SVM, el back-end se moverá al estado Failed en Trident mientras se sondea el agregado de SVM. Debe cambiar el agregado por uno presente en la SVM o quitarlo por completo para que el back-end vuelva a estar en línea.
 
-*No especifiques para ASA R2*.
+*No especificar para sistemas ASA r2*.
  a| 
 ""
 
 
 
-| `limitAggregateUsage` | Error al aprovisionar si el uso supera este porcentaje. Si estás usando un backend de Amazon FSx for NetApp ONTAP, no especifiques  `limitAggregateUsage`. El proporcionado `fsxadmin` y `vsadmin` no contiene los permisos necesarios para recuperar el uso de agregados y limitarlo mediante Trident. *No especifiques para ASA R2*. | "" (no se aplica de forma predeterminada) 
+| `limitAggregateUsage` | Error al aprovisionar si el uso supera este porcentaje. Si estás usando un backend de Amazon FSx for NetApp ONTAP, no especifiques  `limitAggregateUsage`. El proporcionado `fsxadmin` y `vsadmin` no contiene los permisos necesarios para recuperar el uso de agregados y limitarlo mediante Trident. *No especificar para sistemas ASA r2*. | "" (no se aplica de forma predeterminada) 
 
 
 | `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. Además, restringe el tamaño máximo de los volúmenes que gestiona para las LUN. | '' (no se aplica por defecto) 
@@ -125,7 +132,7 @@ No lo utilice a menos que esté solucionando problemas y necesite un volcado de 
 `useREST` Cuando se define en `true`, Trident utiliza las API REST DE ONTAP para comunicarse con el backend; cuando se establece en `false`, Trident utiliza llamadas ONTAPI (ZAPI) para comunicarse con el backend. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontapi` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión Trident 24,06 y ONTAP 9.15.1 o posterior,
 `useREST` se establece en `true` de forma predeterminada; cambie
 `useREST` a `false` Usar llamadas ONTAPI (ZAPI). 
-`useREST` Está totalmente cualificado para NVMe/TCP. *Si se especifica, siempre se establece en `true` para ASA R2*. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
+`useREST` Está totalmente cualificado para NVMe/TCP. *Si se especifica, configúrelo siempre en  `true` para sistemas ASA r2*. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 
 
  a| 
@@ -136,7 +143,7 @@ No lo utilice a menos que esté solucionando problemas y necesite un volcado de 
 | `formatOptions`  a| 
 Puede `formatOptions` usarse para especificar argumentos de línea de comandos para `mkfs` el comando, que se aplicará cada vez que se formatee un volumen. Esto permite formatear el volumen según sus preferencias. Asegúrese de especificar las opciones formatOptions similares a las de los comandos mkfs, excluyendo la ruta del dispositivo. Ejemplo: «-E nodiscard»
 
-*Compatible `ontap-san` `ontap-san-economy` solo para conductores y.*
+*Compatible con  `ontap-san` y  `ontap-san-economy` Controladores con protocolo iSCSI.* *Además, compatible con sistemas ASA r2 cuando se utilizan los protocolos iSCSI y NVMe/TCP.*
  a| 
 
 
@@ -168,13 +175,13 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | Parámetro | Descripción | Predeterminado 
 
 
-| `spaceAllocation` | Asignación de espacio para las LUN | “Verdadero” *Si se especifica, establezca en `true` para ASA R2*. 
+| `spaceAllocation` | Asignación de espacio para las LUN | "verdadero" *Si se especifica, configúrelo en  `true` para sistemas ASA r2*. 
 
 
-| `spaceReserve` | Modo de reserva de espacio; «ninguno» (fino) o «volumen» (grueso). *Establece en `none` para ASA R2*. | ninguno 
+| `spaceReserve` | Modo de reserva de espacio; «ninguno» (fino) o «volumen» (grueso). *Empezar a  `none` para sistemas ASA r2*. | ninguno 
 
 
-| `snapshotPolicy` | Política de Snapshot para utilizar. *Establece en `none` para ASA R2*. | ninguno 
+| `snapshotPolicy` | Política de Snapshot para utilizar. *Empezar a  `none` para sistemas ASA r2*. | ninguno 
 
 
 | `qosPolicy` | Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento. Usar grupos de políticas de QoS con Trident requiere ONTAP 9 Intersight 8 o posterior. Debe usar un grupo de políticas de calidad de servicio no compartido y asegurarse de que el grupo de políticas se aplique a cada componente individualmente. Un grupo de políticas de calidad de servicio compartido aplica el techo máximo para el rendimiento total de todas las cargas de trabajo. | "" 
@@ -183,21 +190,21 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | `adaptiveQosPolicy` | Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento | "" 
 
 
-| `snapshotReserve` | Porcentaje de volumen reservado para snapshots. *No especifiques para ASA R2*. | «0» si `snapshotPolicy` no es “ninguno”, de lo contrario” 
+| `snapshotReserve` | Porcentaje de volumen reservado para snapshots. *No especificar para sistemas ASA r2*. | «0» si `snapshotPolicy` no es “ninguno”, de lo contrario” 
 
 
 | `splitOnClone` | Divida un clon de su elemento principal al crearlo | "falso" 
 
 
-| `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el nuevo volumen; los valores predeterminados son `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Trident será habilitado NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Trident con NVE y NAE"]. | Falso *Si se especifica, establezca en `true` para ASA R2*. 
+| `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el nuevo volumen; los valores predeterminados son `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Trident será habilitado NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Trident con NVE y NAE"]. | "falso" *Si se especifica, configúrelo en  `true` para sistemas ASA r2*. 
 
 
 | `luksEncryption` | Active el cifrado LUKS. Consulte link:../trident-reco/security-luks.html["Usar la configuración de clave unificada de Linux (LUKS)"].
 
-El cifrado LUKS no es compatible con NVMe/TCP. | Ajuste en `false` para ASA R2. 
+El cifrado LUKS no es compatible con NVMe/TCP. | "" *Establecer en  `false` para sistemas ASA r2*. 
 
 
-| `tieringPolicy` | Política de organización en niveles para usar “none” *No especifique para ASA R2*. |  
+| `tieringPolicy` | Política de niveles para utilizar "ninguno" *No especificar para sistemas ASA r2*. |  
 
 
 | `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
