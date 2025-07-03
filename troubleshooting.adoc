@@ -8,7 +8,7 @@ summary: Utilice los punteros que se proporcionan aquí para solucionar problema
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

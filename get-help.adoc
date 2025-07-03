@@ -8,7 +8,7 @@ summary: NetApp ofrece compatibilidad con Trident de distintas formas. Hay dispo
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

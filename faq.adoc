@@ -8,7 +8,7 @@ summary: Encuentre respuestas a las preguntas frecuentes sobre instalación, con
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
