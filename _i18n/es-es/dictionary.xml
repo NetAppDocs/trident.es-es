@@ -5733,4 +5733,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">Se agregó compatibilidad con SMB seguro para volúmenes ONTAP-NAS y ONTAP-NAS-Economy. Los usuarios y grupos de Active Directory ahora pueden usarse con volúmenes SMB para mayor seguridad. Consulte <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block>.</block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">Se agregó soporte para replicación de volumen con SnapMirror para backends NVMe. Consulte <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block>.</block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">Este paso es necesario si estás actualizando desde una versión anterior a la 25.06, ya que los CRD ahora están incluidos en el cuadro de protección de casco Trident.</block>
+  <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
 </blocks>
