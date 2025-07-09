@@ -46,6 +46,7 @@ Independientemente de la ruta de instalación, debe tener:
 * Un host Linux con `kubectl` (o. `oc`, Si está utilizando OpenShift) instalado y configurado para administrar el clúster de Kubernetes que desea utilizar.
 * La `KUBECONFIG` Variable de entorno establecida en el clúster de Kubernetes.
 * Si utiliza Kubernetes con Docker Enterprise, https://docs.docker.com/ee/ucp/user-access/cli/["Siga sus pasos para habilitar el acceso a la CLI"^].
+* El clúster debe admitir cargas de trabajo con privilegios.
 
 
 
@@ -214,7 +215,6 @@ Puede decidir cambiar el método de instalación. Antes de hacerlo, tenga en cue
 
 Al instalar Trident en productos de la cartera de VMware Tanzu:
 
-* El clúster debe admitir cargas de trabajo con privilegios.
 * La `--kubelet-dir` el indicador se debe establecer en la ubicación del directorio kubelet. De forma predeterminada, esta es `/var/vcap/data/kubelet`.
 +
 Especificación de la ubicación del kubelet mediante `--kubelet-dir` Sabe que funciona para el operador, Helm y. `tridentctl` implementaciones.
