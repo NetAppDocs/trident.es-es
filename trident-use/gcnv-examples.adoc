@@ -55,6 +55,9 @@ Cada back-end aprovisiona volúmenes en una única región de Google Cloud. Para
 | `serviceLevel` | El nivel de servicio de un pool de almacenamiento y sus volúmenes. Los valores son `flex`, `standard`, `premium`, o `extreme`. |  
 
 
+| `labels` | Conjunto de etiquetas con formato JSON arbitrario que se aplica en los volúmenes | "" 
+
+
 | `network` | La red de Google Cloud utilizada para los volúmenes GCNV. |  
 
 
