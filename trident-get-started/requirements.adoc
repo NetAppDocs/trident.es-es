@@ -108,8 +108,6 @@ Trident admite los siguientes controladores de ONTAP para KubeVirt y OpenShift V
 
 En la tabla siguiente se resumen las funciones disponibles con este lanzamiento de Trident y las versiones de Kubernetes compatibles.
 
-<<check for 25.06>>
-
 [cols="3"]
 |===
 | Función | La versión de Kubernetes | ¿Se requieren puertas de funciones? 
@@ -219,8 +217,6 @@ link:../trident-reference/ports.html["Puertos Trident"]
 == Imágenes de contenedor y las versiones de Kubernetes correspondientes
 
 En el caso de instalaciones de aire acondicionado, la siguiente lista es una referencia de las imágenes de contenedores necesarias para instalar Trident. Utilice `tridentctl images` el comando para verificar la lista de imágenes de contenedor necesarias.
-
-<<check for 25.06>>
 
 [cols="2"]
 |===
