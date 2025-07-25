@@ -18,7 +18,7 @@ Obtenga más información sobre los puertos que Trident utiliza para la comunica
 
 == Puertos Trident
 
-Trident se comunica a través de los siguientes puertos:
+Trident utiliza los siguientes puertos para la comunicación dentro de Kubernetes:
 
 [cols="2,4"]
 |===
