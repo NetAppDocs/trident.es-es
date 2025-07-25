@@ -16,7 +16,7 @@ Puede implementar manualmente el operador Trident para instalar Trident. Este pr
 
 
 
-== Información crítica sobre Trident 25,05
+== Información crítica sobre Trident 25,06
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
