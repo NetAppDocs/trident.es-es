@@ -109,13 +109,13 @@ Las siguientes opciones adicionales son para iSCSI *sólo*:
 
 Vea los ejemplos siguientes:
 
-* Cree un volumen de 10 GIB:
+* Cree un volumen de 10 GiB:
 +
 [listing]
 ----
 docker volume create -d netapp --name demo -o size=10G -o encryption=true
 ----
-* Cree un volumen de 100 GIB con Snapshot:
+* Cree un volumen de 100 GiB con instantáneas:
 +
 [listing]
 ----
@@ -129,7 +129,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 ----
 
 
-El tamaño de volumen mínimo es 20 MiB.
+El tamaño mínimo del volumen es 20 MiB.
 
 Si no se especifica la reserva de instantáneas y la política de instantáneas es `none`, Trident utilice una reserva de instantáneas del 0%.
 
@@ -175,7 +175,7 @@ Otras opciones de creación de volúmenes del software Element incluyen las sigu
 
 
 | `size`  a| 
-El tamaño del volumen, de manera predeterminada es 1 GIB o la entrada de configuración... "Valores predeterminados": {"tamaño": "5G"}.
+El tamaño del volumen, por defecto es 1 GiB o la entrada de configuración... "defaults": {"size": "5G"}.
 
 
 
@@ -222,13 +222,13 @@ Consulte el siguiente archivo de configuración de ejemplo con definiciones de Q
 ----
 En la configuración anterior, tenemos tres definiciones de normas: Bronce, plata y oro. Estos nombres son arbitrarios.
 
-* Cree un volumen Gold de 10 GIB:
+* Cree un volumen Gold de 10 GiB:
 +
 [listing]
 ----
 docker volume create -d solidfire --name sfGold -o type=Gold -o size=10G
 ----
-* Cree un volumen Bronze de 100 GIB:
+* Cree un volumen Bronze de 100 GiB:
 +
 [listing]
 ----

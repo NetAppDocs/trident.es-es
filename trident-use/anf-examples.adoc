@@ -21,7 +21,7 @@ Obtenga más información sobre las opciones de configuración de back-end NFS y
 Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en los pools de capacidad que están disponibles en la ubicación solicitada y coincidir con el nivel de servicio y la subred solicitados.
 
 
-NOTE: Trident no admite pools de capacidad de calidad de servicio manual.
+NOTE: * A partir de la versión 25.06 de NetApp Trident , los grupos de capacidad de QoS manuales se admiten como versión preliminar técnica.*
 
 Los back-ends de Azure NetApp Files proporcionan estas opciones de configuración.
 
@@ -98,6 +98,12 @@ Opcional cuando se activan identidades gestionadas en un clúster de AKS. |
 
 
 | `supportedTopologies` | Representa una lista de regiones y zonas soportadas por este backend. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"]. |  
+
+
+| `qosType` | Representa el tipo de QoS: Automático o Manual. *Vista previa técnica de Trident 25.06* | Auto 
+
+
+| `maxThroughput` | Establece el rendimiento máximo permitido. Compatible solo con grupos de capacidad de QoS manuales. *Vista previa técnica de Trident 25.06* | `4 MiB/sec` 
 |===
 
 NOTE: Para obtener más información sobre las funciones de red, consulte link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configure las funciones de red para un volumen de Azure NetApp Files"^].
@@ -256,6 +262,42 @@ serviceLevel: Ultra
 capacityPools:
   - application-group-1/account-1/ultra-1
   - application-group-1/account-1/ultra-2
+----
+====
+.Ejemplo de backend con grupos de capacidad de QoS manuales
+[%collapsible]
+====
+Esta configuración de backend coloca volúmenes en Azure  `eastus` Ubicación con grupos de capacidad de QoS manuales. *Vista previa técnica en NetApp Trident 25.06*.
+
+[source, yaml]
+----
+---
+version: 1
+storageDriverName: azure-netapp-files
+backendName: anf1
+location: eastus
+labels:
+  clusterName: test-cluster-1
+  cloud: anf
+  nasType: nfs
+defaults:
+  qosType: Manual
+storage:
+  - serviceLevel: Ultra
+    labels:
+      performance: gold
+    defaults:
+      maxThroughput: 10
+  - serviceLevel: Premium
+    labels:
+      performance: silver
+    defaults:
+      maxThroughput: 5
+  - serviceLevel: Standard
+    labels:
+      performance: bronze
+    defaults:
+      maxThroughput: 3
 ----
 ====
 .Configuración avanzada

@@ -268,7 +268,7 @@ NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de dato
 * Se redujo el tamaño mínimo de volumen mínimo de Azure NetApp Files a 50 GiB. Se espera que el nuevo tamaño mínimo de Azure esté disponible de forma general en noviembre.
 * Se ha añadido `denyNewVolumePools` el parámetro de configuración para restringir los controladores ONTAP-NAS-Economy y ONTAP-SAN-Economy a pools FlexVol preexistentes.
 * Detección añadida para la adición, eliminación o cambio de nombre de agregados desde la SVM en todos los controladores de ONTAP.
-* Se ha agregado una sobrecarga de 18MiB a los LUN LUKS para garantizar que el tamaño de PVC informado sea utilizable.
+* Se agregaron 18 MiB de sobrecarga a los LUN LUKS para garantizar que el tamaño de PVC informado sea utilizable.
 * Mejora de la etapa de nodos ONTAP-SAN y ONTAP-SAN-Economy y eliminación de errores en la etapa de almacenamiento para permitir la eliminación de dispositivos después de una etapa fallida.
 * Se ha añadido un generador de roles personalizado que permite a los clientes crear un rol minimalista para Trident en ONTAP.
 * Se ha añadido un registro adicional para la solución de problemas `lsscsi` (link:https://github.com/NetApp/trident/issues/792["Problema n.o 792"]).
@@ -374,7 +374,7 @@ A partir del lanzamiento de la versión 24,10, Astra Trident cambia la marca a T
 * Se han corregido los fallos de instalación de Trident debido a transacciones obsoletas.
 * Se ha corregido el tridentctl para ignorar los mensajes de advertencia de Kubernetes (link:https://github.com/NetApp/trident/issues/892["Problema n.o 892"]).
 * Se ha cambiado la prioridad de la controladora Trident `SecurityContextConstraint` a `0` (link:https://github.com/NetApp/trident/issues/887["Problema n.o 887"]).
-* Los controladores ONTAP ahora aceptan tamaños de volumen inferiores a 20MiB (link:https://github.com/NetApp/trident/issues/885["Problema[#885"]).
+* Los controladores ONTAP ahora aceptan tamaños de volumen inferiores a 20 MiB ( link:https://github.com/NetApp/trident/issues/885["Problema[#885"] ).
 * Se corrigió un Trident para evitar que se redujeran los volúmenes de FlexVol durante la operación de cambio de tamaño del controlador ONTAP-SAN.
 * Se corrigió un error de importación de volúmenes de ANF con NFS v4,1.
 
