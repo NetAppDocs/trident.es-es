@@ -175,7 +175,7 @@ Otras opciones de creación de volúmenes del software Element incluyen las sigu
 
 
 | `size`  a| 
-El tamaño del volumen, por defecto es 1 GiB o la entrada de configuración... "defaults": {"size": "5G"}.
+El tamaño del volumen, por defecto es 1 GiB o entrada de configuración... "defaults": {"size": "5G"}.
 
 
 
