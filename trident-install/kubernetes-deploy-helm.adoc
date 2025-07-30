@@ -241,13 +241,6 @@ WARNING: No elimine la afinidad predeterminada del archivo values.yaml. Cuando d
 
 
 | `nodePrep` | Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.* |  
-
-
-| `ontapConfigurator`  a| 
-Habilita o deshabilita la configuración automática del back-end de Trident y las clases de almacenamiento para Amazon FSx. Utilice los siguientes parámetros junto con `ontapConfigurator` para activar la configuración de backend automática:
-`enabled`: Defina en `true` para activar la configuración de backend automática.
-`svms`: Contiene la lista de identificadores del sistema de archivos para los que se creará la configuración de backend automática. - `authType`: Establece el tipo de autenticación para la autenticación SVM. Para AWS, actualmente es compatible con la autenticación basada en arn («awsarn»).  `fsxnID`- : Establece el ID del sistema de archivos de AWS FSx. Ejemplo: “fs-0dfeaa884a68b1cab”. - `protocols` - Especifica la lista de protocolos soportados para la configuración automática de backend; “nfs”, “iscsi” o ambos.
-|  
 |===
 
 
