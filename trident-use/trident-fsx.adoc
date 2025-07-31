@@ -82,29 +82,28 @@ El clúster EKS admite varios sistemas operativos, pero AWS ha optimizado cierta
 |===
 
 
-| IAM | NAS | Economía NAS | SAN | Economía SAN 
+| IAM | NAS | Economía NAS | ISCSI | Economía iSCSI 
 
 
-| AL2023_x86_64_STANDARD | Sí | Sí | Sí* | Sí* 
+| AL2023_x86_64_STANDARD | Sí | Sí | Sí | Sí 
 
 
-| AL2_x86_64 | Sí | Sí | Sí** | Sí** 
+| AL2_x86_64 | Sí | Sí | Sí* | Sí* 
 
 
-| BOTTLEROCKET_x86_64 | Sí*** | Sí | NO DISPONIBLE | NO DISPONIBLE 
+| BOTTLEROCKET_x86_64 | Sí** | Sí | NO DISPONIBLE | NO DISPONIBLE 
 
 
-| AL2023_ARM_64_STANDARD | Sí | Sí | Sí* | Sí* 
+| AL2023_ARM_64_STANDARD | Sí | Sí | Sí | Sí 
 
 
-| AL2_ARM_64 | Sí | Sí | Sí** | Sí** 
+| AL2_ARM_64 | Sí | Sí | Sí* | Sí* 
 
 
-| BOTTLEROCKET_ARM_64 | Sí*** | Sí | NO DISPONIBLE | NO DISPONIBLE 
+| BOTTLEROCKET_ARM_64 | Sí** | Sí | NO DISPONIBLE | NO DISPONIBLE 
 |===
-* * Admite nodePrep solo con iSCSI.
-* ** No se puede eliminar el PV sin reiniciar el nodo
-* *** No funciona con NFSv3 con Trident versión 25.02, pero sí con la versión 24.10. Funciona con NFSv4.1 con ambas versiones.
+* * No se puede eliminar el PV sin reiniciar el nodo
+* ** No funciona con NFSv3 con Trident versión 25.02.
 
 
 
@@ -112,8 +111,8 @@ NOTE: Si su AMI deseado no aparece aquí, no significa que no sea compatible; si
 
 *Pruebas realizadas con*:
 
-* Versión de EKS: 1,31
-* Método de instalación: Helm y como complemento de AWS
+* Versión de EKS: 1.32
+* Método de instalación: Helm 25.06 y como complemento de AWS 25.06
 * Para NAS, se probaron tanto NFSv3 como NFSv4,1.
 * Para SAN solo se probó iSCSI, no NVMe-oF.
 

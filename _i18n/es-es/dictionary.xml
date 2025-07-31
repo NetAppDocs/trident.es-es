@@ -5008,8 +5008,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="af2fcef81914e3ce8b2cbe1ab832c879" category="cell">IAM</block>
   <block id="c07ee5debf5f3a3fef16c1ee5e8e4942" category="cell">NAS</block>
   <block id="12b1f0215cde9ea0ca4aac0c3ade3a96" category="cell">Economía NAS</block>
-  <block id="62a0282d39568be094470486eaf70c4f" category="cell">SAN</block>
-  <block id="8bb9a7fe88283df4df4c9131b10d6601" category="cell">Economía SAN</block>
   <block id="b2f628a87c3b04816210b608f76d5fa0" category="cell">AL2023_x86_64_STANDARD</block>
   <block id="c1dfeb2129506a6914b9c6c3c0cdb647" category="cell">AL2_x86_64</block>
   <block id="9cfc5bb3d7caf552b74c3e5295bb5f11" category="cell">Sí**</block>
@@ -5019,9 +5017,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="1566bc91a0bfa1dbeba46107fc54f756" category="cell">AL2023_ARM_64_STANDARD</block>
   <block id="e3b9c2e4d8176e1074a9511b580d6396" category="cell">AL2_ARM_64</block>
   <block id="a28322bc0e8a38770a1af7cc1d4a9ad9" category="cell">BOTTLEROCKET_ARM_64</block>
-  <block id="b5056db6cc95f0ceeb72bf7925b7409d" category="list-text">** No se puede eliminar el PV sin reiniciar el nodo</block>
   <block id="07e5351dce8b6c8e3f72745762bac773" category="paragraph">*Pruebas realizadas con*:</block>
-  <block id="502ca2b9844982f6255585372ccd8f3e" category="list-text">Método de instalación: Helm y como complemento de AWS</block>
   <block id="583a5d19bce672251a82cb390b576d1a" category="list-text">Para NAS, se probaron tanto NFSv3 como NFSv4,1.</block>
   <block id="8dba245dcac3bf8acf6067e0d62d01cb" category="list-text">Para SAN solo se probó iSCSI, no NVMe-oF.</block>
   <block id="6eee4bc92cc38369e7271225ec488e82" category="paragraph">*Pruebas realizadas*:</block>
@@ -5333,7 +5329,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">Realice una conmutación por error del nuevo clúster de destino al nuevo clúster de origen, con el siguiente cambio:</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">En el clúster de eliminación actual, elimine el CR de AppMirrorRelationship:</block>
   <block id="90abe2b6c39f51adea4c5aabff2df094" category="list-text">Siga el esquema de configuración *Add-On* y establezca el parámetro Valores de configuración en la sección *Valores de configuración* en el Role-arn que creó en el paso anterior (Paso 1). El valor debe tener el siguiente formato:</block>
-  <block id="be88c7e0502cadac6eccdbb309610a77" category="paragraph">El siguiente comando de ejemplo instala el complemento Trident EKS:<block ref="a5b33d95c2beda5bdc154ff0b946fffe" prefix=" " category="inline-code"></block> (Con una versión dedicada)</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Si utiliza Red Hat OpenShift, puede instalar Trident con un operador.</block>
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">Cambie de operador comunitario Trident a operador certificado OpenShift</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">Para pasar del Operador de Trident de la Comunidad de NetApp al Operador de Trident Certificado de Red Hat OpenShift, deberá desinstalar el Operador de la Comunidad e instalar el Operador certificado mediante el Centro de operadores.</block>
@@ -5687,11 +5682,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="08ec33a477c6b216472cd10065483760" category="paragraph">*Para la autenticación de IRSA, utilice el siguiente formato*:</block>
   <block id="895c408250687425783cbd96dd25276d" category="paragraph">*2. Instalar el complemento Trident EKS.*</block>
   <block id="3cec1ada82beb8b8e724d5114558490c" category="paragraph">El clúster EKS admite varios sistemas operativos, pero AWS ha optimizado ciertas imágenes de máquinas de Amazon (AMI) para contenedores y EKS. Las siguientes AMI se han probado con NetApp Trident 25.02.</block>
-  <block id="173a8cacadf475f14befd10f39624033" category="cell">Sí***</block>
-  <block id="2e08317d3e70fb5ff3eda62f9abdd760" category="list-text">* Admite nodePrep solo con iSCSI.</block>
-  <block id="7f38f183170855059fc5861d18334928" category="list-text">*** No funciona con NFSv3 con Trident versión 25.02, pero sí con la versión 24.10. Funciona con NFSv4.1 con ambas versiones.</block>
   <block id="e5d0cb04635aeb2a6f06f54da8303683" category="admonition">Si su AMI deseado no aparece aquí, no significa que no sea compatible; simplemente significa que no se ha probado. Esta lista sirve como guía para las AMI que se sabe que funcionan.</block>
-  <block id="e30e4df15168b6dd1eefaa4f4590a961" category="list-text">Versión de EKS: 1,31</block>
   <block id="324844cd8fa64fd82920fe6f11dc588d" category="list-text">9 de mayo de 2025: <block ref="86b6d8d044348a051fe7477baf34debb" category="inline-link-macro-rx"></block></block>
   <block id="cbe74dc7c890979d924675df2fa27a35" category="list-text">Se agregó soporte para instantáneas de grupos de volúmenes CSI con <block ref="ee21100dace47d83bcefcb7dea09cdd3" prefix=" " category="inline-code"></block> API de Kubernetes de instantáneas de grupo de volúmenes para el controlador iSCSI de ONTAP-SAN. Consulte <block ref="b136941d5c2c98d5e9ff86fd07e97048" category="inline-link-macro-rx"></block>.</block>
   <block id="5e93028f6e11493fcce0c15271413cc3" category="list-text">Se agregó soporte para ONTAP ASA r2 para NVMe/TCP además de iSCSI. Consulte <block ref="0ffed2115293f61a0df2b3c8f01851e1" category="inline-link-macro-rx"></block>.</block>
@@ -5772,4 +5763,10 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">Guarde la contraseña en un lugar seguro. La necesitará para restaurar datos en el mismo clúster o en uno diferente. Si el clúster o el... <block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block> Si se elimina el espacio de nombres, no podrá restaurar sus copias de seguridad o instantáneas sin la contraseña.</block>
   <block id="1847ffdf7c6d0f8b1bbe8c2bb725a3ce" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x</block>
   <block id="3e9612318eccb033e5737a43e626163d" category="admonition">_Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.33.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._</block>
+  <block id="9509f036573c9b78acc044938588f7c4" category="paragraph">El siguiente comando de ejemplo instala el complemento Trident EKS:<block ref="f235325f054788c50b512241d68cb329" prefix=" " category="inline-code"></block> (con una versión dedicada)</block>
+  <block id="cedb5a7bb4fc5e3e014ce0b58a3d5095" category="cell">Economía iSCSI</block>
+  <block id="27a75f24043645e5e4d2b91bad951706" category="list-text">* No se puede eliminar el PV sin reiniciar el nodo</block>
+  <block id="029fec6571d8c4d36438994c07941953" category="list-text">** No funciona con NFSv3 con Trident versión 25.02.</block>
+  <block id="87e881298a8d8cc2b3ffd068da55a0c1" category="list-text">Versión de EKS: 1.32</block>
+  <block id="38ec877f215b7bc2eb836f279c3374c5" category="list-text">Método de instalación: Helm 25.06 y como complemento de AWS 25.06</block>
 </blocks>

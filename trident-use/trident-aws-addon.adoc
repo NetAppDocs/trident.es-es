@@ -58,7 +58,8 @@ image::../media/aws-eks-04.png[aws llega a 04]
 ----
 {
 
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'"
+  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
+  "cloudProvider": "AWS"
 
 }
 ----
@@ -96,7 +97,7 @@ kubectl get pods -n trident
 
 .Instale el complemento NetApp Trident EKS mediante la interfaz de línea de comandos:
 El siguiente comando de ejemplo instala el complemento Trident EKS:
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.02.1-eksbuild.1` (Con una versión dedicada)
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.0-eksbuild.1` (con una versión dedicada)
 
 .Desinstale el complemento NetApp Trident EKS mediante la interfaz de línea de comandos:
 El siguiente comando desinstala el complemento Trident EKS:
