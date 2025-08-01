@@ -30,7 +30,7 @@ Si desea utilizar la funcionalidad Snapshot, instale el complemento del controla
 ====
 .Identidad de pod
 --
-. Agregue la configuración de Helm al repositorio NetApp Trident:
+. Añada el repositorio Helm de Trident:
 +
 [source, console]
 ----
@@ -62,7 +62,7 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 --
 .Asociación de cuentas de servicio (IRSA)
 --
-. Agregue la configuración de Helm al repositorio NetApp Trident:
+. Añada el repositorio Helm de Trident:
 +
 [source, console]
 ----
