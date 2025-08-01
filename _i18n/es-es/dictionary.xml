@@ -5351,8 +5351,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">Haga clic en *instalar*.</block>
   <block id="86499c179913093d38f20a089bb4967f" category="list-text">Seleccione las opciones requeridas y haga clic en *Instalar*.</block>
   <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">Una vez finalizada la instalación, el operador se muestra en la lista de operadores instalados.</block>
-  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">Cree un TORC como la instalación del grupo de operador.</block>
-  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Desinstale el operador Trident</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">Seleccione el operador Trident de la lista de operadores instalados.</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">Seleccione esta opción si desea suprimir toda la instancia de operando del operador.</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">Si no selecciona la casilla de verificación *Eliminar todas las instancias de operando de este operador*, Trident no se desinstalará.</block>
@@ -5774,4 +5772,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">números<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">guiones bajos<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">guiones<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
+  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Desinstalar el operador Trident</block>
 </blocks>
