@@ -33,6 +33,15 @@ Cualquier aspecto especificado fuera de la lista de pools virtuales es global pa
 ====
 La mayoría de los aspectos se especifican en términos específicos del back-end. Lo más importante es que los valores de aspecto no se exponen fuera del controlador del backend y no están disponibles para coincidir en `StorageClasses`. En su lugar, el administrador define una o varias etiquetas para cada pool virtual. Cada etiqueta es una pareja clave:valor y las etiquetas pueden ser comunes en los back-ends únicos. Al igual que en los aspectos, las etiquetas se pueden especificar por grupo o globalmente en el backend. A diferencia de los aspectos, que tienen nombres y valores predefinidos, el administrador tiene la total discreción de definir claves y valores de etiqueta según sea necesario. Para mayor comodidad, los administradores de almacenamiento pueden definir etiquetas por pool virtual y agrupar volúmenes por etiqueta.
 
+Las etiquetas del pool virtual se pueden desafiar usando estos caracteres:
+
+* letras mayúsculas `A-Z`
+* letras minúsculas `a-z`
+* números `0-9`
+* guiones bajos `_`
+* guiones `-`
+
+
 A. `StorageClass` identifica el pool virtual que se debe utilizar haciendo referencia a las etiquetas dentro de un parámetro de selector. Los selectores de pools virtuales admiten los siguientes operadores:
 
 [cols="14%,34%,52%"]
