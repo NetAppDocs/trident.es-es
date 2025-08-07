@@ -20,104 +20,10 @@ Es posible usar Trident Protect para restaurar la aplicación desde una snapshot
 ====
 * Al restaurar una aplicación, todos los ganchos de ejecución configurados para la aplicación se restauran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
 * Se permite restaurar desde una copia de seguridad a un espacio de nombres diferente o al original en volúmenes qtree. Sin embargo, no se permite restaurar desde una instantánea a un espacio de nombres diferente o al original en volúmenes qtree.
+* Puede utilizar la configuración avanzada para personalizar las operaciones de restauración. Para obtener más información, consultelink:../trident-protect/trident-protect-restore-settings.html["Utilice la configuración avanzada de restauración de protección de Trident"] .
 
 
 ====
-
-
-== Etiquetas y anotaciones del espacio de nombres durante las operaciones de restauración y conmutación al nodo de respaldo
-
-Durante las operaciones de restauración y conmutación al nodo de respaldo, se realizan etiquetas y anotaciones en el espacio de nombres de destino que coincidan con las etiquetas y anotaciones en el espacio de nombres de origen. Se añaden etiquetas o anotaciones del espacio de nombres origen que no existen en el espacio de nombres destino, y las etiquetas o anotaciones que ya existan se sobrescriben para que coincidan con el valor del espacio de nombres origen. Las etiquetas o anotaciones que sólo existen en el espacio de nombres de destino permanecen sin cambios.
-
-
-NOTE: Si utiliza Red Hat OpenShift, es importante tener en cuenta el papel fundamental de las anotaciones de espacio de nombres en entornos OpenShift. Las anotaciones del espacio de nombres garantizan que los pods restaurados cumplan los permisos y las configuraciones de seguridad adecuados definidos por las restricciones de contexto de seguridad (SCCs) de OpenShift y puedan acceder a los volúmenes sin problemas de permiso. Para obtener más información, consulte la https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/authentication_and_authorization/managing-pod-security-policies["Documentación de restricciones de contexto de seguridad de OpenShift"^].
-
-Puede evitar que se sobrescriban anotaciones específicas en el espacio de nombres de destino mediante el establecimiento de la variable de entorno de Kubernetes `RESTORE_SKIP_NAMESPACE_ANNOTATIONS` antes de llevar a cabo la operación de restauración o conmutación por error. Por ejemplo:
-
-[source, console]
-----
-kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
-----
-Si instaló la aplicación de origen con Helm con el `--create-namespace` indicador, se le dará un tratamiento especial a la `name` clave de etiqueta. Durante el proceso de restauración o recuperación tras fallos, Trident protege esta etiqueta al espacio de nombres de destino, pero actualiza el valor al valor del espacio de nombres de destino si el valor del origen coincide con el espacio de nombres de origen. Si este valor no coincide con el espacio de nombres de origen, se copia al espacio de nombres de destino sin cambios.
-
-
-
-=== Ejemplo
-
-El siguiente ejemplo presenta un espacio de nombres de origen y destino, cada uno con anotaciones y etiquetas diferentes. Puede ver el estado del espacio de nombres de destino antes y después de la operación, así como cómo las anotaciones y etiquetas se combinan o sobrescriben en el espacio de nombres de destino.
-
-
-
-==== Antes de la operación de restauración o conmutación por error
-
-En la siguiente tabla se muestra el estado del ejemplo de espacios de nombres de origen y destino antes de la operación de restauración o conmutación por error:
-
-[cols="1,2a,2a"]
-|===
-| Espacio de nombres | Anotaciones | Etiquetas 
-
-
-| Espacio de nombres ns-1 (origen)  a| 
-* anotación.uno/clave: “updatedvalue”
-* anotación.dos/clave: “verdadero”
-
- a| 
-* entorno=producción
-* cumplimiento=hipaa
-* name=ns-1
-
-
-
-
-| Espacio de nombres ns-2 (destino)  a| 
-* anotación.uno/tecla: “verdadero”
-* anotación.tres/clave: “falso”
-
- a| 
-* role=base de datos
-
-
-|===
-
-
-==== Después de la operación de restauración
-
-En la siguiente tabla se muestra el estado del espacio de nombres de destino de ejemplo después de la operación de restauración o conmutación por error. Se han agregado algunas claves, algunas se han sobrescrito y la `name` etiqueta se ha actualizado para que coincida con el espacio de nombres de destino:
-
-[cols="1,2a,2a"]
-|===
-| Espacio de nombres | Anotaciones | Etiquetas 
-
-
-| Espacio de nombres ns-2 (destino)  a| 
-* anotación.uno/clave: “updatedvalue”
-* anotación.dos/clave: “verdadero”
-* anotación.tres/clave: “falso”
-
- a| 
-* name=ns-2
-* cumplimiento=hipaa
-* entorno=producción
-* role=base de datos
-
-
-|===
-
-
-== Anotaciones admitidas
-
-Esta sección enumera las anotaciones compatibles para configurar diversos comportamientos en el sistema. Si el usuario no configura una anotación explícitamente, el sistema utilizará el valor predeterminado.
-
-[cols="1,1,3,1"]
-|===
-| Anotación | Tipo | Descripción | Valor predeterminado 
-
-
-| protect.trident.netapp.io/tiempo-de-espera-del-transportador-de-datos-sec | cadena | El tiempo máximo (en segundos) permitido para que la operación de transferencia de datos permanezca detenida. | 300 
-
-
-| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | entero | El límite de tamaño máximo (en megabytes) para el caché de contenido de Kopia. | 1000 
-|===
 
 
 == Restauración desde un backup a un espacio de nombres diferente
@@ -135,7 +41,7 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para l
 
 
 
-NOTE: Al restaurar copias de seguridad con KOPIA como el transmisor de datos, puede especificar anotaciones en el CR o utilizar la CLI para controlar el comportamiento del almacenamiento de elementos utilizados por KOPIA. Consulte el https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información acerca de las opciones que puede configurar. Utilice `tridentctl-protect create --help` el comando para obtener más información sobre cómo especificar anotaciones con la interfaz de línea de comandos de Trident Protect.
+NOTE: Al restaurar copias de seguridad utilizando Kopia como transportador de datos, puede especificar opcionalmente anotaciones en la CR o usar la CLI para controlar el comportamiento del almacenamiento temporal utilizado por Kopia.  Consulte la https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información sobre las opciones que puede configurar.  Utilice el `tridentctl-protect create --help` Comando para obtener más información sobre cómo especificar anotaciones con la CLI de Trident Protect.
 
 [role="tabbed-block"]
 ====
@@ -154,7 +60,6 @@ kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appA
 ----
 ** *Spec.appVaultRef*: (_required_) El nombre del AppVault donde se almacena el contenido de la copia de seguridad.
 ** *spec.namespaceMapping*: La asignación del espacio de nombres de origen de la operación de restauración al espacio de nombres de destino. Reemplace `my-source-namespace` y `my-destination-namespace` con la información de su entorno.
-** *Spec.storageClassMapping*: La asignación de la clase de almacenamiento de origen de la operación de restauración a la clase de almacenamiento de destino. Reemplace `destinationStorageClass` y `sourceStorageClass` con la información de su entorno.
 +
 [source, yaml]
 ----
@@ -164,15 +69,10 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
-  storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
 ----
 
 
@@ -260,7 +160,7 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para l
 
 
 
-NOTE: Al restaurar copias de seguridad con KOPIA como el transmisor de datos, puede especificar anotaciones en el CR o utilizar la CLI para controlar el comportamiento del almacenamiento de elementos utilizados por KOPIA. Consulte el https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información acerca de las opciones que puede configurar. Utilice `tridentctl-protect create --help` el comando para obtener más información sobre cómo especificar anotaciones con la interfaz de línea de comandos de Trident Protect.
+NOTE: Al restaurar copias de seguridad utilizando Kopia como transportador de datos, puede especificar opcionalmente anotaciones en la CR o usar la CLI para controlar el comportamiento del almacenamiento temporal utilizado por Kopia.  Consulte la https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información sobre las opciones que puede configurar.  Utilice el `tridentctl-protect create --help` Comando para obtener más información sobre cómo especificar anotaciones con la CLI de Trident Protect.
 
 [role="tabbed-block"]
 ====
@@ -290,8 +190,6 @@ kind: BackupInplaceRestore
 metadata:
   name: my-cr-name
   namespace: my-app-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
@@ -374,7 +272,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 Puede restaurar un backup a otro clúster si hay un problema con el clúster original.
 
 
-NOTE: Al restaurar copias de seguridad con KOPIA como el transmisor de datos, puede especificar anotaciones en el CR o utilizar la CLI para controlar el comportamiento del almacenamiento de elementos utilizados por KOPIA. Consulte el https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información acerca de las opciones que puede configurar. Utilice `tridentctl-protect create --help` el comando para obtener más información sobre cómo especificar anotaciones con la interfaz de línea de comandos de Trident Protect.
+NOTE: Al restaurar copias de seguridad utilizando Kopia como transportador de datos, puede especificar opcionalmente anotaciones en la CR o usar la CLI para controlar el comportamiento del almacenamiento temporal utilizado por Kopia.  Consulte la https://kopia.io/docs/getting-started/["Documentación de KOPIA"^] para obtener más información sobre las opciones que puede configurar.  Utilice el `tridentctl-protect create --help` Comando para obtener más información sobre cómo especificar anotaciones con la CLI de Trident Protect.
 
 .Antes de empezar
 Asegúrese de que se cumplen los siguientes requisitos previos:
@@ -459,8 +357,6 @@ kind: BackupRestore
 metadata:
   name: my-cr-name
   namespace: my-destination-namespace
-  annotations: # Optional annotations for Kopia data mover
-    protect.trident.netapp.io/kopia-content-cache-size-limit-mb: 1000
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-backup-path
@@ -500,6 +396,9 @@ tridentctl-protect create backuprestore <restore_name> \
 
 Puede restaurar datos desde una copia Snapshot con un archivo de recurso personalizado (CR) en un espacio de nombres diferente o en el espacio de nombres de origen original. Al restaurar una snapshot en un espacio de nombres diferente con SnapshotRestore CR, Trident Protect restaura la aplicación en un espacio de nombres nuevo y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree backups o snapshots bajo demanda, o establezca una programación de protección.
 
+
+NOTE: SnapshotRestore admite el `spec.storageClassMapping` atributo, pero solo cuando las clases de almacenamiento de origen y destino utilizan el mismo backend de almacenamiento.  Si intenta restaurar a un `StorageClass` que utiliza un backend de almacenamiento diferente, la operación de restauración fallará.
+
 .Antes de empezar
 Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración de S3 que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
 
@@ -524,11 +423,6 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para l
 kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 ** *spec.namespaceMapping*: La asignación del espacio de nombres de origen de la operación de restauración al espacio de nombres de destino. Reemplace `my-source-namespace` y `my-destination-namespace` con la información de su entorno.
-** *Spec.storageClassMapping*: La asignación de la clase de almacenamiento de origen de la operación de restauración a la clase de almacenamiento de destino. Reemplace `destinationStorageClass` y `sourceStorageClass` con la información de su entorno.
-+
-
-NOTE: El  `storageClassMapping` El atributo funciona solo cuando tanto el original como el nuevo  `StorageClass` Utilice el mismo backend de almacenamiento. Si intenta restaurar a un  `StorageClass` que utiliza un backend de almacenamiento diferente, la operación de restauración fallará.
-
 +
 [source, yaml]
 ----
@@ -542,9 +436,6 @@ spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
-  storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
 ----
 
 

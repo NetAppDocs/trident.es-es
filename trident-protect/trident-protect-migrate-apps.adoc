@@ -14,7 +14,7 @@ summary: Es posible restaurar los datos de backup o Snapshot a otro clúster o c
 
 
 [role="lead"]
-Puede migrar sus aplicaciones entre clústeres o clases de almacenamiento si restaura los datos de backup o Snapshot a otro clúster o tipo de almacenamiento.
+Puede migrar sus aplicaciones entre clústeres o a diferentes clases de almacenamiento restaurando datos de respaldo.
 
 
 NOTE: Al migrar una aplicación, todos los ganchos de ejecución configurados para la aplicación se migran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
@@ -65,7 +65,7 @@ NOTE: Puede replicar una aplicación entre diferentes clusters mediante link:tri
 
 == Migre aplicaciones de una clase de almacenamiento a otra clase de almacenamiento
 
-Puede migrar aplicaciones de una clase de almacenamiento a otra clase de almacenamiento restaurando una instantánea a otra clase de almacenamiento de destino.
+Puede migrar aplicaciones de una clase de almacenamiento a una clase de almacenamiento diferente restaurando una copia de seguridad en la clase de almacenamiento de destino.
 
 Por ejemplo (excluyendo los secretos de la CR de restauración):
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret
