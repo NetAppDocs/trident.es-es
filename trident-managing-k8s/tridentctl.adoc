@@ -148,24 +148,24 @@ Utilice los `install` indicadores para instalar Trident.
 
 `tridentctl install [flags]`
 
-Indicadores:: `--autosupport-image string`: La imagen del contenedor para la telemetría AutoSupport (por defecto “NetApp/Trident AutoSupport:<current-version>”).
-`--autosupport-proxy string`: La dirección/puerto de un proxy para enviar telemetría AutoSupport.
-`--enable-node-prep`: Intenta instalar los paquetes necesarios en los nodos.
-`--generate-custom-yaml`: Generar archivos YAML sin instalar nada.
-`-h`, `--help`: Ayuda para la instalación.
-`--http-request-timeout`: Sustituya el tiempo de espera de la solicitud HTTP para la API REST del controlador Trident (por defecto 1m30s).
-`--image-registry string`: La dirección/puerto de un registro interno de imágenes.
-`--k8s-timeout duration`: El tiempo de espera para todas las operaciones de Kubernetes (por defecto 3m0s).
-`--kubelet-dir string`: La ubicación del anfitrión del estado interno de kubelet (por defecto “/var/lib/kubelet”).
-`--log-format string`: El formato de registro Trident (texto, json) (por defecto “texto”).
-`--node-prep`: Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.*
-`--pv string`: El nombre del PV heredado utilizado por Trident, se asegura de que no exista (por defecto “Trident”).
-`--pvc string`: El nombre del PVC heredado utilizado por Trident, se asegura de que esto no exista (por defecto “Trident”).
-`--silence-autosupport`: No enviar paquetes AutoSupport a NetApp automáticamente (predeterminado true).
-`--silent`: Deshabilitar la mayoría de la salida durante la instalación.
-`--trident-image string`: La imagen Trident para instalar.
-`--use-custom-yaml`: Utilice cualquier archivo YAML existente que exista en el directorio de configuración.
-`--use-ipv6`: Utilice IPv6 para la comunicación de Trident.
+Indicadores:: `--autosupport-image string`:La imagen del contenedor para Autosupport Telemetry (valor predeterminado "netapp/trident autosupport:<current-version>").
+`--autosupport-proxy string` :La dirección/puerto de un proxy para enviar telemetría de soporte automático.
+`--enable-node-prep` :Intente instalar los paquetes necesarios en los nodos.
+`--generate-custom-yaml` :Genera archivos YAML sin instalar nada.
+`-h` , `--help` :Ayuda para la instalación.
+`--http-request-timeout` :Anula el tiempo de espera de la solicitud HTTP para la API REST del controlador Trident (valor predeterminado 1 m 30 s).
+`--image-registry string` :La dirección/puerto de un registro de imágenes interno.
+`--k8s-timeout duration` :El tiempo de espera para todas las operaciones de Kubernetes (valor predeterminado: 3 m0 s).
+`--kubelet-dir string` :La ubicación del host del estado interno de kubelet (predeterminado "/var/lib/kubelet").
+`--log-format string` :El formato de registro de Trident (texto, json) (valor predeterminado "texto").
+`--node-prep` :Permite a Trident preparar los nodos del clúster Kubernetes para administrar volúmenes utilizando el protocolo de almacenamiento de datos especificado.  *Actualmente, `iscsi` Es el único valor admitido.  A partir de OpenShift 4.19, la versión mínima de Trident compatible con esta función es 25.06.1.*
+`--pv string` :El nombre del PV legado utilizado por Trident, asegura que este no exista (predeterminado "trident").
+`--pvc string` :El nombre del PVC heredado utilizado por Trident, asegura que este no exista (predeterminado "trident").
+`--silence-autosupport` :No envíe paquetes de soporte automático a NetApp automáticamente (valor predeterminado: verdadero).
+`--silent` :Desactivar la mayoría de las salidas durante la instalación.
+`--trident-image string` :La imagen de Trident para instalar.
+`--use-custom-yaml` :Utilice cualquier archivo YAML existente que se encuentre en el directorio de instalación.
+`--use-ipv6` :Utilice IPv6 para la comunicación de Trident.
 
 
 

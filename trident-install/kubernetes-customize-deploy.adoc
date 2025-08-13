@@ -119,7 +119,12 @@ Telemetría | `"http://proxy.example.com:8888"`
 | `nodePluginTolerations` | Anula la toleración de Kubernetes en pods. Sigue el mismo formato que `pod.spec.Tolerations`. | Sin valores predeterminados; opcional 
 
 
-| `nodePrep` | Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.* |  
+| `nodePrep`  a| 
+Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar volúmenes mediante el protocolo de almacenamiento de datos especificado. *Actualmente, `iscsi` es el único valor soportado.*
+
+
+NOTE: A partir de OpenShift 4.19, la versión mínima de Trident compatible con esta función es 25.06.1.
+|  
 
 
 | `enableAutoBackendConfig` | Habilita la configuración de backend automática, que crea sin problemas clases de backend y almacenamiento basadas en parámetros de entrada. | Sin valores predeterminados; opcional 
