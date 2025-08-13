@@ -19,7 +19,33 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== ¿Cuáles son las novedades de 25,06
+== Novedades de la versión 25.06.1
+
+El resumen de novedades proporciona detalles sobre mejoras, correcciones y desuso de las versiones de Trident y Trident Protect.
+
+
+
+=== Trident
+
+
+
+==== Soluciones
+
+* *Kubernetes*:
++
+** Se solucionó un problema en el cual los NQN no se verificaban antes de desasignarlos de los subsistemas.
+** Se solucionó un problema en el que varios intentos de cerrar un dispositivo LUKS provocaban fallas en la separación de volúmenes.
+** Se solucionó el problema del volumen iSCSI sin preparación cuando la ruta del dispositivo cambió desde su creación.
+** Clonación de bloques de volúmenes en distintas clases de almacenamiento.
+
+
+* *OpenShift*: se solucionó un problema en el que la preparación del nodo iSCSI fallaba con OCP 4.19.
+* Se aumentó el tiempo de espera al clonar un volumen mediante backends de SolidFire (link:https://github.com/NetApp/trident/issues/1008["Problema n.o 1008"] ).
+
+
+
+
+== Cambios en 25.06
 
 El resumen de novedades proporciona detalles sobre mejoras, correcciones y desuso de las versiones de Trident y Trident Protect.
 
