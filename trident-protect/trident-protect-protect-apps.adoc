@@ -125,16 +125,6 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para c
 ** *spec.snapshotRef*: (_Opcional_): Nombre de la instantánea que se utilizará como origen de la copia de seguridad. Si no se proporciona, se creará una instantánea temporal y se realizará una copia de seguridad.
 ** *metadata.annotations.protect.trident.netapp.io/full-backup* : (_Opcional_) Esta anotación se utiliza para especificar si una copia de seguridad debe ser no incremental. Por defecto, todos los backups son incrementales. Sin embargo, si esta anotación se establece en `true`, la copia de seguridad pasa a ser no incremental. Si no se especifica, la copia de seguridad sigue la configuración de copia de seguridad incremental predeterminada. Es mejor realizar backups completos de forma periódica y después realizar backups incrementales entre backups completos para minimizar el riesgo asociado a las restauraciones.
 +
-[NOTE]
-====
-Si necesita aplicar esta anotación después de crear una aplicación, puede utilizar el siguiente comando:
-
-[source, console]
-----
-kubectl annotate backup -n <backup CR namespace> <backup CR name> protect.trident.netapp.io/full-backup="true"
-----
-====
-+
 Ejemplo YAML:
 
 +
