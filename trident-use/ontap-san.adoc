@@ -136,7 +136,7 @@ Trident admite el protocolo exprés de memoria no volátil (NVMe) mediante `onta
 
 Trident no admite:
 
-* DH-HMAC-CHAP que es compatible con NVMe de forma nativa
+* DH-HMAC-CHAP compatible de forma nativa con NVMe
 * Rutas múltiples del asignador de dispositivos (DM)
 * Cifrado LUKS
 

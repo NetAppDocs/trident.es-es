@@ -2746,7 +2746,6 @@ Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block
   <block id="a2a1cb8bb035902e151c429dda457eb0" category="list-text">Snapshots y clones de volúmenes NVMe</block>
   <block id="b007331c632038b88752b849045335eb" category="list-text">Cambiar el tamaño de un volumen NVMe</block>
   <block id="86f6f50234041fd09b320314dc781273" category="list-text">Multivía nativa de NVMe</block>
-  <block id="2af37920b0783c2d261877f935f16bd8" category="list-text">DH-HMAC-CHAP que es compatible con NVMe de forma nativa</block>
   <block id="6c1177e2fd33f2482514b2156d1e62b6" category="list-text">Rutas múltiples del asignador de dispositivos (DM)</block>
   <block id="fa633dab256a2884e7cd048147d7171c" category="list-text">Cifrado LUKS</block>
   <block id="4e92a2addd95bd2076226bce70449f6d" category="admonition"><block ref="8c443e170595ba0feac007ffb92cb49a" prefix="" category="inline-code"></block>,<block ref="bc54592d6183695b841c6d1880ec0bf8" prefix=" " category="inline-code"></block>,<block ref="93c5bebdea9c94a0740fe6fd9bb250f0" prefix=" " category="inline-code"></block>,<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block>, y.<block ref="2b53761249254ce6b502f521e5cc0683" prefix=" " category="inline-code"></block> Son opcionales cuando se utilizan identidades administradas en un clúster AKS.</block>
@@ -5807,4 +5806,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="39a2e6c36a2ad2c2884bcd5d8f474fbb" category="paragraph"><block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix="" category="inline-code"></block>está totalmente calificado para NVMe/TCP.</block>
   <block id="6f95f26584cb2bbbc9c25ed197bf9234" category="admonition">NVMe solo es compatible con las API REST de ONTAP y no con ONTAPI (ZAPI).</block>
   <block id="32653402e1251f3e6f9db04a67492d01" category="paragraph">*Si se especifica, configúrelo siempre en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> para sistemas ASA r2*.</block>
+  <block id="e1b6f2a617a63649b238c99a6557a915" category="list-text">DH-HMAC-CHAP compatible de forma nativa con NVMe</block>
 </blocks>
