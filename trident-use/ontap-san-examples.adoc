@@ -128,11 +128,18 @@ NOTE: Cuando el agregado se actualiza en SVM, se actualiza automáticamente en T
 No lo utilice a menos que esté solucionando problemas y necesite un volcado de log detallado. | `null` 
 
 
-| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. 
-`useREST` Cuando se define en `true`, Trident utiliza las API REST DE ONTAP para comunicarse con el backend; cuando se establece en `false`, Trident utiliza llamadas ONTAPI (ZAPI) para comunicarse con el backend. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontapi` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión Trident 24,06 y ONTAP 9.15.1 o posterior,
-`useREST` se establece en `true` de forma predeterminada; cambie
-`useREST` a `false` Usar llamadas ONTAPI (ZAPI). 
-`useREST` Está totalmente cualificado para NVMe/TCP. *Si se especifica, configúrelo siempre en  `true` para sistemas ASA r2*. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
+| `useREST`  a| 
+Parámetro booleano para utilizar las API REST de ONTAP .
+
+ `useREST`Cuando se establece en `true` Trident utiliza las API REST de ONTAP para comunicarse con el backend; cuando se configura en `false` Trident utiliza llamadas ONTAPI (ZAPI) para comunicarse con el backend.  Esta función requiere ONTAP 9.11.1 y versiones posteriores.  Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontapi` solicitud.  Esto se satisface mediante lo predefinido `vsadmin` y `cluster-admin` roles.  A partir de la versión Trident 24.06 y ONTAP 9.15.1 o posterior, `useREST` está configurado para `true` por defecto; cambiar `useREST` a `false` para utilizar llamadas ONTAPI (ZAPI).
+
+`useREST`está totalmente calificado para NVMe/TCP.
+
+
+NOTE: NVMe solo es compatible con las API REST de ONTAP y no con ONTAPI (ZAPI).
+
+*Si se especifica, configúrelo siempre en `true` para sistemas ASA r2*.
+| `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 
 
  a| 
