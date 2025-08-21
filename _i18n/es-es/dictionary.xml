@@ -5803,4 +5803,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">Autenticar conexiones con CHAP bidireccional</block>
   <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">Cómo funciona</block>
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">Rotar credenciales y actualizar backends</block>
+  <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">Mejora de la consistencia de los datos: instantáneas de grupos de volúmenes en la virtualización de OpenShift con Trident</block>
+  <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">19 de agosto de 2025:<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
 </blocks>
