@@ -279,6 +279,7 @@ Asegúrese de que se cumplen los siguientes requisitos previos:
 
 * El clúster de destino tiene instalado Trident Protect.
 * El clúster de destino tiene acceso a la ruta de bloque de la misma AppVault que el clúster de origen, en la que se almacena el backup.
+* Asegúrese de que su entorno local pueda conectarse al depósito de almacenamiento de objetos definido en el CR de AppVault al ejecutar el `tridentctl-protect get appvaultcontent` dominio.  Si las restricciones de red impiden el acceso, ejecute la CLI de protección de Trident desde dentro de un pod en el clúster de destino.
 * Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para las operaciones de restauración que se ejecuten durante mucho tiempo. Si el token caduca durante la operación de restauración, puede fallar la operación.
 +
 ** Consulte el https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentación de la API de AWS"^] para obtener más información sobre la comprobación de la caducidad del token de sesión actual.

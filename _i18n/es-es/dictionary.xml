@@ -5705,7 +5705,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="afd55df73a814282b1a34c79040d709a" category="inline-link-macro">Trident 25.01: Mejora de la experiencia de almacenamiento de Kubernetes con nuevas funciones y mejoras</block>
   <block id="13c401b1f27132099b945b95025ca748" category="list-text">26 de noviembre de 2024: <block ref="4a1bf3162dde1793089483cf7682fb86" category="inline-link-macro-rx"></block></block>
   <block id="0d5eeacaefc73b7986c8f85945c72129" category="inline-link-macro">NetApp Trident con Google Cloud NetApp Volumes</block>
-  <block id="76227bcfad23cc6957b8b7e9357c9269" category="list-text">11 de noviembre de 2024: <block ref="8701d0c1e4315119a2dc9de106eb2681" category="inline-link-macro-rx"></block></block>
   <block id="02104a16ef3fcf06a78872f4f5aea5d2" category="inline-link-macro">Amazon FSx for NetApp ONTAP con Red Hat OpenShift Service en AWS (ROSA) mediante Trident</block>
   <block id="e2218d0205cdf02ed15039a9eb215920" category="list-text">29 de octubre de 2024: <block ref="ecf88162cd631914aa447c7edeaa2e6e" category="inline-link-macro-rx"></block></block>
   <block id="e7eb7f68cb5a04d95a6152e9d6ab37ec" category="inline-link-macro">Migración en vivo de máquinas virtuales con OpenShift Virtualization en ROSA y Amazon FSx for NetApp ONTAP</block>
@@ -5805,4 +5804,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">Rotar credenciales y actualizar backends</block>
   <block id="4bdb23ea513714e3ddde2986c05c669f" category="inline-link-macro">Mejora de la consistencia de los datos: instantáneas de grupos de volúmenes en la virtualización de OpenShift con Trident</block>
   <block id="299fb00578f305c7fc8cabf601fd1c80" category="list-text">19 de agosto de 2025:<block ref="e5b6bdace6eea699ef0d8738f7d6c354" category="inline-link-macro-rx"></block></block>
+  <block id="a21cecd213989d401167ec6cfba8d998" category="list-text">11 de noviembre de 2024: <block ref="daed3e0cfbeb06368e36167c5fc4f468" category="inline-link-macro-rx"></block></block>
+  <block id="dcae39a3bdbd6a2685507ccc14623d62" category="list-text">Aplique el CRD de Prometheus ServiceMonitor al clúster:</block>
+  <block id="e95fc483374f2aa2997fb27e7235f723" category="list-text">Asegúrese de que su entorno local pueda conectarse al depósito de almacenamiento de objetos definido en el CR de AppVault al ejecutar el<block ref="f9adf231483d5dde9cfc10a610b748d3" prefix=" " category="inline-code"></block> dominio.  Si las restricciones de red impiden el acceso, ejecute la CLI de protección de Trident desde dentro de un pod en el clúster de destino.</block>
 </blocks>
