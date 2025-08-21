@@ -140,3 +140,6 @@ Trident no admite:
 * Rutas múltiples del asignador de dispositivos (DM)
 * Cifrado LUKS
 
+
+
+NOTE: NVMe solo es compatible con las API REST de ONTAP y no con ONTAPI (ZAPI).
