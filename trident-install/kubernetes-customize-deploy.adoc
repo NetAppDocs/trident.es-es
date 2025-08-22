@@ -65,7 +65,7 @@ Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xx
 | `IPv6` | Instale Trident sobre IPv6 | falso 
 
 
-| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | `30sec` 
+| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | `180sec` 
 
 
 | `silenceAutosupport` | No envíe paquetes AutoSupport a NetApp

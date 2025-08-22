@@ -202,7 +202,7 @@ WARNING: No elimine la afinidad predeterminada del archivo values.yaml. Cuando d
 | `tridentIPv6` | Permite permitir que Trident funcione en clústeres de IPv6. | `false` 
 
 
-| `tridentK8sTimeout` | Anula el tiempo de espera predeterminado de 30 segundos para la mayoría de las operaciones de la API de Kubernetes (si no es cero, en segundos). | `0` 
+| `tridentK8sTimeout` | Anula el tiempo de espera predeterminado de 180 segundos para la mayoría de las operaciones de API de Kubernetes (si es distinto de cero, en segundos). | `180` 
 
 
 | `tridentHttpRequestTimeout` | Sustituye el timeout por defecto de 90 segundos para las solicitudes HTTP, con `0s` ser una duración infinita para el timeout. No se permiten valores negativos. | `"90s"` 
