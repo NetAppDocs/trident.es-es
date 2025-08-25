@@ -31,6 +31,9 @@ Puede evitar que se sobrescriban anotaciones específicas en el espacio de nombr
 ----
 kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
 ----
+
+NOTE: Al realizar una operación de restauración o conmutación por error, cualquier anotación de espacio de nombres y etiqueta especificada en `restoreSkipNamespaceAnnotations` y `restoreSkipNamespaceLabels` están excluidos de la operación de restauración o conmutación por error.  Asegúrese de que estos ajustes se configuren durante la instalación inicial de Helm. Para obtener más información, consultelink:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["Configurar las opciones de filtrado de espacios de nombres y AutoSupport"] .
+
 Si instaló la aplicación de origen con Helm con el `--create-namespace` indicador, se le dará un tratamiento especial a la `name` clave de etiqueta. Durante el proceso de restauración o recuperación tras fallos, Trident protege esta etiqueta al espacio de nombres de destino, pero actualiza el valor al valor del espacio de nombres de destino si el valor del origen coincide con el espacio de nombres de origen. Si este valor no coincide con el espacio de nombres de origen, se copia al espacio de nombres de destino sin cambios.
 
 
