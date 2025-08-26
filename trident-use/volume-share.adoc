@@ -89,7 +89,7 @@ Trident crea el VP y su volumen de almacenamiento NFS de back-end.
 
 
 ====
-. *Administrador de clúster:* cree la función personalizada y kubeconfig para conceder permiso al propietario del espacio de nombres de destino para crear el sistema TridentVolumeReference CR en el espacio de nombres de destino.
+. *Administrador del clúster:* Asegúrese de que exista un RBAC adecuado para otorgar permiso al propietario del espacio de nombres de destino para crear la CR TridentVolumeReference en el espacio de nombres de destino.
 . *Propietario del espacio de nombres de destino:* cree un sistema TridentVolumeReference CR en el espacio de nombres de destino que haga referencia al espacio de nombres de origen `pvc1`.
 +
 [source, yaml]
