@@ -86,7 +86,7 @@ Trident lee desde el servidor de la API de Kubernetes para determinar cuándo la
 
 === ¿Cuáles son los roles y Privileges que usa Trident?
 
-El instalador de Trident crea un ClusterRole de Kubernetes, que tiene acceso específico a los recursos PersistentVolume, PersistentVolumeClaim, StorageClass y Secret del clúster de Kubernetes. Consulte link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalice la instalación trimentctl"^].
+El instalador de Trident crea un Kubernetes ClusterRole, que tiene acceso específico a los recursos PersistentVolume, PersistentVolumeClaim, StorageClass y Secret del clúster de Kubernetes. Consulte link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalice la instalación trimentctl"^] .
 
 
 
