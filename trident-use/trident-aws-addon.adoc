@@ -48,35 +48,11 @@ image::../media/aws-eks-02.png[aws llega a 02]
 +
 image::../media/aws-eks-03.png[aws llega a 03]
 
-. Seleccione la opción Rol IAM que desea heredar del nodo.
+. Configure los ajustes complementarios necesarios.
 +
 image::../media/aws-eks-04.png[aws llega a 04]
 
-. Siga el esquema de configuración *Add-On* y establezca el parámetro Valores de configuración en la sección *Valores de configuración* en el Role-arn que creó en el paso anterior (Paso 1). El valor debe tener el siguiente formato:
-+
-[source, JSON]
-----
-{
-
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
-  "cloudProvider": "AWS"
-
-}
-----
-+
-
-NOTE: Si selecciona Sustituir para el método de resolución de conflictos, una o más de las configuraciones del complemento existente se pueden sobrescribir con la configuración del complemento Amazon EKS. Si no habilita esta opción y existe un conflicto con la configuración existente, se producirá un error en la operación. Puede utilizar el mensaje de error resultante para solucionar el conflicto. Antes de seleccionar esta opción, asegúrese de que el complemento de Amazon EKS no gestiona la configuración que necesita para autogestionar.
-
-+
-image::../media/aws-eks-06.png[aws llega a 06]
-
-
-
-
-NOTE: Omite este paso si estás usando la asociación de identidad de pod.
-
-+
-
+. Si está utilizando IRSA (roles de IAM para cuentas de servicio), consulte los pasos de configuración adicionaleslink:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["aquí"] .
 . Seleccione *Crear*.
 . Compruebe que el estado del complemento es _Active_.
 +
