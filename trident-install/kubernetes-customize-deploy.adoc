@@ -135,6 +135,14 @@ NOTE: A partir de OpenShift 4.19, la versión mínima de Trident compatible con 
 | `k8sAPIQPS`  a| 
 El límite de consultas por segundo (QPS) utilizado por el controlador mientras se comunica con el servidor de API de Kubernetes.  El valor de ráfaga se establece automáticamente en función del valor QPS.
 | `100`; opcional 
+
+
+| `enableConcurrency`  a| 
+Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento.
+
+
+NOTE: *Vista previa técnica*: esta función es experimental en NetApp Trident 25.06 y actualmente admite flujos de trabajo paralelos limitados con el controlador ONTAP-SAN (protocolos iSCSI y FCP).
+| falso 
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del pod, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
