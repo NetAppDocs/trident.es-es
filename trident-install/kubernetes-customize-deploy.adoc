@@ -130,6 +130,11 @@ Permite a Trident preparar los nodos del clúster de Kubernetes para gestionar v
 
 NOTE: A partir de OpenShift 4.19, la versión mínima de Trident compatible con esta función es 25.06.1.
 |  
+
+
+| `k8sAPIQPS`  a| 
+El límite de consultas por segundo (QPS) utilizado por el controlador mientras se comunica con el servidor de API de Kubernetes.  El valor de ráfaga se establece automáticamente en función del valor QPS.
+| `100`; opcional 
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del pod, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
