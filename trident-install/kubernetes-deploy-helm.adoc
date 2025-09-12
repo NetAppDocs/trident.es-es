@@ -254,6 +254,11 @@ NOTE: *Vista previa técnica*: esta función es experimental en NetApp Trident 2
 | `k8sAPIQPS`  a| 
 El límite de consultas por segundo (QPS) utilizado por el controlador mientras se comunica con el servidor de API de Kubernetes.  El valor de ráfaga se establece automáticamente en función del valor QPS.
 | `100`; opcional 
+
+
+| `k8sAPIQPS`  a| 
+El límite de consultas por segundo (QPS) utilizado por el controlador mientras se comunica con el servidor de API de Kubernetes.  El valor de ráfaga se establece automáticamente en función del valor QPS.
+| `100`; opcional 
 |===
 
 

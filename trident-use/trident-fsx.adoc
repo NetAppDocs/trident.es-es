@@ -55,6 +55,24 @@ NOTE: Si especifica un rol de IAM en Trident, puede omitir la especificación de
 
 
 
+=== Uso simultáneo del controlador Trident SAN/iSCSI y EBS-CSI
+
+Si planea usar controladores ontap-san (por ejemplo, iSCSI) con AWS (EKS, ROSA, EC2 o cualquier otra instancia), la configuración de múltiples rutas requerida en los nodos podría entrar en conflicto con el controlador CSI de Amazon Elastic Block Store (EBS).  Para garantizar que las funciones de rutas múltiples funcionen sin interferir con los discos EBS en el mismo nodo, debe excluir EBS en su configuración de rutas múltiples.  Este ejemplo muestra una `multipath.conf` archivo que incluye las configuraciones Trident requeridas mientras excluye los discos EBS de las rutas múltiples:
+
+[listing]
+----
+defaults {
+    find_multipaths no
+}
+blacklist {
+    device {
+        vendor "NVME"
+        product "Amazon Elastic Block Store"
+    }
+}
+----
+
+
 == Autenticación
 
 Trident ofrece dos modos de autenticación.
