@@ -21,6 +21,9 @@ Con Trident, puede crear nuevos volúmenes con volúmenes o copias de volúmenes
 Antes de clonar volúmenes, asegúrese de que los back-ends de origen y de destino sean del mismo tipo y tengan la misma clase de almacenamiento.
 
 
+NOTE: La clonación entre espacios de nombres solo se admite para `ontap-san` y `ontap-nas` controladores de almacenamiento.  No se admiten clones de solo lectura.
+
+
 
 == Inicio rápido
 
