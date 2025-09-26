@@ -86,7 +86,7 @@ cd trident-installer
 
 === Paso 2: Cree la `TridentOrchestrator` CRD
 
-Cree la `TridentOrchestrator` definición de recursos personalizados (CRD). Posteriormente, creará `TridentOrchestrator` recursos personalizados. Utilice la versión YAML de CRD adecuada en `deploy/crds` para crear el `TridentOrchestrator` CRD:
+Crea el `TridentOrchestrator` Definición de recurso personalizado (CRD). Crearás un `TridentOrchestrator` Recursos personalizados más adelante. Utilice la versión CRD YAML apropiada en `deploy/crds` Para crear el `TridentOrchestrator` CRD:
 
 [listing]
 ----
