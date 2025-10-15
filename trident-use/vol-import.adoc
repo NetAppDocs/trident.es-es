@@ -100,7 +100,7 @@ Trident admite la importación de volúmenes mediante `ontap-nas` los controlado
 
 [NOTE]
 ====
-* La `ontap-nas-economy` el controlador no puede importar y gestionar qtrees.
+* Trident no admite la importación de volumen mediante el `ontap-nas-economy` conductor.
 * La `ontap-nas` y.. `ontap-nas-flexgroup` las controladoras no permiten nombres de volúmenes duplicados.
 
 
