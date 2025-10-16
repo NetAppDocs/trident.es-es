@@ -5357,10 +5357,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="61a3094d46fa14bffb9067eeb8d3405a" category="paragraph"><block ref="61a3094d46fa14bffb9067eeb8d3405a" category="inline-link-macro-rx"></block></block>
   <block id="dfd4fd2ff3f0bcabea8bfd811d0db9b4" category="summary">Trident es un orquestador y gestor de aprovisionamiento de código abierto mantenido por NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes. **Lea las notas de la versión para obtener información crítica sobre la actualización a Trident 25,06.**</block>
   <block id="1c14876f05b759f9c9be73a49c84ddd4" category="doc">Documentación de Trident 25,06</block>
-  <block id="7b64f90c10ba527f2f6b6f1e6fb0c9fe" category="list-text">Kubernetes 1,33 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.</block>
-  <block id="f39d8c359b3284c30097b65ae4e0dccf" category="list-text">Kubernetes 1,27 - 1,33</block>
-  <block id="9f7ace1a0a4d64a8dfa14012ff8f7e8c" category="paragraph">1,27 - 1,33</block>
-  <block id="006871bfbb54929c1e2b37d3ce36b37f" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0 y v1.33.0</block>
   <block id="3e711dbc16f3de48b46eca5b86572321" category="list-text">docker.io/netapp/trident:25.06.0</block>
   <block id="d010f8bd4e6cede4d3e51de4419c09aa" category="list-text">docker.io/netapp/trident-autosupport:25,06</block>
   <block id="3b72fba0c67a9cb87151e878d3ba37f9" category="list-text">registro.k8s.io/sig-storage/csi-attacher:v4.8.1</block>
@@ -5666,8 +5662,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="05e673132e6ddc1f638835fcde244ff1" category="paragraph">Antes de crear un CR de AppVault, asegúrese de que AppVault y el transportador de datos que elija puedan autenticarse con el proveedor y cualquier recurso relacionado.</block>
   <block id="2c2d23c6647059f96e585a1174a5c975" category="paragraph">Al crear objetos de AppVault mediante CR o el complemento CLI de Trident Protect, puede especificar un secreto de Kubernetes con contraseñas personalizadas para el cifrado de Restic y Kopia. Si no especifica un secreto, Trident Protect usa una contraseña predeterminada.</block>
   <block id="1850a20880f300b00b10477bfcbd6087" category="list-text">Guarde la contraseña en un lugar seguro. La necesitará para restaurar datos en el mismo clúster o en uno diferente. Si el clúster o el... <block ref="9a82c7a4099124e5bfaa83e7c5997bd4" prefix=" " category="inline-code"></block> Si se elimina el espacio de nombres, no podrá restaurar sus copias de seguridad o instantáneas sin la contraseña.</block>
-  <block id="1847ffdf7c6d0f8b1bbe8c2bb725a3ce" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x</block>
-  <block id="3e9612318eccb033e5737a43e626163d" category="admonition">_Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.33.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._</block>
   <block id="9509f036573c9b78acc044938588f7c4" category="paragraph">El siguiente comando de ejemplo instala el complemento Trident EKS:<block ref="f235325f054788c50b512241d68cb329" prefix=" " category="inline-code"></block> (con una versión dedicada)</block>
   <block id="cedb5a7bb4fc5e3e014ce0b58a3d5095" category="cell">Economía iSCSI</block>
   <block id="27a75f24043645e5e4d2b91bad951706" category="list-text">* No se puede eliminar el PV sin reiniciar el nodo</block>
@@ -5859,4 +5853,10 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="4afb8b760c67eab8ce5a9cf405163d78" category="list-text">Versiones de clúster FAS, AFF, Select o ASA r2 (iSCSI y NVMe/TCP) locales con soporte limitado de NetApp. Ver<block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block> .</block>
   <block id="ed323fee394548d260c31d933876b771" category="section-title">Los clientes NFSv4.2 informan "argumento no válido" después de actualizar ONTAP cuando esperaban que "v4.2-xattrs" estuviera habilitado</block>
   <block id="b9785b666a04771c63b539840201a4db" category="paragraph">Después de actualizar ONTAP, los clientes NFSv4.2 pueden informar errores de "argumento inválido" al intentar montar exportaciones NFSv4.2. Este problema ocurre cuando el<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> La opción no está habilitada en el SVM. .Solución alternativa Habilite la<block ref="5a54626559918ca9ebb6414eebaa97bf" prefix=" " category="inline-code"></block> opción en SVM o actualizar a ONTAP 9.12.1 o posterior, donde esta opción está habilitada de forma predeterminada.</block>
+  <block id="65cfb19ed2b3d296782fbfdd6b7075b1" category="list-text">Kubernetes 1.34 ahora es compatible con Trident. Actualice Trident antes de actualizar Kubernetes.</block>
+  <block id="e69ddc8f5253cd0167cca555b0f0fd9c" category="list-text">Kubernetes 1.27 - 1.34</block>
+  <block id="7f6d66fd53fc399c1b8baeebcdb94472" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.34.x</block>
+  <block id="844c50b4f1aab48821867a1209be687b" category="admonition">_Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.34.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._</block>
+  <block id="27f15237580e8f85cd2846baf40ad83b" category="paragraph">1,27 - 1,34</block>
+  <block id="73b1fe6d150d74c875ee4a368dd3b1a9" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0</block>
 </blocks>

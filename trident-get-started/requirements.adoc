@@ -25,7 +25,7 @@ Antes de instalar Trident, debe revisar estos requisitos generales del sistema. 
 ====
 []
 =====
-* Kubernetes 1,33 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Kubernetes 1.34 ahora es compatible con Trident. Actualice Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -41,16 +41,16 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 Trident admite varios motores de contenedor y orquestadores, entre los que se incluyen los siguientes:
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
-* Kubernetes 1,27 - 1,33
+* Kubernetes 1.27 - 1.34
 * OpenShift 4.12, 4.14 - 4.19 (Si planea utilizar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1).
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.34.x
 +
 
-NOTE: _Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.33.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._
+NOTE: _Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.34.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._
 
 
 
@@ -114,56 +114,56 @@ En la tabla siguiente se resumen las funciones disponibles con este lanzamiento 
 
 
 | Trident  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | Snapshots de volumen  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | RVP desde snapshots de volumen  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | Cambio de tamaño del VP de iSCSI  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | CHAP bidireccional de ONTAP  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | Políticas de exportación dinámicas  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | Operador de Trident  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
 
 
 | Topología CSI  a| 
-1,27 - 1,33
+1,27 - 1,34
  a| 
 No
 
@@ -227,7 +227,7 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0 y v1.33.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
 * docker.io/netapp/trident:25.06.2
 * docker.io/netapp/trident-autosupport:25,06
 * registry.k8s.io/sig-storage/csi-provisioner:v5,2.0
@@ -248,7 +248,7 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0 y v1.33.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
 * docker.io/netapp/trident:25.06.0
 * docker.io/netapp/trident-autosupport:25,06
 * registry.k8s.io/sig-storage/csi-provisioner:v5,2.0
