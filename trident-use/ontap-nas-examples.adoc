@@ -63,10 +63,10 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `trustedCACertificate` | Valor codificado en base64 del certificado de CA de confianza. Opcional. Se utiliza para autenticación basada en certificados | "" 
 
 
-| `username` | Nombre de usuario para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales |  
+| `username` | Nombre de usuario para conectarse al clúster/SVM. Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Autenticar Trident en un SVM backend mediante credenciales de Active Directory"]. |  
 
 
-| `password` | Contraseña para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales |  
+| `password` | Contraseña para conectarse al cluster/SVM. Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Autenticar Trident en un SVM backend mediante credenciales de Active Directory"]. |  
 
 
 | `storagePrefix`  a| 

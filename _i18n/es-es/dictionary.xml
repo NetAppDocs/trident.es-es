@@ -1078,8 +1078,6 @@
   <block id="e3f84c141fd3f4682dfb31e0d71c7f5f" category="cell">Nombre de usuario entrante. Obligatorio si<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block></block>
   <block id="62fbbf4cfd0cc0a82f953199d14a61e3" category="cell"><block ref="2ebe107bb3bc9551fbb0e5033046931c" prefix="" category="inline-code"></block></block>
   <block id="a379a576b788ab047d5e6405ff4f3511" category="cell">Nombre de usuario de destino. Obligatorio si<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block></block>
-  <block id="394d848f17683e31e21f6cde5fd9e3e4" category="cell">El nombre de usuario necesario para comunicarse con el clúster de ONTAP. Se utiliza para autenticación basada en credenciales.</block>
-  <block id="6f0acf4836d44b03512e1caa0d774777" category="cell">La contraseña necesaria para comunicarse con el clúster de ONTAP. Se utiliza para autenticación basada en credenciales.</block>
   <block id="ef65dd3301d78701f7cfcf8a01834f2f" category="cell">Derivado si una SVM<block ref="a6ea6092cb7b9c5f31909eb4be8fa5ea" prefix=" " category="inline-code"></block> está especificado</block>
   <block id="a0de2cc0c77c388210e1f48423eea29c" category="cell">El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede modificar más adelante. Para actualizar este parámetro, deberá crear un nuevo backend.</block>
   <block id="79892588cbecd0b88729ea1a55b2a3a4" category="cell">El número máximo de LUN por FlexVol debe estar comprendido entre [50 y 200]</block>
@@ -1352,8 +1350,6 @@
   <block id="c0417f5bbd54c5dc1c3704d6b566fcf3" category="list-text"><block ref="c0417f5bbd54c5dc1c3704d6b566fcf3" category="inline-link-macro-rx"></block></block>
   <block id="ae8df8316f5c485b7db4e7141e899701" category="cell">Dirección especificada o derivada de la SVM, si no se especifica (no recomendada)</block>
   <block id="ffe4ce29fe1a6176d496c40332e9cb98" category="cell">Valor codificado en base64 del certificado de CA de confianza. Opcional. Se utiliza para autenticación basada en certificados</block>
-  <block id="83425e975af1b2d60355aa4162300198" category="cell">Nombre de usuario para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales</block>
-  <block id="63d06d6cc41e485615f99a3aad0002b3" category="cell">Contraseña para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales</block>
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede actualizar después de configurarlo</block>
   <block id="54b94bba5d336f4e3d5fd7e88544fad1" category="cell">Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento</block>
   <block id="5896cc977dd7b9854957e18a2a5bf072" category="cell">Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento. no admitido por ontap-nas-Economy.</block>
@@ -5859,4 +5855,19 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="844c50b4f1aab48821867a1209be687b" category="admonition">_Si bien Trident es compatible con Rancher Kubernetes Engine 2 (RKE2) versiones 1.27.x - 1.34.x, Trident actualmente solo está calificado para RKE2 v1.28.5+rke2r1._</block>
   <block id="27f15237580e8f85cd2846baf40ad83b" category="paragraph">1,27 - 1,34</block>
   <block id="73b1fe6d150d74c875ee4a368dd3b1a9" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0</block>
+  <block id="431f7ca0be64e2c321d4d4be79b721aa" category="inline-link-macro">Autenticar Trident en un SVM backend mediante credenciales de Active Directory</block>
+  <block id="ebce82cad933beb695765f374ca16800" category="cell">Nombre de usuario para conectarse al clúster/SVM. Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="c48567e30df98d399ca8a25594294caa" category="cell">Contraseña para conectarse al cluster/SVM. Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="50d0e6e4ea5256d25a55581de47b2a0f" category="cell">Nombre de usuario necesario para comunicarse con el clúster ONTAP . Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="dece0a70145f48ad3b540f19d6ed5df8" category="cell">Contraseña necesaria para comunicarse con el clúster ONTAP . Se utiliza para la autenticación basada en credenciales. Para la autenticación de Active Directory, consulte <block ref="c266761f957eda011224921a8539eded" category="inline-link-macro-rx"></block>.</block>
+  <block id="27e5aeb0225e5a43e4c8c17f706a0a14" category="inline-link-macro">Configurar el acceso al controlador de dominio de Active Directory en ONTAP</block>
+  <block id="2d6f3231a7f0c1252294552c9ce9c1e0" category="paragraph">Puede configurar Trident para autenticarse en un SVM de backend usando credenciales de Active Directory (AD). Antes de que una cuenta de AD pueda acceder a la SVM, debe configurar el acceso del controlador de dominio de AD al clúster o SVM. Para la administración de un clúster con una cuenta de AD, debe crear un túnel de dominio. Referirse a <block ref="affb415ae65d1b8ff6d4848fb0c01200" category="inline-link-macro-rx"></block> Para más detalles.</block>
+  <block id="fca3ffea6534176432f58b5a22ed22e1" category="list-title">pasos</block>
+  <block id="fa349cdbbc85b9c18e91508e377f8475" category="list-text">Configurar los ajustes del Sistema de nombres de dominio (DNS) para un SVM de backend:</block>
+  <block id="1ffd05fea44ee961865d2fb5edc44bed" category="paragraph"><block ref="c3a0bdbd7b81f16edc3a67d3fbf4564b" prefix="" category="inline-code"></block></block>
+  <block id="c1ddcdee488a34a4b44c78f926dfee75" category="list-text">Ejecute el siguiente comando para crear una cuenta de computadora para la SVM en Active Directory:</block>
+  <block id="1e1b13ed7ccf639907d02e773fed43f5" category="paragraph"><block ref="c53a082488a948b7a70806546ba7211d" prefix="" category="inline-code"></block></block>
+  <block id="34dd5efc5c883d290ed743abcc3fccb1" category="list-text">Utilice este comando para crear un usuario o grupo de AD para administrar el clúster o SVM</block>
+  <block id="82a5f11771bfe77a499bcb96a45ce13f" category="paragraph"><block ref="22ec37652eb447176b3d5645ac4a7dbb" prefix="" category="inline-code"></block></block>
+  <block id="743fda998716813dc210d0fd0c3f2b65" category="list-text">En el archivo de configuración del backend de Trident , configure el<block ref="14c4b06b824ec593239362517f538b29" prefix=" " category="inline-code"></block> y<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block> parámetros al nombre de usuario o grupo de AD y la contraseña, respectivamente.</block>
 </blocks>
