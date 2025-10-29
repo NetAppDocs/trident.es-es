@@ -264,6 +264,13 @@ Política de organización en niveles que se debe utilizar, el valor por defecto
  a| 
 `none`
 
+
+
+| `skipRecoveryQueue`  a| 
+Durante la eliminación de un volumen, omita la cola de recuperación en el almacenamiento y elimine el volumen inmediatamente.
+ a| 
+"
+
 |===
 
 

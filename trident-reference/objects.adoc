@@ -75,6 +75,9 @@ Además de la especificación estándar, Trident permite a los usuarios especifi
 
 
 | trident.netapp.io/blockSize | Tamaño del bloque | solidfire-san 
+
+
+| trident.netapp.io/skipRecoveryQueue | omitir la cola de recuperación | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy 
 |===
 Si el VP creado tiene el `Delete` Reclamar política, Trident elimina el VP y el volumen de respaldo cuando se libera el VP (es decir, cuando el usuario elimina la RVP). Si la acción de eliminación falla, Trident Marca el VP como tal y reintenta periódicamente la operación hasta que esta se complete o se elimine manualmente el VP. Si el VP utiliza `+Retain+` Política, Trident ignora la operación y asume que el administrador la limpiará desde Kubernetes y el back-end, lo que permitirá realizar un backup o la inspección del volumen antes de su eliminación. Tenga en cuenta que al eliminar el VP, Trident no eliminará el volumen de backup. Debe quitarlo usando la API DE REST (`tridentctl`).
 
@@ -435,6 +438,9 @@ Una configuración de volumen define las propiedades que debe tener un volumen a
 
 
 | Sistema de archivos | cadena | no | Tipo de sistema de archivos 
+
+
+| omitir la cola de recuperación | cadena | no | Durante la eliminación de un volumen, omita la cola de recuperación en el almacenamiento y elimine el volumen inmediatamente. 
 |===
 Genera Trident `internalName` al crear el volumen. Esto consta de dos pasos. En primer lugar, prepens el prefijo de almacenamiento (ya sea el predeterminado) `trident` o el prefijo de la configuración del back-end) al nombre del volumen, lo que genera el nombre del formulario `<prefix>-<volume-name>`. A continuación, procede a desinfectar el nombre y a reemplazar los caracteres no permitidos en el backend. En los back-ends de ONTAP, reemplaza guiones con guiones bajos (de esta forma, el nombre interno se convierte en `<prefix>_<volume-name>`). En los back-ends de Element, reemplaza guiones bajos por guiones.
 
