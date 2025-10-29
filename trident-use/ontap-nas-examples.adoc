@@ -98,7 +98,7 @@ NOTE: Cuando la lista de agregados se actualiza en SVM, la lista se actualiza au
 | "" 
 
 
-| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. Además restringe el tamaño máximo de los volúmenes que gestiona para qtrees y la `qtreesPerFlexvol` opción permite personalizar el número máximo de qtrees por FlexVol volume | '' (no se aplica por defecto) 
+| `limitVolumeSize` | Fallará el aprovisionamiento si el tamaño de volumen solicitado supera este valor. | '' (no se aplica por defecto) 
 
 
 | `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Ejemplo, {«api»:false, «method»:true}
