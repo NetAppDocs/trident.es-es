@@ -135,4 +135,7 @@ Esta sección enumera las anotaciones compatibles para configurar diversos compo
 
 
 | protect.trident.netapp.io/kopia-content-cache-size-limit-mb | cadena | El límite de tamaño máximo (en megabytes) para el caché de contenido de Kopia. | "1000" 
+
+
+| protect.trident.netapp.io/pvc-bind-timeout-sec | cadena | Tiempo máximo (en segundos) que se debe esperar para que cualquier PersistentVolumeClaim (PVC) recién creado llegue al `Bound` fase antes de que fallen las operaciones.  Se aplica a todos los tipos de restauración de CR (BackupRestore, BackupInplaceRestore, SnapshotRestore, SnapshotInplaceRestore).  Utilice un valor más alto si su backend de almacenamiento o clúster requiere con frecuencia más tiempo. | "1200" (20 minutos) 
 |===

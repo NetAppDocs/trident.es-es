@@ -2,9 +2,9 @@
 layout: landing-page 
 sidebar: sidebar 
 permalink: index.html 
-summary: Trident es un orquestador y gestor de aprovisionamiento de código abierto mantenido por NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes. **Lea las notas de la versión para obtener información crítica sobre la actualización a Trident 25,06.** 
+summary: Trident es un proveedor y orquestador de almacenamiento de código abierto mantenido por NetApp. Te permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes. **Lea las notas de la versión para obtener información crítica sobre la actualización a Trident 25.10.** 
 ---
-= Documentación de Trident 25,06
+= Documentación de Trident 25.10
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

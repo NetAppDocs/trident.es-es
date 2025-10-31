@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/backends.html 
-keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
+keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
 summary: Un back-end define la relación entre Trident y un sistema de almacenamiento. Indica a Trident cómo se comunica con ese sistema de almacenamiento y cómo debe aprovisionar volúmenes a partir de él. 
 ---
 = Configurar los back-ends
@@ -18,7 +18,6 @@ Trident ofrece automáticamente pools de almacenamiento de back-ends que coincid
 
 * link:anf.html["Configure un back-end de Azure NetApp Files"^]
 * link:gcnv.html["Configura un back-end de Google Cloud NetApp Volumes"^]
-* link:gcp.html["Configure un back-end de Cloud Volumes Service para Google Cloud Platform"^]
 * link:element.html["Configure un back-end de NetApp HCI o SolidFire"^]
 * link:ontap-nas.html["Configure un back-end con controladores NAS ONTAP o Cloud Volumes ONTAP"^]
 * link:ontap-san.html["Configurar un back-end con controladores SAN ONTAP o Cloud Volumes ONTAP"^]
