@@ -114,6 +114,12 @@ Sí, Trident es compatible con AWS, Google Cloud y Azure.
 
 
 
+=== ¿Es compatible Trident con Cloud Volumes Services?
+
+Sí, Trident es compatible con el servicio Azure NetApp Files en Azure, así como con el Cloud Volumes Service en GCP.
+
+
+
 == Solución de problemas y soporte técnico
 
 
@@ -361,7 +367,7 @@ Sí. La creación de instantáneas de volumen bajo demanda y volúmenes persiste
 
 === ¿Cuáles son los controladores que admiten las snapshots de volumen de Trident?
 
-A partir de hoy, el soporte de instantáneas bajo demanda está disponible para nuestros `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , y `azure-netapp-files` Controladores de backend.
+A partir de hoy, el soporte de instantáneas bajo demanda está disponible para nuestros `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `gcp-cvs` , y `azure-netapp-files` Controladores de backend.
 
 
 

@@ -10,9 +10,6 @@ entries:
   url: "/trident-reco/integrate-trident.html"
 - title: Protección de datos y recuperación ante desastres
   url: "/trident-reco/backup.html"
-- title: Automatización de la conmutación por error de aplicaciones con estado con
-    Trident
-  url: "/trident-reco/force-detach.html"
 - title: Seguridad
   entries:
   - title: Recomendaciones de seguridad

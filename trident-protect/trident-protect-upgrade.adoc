@@ -18,12 +18,9 @@ Puede actualizar Trident Protect a la última versión para aprovechar las nueva
 
 [NOTE]
 ====
-* Al actualizar desde la versión 24.10, las instantáneas que se ejecutan durante la actualización podrían fallar. Este fallo no impide la creación de instantáneas futuras, ya sean manuales o programadas. Si una instantánea falla durante la actualización, puede crear una nueva manualmente para garantizar la protección de su aplicación.
-+
+Al actualizar desde la versión 24.10, las instantáneas que se ejecutan durante la actualización podrían fallar. Este fallo no impide la creación de instantáneas futuras, ya sean manuales o programadas. Si una instantánea falla durante la actualización, puede crear una nueva manualmente para garantizar la protección de su aplicación.
+
 Para evitar posibles fallos, puede desactivar todas las instantáneas programadas antes de la actualización y volver a activarlas después. Sin embargo, esto puede provocar que se pierdan las instantáneas programadas durante el periodo de actualización.
-
-* Para instalaciones en registros privados, asegúrese de que el gráfico Helm y las imágenes necesarias para la versión de destino estén disponibles en su registro privado y verifique que sus valores Helm personalizados sean compatibles con la nueva versión del gráfico. Para obtener más información, consultelink:trident-protect-installation.html["Instale Trident Protect desde un registro privado"] .
-
 
 ====
 Para actualizar Trident Protect, realice los siguientes pasos.
@@ -63,10 +60,6 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2510.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
 ----
-+
-
-NOTE: Puede configurar el nivel de registro durante la actualización añadiendo `--set logLevel=debug` al comando de actualización.  El nivel de registro predeterminado es `warn` .  Se recomienda el registro de depuración para la resolución de problemas, ya que ayuda al soporte de NetApp a diagnosticar problemas sin necesidad de cambios en el nivel de registro ni de reproducir el problema.
-
 

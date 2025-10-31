@@ -35,7 +35,7 @@ Si necesita personalizar la instalación más allá de lo que permiten los argum
 * `trident-service.yaml`
 * `trident-namespace.yaml`
 * `trident-serviceaccount.yaml`
-* `trident-resourcequota.yaml`*
+* `trident-resourcequota.yaml`
 
 
 Después de haber generado estos archivos, puede modificarlos según sus necesidades y luego usarlos `--use-custom-yaml` para instalar su implementación personalizada.

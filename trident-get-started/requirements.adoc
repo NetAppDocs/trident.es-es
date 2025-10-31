@@ -72,7 +72,7 @@ Para utilizar Trident, se necesitan uno o varios de los siguientes back-ends adm
 * Cloud Volumes ONTAP
 * NetApp Volumes para Google Cloud
 * Cabina All SAN de NetApp (ASA)
-* Versiones de clúster FAS, AFF o ASA r2 (iSCSI, NVMe/TCP y FC) locales bajo el soporte limitado de NetApp. Verlink:https://mysupport.netapp.com/site/info/version-support["Compatibilidad con versiones de software"] .
+* Versiones de clúster FAS, AFF, Select o ASA r2 (iSCSI y NVMe/TCP) locales con soporte limitado de NetApp. Verlink:https://mysupport.netapp.com/site/info/version-support["Compatibilidad con versiones de software"] .
 * Software HCI/Element de NetApp 11 o posterior
 
 
@@ -220,7 +220,7 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 
 
 
-=== Imágenes de contenedor necesarias para Trident 25.10
+=== Imágenes de contenedor necesarias para Trident 25.06.2
 
 [cols="2"]
 |===
@@ -228,14 +228,35 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 
 
 | v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
-* docker.io/netapp/trident:25.10.0
-* docker.io/netapp/trident-autosupport:25.10
-* registro.k8s.io/sig-storage/csi-provisioner:v5.3.0
-* registro.k8s.io/sig-storage/csi-attacher:v4.10.0
-* registro.k8s.io/sig-storage/csi-resizer:v1.14.0
-* registro.k8s.io/sig-storage/csi-snapshotter:v8.3.1
-* registro.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0
-* docker.io/netapp/trident-operator:25.10.0 (opcional)
+* docker.io/netapp/trident:25.06.2
+* docker.io/netapp/trident-autosupport:25.06
+* registro.k8s.io/sig-storage/csi-provisioner:v5.2.0
+* registro.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registro.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registro.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+* registro.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.2 (opcional)
+
+
+|===
+
+
+=== Imágenes de contenedor necesarias para Trident 25.06
+
+[cols="2"]
+|===
+| Versiones de Kubernetes | Imagen de contenedor 
+
+
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0  a| 
+* docker.io/netapp/trident:25.06.0
+* docker.io/netapp/trident-autosupport:25.06
+* registro.k8s.io/sig-storage/csi-provisioner:v5.2.0
+* registro.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registro.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registro.k8s.io/sig-storage/csi-snapshotter:v8.2.1
+* registro.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.0 (opcional)
 
 
 |===

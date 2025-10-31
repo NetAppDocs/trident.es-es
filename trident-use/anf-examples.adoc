@@ -20,6 +20,9 @@ Obtenga más información sobre las opciones de configuración de back-end NFS y
 
 Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en los pools de capacidad que están disponibles en la ubicación solicitada y coincidir con el nivel de servicio y la subred solicitados.
 
+
+NOTE: * A partir de la versión 25.06 de NetApp Trident , los grupos de capacidad de QoS manuales se admiten como versión preliminar técnica.*
+
 Los back-ends de Azure NetApp Files proporcionan estas opciones de configuración.
 
 [cols="3"]
@@ -97,10 +100,10 @@ Opcional cuando se activan identidades gestionadas en un clúster de AKS. |
 | `supportedTopologies` | Representa una lista de regiones y zonas soportadas por este backend. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"]. |  
 
 
-| `qosType` | Representa el tipo de QoS: Automático o Manual. | Auto 
+| `qosType` | Representa el tipo de QoS: Automático o Manual. *Vista previa técnica de Trident 25.06* | Auto 
 
 
-| `maxThroughput` | Establece el rendimiento máximo permitido en MiB/seg. Compatible solo con grupos de capacidad de QoS manuales. | `4 MiB/sec` 
+| `maxThroughput` | Establece el rendimiento máximo permitido en MiB/seg. Compatible solo con grupos de capacidad de QoS manuales. *Vista previa técnica de Trident 25.06* | `4 MiB/sec` 
 |===
 
 NOTE: Para obtener más información sobre las funciones de red, consulte link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configure las funciones de red para un volumen de Azure NetApp Files"^].
@@ -264,7 +267,7 @@ capacityPools:
 .Ejemplo de backend con grupos de capacidad de QoS manuales
 [%collapsible]
 ====
-Esta configuración de backend coloca volúmenes en Azure `eastus` Ubicación con pools de capacidad QoS manuales.
+Esta configuración de backend coloca volúmenes en Azure `eastus` Ubicación con pools de capacidad QoS manuales. *Vista previa técnica en NetApp Trident 25.06*.
 
 [source, yaml]
 ----
