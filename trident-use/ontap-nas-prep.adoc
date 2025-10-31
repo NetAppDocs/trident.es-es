@@ -14,6 +14,13 @@ summary: Conozca los requisitos, las opciones de autenticación y las políticas
 [role="lead"]
 Conozca los requisitos, las opciones de autenticación y las políticas de exportación para configurar un backend de ONTAP con controladores NAS de ONTAP.
 
+A partir de la versión 25.10, NetApp Trident es compatible conlink:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistema de almacenamiento NetApp AFX"^] . Los sistemas de almacenamiento NetApp AFX se diferencian de otros sistemas ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento.
+
+
+NOTE: Solo el `ontap-nas` El controlador (con protocolo NFS) es compatible con los sistemas AFX; el protocolo SMB no es compatible.
+
+En la configuración del backend de Trident , no es necesario especificar que su sistema sea AFX. Cuando selecciona `ontap-nas` como el `storageDriverName` Trident detecta automáticamente los sistemas AFX.
+
 
 
 == Requisitos

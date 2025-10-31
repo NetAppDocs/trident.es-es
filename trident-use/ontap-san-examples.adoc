@@ -14,12 +14,12 @@ summary: Obtenga más información acerca de cómo crear y utilizar controladore
 [role="lead"]
 Aprenda a crear y utilizar controladores SAN de ONTAP con su instalación de Trident. Esta sección proporciona ejemplos de configuración de backend y detalles para la asignación de back-ends a StorageClasses.
 
-link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^]Se diferencia de otros sistemas ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento. Estas variaciones afectan al uso de ciertos parámetros, tal como se indica. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Obtenga más información sobre las diferencias entre los sistemas ASA r2 y otros sistemas ONTAP"^].
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Sistemas ASA r2"^]Se diferencian de otros sistemas ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento. Estas variaciones afectan al uso de ciertos parámetros, tal como se indica. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["Obtenga más información sobre las diferencias entre los sistemas ASA r2 y otros sistemas ONTAP"^].
 
 
-NOTE: Sólo el `ontap-san` El controlador (con protocolos iSCSI y NVMe/TCP) es compatible con los sistemas ASA r2.
+NOTE: Solo el `ontap-san` El controlador (con protocolos iSCSI, NVMe/TCP y FC) es compatible con los sistemas ASA r2.
 
-En la configuración del backend de Trident , no es necesario especificar que su sistema sea ASA r2. Cuando seleccionas `ontap-san` como el `storageDriverName` Trident detecta automáticamente el ASA r2 o el sistema ONTAP tradicional. Algunos parámetros de configuración del backend no son aplicables a los sistemas ASA r2, como se indica en la tabla siguiente.
+En la configuración del backend de Trident , no es necesario especificar que su sistema sea ASA r2. Cuando selecciona `ontap-san` como el `storageDriverName` Trident detecta automáticamente el ASA r2 u otros sistemas ONTAP . Algunos parámetros de configuración del backend no son aplicables a los sistemas ASA r2, como se indica en la tabla siguiente.
 
 
 

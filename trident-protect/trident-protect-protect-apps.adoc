@@ -46,7 +46,6 @@ NOTE: Los recursos de ámbito de clúster se incluyen en un backup, una copia de
 +
 [source, yaml]
 ----
----
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -123,7 +122,6 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para c
 
 
 ** *spec.snapshotRef*: (_Opcional_): Nombre de la instantánea que se utilizará como origen de la copia de seguridad. Si no se proporciona, se creará una instantánea temporal y se realizará una copia de seguridad.
-** *metadata.annotations.protect.trident.netapp.io/full-backup* : (_Opcional_) Esta anotación se utiliza para especificar si una copia de seguridad no debe ser incremental. De forma predeterminada, todas las copias de seguridad son incrementales. Sin embargo, si esta anotación está configurada para `true` , la copia de seguridad deja de ser incremental. Si no se especifica, la copia de seguridad sigue la configuración de copia de seguridad incremental predeterminada. La mejor práctica es realizar una copia de seguridad completa periódicamente y luego realizar copias de seguridad incrementales entre las copias de seguridad completas para minimizar el riesgo asociado con las restauraciones.
 +
 Ejemplo YAML:
 
@@ -136,8 +134,6 @@ kind: Backup
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
-  annotations:
-    protect.trident.netapp.io/full-backup: "true"
 spec:
   applicationRef: my-application
   appVaultRef: appvault-name
@@ -170,6 +166,31 @@ Opcionalmente, puede utilizar `--full-backup` el indicador para especificar si u
 
 --
 ====
+
+
+=== Anotaciones de respaldo admitidas
+
+La siguiente tabla describe las anotaciones que puede utilizar al crear una copia de seguridad de CR:
+
+[cols="2,1,3,1"]
+|===
+| Anotación | Tipo | Descripción | Valor predeterminado 
+
+
+| proteger.trident.netapp.io/copia-de-seguridad-completa | cadena | Especifica si una copia de seguridad debe ser no incremental. Empezar a `true` para crear una copia de seguridad no incremental. La mejor práctica es realizar una copia de seguridad completa periódicamente y luego realizar copias de seguridad incrementales entre las copias de seguridad completas para minimizar el riesgo asociado con las restauraciones. | "falso" 
+
+
+| protect.trident.netapp.io/snapshot-complete-timeout | cadena | Tiempo máximo permitido para que se complete la operación de instantánea general. | "60 m" 
+
+
+| protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout | cadena | Tiempo máximo permitido para que las instantáneas de volumen alcancen el estado listo para usar. | "30 m" 
+
+
+| protect.trident.netapp.io/volume-snapshots-created-timeout | cadena | Tiempo máximo permitido para la creación de instantáneas de volumen. | "5 m" 
+
+
+| protect.trident.netapp.io/pvc-bind-timeout-sec | cadena | Tiempo máximo (en segundos) que se debe esperar para que cualquier PersistentVolumeClaim (PVC) recién creado llegue al `Bound` fase antes de que fallen las operaciones. | "1200" (20 minutos) 
+|===
 
 
 == Cree un programa de protección de datos
@@ -215,7 +236,6 @@ Una política de protección protege una aplicación mediante la creación de in
 ** *spec.dayOfWeek*: (_Opcional_) El día de la semana (0 - 7) en que debe ejecutarse la programación.  Los valores de 0 o 7 indican domingo.  Este campo es obligatorio si la granularidad está establecida en `Weekly` .  El valor debe proporcionarse como una cadena.
 ** *spec.hour*: (_Opcional_) La hora del día (0 - 23) en que debe ejecutarse el programa.  Este campo es obligatorio si la granularidad está establecida en `Daily` , `Weekly` , o `Monthly` .  El valor debe proporcionarse como una cadena.
 ** *spec.minute*: (_Opcional_) El minuto de la hora (0 - 59) en que debe ejecutarse el programa.  Este campo es obligatorio si la granularidad está establecida en `Hourly` , `Daily` , `Weekly` , o `Monthly` .  El valor debe proporcionarse como una cadena.
-** *metadata.annotations.protect.trident.netapp.io/full-backup-rule*: (_Opcional_) Esta anotación se utiliza para especificar la regla para programar la copia de seguridad completa. Puedes configurarlo para `always` para copias de seguridad completas constantes o personalícelo según sus necesidades. Por ejemplo, si elige una granularidad diaria, puede especificar los días de la semana en los que se debe realizar la copia de seguridad completa.
 +
 Ejemplo de YAML para programación de copias de seguridad y instantáneas:
 
@@ -228,8 +248,6 @@ kind: Schedule
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
-  annotations:
-    protect.trident.netapp.io/full-backup-rule: "Monday,Thursday"
 spec:
   dataMover: Kopia
   applicationRef: my-application
@@ -295,6 +313,31 @@ Para programaciones de solo instantáneas, configure `--backup-retention 0` y es
 
 --
 ====
+
+
+=== Anotaciones de programación admitidas
+
+La siguiente tabla describe las anotaciones que puede utilizar al crear una solicitud de cambio de programación:
+
+[cols="2,1,3,1"]
+|===
+| Anotación | Tipo | Descripción | Valor predeterminado 
+
+
+| proteger.trident.netapp.io/regla-de-copia-de-seguridad-completa | cadena | Especifica la regla para programar copias de seguridad completas. Puedes configurarlo para `always` para copias de seguridad completas constantes o personalícelo según sus necesidades. Por ejemplo, si elige una granularidad diaria, puede especificar los días de la semana en los que debe realizarse la copia de seguridad completa (por ejemplo, `"Monday,Thursday"` ). | No configurado (todas las copias de seguridad son incrementales) 
+
+
+| protect.trident.netapp.io/snapshot-complete-timeout | cadena | Tiempo máximo permitido para que se complete la operación de instantánea general. | "60 m" 
+
+
+| protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout | cadena | Tiempo máximo permitido para que las instantáneas de volumen alcancen el estado listo para usar. | "30 m" 
+
+
+| protect.trident.netapp.io/volume-snapshots-created-timeout | cadena | Tiempo máximo permitido para la creación de instantáneas de volumen. | "5 m" 
+
+
+| protect.trident.netapp.io/pvc-bind-timeout-sec | cadena | Tiempo máximo (en segundos) que se debe esperar para que cualquier PersistentVolumeClaim (PVC) recién creado llegue al `Bound` fase antes de que fallen las operaciones. | "1200" (20 minutos) 
+|===
 
 
 == Eliminar una copia de Snapshot

@@ -21,8 +21,17 @@ NOTE: VolumeGroupSnapshot es una función beta de Kubernetes con API beta. Kuber
 
 == Crear instantáneas de grupos de volúmenes
 
-La instantánea de grupo de volúmenes es compatible con `ontap-san` Controlador, solo para el protocolo iSCSI, aún no compatible con Fibre Channel (FCP) ni NVMe/TCP. Antes de comenzar
+La instantánea de grupo de volúmenes es compatible con los siguientes controladores de almacenamiento:
 
+* `ontap-san`Controlador: solo para los protocolos iSCSI y FC, no para el protocolo NVMe/TCP.
+* `ontap-san-economy`
+* `ontap-nas`
+
+
+
+NOTE: La función de instantáneas de grupos de volúmenes no es compatible con los sistemas de almacenamiento NetApp AFX.
+
+.Antes de empezar
 * Asegúrese de que su versión de Kubernetes sea K8s 1.32 o superior.
 * Debe tener un controlador de instantánea externo y definiciones de recursos personalizados (CRD) para trabajar con instantáneas. Esta es la responsabilidad del orquestador de Kubernetes (por ejemplo: Kubeadm, GKE, OpenShift).
 +

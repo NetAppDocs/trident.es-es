@@ -74,7 +74,7 @@ Por ejemplo, un clúster ONTAP de dos nodos puede alojar un máximo de 2000 vol�
 
 === Clonar un volumen
 
-NetApp Trident admite la clonación de volúmenes al usar `ontap-nas` , `ontap-san` , `solidfire-san` , y `gcp-cvs` Controladores de almacenamiento. Al usar el `ontap-nas-flexgroup` o `ontap-nas-economy` controladores, la clonación no es compatible. La creación de un nuevo volumen a partir de un volumen existente dará como resultado la creación de una nueva instantánea.
+NetApp Trident admite la clonación de volúmenes al usar `ontap-nas` , `ontap-san` , y `solidfire-san` Controladores de almacenamiento. Al usar el `ontap-nas-flexgroup` o `ontap-nas-economy` controladores, la clonación no es compatible. La creación de un nuevo volumen a partir de un volumen existente dará como resultado la creación de una nueva instantánea.
 
 
 WARNING: Evite clonar una PVC asociada a una clase de almacenamiento diferente. Realice operaciones de clonación dentro de la misma clase de almacenamiento para garantizar la compatibilidad y evitar comportamientos inesperados.

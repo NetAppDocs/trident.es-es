@@ -27,7 +27,7 @@ Las métricas que proporciona Trident le permiten hacer lo siguiente:
 
 
 
-NOTE: Por defecto, las métricas de Trident se exponen en el puerto de destino. `8001` al `/metrics` punto final. Estas métricas están *habilitadas por defecto* cuando se instala Trident .
+NOTE: Por defecto, las métricas de Trident se exponen en el puerto de destino. `8001` al `/metrics` punto final. Estas métricas están *habilitadas por defecto* cuando se instala Trident . Puedes configurar el consumo de métricas de Trident a través de HTTPS en el puerto `8444` también. Verlink:..https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html#step-2-create-a-prometheus-servicemonitor["Paso 2: Cree un Prometheus ServiceMonitor"^] Para más información.
 
 .Lo que necesitará
 * Un clúster de Kubernetes con Trident instalado.
@@ -70,6 +70,59 @@ spec:
 Esta definición de ServiceMonitor recupera las métricas devueltas por el `trident-csi` servicio y específicamente busca el `metrics` punto final del servicio. Como resultado, Prometheus ahora está configurado para comprender las métricas de Trident.
 
 Además de las métricas disponibles directamente desde Trident, kubelet expone muchas `kubelet_volume_*` métricas a través de su propio punto final de métricas. Kubelet puede proporcionar información sobre los volúmenes adjuntos y los pods y otras operaciones internas que realiza. Consulte https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["aquí"^].
+
+
+
+=== Consumir métricas de Trident a través de HTTPS
+
+Para consumir métricas de Trident a través de HTTPS (puerto 8444), debe modificar la definición de ServiceMonitor para incluir la configuración TLS. También necesitas copiar el `trident-csi` secreto de `trident` espacio de nombres al espacio de nombres donde se está ejecutando Prometheus. Puedes hacerlo utilizando el siguiente comando:
+
+`kubectl get secret trident-csi -n trident -o yaml | sed 's/namespace: trident/namespace: monitoring/' | kubectl apply -f -`
+
+Un ejemplo de ServiceMonitor para métricas HTTPS tiene el siguiente aspecto:
+
+[source, yaml]
+----
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trident-sm
+  namespace: monitoring
+  labels:
+    release: prom-operator
+spec:
+  jobLabel: trident
+  selector:
+    matchLabels:
+      app: controller.csi.trident.netapp.io
+  namespaceSelector:
+    matchNames:
+      - trident
+  endpoints:
+    - interval: 15s
+      path: /metrics
+      port: https-metrics
+      scheme: https
+      tlsConfig:
+        ca:
+          secret:
+            key: caCert
+            name: trident-csi
+        cert:
+          secret:
+            key: clientCert
+            name: trident-csi
+        keySecret:
+          key: clientKey
+          name: trident-csi
+        serverName: trident-csi
+----
+Trident admite métricas HTTPS en todos los métodos de instalación: tridentctl, Helm chart y Operator:
+
+* Si estás utilizando el `tridentctl install` comando, puedes pasar el `--https-metrics` Bandera para habilitar las métricas HTTPS.
+* Si estás utilizando el gráfico de Helm, puedes configurarlo. `httpsMetrics` Parámetro para habilitar las métricas HTTPS.
+* Si utiliza archivos YAML, puede agregar el `--https_metrics` bandera a la `trident-main` contenedor en el `trident-deployment.yaml` archivo.
+
 
 
 
