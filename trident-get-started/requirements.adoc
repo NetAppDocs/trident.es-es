@@ -42,7 +42,7 @@ Trident admite varios motores de contenedor y orquestadores, entre los que se in
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
 * Kubernetes 1.27 - 1.34
-* OpenShift 4.12, 4.14 - 4.19 (Si planea utilizar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1).
+* OpenShift 4.12, 4.14 - 4.20 (Si planea utilizar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es la 25.06.1).
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
