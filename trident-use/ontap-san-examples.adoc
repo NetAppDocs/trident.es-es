@@ -164,11 +164,10 @@ Puede `formatOptions` usarse para especificar argumentos de línea de comandos p
 
 === Recomendaciones para utilizar formatOptions
 
-Trident recomienda la siguiente opción para acelerar el proceso de formato:
+Trident recomienda las siguientes opciones para agilizar el proceso de formateo:
 
-*-E nodiscard:*
-
-* Keep, no intente descartar bloques en mkfs time (descartar bloques inicialmente es útil en dispositivos de estado sólido y almacenamiento ligero/Thin-Provisioning). Esta opción sustituye a la opción anticuada «-K» y es aplicable a todos los sistemas de archivos (xfs, ext3 y ext4).
+* *-E nodiscard (ext3, ext4):* No intente descartar bloques en el momento de mkfs (descartar bloques inicialmente es útil en dispositivos de estado sólido y almacenamiento disperso/de aprovisionamiento ligero). Esto reemplaza la opción obsoleta "-K" y es aplicable a los sistemas de archivos ext3 y ext4.
+* *-K (xfs):* No intente descartar bloques en el momento de mkfs. Esta opción es aplicable al sistema de archivos xfs.
 
 
 
