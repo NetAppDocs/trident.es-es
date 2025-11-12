@@ -102,11 +102,11 @@ NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de dato
 ** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
 ** `protect.trident.netapp.io/volume-snapshots-created-timeout`
 +
-Verlink:trident-protect-protect-apps.html["Anotaciones de copia de seguridad y programación compatibles"^] .
+Verlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Anotaciones de copia de seguridad y programación compatibles"^] .
 
 
 
-* Se agregó una anotación al CR de programación para configurar el tiempo de espera de enlace de PVC, que será utilizado por el CR de respaldo: `protect.trident.netapp.io/pvc-bind-timeout-sec` . Verlink:trident-protect-protect-apps.html["Anotaciones de copia de seguridad y programación compatibles"^] .
+* Se agregó una anotación al CR de programación para configurar el tiempo de espera de enlace de PVC, que será utilizado por el CR de respaldo: `protect.trident.netapp.io/pvc-bind-timeout-sec` . Verlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Anotaciones de copia de seguridad y programación compatibles"^] .
 * Mejorado `tridentctl-protect` Listados de copias de seguridad e instantáneas con un nuevo campo para indicar fallos en el gancho de ejecución.
 
 

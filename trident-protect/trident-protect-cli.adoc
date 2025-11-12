@@ -122,11 +122,11 @@ Después de instalar el complemento de CLI Trident Protect, puede habilitar la f
 .Active la finalización automática del shell Bash
 --
 .Pasos
-. Descargue el script de finalización:
+. Crea el script de finalización:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.bash
+tridentctl-protect completion bash > tridentctl-completion.bash
 ----
 . Cree un nuevo directorio en el directorio principal para que contenga el script:
 +
@@ -152,11 +152,11 @@ source ~/.bash/completions/tridentctl-completion.bash
 .Active la finalización automática del shell Z
 --
 .Pasos
-. Descargue el script de finalización:
+. Crea el script de finalización:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.zsh
+tridentctl-protect completion zsh > tridentctl-completion.zsh
 ----
 . Cree un nuevo directorio en el directorio principal para que contenga el script:
 +
