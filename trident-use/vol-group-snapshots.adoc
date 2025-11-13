@@ -24,12 +24,12 @@ NOTE: VolumeGroupSnapshot es una función beta de Kubernetes con API beta. Kuber
 La instantánea de grupo de volúmenes es compatible con los siguientes controladores de almacenamiento:
 
 * `ontap-san`Controlador: solo para los protocolos iSCSI y FC, no para el protocolo NVMe/TCP.
-* `ontap-san-economy`
+* `ontap-san-economy` - únicamente para el protocolo iSCSI.
 * `ontap-nas`
 
 
 
-NOTE: La función de instantáneas de grupos de volúmenes no es compatible con los sistemas de almacenamiento NetApp AFX.
+NOTE: La función de instantáneas de grupos de volúmenes no es compatible con los sistemas de almacenamiento NetApp ASA r2 o AFX.
 
 .Antes de empezar
 * Asegúrese de que su versión de Kubernetes sea K8s 1.32 o superior.
