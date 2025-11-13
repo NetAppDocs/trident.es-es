@@ -113,6 +113,9 @@ Si recibe un error que indica que no se han encontrado pools de capacidad al cre
 
 Los valores para `resourceGroups`, `netappAccounts`, `capacityPools`, `virtualNetwork`, y. `subnet` puede especificarse utilizando nombres cortos o completos. En la mayoría de las situaciones, se recomiendan nombres completos, ya que los nombres cortos pueden coincidir con varios recursos con el mismo nombre.
 
+
+NOTE: Si la red virtual (vNet) se encuentra en un grupo de recursos diferente al de la cuenta de almacenamiento de Azure NetApp Files (ANF), especifique el grupo de recursos para la red virtual al configurar la lista de grupos de recursos para el back-end.
+
 La `resourceGroups`, `netappAccounts`, y. `capacityPools` los valores son filtros que restringen el conjunto de recursos detectados a los disponibles en este back-end de almacenamiento y pueden especificarse en cualquier combinación de estos. Los nombres completos siguen este formato:
 
 [cols="2"]
@@ -204,13 +207,13 @@ spec:
   version: 1
   storageDriverName: azure-netapp-files
   capacityPools:
-    - ultra-pool
+    - resource-group-1/netapp-account-1/ultra-pool
   resourceGroups:
-    - aks-ami-eastus-rg
+    - resource-group-1
   netappAccounts:
-    - smb-na
-  virtualNetwork: eastus-prod-vnet
-  subnet: eastus-anf-subnet
+    -  resource-group-1/netapp-account-1
+  virtualNetwork: resource-group-1/eastus-prod-vnet
+  subnet: resource-group-1/eastus-prod-vnet/eastus-anf-subnet
 ----
 ====
 .Identidad de nube para AKS
@@ -316,8 +319,8 @@ serviceLevel: Ultra
 capacityPools:
   - application-group-1/account-1/ultra-1
   - application-group-1/account-1/ultra-2
-virtualNetwork: my-virtual-network
-subnet: my-subnet
+virtualNetwork: application-group-1/eastus-prod-vnet
+subnet: application-group-1/eastus-prod-vnet/my-subnet
 networkFeatures: Standard
 nfsMountOptions: vers=3,proto=tcp,timeo=600
 limitVolumeSize: 500Gi
@@ -355,20 +358,20 @@ storage:
       performance: gold
     serviceLevel: Ultra
     capacityPools:
-      - ultra-1
-      - ultra-2
+      - application-group-1/netapp-account-1/ultra-1
+      - application-group-1/netapp-account-1/ultra-2
     networkFeatures: Standard
   - labels:
       performance: silver
     serviceLevel: Premium
     capacityPools:
-      - premium-1
+      - application-group-1/netapp-account-1/premium-1
   - labels:
       performance: bronze
     serviceLevel: Standard
     capacityPools:
-      - standard-1
-      - standard-2
+      - application-group-1/netapp-account-1/standard-1
+      - application-group-1/netapp-account-1/standard-2
 
 ----
 ====
