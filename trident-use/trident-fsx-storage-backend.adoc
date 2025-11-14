@@ -278,64 +278,6 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 |===
 
 
-== Prepárese para aprovisionar los volúmenes de SMB
+== aprovisionamiento de volúmenes SMB
 
-Puede aprovisionar volúmenes SMB mediante el `ontap-nas` controlador. Antes de completar la tarea <<Integración de controladores ONTAP SAN y NAS>> complete los siguientes pasos.
-
-.Antes de empezar
-Para poder aprovisionar volúmenes de SMB con el `ontap-nas` conductor, debe tener lo siguiente.
-
-* Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
-* Al menos un secreto Trident que contiene sus credenciales de Active Directory. Para generar secreto `smbcreds`:
-+
-[source, console]
-----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
-----
-* Proxy CSI configurado como servicio de Windows. Para configurar un `csi-proxy`, consulte link:https://github.com/kubernetes-csi/csi-proxy["GitHub: Proxy CSI"^] o. link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: Proxy CSI para Windows"^] Para nodos Kubernetes que se ejecutan en Windows.
-
-
-.Pasos
-. Cree recursos compartidos de SMB. Puede crear recursos compartidos de administrador de SMB de una de dos formas mediante el link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Consola de administración de Microsoft"^] Complemento carpetas compartidas o uso de la CLI de ONTAP. Para crear los recursos compartidos de SMB mediante la CLI de ONTAP:
-+
-.. Si es necesario, cree la estructura de ruta de acceso de directorio para el recurso compartido.
-+
-La `vserver cifs share create` comando comprueba la ruta especificada en la opción -path durante la creación del recurso compartido. Si la ruta especificada no existe, el comando falla.
-
-.. Cree un recurso compartido de SMB asociado con la SVM especificada:
-+
-[source, console]
-----
-vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
-----
-.. Compruebe que se ha creado el recurso compartido:
-+
-[source, console]
-----
-vserver cifs share show -share-name share_name
-----
-+
-
-NOTE: Consulte link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["Cree un recurso compartido de SMB"^] para obtener todos los detalles.
-
-
-
-. Al crear el back-end, debe configurar lo siguiente para especificar volúmenes de SMB. Para obtener información sobre todas las opciones de configuración del entorno de administración de ONTAP, consulte link:trident-fsx-examples.html["Opciones y ejemplos de configuración de FSX para ONTAP"].
-+
-[cols="3"]
-|===
-| Parámetro | Descripción | Ejemplo 
-
-
-| `smbShare` | Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado con la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP, o bien un nombre para permitir que Trident cree el recurso compartido de SMB. Este parámetro es obligatorio para los back-ends de Amazon FSx para ONTAP. | `smb-share` 
-
-
-| `nasType` | *Debe establecer en `smb`.* Si es nulo, el valor predeterminado es `nfs`. | `smb` 
-
-
-| `securityStyle` | Estilo de seguridad para nuevos volúmenes. *Debe estar configurado en `ntfs` o. `mixed` Para volúmenes SMB.* | `ntfs` o. `mixed` Para volúmenes de SMB 
-
-
-| `unixPermissions` | Modo para volúmenes nuevos. *Se debe dejar vacío para volúmenes SMB.* | "" 
-|===
-
+Puede aprovisionar volúmenes SMB utilizando `ontap-nas` conductor. Antes de completar <<Integración de controladores ONTAP SAN y NAS>> Complete estos pasos: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"].
