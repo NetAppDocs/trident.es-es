@@ -20,25 +20,26 @@ Con Trident puede asignar nombres y etiquetas significativos a los volúmenes qu
 
 Nombres de volumen y etiquetas personalizables admiten:
 
-. Operaciones de creación, importación y clonado de volúmenes.
-. En el caso del controlador económico ontap-nas, solo el nombre del volumen Qtree debe cumplir con la plantilla de nombre.
-. En el caso del controlador ontap-san-economy, solo el nombre de la LUN cumple con la plantilla de nombre.
+* Operaciones de creación, importación y clonado de volúmenes.
+* En el caso de `ontap-nas-economy` En el controlador, solo el nombre del volumen Qtree cumple con la plantilla de nombre.
+* En el caso de `ontap-san-economy` Controlador, solo el nombre de la LUN cumple con la plantilla de nombre.
 
 
 
 
 == Limitaciones
 
-. Los nombres de volumen personalizables solo son compatibles con los controladores locales de ONTAP.
-. Los nombres de volúmenes personalizables no se aplican a los volúmenes existentes.
+* Los nombres de volumen personalizados solo son compatibles con los controladores ONTAP locales.
+* Las etiquetas personalizadas solo son compatibles con `ontap-san`, `ontap-nas`, y `ontap-nas-flexgroup` conductores.
+* Los nombres de volumen personalizados no se aplican a los volúmenes existentes.
 
 
 
 
 == Comportamientos clave de los nombres de volúmenes personalizables
 
-. Si se produce un fallo debido a una sintaxis no válida en una plantilla de nombre, se produce un error en la creación del backend. Sin embargo, si la aplicación de plantilla falla, el volumen se nombrará de acuerdo con la convención de nomenclatura existente.
-. El prefijo de almacenamiento no es aplicable cuando se asigna el nombre de un volumen mediante una plantilla de nombres en la configuración back-end. Cualquier valor de prefijo deseado se puede agregar directamente a la plantilla.
+* Si se produce un fallo debido a una sintaxis no válida en una plantilla de nombre, se produce un error en la creación del backend. Sin embargo, si la aplicación de plantilla falla, el volumen se nombrará de acuerdo con la convención de nomenclatura existente.
+* El prefijo de almacenamiento no es aplicable cuando se asigna el nombre de un volumen mediante una plantilla de nombres en la configuración back-end. Cualquier valor de prefijo deseado se puede agregar directamente a la plantilla.
 
 
 
