@@ -14,10 +14,10 @@ summary: Proteger todas las aplicaciones mediante la toma de snapshots y backups
 
 
 [role="lead"]
-Puede proteger todas las aplicaciones gestionadas por Trident Protect al tomar copias Snapshot y backups usando una política de protección automatizada o ad hoc.
+Puede proteger todas las aplicaciones administradas por Trident Protect tomando instantáneas y copias de seguridad mediante una política de protección automatizada o de forma ad hoc.
 
 
-NOTE: Puede configurar Trident Protect para congelar y descongelar sistemas de archivos durante las operaciones de protección de datos. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Obtenga más información sobre cómo configurar la congelación del sistema de archivos con Trident Protect"].
+NOTE: Puede configurar Trident Protect para congelar y descongelar sistemas de archivos durante operaciones de protección de datos. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Obtenga más información sobre cómo configurar la congelación del sistema de archivos con Trident Protect"].
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == Permita el backup y la restauración para las operaciones de azure-NetApp-files (ANF)
 
-Si ha instalado Trident Protect, puede habilitar la funcionalidad de backup y restauración con gestión eficiente del espacio para back-ends de almacenamiento que utilizan la clase de almacenamiento azure-NetApp-files y se crearon antes de Trident 24,06. Esta funcionalidad funciona con volúmenes NFSv4 y no consume espacio adicional del pool de capacidad.
+Si ha instalado Trident Protect, puede habilitar la funcionalidad de copia de seguridad y restauración que ahorra espacio para los backends de almacenamiento que usan la clase de almacenamiento azure-netapp-files y se crearon antes de Trident 24.06. Esta funcionalidad funciona con volúmenes NFSv4 y no consume espacio adicional del grupo de capacidad.
 
 .Antes de empezar
 Asegúrese de lo siguiente:
 
 * Ha instalado Trident Protect.
-* Debe haber definido una aplicación en Trident Protect. Esta aplicación tendrá funcionalidad de protección limitada hasta que complete este procedimiento.
+* Ha definido una aplicación en Trident Protect. Esta aplicación tendrá una funcionalidad de protección limitada hasta que complete este procedimiento.
 *  `azure-netapp-files`Seleccionó como clase de almacenamiento predeterminada para el back-end de almacenamiento.
 
 
@@ -426,13 +426,13 @@ Respuesta:
 snapshotDirectory: "true"
 ----
 +
-Cuando no se habilita el directorio Snapshot, Trident Protect elige la funcionalidad normal de backup, que consume temporalmente el espacio del pool de capacidad durante el proceso de backup. En este caso, asegúrese de que haya espacio suficiente disponible en el pool de capacidad para crear un volumen temporal del tamaño del volumen del que se va a realizar el backup.
+Cuando el directorio de instantáneas no está habilitado, Trident Protect elige la funcionalidad de copia de seguridad regular, que consume temporalmente espacio en el grupo de capacidad durante el proceso de copia de seguridad. En este caso, asegúrese de que haya suficiente espacio disponible en el grupo de capacidad para crear un volumen temporal del tamaño del volumen del que se está realizando la copia de seguridad.
 
 
 
 
 
 .Resultado
-La aplicación está lista para backup y restauración con Trident Protect. Otras aplicaciones también pueden utilizar cada RVP para realizar backups y restauraciones de datos.
+La aplicación está lista para realizar copias de seguridad y restaurar mediante Trident Protect. Cada PVC también está disponible para ser utilizado por otras aplicaciones para copias de seguridad y restauraciones.
 
 ====

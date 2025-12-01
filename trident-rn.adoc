@@ -21,7 +21,7 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 == ¿Qué hay de nuevo en la versión 25.10?
 
-Descubre las novedades de Trident y Trident Protect, incluyendo mejoras, correcciones y funciones obsoletas.
+Conozca las novedades de Trident y Trident Protect, incluidas mejoras, correcciones y obsolescencias.
 
 
 
@@ -90,7 +90,7 @@ NOTE: No apto para uso en entornos de producción.
 
 === Trident Protect
 
-NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de aplicaciones de Kubernetes con estado respaldadas por los sistemas de almacenamiento de NetApp ONTAP y el aprovisionador de almacenamiento CSI de NetApp Trident.
+NetApp Trident Protect proporciona capacidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de las aplicaciones Kubernetes con estado respaldadas por los sistemas de almacenamiento NetApp ONTAP y el aprovisionador de almacenamiento NetApp Trident CSI.
 
 
 
@@ -229,7 +229,7 @@ NOTE: Esta función es experimental y actualmente admite flujos de trabajo paral
 
 === Trident Protect
 
-NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de aplicaciones de Kubernetes con estado respaldadas por los sistemas de almacenamiento de NetApp ONTAP y el aprovisionador de almacenamiento CSI de NetApp Trident.
+NetApp Trident Protect proporciona capacidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de las aplicaciones Kubernetes con estado respaldadas por los sistemas de almacenamiento NetApp ONTAP y el aprovisionador de almacenamiento NetApp Trident CSI.
 
 
 
@@ -280,7 +280,7 @@ NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de dato
 
 == Cambios en 25,02
 
-A partir de Trident 25,02, el resumen de las novedades proporciona detalles sobre mejoras, correcciones y bloqueos para versiones de Trident y Trident Protect.
+A partir de Trident 25.02, el resumen de novedades proporciona detalles sobre mejoras, correcciones y desuso de las versiones Trident y Trident Protect.
 
 
 
@@ -335,19 +335,19 @@ A partir de Trident 25,02, el resumen de las novedades proporciona detalles sobr
 
 === Trident Protect
 
-NetApp Trident Protect proporciona funcionalidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de aplicaciones de Kubernetes con estado respaldadas por los sistemas de almacenamiento de NetApp ONTAP y el aprovisionador de almacenamiento CSI de NetApp Trident.
+NetApp Trident Protect proporciona capacidades avanzadas de gestión de datos de aplicaciones que mejoran la funcionalidad y la disponibilidad de las aplicaciones Kubernetes con estado respaldadas por los sistemas de almacenamiento NetApp ONTAP y el aprovisionador de almacenamiento NetApp Trident CSI.
 
 
 
 ==== Mejoras
 
-* Se agregó soporte de backup y restauración para máquinas virtuales de virtualización KubeVirt / OpenShift para almacenamiento volumeMode: File y volumeMode: Block (dispositivo raw). Esta compatibilidad es compatible con todos los controladores Trident y mejora las funciones de protección existentes al replicar almacenamiento usando NetApp SnapMirror con Trident Protect.
+* Se ha añadido compatibilidad con copias de seguridad y restauración para máquinas virtuales de virtualización KubeVirt / OpenShift tanto para almacenamiento volumeMode: File como volumeMode: Block (dispositivo sin formato). Este soporte es compatible con todos los controladores Trident y mejora las funciones de protección existentes al replicar almacenamiento utilizando NetApp SnapMirror con Trident Protect.
 * Se ha añadido la capacidad de controlar el comportamiento de congelación a nivel de aplicación para entornos Kubevirt.
 * Se ha agregado soporte para configurar conexiones proxy AutoSupport.
 * Se agregó la capacidad de definir un secreto para el cifrado de los transmisores de datos (KOPIA / Restic).
 * Se ha añadido la capacidad de ejecutar manualmente un gancho de ejecución.
-* Se ha añadido la capacidad de configurar las restricciones de contexto de seguridad (SCCs) durante la instalación de Trident Protect.
-* Se ha añadido soporte para configurar nodeSelector durante la instalación de Trident Protect.
+* Se agregó la capacidad de configurar restricciones de contexto de seguridad (SCC) durante la instalación de Trident Protect.
+* Se agregó soporte para configurar nodeSelector durante la instalación de Trident Protect.
 * Se ha añadido soporte para el proxy de salida HTTP / HTTPS para objetos AppVault.
 * Filtro de recursos ampliado para permitir la exclusión de recursos de ámbito de cluster.
 * Se ha agregado soporte para el token de sesión de AWS en las credenciales de AppVault de S3.

@@ -46,9 +46,9 @@ indexpage:
     links:
     - title: Protección de datos avanzada con Trident Protect
       url: "/trident-protect/learn-about-trident-protect.html"
-    - title: Implemente Trident Protect
+    - title: Implementar Trident Protect
       url: "/trident-protect/trident-protect-installation.html"
-    - title: Actualice Trident Protect
+    - title: Actualizar Trident Protect
       url: "/trident-protect/trident-protect-upgrade.html"
   - title: Demostraciones y tutoriales
     links:
@@ -56,7 +56,7 @@ indexpage:
       url: https://media.netapp.com/video-detail/c5bebae0-aab6-5fed-ae16-df6a3a8b260d/netapp-trident-advanced-data-protection-for-kubernetes-applications
   - title: Blogs y comunidad
     links:
-    - title: Blogs Trident y Trident Protect
+    - title: Blogs de Trident y Trident Protect
       url: "/blog-posts.html"
     - title: NetApp.io
       url: https://netapp.io/

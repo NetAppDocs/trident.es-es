@@ -1,28 +1,28 @@
 ---
 section: trident-protect
-title: Protege aplicaciones con Trident Protect
+title: Proteja las aplicaciones con Trident Protect
 entries:
-- title: Más información sobre Trident Protect
+- title: Obtenga más información sobre Trident Protect
   url: "/trident-protect/learn-about-trident-protect.html"
-- title: Instale Trident Protect
+- title: Instalar Trident Protect
   entries:
-  - title: Los requisitos de Trident protegen
+  - title: Requisitos de Trident Protect
     url: "/trident-protect/trident-protect-requirements.html"
-  - title: Instale Trident Protect
+  - title: Instalar Trident Protect
     url: "/trident-protect/trident-protect-installation.html"
-  - title: Instale el complemento de la CLI Trident Protect
+  - title: Instalar el complemento CLI de Trident Protect
     url: "/trident-protect/trident-protect-cli.html"
-  - title: Personalice la instalación de Trident Protect
+  - title: Personalizar la instalación de Trident Protect
     url: "/trident-protect/trident-protect-customize-installation.html"
-- title: Gestione Trident Protect
+- title: Administrar Trident Protect
   entries:
   - title: Gestione la autorización y el control de acceso
     url: "/trident-protect/manage-authorization-access-control.html"
-  - title: Supervise los recursos de Trident Protect
+  - title: Supervisar los recursos de Trident Protect
     url: "/trident-protect/monitor-trident-protect-resources.html"
-  - title: Generar un bundle de soporte de Trident Protect
+  - title: Generar un paquete de soporte de Trident Protect
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
-  - title: Actualice Trident Protect
+  - title: Actualizar Trident Protect
     url: "/trident-protect/trident-protect-upgrade.html"
 - title: Gestione y proteja aplicaciones
   entries:
@@ -34,7 +34,7 @@ entries:
     url: "/trident-protect/trident-protect-protect-apps.html"
   - title: Restaure las aplicaciones
     entries:
-    - title: Restaure aplicaciones mediante Trident Protect
+    - title: Restaurar aplicaciones usando Trident Protect
       url: "/trident-protect/trident-protect-restore-apps.html"
     - title: Utilice la configuración avanzada
       url: "/trident-protect/trident-protect-restore-settings.html"
@@ -42,7 +42,7 @@ entries:
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: Migrar aplicaciones
     url: "/trident-protect/trident-protect-migrate-apps.html"
-  - title: Gestione enlaces de ejecución con Trident Protect
+  - title: Administrar ganchos de ejecución con Trident Protect
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
-- title: Desinstale Trident Protect
+- title: Desinstalar Trident Protect
   url: "/trident-protect/trident-protect-uninstall.html"

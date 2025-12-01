@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-cli.html 
 keywords: trident, protect, command line utility, cli, netapp, custom, resources 
-summary: Puede usar el comando protectctl para crear e interactuar con recursos personalizados de Trident Protect. 
+summary: Puede utilizar el comando protectctl para crear e interactuar con recursos personalizados de Trident Protect. 
 ---
-= Instale el complemento de la CLI Trident Protect
+= Instalar el complemento CLI de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,11 +14,11 @@ summary: Puede usar el comando protectctl para crear e interactuar con recursos 
 
 
 [role="lead"]
-Puede utilizar el plugin de línea de comandos Trident Protect, que es una extensión de la utilidad Trident `tridentctl`, para crear e interactuar con los recursos personalizados de Trident Protect (CRS).
+Puede utilizar el complemento de línea de comandos Trident Protect, que es una extensión de Trident `tridentctl` utilidad para crear e interactuar con recursos personalizados (CR) de Trident Protect.
 
 
 
-== Instale el complemento de la CLI Trident Protect
+== Instalar el complemento CLI de Trident Protect
 
 Antes de utilizar la utilidad de línea de comandos, debe instalarla en la máquina que utiliza para acceder al clúster. Siga estos pasos, dependiendo de si su máquina utiliza una CPU x64 o ARM.
 
@@ -27,7 +27,7 @@ Antes de utilizar la utilidad de línea de comandos, debe instalarla en la máqu
 .Descargar plugin para CPU Linux AMD64
 --
 .Pasos
-. Descargue el complemento de la CLI de Trident Protect:
+. Descargue el complemento CLI de Trident Protect:
 +
 [source, console]
 ----
@@ -39,7 +39,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Descargar plugin para CPU Linux ARM64
 --
 .Pasos
-. Descargue el complemento de la CLI de Trident Protect:
+. Descargue el complemento CLI de Trident Protect:
 +
 [source, console]
 ----
@@ -51,7 +51,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Descargar plugin para CPU Mac AMD64
 --
 .Pasos
-. Descargue el complemento de la CLI de Trident Protect:
+. Descargue el complemento CLI de Trident Protect:
 +
 [source, console]
 ----
@@ -63,7 +63,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Descargar plugin para CPU Mac ARM64
 --
 .Pasos
-. Descargue el complemento de la CLI de Trident Protect:
+. Descargue el complemento CLI de Trident Protect:
 +
 [source, console]
 ----
@@ -115,7 +115,7 @@ tridentctl-protect help
 
 == Habilite el autocompletado de comandos
 
-Después de instalar el complemento de CLI Trident Protect, puede habilitar la finalización automática para ciertos comandos.
+Después de haber instalado el complemento CLI de Trident Protect, puede habilitar el autocompletado para ciertos comandos.
 
 [role="tabbed-block"]
 ====

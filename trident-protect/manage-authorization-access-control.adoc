@@ -2,16 +2,16 @@
 permalink: trident-protect/manage-authorization-access-control.html 
 sidebar: sidebar 
 keywords: manage, authentication, rbac 
-summary: 'Trident Protect utiliza el modelo de Kubernetes de control de acceso basado en roles (RBAC). Se pueden usar las funciones de control de acceso basado en roles de Trident Protect para controlar de forma más precisa el acceso a los recursos.' 
+summary: 'Trident Protect utiliza el modelo Kubernetes de control de acceso basado en roles (RBAC).  Puede utilizar las funciones RBAC de Trident Protect para controlar con mayor precisión el acceso a los recursos.' 
 ---
-= Gestione la autorización y el control de acceso de Trident Protect
+= Administrar la autorización y el control de acceso de Trident Protect
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Trident Protect utiliza el modelo de Kubernetes de control de acceso basado en roles (RBAC). De forma predeterminada, Trident Protect proporciona un único espacio de nombres del sistema y su cuenta de servicio predeterminada asociada. Si cuenta con una organización con muchos usuarios o con necesidades de seguridad específicas, puede utilizar las funciones de control de acceso basado en roles de Trident Protect para obtener un control más granular sobre el acceso a los recursos y los espacios de nombres.
+Trident Protect utiliza el modelo Kubernetes de control de acceso basado en roles (RBAC).  De forma predeterminada, Trident Protect proporciona un único espacio de nombres de sistema y su cuenta de servicio predeterminada asociada.  Si tiene una organización con muchos usuarios o necesidades de seguridad específicas, puede utilizar las funciones RBAC de Trident Protect para obtener un control más granular sobre el acceso a los recursos y espacios de nombres.
 
 El administrador de clúster siempre tiene acceso a los recursos del espacio de nombres predeterminado `trident-protect` y también puede acceder a los recursos en el resto de espacios de nombres. Para controlar el acceso a recursos y aplicaciones, es necesario crear espacios de nombres adicionales y agregar recursos y aplicaciones a esos espacios de nombres.
 
@@ -19,10 +19,10 @@ Tenga en cuenta que ningún usuario puede crear CRS de gestión de datos de apli
 
 [NOTE]
 ====
-Sólo los administradores deben tener acceso a los objetos de recursos personalizados Privileged Trident Protect, que incluyen:
+Solo los administradores deben tener acceso a los objetos de recursos personalizados privilegiados de Trident Protect, que incluyen:
 
 * *AppVault*: Requiere datos de credenciales de bucket
-* *Paquete de Protección*: Recopila métricas, registros y otros datos sensibles de Trident
+* *AutoSupportBundle*: Recopila métricas, registros y otros datos confidenciales de Trident Protect
 * *BundleSchedule*: Gestiona los horarios de recopilación de registros
 
 
@@ -128,7 +128,7 @@ type: kubernetes.io/service-account-token
 
 === Paso 4: Cree un objeto RoleBinding para enlazar el objeto ClusterRole a cada nueva cuenta de servicio
 
-Al instalar Trident Protect, se crea un objeto ClusterRole predeterminado. Puede enlazar este ClusterRole a la cuenta de servicio creando y aplicando un objeto RoleBinding.
+Se crea un objeto ClusterRole predeterminado cuando instala Trident Protect. Puede vincular este ClusterRole a la cuenta de servicio creando y aplicando un objeto RoleBinding.
 
 .Pasos
 . Enlazar ClusterRole a la cuenta de servicio de ingeniería:
@@ -215,7 +215,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: AppVault
 metadata:
   name: appvault-for-eng-user-only
-  namespace: trident-protect # Trident protect system namespace
+  namespace: trident-protect # Trident Protect system namespace
 spec:
   providerConfig:
     azure:

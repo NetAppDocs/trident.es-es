@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-Trident Protect proporciona capacidades de congelación y descongelación del sistema de archivos para las máquinas virtuales KubeVirt durante las operaciones de protección de datos para garantizar la coherencia de los datos. El método de configuración y el comportamiento predeterminado para las operaciones de congelación de máquinas virtuales varían entre las versiones de Trident Protect; las versiones más recientes ofrecen una configuración simplificada mediante parámetros del gráfico Helm.
+Trident Protect proporciona capacidades de congelamiento y descongelamiento del sistema de archivos para máquinas virtuales KubeVirt durante operaciones de protección de datos para garantizar la consistencia de los datos.  El método de configuración y el comportamiento predeterminado para las operaciones de congelamiento de VM varían según las versiones de Trident Protect; las versiones más nuevas ofrecen una configuración simplificada a través de los parámetros del gráfico de Helm.
 
 
 NOTE: Durante las operaciones de restauración, cualquier  `VirtualMachineSnapshots` Los datos creados para una máquina virtual (VM) no se restauran.
@@ -10,29 +10,29 @@ NOTE: Durante las operaciones de restauración, cualquier  `VirtualMachineSnapsh
 .Trident Protect 25.10 y versiones posteriores
 [%collapsible%open]
 ====
-Trident Protect congela y descongela automáticamente los sistemas de archivos de KubeVirt durante las operaciones de protección de datos para garantizar la coherencia. A partir de Trident Protect 25.10, puede deshabilitar este comportamiento mediante la opción `vm.freeze` parámetro durante la instalación del gráfico Helm. El parámetro está habilitado por defecto.
+Trident Protect congela y descongela automáticamente los sistemas de archivos de KubeVirt durante las operaciones de protección de datos para garantizar la coherencia.  A partir de Trident Protect 25.10, puede desactivar este comportamiento mediante el `vm.freeze` parámetro durante la instalación del gráfico Helm. El parámetro está habilitado por defecto.
 
 [source, console]
 ----
 helm install ... --set vm.freeze=false ...
 ----
 ====
-.Trident protege del 24.10.1 al 25.06
+.Trident Protect 24.10.1 a 25.06
 [%collapsible]
 ====
-A partir de Trident Protect 24.10.1, Trident Protect congela y descongela automáticamente los sistemas de archivos KubeVirt durante las operaciones de protección de datos. De manera opcional, puede deshabilitar este comportamiento automático mediante el siguiente comando:
+A partir de Trident Protect 24.10.1, Trident Protect congela y descongela automáticamente los sistemas de archivos de KubeVirt durante las operaciones de protección de datos. Opcionalmente, puede desactivar este comportamiento automático mediante el siguiente comando:
 
 [source, console]
 ----
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
 ----
 ====
-.Trident Protect 24,10
+.Trident Protect 24.10
 [%collapsible]
 ====
-Trident Protect 24,10 no garantiza automáticamente un estado coherente para los sistemas de archivos de máquinas virtuales KubeVirt durante las operaciones de protección de datos. Si desea proteger los datos de las máquinas virtuales KubeVirt con Trident Protect 24,10, debe habilitar manualmente la funcionalidad de congelación/descongelación para los sistemas de archivos antes de la operación de protección de datos. Esto garantiza que los sistemas de archivos estén en un estado consistente.
+Trident Protect 24.10 no garantiza automáticamente un estado consistente para los sistemas de archivos de VM KubeVirt durante las operaciones de protección de datos.  Si desea proteger los datos de su máquina virtual KubeVirt con Trident Protect 24.10, debe habilitar manualmente la funcionalidad de congelamiento/descongelamiento de los sistemas de archivos antes de la operación de protección de datos. Esto garantiza que los sistemas de archivos se encuentren en un estado consistente.
 
-Puede configurar Trident Protect 24,10 para gestionar la congelación y descongelación del sistema de archivos de la máquina virtual durante las operaciones de protección de datos, mediante link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configurar la virtualización"^]el siguiente comando:
+Puede configurar Trident Protect 24.10 para administrar la congelación y descongelación del sistema de archivos de la máquina virtual durante las operaciones de protección de datos.link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configurar la virtualización"^] y luego usando el siguiente comando:
 
 [source, console]
 ----

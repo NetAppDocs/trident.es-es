@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-execution-hooks.html 
 keywords: trident, protect, execution hooks 
-summary: Puede crear un gancho de ejecución personalizado para una aplicación mediante Trident Protect. Necesita tener permisos de propietario, administrador o miembro para crear enlaces de ejecución. 
+summary: Puede crear un gancho de ejecución personalizado para una aplicación usando Trident Protect. Necesitas tener permisos de Propietario, Administrador o Miembro para crear ganchos de ejecución. 
 ---
-= Gestionar los enlaces de ejecución de Trident Protect
+= Administrar los ganchos de ejecución de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -20,7 +20,7 @@ Un enlace de ejecución es una acción personalizada que puede configurar para q
 
 == Tipos de enlaces de ejecución
 
-Trident Protect admite los siguientes tipos de enlaces de ejecución, según cuándo se pueden ejecutar:
+Trident Protect admite los siguientes tipos de ganchos de ejecución, según cuándo se puedan ejecutar:
 
 * Copia previa de Snapshot
 * Possnapshot
@@ -37,7 +37,7 @@ Trident Protect admite los siguientes tipos de enlaces de ejecución, según cu�
 Cuando se ejecuta una operación de protección de datos, los eventos de enlace de ejecución tienen lugar en el siguiente orden:
 
 . Los ganchos de ejecución de preoperación personalizados aplicables se ejecutan en los contenedores adecuados. Puede crear y ejecutar tantos ganchos de prefuncionamiento personalizados como necesite, pero el orden de ejecución de estos enlaces antes de la operación no está garantizado ni configurable.
-. Si corresponde, se congelan los sistemas de archivos. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Obtenga más información sobre cómo configurar la congelación del sistema de archivos con Trident Protect"].
+. Si corresponde, se producen bloqueos del sistema de archivos. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Obtenga más información sobre cómo configurar la congelación del sistema de archivos con Trident Protect"].
 . Se realiza la operación de protección de datos.
 . Los sistemas de archivos congelados se descongelan, si corresponde.
 . Los enlaces de ejecución de post-operación personalizados aplicables se ejecutan en los contenedores adecuados. Puede crear y ejecutar tantos enlaces de post-operación personalizados como necesite, pero el orden de ejecución de estos enlaces después de la operación no está garantizado ni configurable.
@@ -67,9 +67,9 @@ NOTE: Si un gancho de ejecución previo a la instantánea agrega, cambia o elimi
 Tenga en cuenta lo siguiente al planificar enlaces de ejecución para sus aplicaciones.
 
 * Un enlace de ejecución debe utilizar una secuencia de comandos para realizar acciones. Muchos enlaces de ejecución pueden hacer referencia al mismo script.
-* Trident Protect requiere que los scripts que los enlaces de ejecución utilizan se escriban en formato de scripts de shell ejecutables.
+* Trident Protect requiere que los scripts que utilizan los ganchos de ejecución estén escritos en el formato de scripts de shell ejecutables.
 * El tamaño del script está limitado a 96 KB.
-* Trident Protect utiliza la configuración de enlace de ejecución y cualquier criterio de coincidencia para determinar qué enlaces se aplican a una operación de instantánea, copia de seguridad o restauración.
+* Trident Protect utiliza configuraciones de gancho de ejecución y cualquier criterio coincidente para determinar qué ganchos son aplicables a una operación de instantánea, copia de seguridad o restauración.
 
 
 
@@ -81,7 +81,7 @@ NOTE: Debido a que los enlaces de ejecución a menudo reducen o desactivan por c
 
 Al agregar o editar un enlace de ejecución para una aplicación, puede agregar filtros al enlace de ejecución para gestionar qué contenedores coincidirá el enlace. Los filtros son útiles para aplicaciones que usan la misma imagen de contenedor en todos los contenedores, pero pueden usar cada imagen para un propósito diferente (como Elasticsearch). Los filtros le permiten crear escenarios donde los enlaces de ejecución se ejecutan en algunos, pero no necesariamente todos los contenedores idénticos. Si crea varios filtros para un único enlace de ejecución, se combinan con un operador y lógico. Puede tener hasta 10 filtros activos por gancho de ejecución.
 
-Cada filtro que agregue a un enlace de ejecución utiliza una expresión regular para hacer coincidir los contenedores del clúster. Cuando un gancho coincide con un contenedor, el gancho ejecutará su script asociado en ese contenedor. Las expresiones regulares para los filtros utilizan la sintaxis expresión regular 2 (RE2), que no admite la creación de un filtro que excluye contenedores de la lista de coincidencias. Para obtener información sobre la sintaxis que soporta Trident Protect para expresiones regulares en filtros de enlace de ejecución, consulte https://github.com/google/re2/wiki/Syntax["Soporte de sintaxis de expresión regular 2 (RE2)"^].
+Cada filtro que agrega a un gancho de ejecución utiliza una expresión regular para que coincida con los contenedores en su clúster. Cuando un gancho coincide con un contenedor, el gancho ejecutará su script asociado en ese contenedor. Las expresiones regulares para filtros utilizan la sintaxis de Expresión regular 2 (RE2), que no admite la creación de un filtro que excluya contenedores de la lista de coincidencias. Para obtener información sobre la sintaxis que Trident Protect admite para expresiones regulares en filtros de gancho de ejecución, consulte https://github.com/google/re2/wiki/Syntax["Soporte de sintaxis de expresión regular 2 (RE2)"^] .
 
 
 NOTE: Si se agrega un filtro de espacio de nombres a un enlace de ejecución que se ejecuta después de una operación de restauración o clonado y el origen y destino de la restauración o clonado se encuentran en diferentes espacios de nombres, el filtro de espacio de nombres solo se aplica al espacio de nombres de destino.
@@ -96,7 +96,7 @@ Visite el https://github.com/NetApp/Verda["Proyecto Verda GitHub de NetApp"] par
 
 == Cree un enlace de ejecución
 
-Puede crear un gancho de ejecución personalizado para una aplicación mediante Trident Protect. Necesita tener permisos de propietario, administrador o miembro para crear enlaces de ejecución.
+Puede crear un gancho de ejecución personalizado para una aplicación usando Trident Protect. Necesitas tener permisos de Propietario, Administrador o Miembro para crear ganchos de ejecución.
 
 [role="tabbed-block"]
 ====
@@ -104,7 +104,7 @@ Puede crear un gancho de ejecución personalizado para una aplicación mediante 
 --
 .Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-hook.yaml`.
-. Configure los siguientes atributos para que coincidan con su entorno Trident Protect y la configuración de clúster:
+. Configure los siguientes atributos para que coincidan con su entorno de Trident Protect y la configuración del clúster:
 +
 ** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
 ** *Spec.applicationRef*: (_required_) El nombre de Kubernetes de la aplicación para la que ejecutar el hook de ejecución.
@@ -221,7 +221,7 @@ La ejecución manual de un gancho de ejecución consta de dos pasos básicos:
 --
 .Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-resource-backup.yaml`.
-. Configure los siguientes atributos para que coincidan con su entorno Trident Protect y la configuración de clúster:
+. Configure los siguientes atributos para que coincidan con su entorno de Trident Protect y la configuración del clúster:
 +
 ** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
 ** *Spec.applicationRef*: (_required_) El nombre de Kubernetes de la aplicación para la que crear la copia de seguridad del recurso.
@@ -294,7 +294,7 @@ kubectl describe resourcebackup <my_backup_name>
 --
 .Pasos
 . Cree el archivo de recursos personalizados (CR) y asígnele un nombre `trident-protect-hook-run.yaml`.
-. Configure los siguientes atributos para que coincidan con su entorno Trident Protect y la configuración de clúster:
+. Configure los siguientes atributos para que coincidan con su entorno de Trident Protect y la configuración del clúster:
 +
 ** *metadata.name*: (_required_) El nombre de este recurso personalizado; elija un nombre único y sensible para su entorno.
 ** *Spec.applicationRef*: (_required_) Asegúrese de que este valor coincida con el nombre de la aplicación de ResourceBackup CR que creó en el paso 1.
