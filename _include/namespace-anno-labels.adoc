@@ -15,7 +15,9 @@ Puede evitar que se sobrescriban anotaciones específicas en el espacio de nombr
 
 [source, console]
 ----
-helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set-string restoreSkipNamespaceAnnotations="{<annotation_key_to_skip_1>,<annotation_key_to_skip_2>}" \
+  --reuse-values
 ----
 
 NOTE: Al realizar una operación de restauración o conmutación por error, se tendrán en cuenta las anotaciones y etiquetas de espacio de nombres especificadas en `restoreSkipNamespaceAnnotations` y `restoreSkipNamespaceLabels` quedan excluidos de la operación de restauración o conmutación por error. Asegúrese de que estos ajustes se configuren durante la instalación inicial de Helm. Para obtener más información, consulte link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurar ajustes adicionales del gráfico de timón Trident Protect"].
