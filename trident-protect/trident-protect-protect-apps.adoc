@@ -328,13 +328,25 @@ tridentctl-protect create schedule <my_schedule_name> \
   --snapshot-retention <how_many_snapshots_to_retain> \
   --snapshot-reclaim-policy <Retain|Delete (default Delete)> \
   --full-backup-rule <string> \
+  --run-immediately <true|false> \
   -n <application_namespace>
 ----
 +
-Puede establecer `--full-backup-rule` la marca en `always` para una copia de seguridad completa constante o personalizarla según sus necesidades. Por ejemplo, si elige una granularidad diaria, puede especificar los días de la semana en los que debe realizarse el backup completo. Por ejemplo, utilice `--full-backup-rule "Monday,Thursday"` para programar un backup completo los lunes y jueves.
+Las siguientes banderas proporcionan control adicional sobre su programación:
 
 +
-Para programaciones de solo instantáneas, configure `--backup-retention 0` y especifique un valor mayor que 0 para `--snapshot-retention` .
+** *Programación de copia de seguridad completa*: utilice la `--full-backup-rule` bandera para programar copias de seguridad completas no incrementales. Esta bandera sólo funciona con `--granularity Daily`. Valores posibles:
++
+*** `Always`:Cree una copia de seguridad completa todos los días.
+*** Días de la semana específicos: especifique uno o más días separados por comas (por ejemplo, `"Monday,Thursday"`). Valores válidos: lunes, martes, miércoles, jueves, viernes, sábado, domingo.
++
+
+NOTE: El `--full-backup-rule` La bandera no funciona con granularidad horaria, semanal o mensual.
+
+
+
+** *Horarios solo de instantáneas*: Establecer `--backup-retention 0` y especifique un valor mayor que cero para `--snapshot-retention`.
+
 
 
 
@@ -351,7 +363,7 @@ La siguiente tabla describe las anotaciones que puede utilizar al crear una soli
 | Anotación | Tipo | Descripción | Valor predeterminado 
 
 
-| proteger.trident.netapp.io/regla-de-copia-de-seguridad-completa | cadena | Especifica la regla para programar copias de seguridad completas. Puedes configurarlo para `always` para copias de seguridad completas constantes o personalícelo según sus necesidades. Por ejemplo, si elige una granularidad diaria, puede especificar los días de la semana en los que debe realizarse la copia de seguridad completa (por ejemplo, `"Monday,Thursday"` ). | No configurado (todas las copias de seguridad son incrementales) 
+| proteger.trident.netapp.io/regla-de-copia-de-seguridad-completa | cadena | Especifica la regla para programar copias de seguridad completas. Puedes configurarlo para `Always` para realizar copias de seguridad completas y constantes o personalizarlas según sus necesidades. Por ejemplo, si elige granularidad diaria, puede especificar los días de la semana en los que debe realizarse la copia de seguridad completa (por ejemplo, `"Monday,Thursday"`). Los valores válidos para días de la semana son: lunes, martes, miércoles, jueves, viernes, sábado y domingo. Tenga en cuenta que esta anotación solo se puede utilizar con programaciones que tengan `granularity` empezar a `Daily`. | No configurado (todas las copias de seguridad son incrementales) 
 
 
 | protect.trident.netapp.io/snapshot-complete-timeout | cadena | Tiempo máximo permitido para que se complete la operación de instantánea general. | "60 m" 
