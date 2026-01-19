@@ -72,7 +72,7 @@ Para utilizar Trident, se necesitan uno o varios de los siguientes back-ends adm
 * Cloud Volumes ONTAP
 * NetApp Volumes para Google Cloud
 * Cabina All SAN de NetApp (ASA)
-* Versiones de clúster FAS, AFF o ASA r2 (iSCSI, NVMe/TCP y FC) locales bajo el soporte limitado de NetApp. Verlink:https://mysupport.netapp.com/site/info/version-support["Compatibilidad con versiones de software"] .
+* FAS, AFF o ASA r2 locales (iSCSI, NVMe/TCP y FC) que ejecutan versiones de ONTAP con soporte total o limitado de NetApp . Ver link:https://mysupport.netapp.com/site/info/version-support["Compatibilidad con versiones de software"].
 * Software HCI/Element de NetApp 11 o posterior
 
 
