@@ -6000,4 +6000,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="11442c99db3d2b2bf685a98052263ff2" category="list-text">Al utilizar una CR para restaurar a un nuevo espacio de nombres, debe crear manualmente el espacio de nombres de destino antes de aplicar la CR. Trident Protect crea espacios de nombres automáticamente solo cuando se usa la CLI.</block>
   <block id="0f98c9dc4568dec3e7387b839805d490" category="list-text">En el clúster de destino, cree un archivo CR AppMirrorRelationship.</block>
   <block id="b056e38029a731ef20ed5ec00c3dcfd8" category="admonition">Al utilizar una CR, cree manualmente el espacio de nombres de destino antes de aplicar la CR. Trident Protect crea espacios de nombres automáticamente solo cuando se usa la CLI.</block>
+  <block id="5d644af86a05d68ceba69b7be5855202" category="paragraph">El siguiente comando de ejemplo instala el complemento Trident EKS versión 25.6.1:<block ref="c0283be6b5622fc9d2b8ebb2d7fd26c9" prefix=" " category="inline-code"></block> (con una versión dedicada)</block>
+  <block id="5ebe108c241a46f56c18ffb59389b015" category="paragraph">El siguiente comando de ejemplo instala el complemento Trident EKS versión 25.6.2:<block ref="c1c3ee7d0d3404bd1e2b5bdd62f81d43" prefix=" " category="inline-code"></block> (con una versión dedicada)</block>
+  <block id="7400a1a595f19cde496a4d3cdf6a4570" category="admonition">Usa la</block>
 </blocks>

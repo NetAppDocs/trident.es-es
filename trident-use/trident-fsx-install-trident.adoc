@@ -189,6 +189,9 @@ Una vez finalizada la instalación del complemento, verá el complemento instala
 
 *Para la identidad del pod, utilice el siguiente formato*:
 
+
+NOTE: Usa la
+
 [source, json]
 ----
 {
