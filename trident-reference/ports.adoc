@@ -16,25 +16,104 @@ Obtenga más información sobre los puertos que Trident utiliza para la comunica
 
 
 
-== Puertos Trident
+== Descripción general
 
-Trident utiliza los siguientes puertos para la comunicación dentro de Kubernetes:
+Trident utiliza varios puertos para la comunicación dentro de clústeres de Kubernetes y con storage backends. A continuación tienes un resumen de los puertos clave, sus propósitos y consideraciones de seguridad.
 
-[cols="2,4"]
+* **Enfoque de salida**: los nodos Kubernetes (controlador y trabajador) inician principalmente el tráfico hacia las LIF/IP de almacenamiento, así que las reglas de iptables deben permitir la salida desde las IP de los nodos hacia IP de almacenamiento específicas en estos puertos. Evita las reglas amplias "any-to-any".
+* **Restricciones de entrada**: Limita los puertos internos de Trident al tráfico interno del clúster (por ejemplo, usando CNI como Calico). Sin exposición entrante innecesaria en los cortafuegos del host.
+* **Seguridad de protocolo**:
++
+** Usa TCP siempre que sea posible (más fiable).
+** Habilita CHAP/IPsec para iSCSI si es sensible; TLS/HTTPS para gestión (puerto 443/8443).
+** Para NFSv4 (por defecto en Trident), elimina los puertos UDP/antiguos de NFSv3 (por ejemplo, 4045-4049) si no los necesitas.
+** Restringe a subredes de confianza; monitorea con herramientas como Prometheus (puerto 8001 opcional).
+
+
+
+
+
+
+=== Puertos para nodos controladora
+
+Estos puertos son principalmente para el operador de Trident (gestión de backend). Todos los puertos internos son de nivel pod; permite en los nodos solo si el firewall del host interfiere con CNI.
+
+[cols="1,1,2,1,2"]
 |===
-| Puerto | Específico 
+| Puerto/Protocolo | Dirección | Específico | Controlador/Protocolo | Notas de seguridad 
 
 
-| 8443 | HTTPS de canal posterior 
+| TCP 8000 | Entrada/Salida (cluster-internal) | Servidor REST de Trident (comunicaciones operator-controller) | Todo | Restringe a los CIDR de los pods; sin exposición externa. 
 
 
-| 8001 | Extremo de métricas de Prometheus 
+| TCP 8443 | Entrada/Salida (cluster-internal) | Backchannel HTTPS (API interna segura) | Todo | Cifrado TLS; limita a la malla de servicios de Kubernetes si se usa. 
 
 
-| 8000 | Servidor REST de Trident 
+| TCP 8001 | Entrada (clúster interno, opcional) | Métricas de Prometheus | Todo | Expón solo a herramientas de supervisión (por ejemplo, usando RBAC); desactiva si no se usa. 
 
 
-| 17546 | Puerto de sonda de presencia/preparación utilizado por los pods demonset de Trident 
+| TCP 443 | Salida | HTTPS a ONTAP SVM/cluster mgmt LIF | ONTAP (todos), ANF | Requiere validación de certificado TLS; restringe solo a las IPs de mgmt LIF. 
+
+
+| TCP 8443 | Salida | HTTPS a E-Series Web Services Proxy | E-Series (iSCSI) | API de REST por defecto; usa certificados; configurable en backend YAML. 
+|===
+
+
+=== Puertos para nodos worker
+
+Estos puertos son para daemonsets de nodos CSI y montajes de pods. Los puertos de datos son salientes hacia los LIF de datos de almacenamiento; incluye extras de NFSv3 si usas NFSv3 (opcional para NFSv4).
+
+[cols="1,1,2,1,2"]
+|===
+| Puerto/Protocolo | Dirección | Específico | Controlador/Protocolo | Notas de seguridad 
+
+
+| TCP 17546 | Entrada (local a pod) | Sondas de liveness/readiness del nodo CSI | Todo | Configurable (--probe-port); asegúrate de que no haya conflictos de host; solo local. 
+
+
+| TCP 8000 | Entrada/Salida (cluster-internal) | Servidor REST de Trident | Todo | Como arriba; pod-interno. 
+
+
+| TCP 8443 | Entrada/Salida (cluster-internal) | HTTPS de canal posterior | Todo | Como arriba. 
+
+
+| TCP 8001 | Entrada (clúster interno, opcional) | Métricas de Prometheus | Todo | Como arriba. 
+
+
+| TCP 443 | Salida | HTTPS a ONTAP SVM/cluster mgmt LIF | ONTAP (todos), ANF | Como en el caso anterior; se usa para el descubrimiento. 
+
+
+| TCP 8443 | Salida | HTTPS a E-Series Web Services Proxy | E-Series (iSCSI) | Como arriba. 
+
+
+| TCP/UDP 111 | Salida | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obligatorio para v3; opcional para v4 (firewall offload); restringir si usas solo NFSv4. 
+
+
+| TCP/UDP 2049 | Salida | Demonio NFS | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Datos básicos; bien conocidos; usa TCP para fiabilidad. 
+
+
+| TCP/UDP 635 | Salida | Daemon de montaje | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Montaje; devoluciones de llamada bidireccionales posibles (permitir entrante efímero si es necesario). 
+
+
+| UDP 4045 | Salida | Gestor de bloqueos NFS (nlockmgr) | ONTAP-NAS (NFSv3) | Bloqueo de archivos; saltar para v4 (pNFS handles); UDP-only. 
+
+
+| UDP 4046 | Salida | Monitor de estado NFS (statd) | ONTAP-NAS (NFSv3) | Notificaciones; puede necesitar puertos efímeros de entrada (1024-65535) para callbacks. 
+
+
+| UDP 4049 | Salida | Demonio de cuotas NFS (rquotad) | ONTAP-NAS (NFSv3) | Cuotas; omitir para v4. 
+
+
+| TCP 3260 | Salida | objetivo iSCSI (discovery/data/CHAP) | ONTAP-SAN (iSCSI), E-Series (iSCSI) | Bien conocido; CHAP auth sobre este puerto; habilita CHAP mutuo para seguridad. 
+
+
+| TCP 445 | Salida | SMB/CIFS | ONTAP-NAS (SMB), ANF (SMB) | Bien conocido; usa SMB3 con cifrado (Trident annotation netapp.io/smb-encryption=true). 
+
+
+| TCP/UDP 88 (opcional) | Salida | Autenticación Kerberos | ONTAP (NFS/SMB/iSCSI con Kerb) | Si usas Kerberos (no por defecto); a servidores AD, no almacenamiento. 
+
+
+| TCP/UDP 389 (opcional) | Salida | LDAP | ONTAP (NFS/SMB con LDAP) | Similar; para resolución de nombres/auth; restringir a AD. 
 |===
 
 NOTE: El puerto de la sonda de nivel de gravedad/preparación se puede cambiar durante la instalación utilizando el `--probe-port` bandera. Es importante asegurarse de que este puerto no esté siendo utilizado por otro proceso en los nodos de trabajo.
