@@ -26,6 +26,25 @@ Para evitar posibles fallos, puede desactivar todas las instantáneas programada
 
 
 ====
+
+
+== Paso 1: Seleccione una versión
+
+Las versiones de Trident Protect siguen una convención de nomenclatura `YY.MM` basada en fechas, donde "YY" son los dos últimos dígitos del año y "MM" es el mes. Las versiones de punto siguen una `YY.MM.X` convención, donde "X" es el nivel de parche. Vas a seleccionar la versión a la que quieres actualizar según la versión desde la que estás actualizando.
+
+* Puedes hacer una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones respecto a la versión que tienes instalada. Por ejemplo, puedes actualizar directamente de 24.10 (o cualquier versión puntual de 24.10) a 25.10.
+* Si estás actualizando desde una versión fuera del periodo de cuatro versiones, haz una actualización en varios pasos. Usa las instrucciones de actualización para la link:../earlier-versions.html["versión anterior"] de la que estás actualizando para pasar a la versión más reciente que entre en el periodo de cuatro versiones. Por ejemplo, si estás usando la versión 24.10 y quieres actualizar a la 26.02:
++
+.. Primero actualiza de 24.10 a 25.02.
+.. Luego actualiza de 25.02 a 26.02.
+
+
+
+
+
+
+== Paso 2: actualizar Trident Protect
+
 Para actualizar Trident Protect, realice los siguientes pasos.
 
 .Pasos

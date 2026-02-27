@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
+summary: Configura la jerarquización automática de Google Cloud NetApp Volumes usando mecanismos nativos de Kubernetes con Trident. 
+---
+= Configura la jerarquización automática para Google Cloud NetApp Volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: 
+:imagesdir: ../media/
+:icontype: font:
+
+
+[role="lead"]
+Esta página describe cómo configurar el auto-tiering para Google Cloud NetApp Volumes usando Trident. El auto-tiering se configura a través de los parámetros de backend de Trident y las anotaciones de PersistentVolumeClaim durante el aprovisionamiento de volúmenes.
+
+
+
+== Descripción general
+
+La jerarquización automática permite a Trident aprovisionar volúmenes que mueven automáticamente los datos inactivos de un nivel de rendimiento a un nivel de capacidad. Esto reduce el coste de almacenamiento mientras se preserva el rendimiento para los datos a los que se accede con frecuencia.
+
+Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.02.
+
+
+
+== Conceptos
+
+
+
+=== Organización automática en niveles
+
+La jerarquización automática mueve los datos a los que se accede con poca frecuencia de un nivel de rendimiento a un nivel de capacidad según los patrones de acceso. El movimiento de datos ocurre de forma asíncrona y no es inmediato.
+
+
+
+=== Política de tiering
+
+La política de jerarquización determina si la jerarquización automática está habilitada para un volumen.
+
+Se admiten las siguientes políticas: * `auto`: permite la jerarquización automática basada en patrones de acceso * `none`: desactiva la jerarquización automática
+
+
+
+=== Días de refrigeración
+
+Los días de enfriamiento especifican el número mínimo de días que un bloque de datos debe permanecer inactivo antes de que sea elegible para la clasificación por niveles. Los días de enfriamiento se aplican solo cuando la política de clasificación por niveles se establece en `auto`.
+
+
+
+== Modelo de configuración
+
+
+
+=== Ámbitos de configuración
+
+La jerarquización automática puede configurarse en varios ámbitos:
+
+* **Ámbito del storage pool** se aplica a todos los volúmenes aprovisionados desde el pool.
+* **Ámbito del volumen** Aplica a un solo volumen a través de las anotaciones de PersistentVolumeClaim.
+
+
+Trident determina la configuración efectiva según dónde se defina cada ajuste.
+
+
+
+=== Precedencia de la configuración
+
+Cuando se define la misma configuración en varios ámbitos, Trident aplica el siguiente orden de precedencia:
+
+. Anotaciones de PersistentVolumeClaim
+. Configuración del backend Trident
+. Valores predeterminados del pool de almacenamiento
+
+
+Los ajustes definidos con mayor precedencia reemplazan los valores de nivel inferior.
+
+
+
+== Funcionalidad compatible en Trident 26.02
+
+Trident 26.02 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:
+
+* Habilitar o deshabilitar la clasificación automática durante el aprovisionamiento de volúmenes
+* Definir una política de niveles en la configuración del backend de Trident
+* Anular la política de niveles y los días de enfriamiento por volumen usando anotaciones de PVC
+* Configurar los días de enfriamiento para los volúmenes con la jerarquización automática activada
+
+
+
+
+== Funcionalidad no soportada en Trident 26.02
+
+Las siguientes operaciones no son compatibles:
+
+* Modificar la configuración de auto-tiering después de crear el volumen
+* Cambio de las políticas de niveles en volúmenes existentes usando actualizaciones de Kubernetes
+* Aplicar la configuración de jerarquización automática fuera de los flujos de trabajo de aprovisionamiento gestionados por Trident
+
+
+
+
+== Parámetros de configuración del backend
+
+Los siguientes parámetros controlan el comportamiento del auto-tiering cuando se definen en la configuración del backend de Trident:
+
+[cols="2,1,2"]
+|===
+| Parámetro | Obligatorio | Descripción 
+
+
+| tieringPolicy | No | Política de tiering para volúmenes (`auto` o `none`) 
+
+
+| tieringMinimumCoolingDays | No | Número de días inactivos antes de que los datos se transfieran de nivel (intervalo: 2–183, predeterminado: 31) 
+|===
+
+
+== Anulaciones a nivel de volumen usando anotaciones de PersistentVolumeClaim
+
+
+
+=== Anotaciones admitidas
+
+Las anotaciones de PersistentVolumeClaim permiten anular por volumen la configuración de auto-tiering.
+
+[cols="2,2"]
+|===
+| Anotación | Descripción 
+
+
+| `trident.netapp.io/tieringPolicy` | Anula la política de tiering del volumen 
+
+
+| `trident.netapp.io/tieringMinimumCoolingDays` | Anula el valor de los días de cooling para el volumen 
+|===
+
+
+=== Ejemplo: PersistentVolumeClaim con anulaciones de auto-tiering
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-tiering-pvc
+  annotations:
+    trident.netapp.io/tieringPolicy: auto
+    trident.netapp.io/tieringMinimumCoolingDays: "45"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: google-cloud-netapp-volumes-auto-tiering
+  resources:
+    requests:
+      storage: 500Gi
+----
+
+
+== Comportamiento y limitaciones
+
+
+
+=== Comportamiento del aprovisionamiento
+
+* Los ajustes de clasificación automática se evalúan y aplican solo en el momento de la creación del volumen.
+* Trident no reconcilia la configuración de tiering después del aprovisionamiento.
+* Los días de enfriamiento se ignoran cuando la política de niveles se establece en `none`.
+
+
+
+
+=== Limitaciones de la plataforma
+
+* La jerarquización automática solo es compatible con volúmenes NAS (NFS y SMB).
+* Los volúmenes en bloque (iSCSI) no admiten auto-tiering.
+* El grupo de almacenamiento de Google Cloud NetApp Volumes debe tener la auto-tiering activada en Google Cloud.
+
+
+
+
+=== Valores admitidos
+
+* Rango válido para `tieringMinimumCoolingDays`: 2 a 183
+* Valor predeterminado: 31
+

@@ -248,6 +248,7 @@ Una política de protección protege una aplicación mediante la creación de in
 ** *spec.dayOfWeek*: (_Opcional_) El día de la semana (0 - 7) en que debe ejecutarse la programación.  Los valores de 0 o 7 indican domingo.  Este campo es obligatorio si la granularidad está establecida en `Weekly` .  El valor debe proporcionarse como una cadena.
 ** *spec.hour*: (_Opcional_) La hora del día (0 - 23) en que debe ejecutarse el programa.  Este campo es obligatorio si la granularidad está establecida en `Daily` , `Weekly` , o `Monthly` .  El valor debe proporcionarse como una cadena.
 ** *spec.minute*: (_Opcional_) El minuto de la hora (0 - 59) en que debe ejecutarse el programa.  Este campo es obligatorio si la granularidad está establecida en `Hourly` , `Daily` , `Weekly` , o `Monthly` .  El valor debe proporcionarse como una cadena.
+** *spec.runImmediately*: (_Opcional_) Establece en `true` para activar una ejecución de línea de base única e inmediata (copia de seguridad y/o instantánea según la configuración de retención) cuando se crea el programa. Por defecto es `false`. Esto no modifica la recurrencia posterior.
 +
 Ejemplo de YAML para programación de copias de seguridad y instantáneas:
 
@@ -290,6 +291,28 @@ spec:
   granularity: Daily
   hour: "2"
   minute: "0"
+----
++
+Ejemplo YAML para programación con ejecución inmediata:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-daily-schedule-run-immediately
+spec:
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "7"
+  snapshotRetention: "7"
+  granularity: Daily
+  hour: "3"
+  minute: "0"
+  runImmediately: true
 ----
 
 
@@ -345,6 +368,7 @@ NOTE: El `--full-backup-rule` La bandera no funciona con granularidad horaria, s
 
 
 
+** *Protección inicial inmediata*: Usa `--run-immediately true` para crear una copia de seguridad o instantánea inicial inmediatamente cuando se crea la programación, en lugar de esperar a la primera hora de ejecución programada. El valor predeterminado es `false`.
 ** *Horarios solo de instantáneas*: Establecer `--backup-retention 0` y especifique un valor mayor que cero para `--snapshot-retention`.
 
 

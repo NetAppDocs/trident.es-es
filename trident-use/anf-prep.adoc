@@ -16,9 +16,23 @@ Antes de configurar el back-end de Azure NetApp Files, debe asegurarse de que se
 
 
 
+== Entornos cloud de Azure compatibles
+
+Trident es compatible con los backends de Azure NetApp Files en varios entornos cloud de Azure.
+
+Las nubes de Azure compatibles incluyen:
+
+* Azure Commercial
+* Azure Government (Azure Government / MAG)
+
+
+Cuando prepares tu entorno, asegúrate de que tu suscripción de Azure, la configuración de identidad y los recursos de Azure NetApp Files se creen en el entorno de cloud de Azure adecuado.
+
+
+
 == Requisitos previos para volúmenes NFS y SMB
 
-Si utiliza Azure NetApp Files por primera vez o en una ubicación nueva, es necesario realizar alguna configuración inicial para configurar Azure NetApp Files y crear un volumen NFS. Consulte https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
+Si estás usando Azure NetApp Files por primera vez o en una nueva ubicación, necesitas hacer una configuración inicial para preparar Azure NetApp Files y crear un volumen NFS. Consulta https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
 
 Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, necesita lo siguiente:
 
@@ -26,6 +40,7 @@ Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/
 ====
 * `subscriptionID`, `tenantID`, `clientID`, `location`, y. `clientSecret` Son opcionales cuando se utilizan identidades administradas en un clúster AKS.
 * `tenantID`, `clientID`, y. `clientSecret` Son opcionales cuando se utiliza una identidad de nube en un clúster de AKS.
+* Las implementaciones de Azure NetApp Files en nubes Azure no comerciales requieren puntos finales de Azure Resource Manager y de autenticación específicos para cada nube. Asegúrate de que Trident y cualquier configuración de backend usen los puntos finales apropiados para tu entorno de nube Azure.
 
 
 ====
