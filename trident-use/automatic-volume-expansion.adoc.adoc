@@ -1,0 +1,382 @@
+---
+sidebar: sidebar 
+permalink: trident-use/automatic-volume-expansion.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, persistent volume claim resize, ontap, kubernetes 
+summary: Configura y gestiona la expansión automática de volúmenes usando las políticas de Trident Autogrow. 
+---
+= Ampliación automática de volúmenes
+:allow-uri-read: 
+
+
+[role="lead"]
+La expansión automática de volúmenes permite que los Volúmenes Persistentes aprovisionados por Trident crezcan automáticamente cuando la capacidad utilizada alcanza un umbral definido. Esta capacidad reduce la sobrecarga operativa y ayuda a evitar la interrupción de la aplicación causada por el agotamiento de la capacidad.
+
+La expansión automática de volúmenes se implementa utilizando Autogrow Policies. Una Autogrow Policy define:
+
+* El umbral de utilización que activa la expansión
+* La cantidad en que crece el volumen
+* El tamaño máximo que puede alcanzar el volumen
+
+
+Los volúmenes aumentan de tamaño automáticamente cuando se supera el umbral de utilización definido. Los volúmenes nunca se reducen automáticamente.
+
+
+
+== Requisitos
+
+Antes de configurar la expansión automática de volumen, asegúrate de que se cumplen los siguientes requisitos:
+
+* Trident 26.02 o posterior
+* Permisos de control de acceso basados en roles para crear `TridentAutogrowPolicy` recursos personalizados
+* StorageClasses configurados con `allowVolumeExpansion: true`
+* Protocolos ONTAP compatibles:
++
+** Network File System
+** Internet Small Computer Systems Interface
+** Protocolo Fibre Channel
+** Non-Volatile Memory Express over Fabrics
+
+
+
+
+
+
+== Limitaciones
+
+* Los volúmenes de bloques sin procesar ONTAP Non-Volatile Memory Express anteriores a ONTAP 9.16.1 no admiten la expansión automática.
+* Para volúmenes de red de área de almacenamiento, si  `growthAmount` es menor o igual a 50 mebibytes, Trident aumenta automáticamente el valor a 51 mebibytes antes de redimensionar, siempre que el tamaño resultante no supere  `maxSize`.
+* En entornos brownfield, es posible que la expansión automática no funcione para ciertos volúmenes existentes debido al comportamiento de migración de publicación de volúmenes.
+* Cuando un volumen alcanza `maxSize`, no se produce ninguna expansión adicional.
+* Protocolos compatibles para la expansión automática del volumen:
++
+** Network File System
+** Internet Small Computer Systems Interface
+** Protocolo Fibre Channel
+** Non-Volatile Memory Express over Fabrics
+
+
+
+
+
+
+== Provisiona volúmenes con la política de crecimiento automático
+
+La política de Autogrow puede configurarse a dos niveles:
+
+* Nivel de clase de almacenamiento: establece el valor predeterminado para todos los volúmenes (mediante anotación)
+* Nivel de PVC: anula el valor por defecto de la clase de almacenamiento (usando anotación)
+
+
+
+
+== Crear una política de Autogrow
+
+Las políticas de crecimiento automático permiten la expansión automática de volúmenes cuando los volúmenes alcanzan un umbral de capacidad definido.
+
+Asegúrate de tener:
+
+* Trident 26.02 o posterior instalado
+* Permisos de control de acceso basados en roles para crear  `TridentAutogrowPolicy` recursos
+* Comprender los requisitos de crecimiento de la carga de trabajo
+
+
+Una política de crecimiento automático define cómo los volúmenes se expanden automáticamente cuando alcanzan un umbral de capacidad definido.
+
+Puedes crear políticas Autogrow en cualquier punto de tu flujo de trabajo:
+
+* Antes de que se creen StorageClasses y volúmenes
+* Después de que existan StorageClasses
+* Después de que se aprovisionan los volúmenes
+
+
+Esta flexibilidad te permite introducir la expansión automática sin recrear los recursos existentes.
+
+
+
+=== Especificaciones de la política Autogrow
+
+Las políticas de crecimiento automático son recursos personalizados de Kubernetes definidos como sigue:
+
+[cols="1,3,1,1,2,1"]
+|===
+| Campo | Descripción | Formato | Obligatorio | Ejemplo | Predeterminado 
+
+
+| nombre | Identificador único de política | Cadena | Sí | production-db-policy | Ninguno 
+
+
+| usedThreshold | Porcentaje de capacidad que activa la expansión | Cadena de porcentaje | Sí | "80%" | Ninguno 
+
+
+| growthAmount | Cantidad a aumentar cuando se alcanza el umbral | Porcentaje o tamaño | No | "10%" o "5Gi" | "10%" 
+
+
+| maxSize | Límite máximo de tamaño de volumen | Cantidad de Kubernetes | No | "500Gi" | Ilimitada 
+|===
+
+
+== Crear una política de Autogrow
+
+.Pasos
+. Crea un archivo YAML que defina tu política de crecimiento automático de volúmenes:
++
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+. Aplica la política a tu clúster:
++
+[source, console]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+. Verifica que se haya creado la política:
++
+[source, console]
+----
+kubectl get tridentautogrowpolicy standard-autogrow
+----
++
+.Salida esperada
+[source, console]
+----
+NAME                USED THRESHOLD   GROWTH AMOUNT   STATE
+standard-autogrow   80%              10%             Success
+----
+
+
+
+
+== Política establece
+
+Después de crear una política, Trident valida la especificación y asigna uno de los siguientes estados:
+
+[cols="1,2,2"]
+|===
+| Estado | Descripción | Acción requerida 
+
+
+| Éxito | La política está validada y lista para usar. | Ninguno. 
+
+
+| Error | Errores de validación detectados. | Revisa y corrige la especificación. 
+
+
+| Eliminando | Eliminación en curso. | Espera a que termine. 
+|===
+
+
+== Asocia una política con un StorageClass
+
+Puedes asociar una política de crecimiento automático con un StorageClass usando la anotación `trident.netapp.io/autogrowPolicy`. Todos los volúmenes aprovisionados desde ese StorageClass heredan la política.
+
+
+NOTE: El StorageClass debe tener `allowVolumeExpansion: true`.
+
+.Pasos
+. Crea o modifica un StorageClass con la anotación Autogrow Policy:
++
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+. Aplica el StorageClass:
++
+[source, console]
+----
+kubectl apply -f storageclass.yaml
+----
+. Verifica la anotación:
++
+[source, console]
+----
+kubectl get storageclass ontap-gold -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
++
+.Salida esperada
+[source, console]
+----
+production-db-policy
+----
+
+
+
+
+== Precedencia de políticas
+
+Cuando se establecen anotaciones de Autogrow Policy tanto en un StorageClass como en un PVC, Trident aplica las siguientes reglas de precedencia:
+
+. *La anotación del PVC tiene prioridad.* Si un PVC establece `trident.netapp.io/autogrowPolicy`, ese valor siempre se utiliza.
+. *La anotación StorageClass se aplica solo cuando el PVC no tiene ninguna anotación.*
+. *Si ninguno de los dos tiene la anotación,* no se aplica ninguna Autogrow Policy.
+
+
+[cols="1,1,2"]
+|===
+| Anotación de StorageClass | Anotación de PVC | Comportamiento eficaz 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | No establecido | Utiliza `standard-agp`. 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: logs-policy` | Utiliza `logs-policy` (PVC anula StorageClass). 
+
+
+| `trident.netapp.io/autogrowPolicy: standard-agp` | `trident.netapp.io/autogrowPolicy: "none"` | No Autogrow Policy (PVC desactiva autogrow). 
+
+
+| No establecido | `trident.netapp.io/autogrowPolicy: dev-policy` | Usos `dev-policy`. 
+
+
+| No establecido | No establecido | Sin política de Autogrow. 
+|===
+
+
+== Ejemplos de configuración
+
+Los siguientes ejemplos muestran configuraciones comunes de Autogrow Policy para diferentes casos de uso.
+
+
+
+=== Política conservadora para bases de datos de producción
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: production-db-policy
+spec:
+  usedThreshold: "75%"
+  growthAmount: "20%"
+  maxSize: "5Ti"
+----
+
+
+=== Almacenamiento de logs con incrementos de crecimiento fijos
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: log-storage-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+
+
+=== Política mínima con valores predeterminados
+
+Cuando omites `growthAmount` y `maxSize`, Trident usa los valores predeterminados (`10%` crecimiento, tamaño ilimitado):
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: logs-policy
+spec:
+  usedThreshold: "85%"
+----
+
+
+=== Política con un maxSize personalizado y growthAmount predeterminado
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: default-ga-policy
+spec:
+  usedThreshold: "70%"
+  maxSize: "100Gi"
+----
+
+
+=== Crecimiento agresivo con maxSize ilimitado
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: aggressive-growth-policy
+spec:
+  usedThreshold: "80%"
+  growthAmount: "150%"
+----
+
+
+=== Política con porcentajes fraccionarios
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: precise-policy
+spec:
+  usedThreshold: "80.28%"
+  growthAmount: "10.65%"
+  maxSize: "100Gi"
+----
+
+NOTE: Se admiten porcentajes fraccionarios. Si especificas más de tres decimales, Trident redondea el valor a tres decimales.
+
+
+
+=== NAS StorageClass con Autogrow
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas-autogrow
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-autogrow"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+
+
+=== SAN StorageClass con Autogrow
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: database-storage
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----

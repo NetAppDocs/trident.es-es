@@ -11,7 +11,7 @@ indexpage:
     - title: Versiones anteriores
       url: "/earlier-versions.html"
     - title: Soporte de Trident para sistemas de almacenamiento ASA r2
-      url: trident-asar2-support.html
+      url: "/trident-asar2-support.html"
   - title: Manos a la obra
     links:
     - title: Obtenga más información sobre Trident

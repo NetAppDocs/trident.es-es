@@ -26,6 +26,8 @@ entries:
       url: "/trident-use/gcnv-prep.html"
     - title: Opciones de configuración y ejemplos
       url: "/trident-use/gcnv-examples.html"
+    - title: Configura la jerarquización automática
+      url: "/trident-use/gcnv-auto-tiering.html"
   - title: NetApp HCI o SolidFire
     url: "/trident-use/element.html"
   - title: Unidades SAN de ONTAP
@@ -54,8 +56,10 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: Configurar el back-end de almacenamiento
       url: "/trident-use/trident-fsx-storage-backend.html"
-    - title: Configura la configuración automática del backend
-      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
+    - title: Crear una política de Autogrow
+      url: "/trident-use/automatic-volume-expansion.html"
+    - title: Gestiona una política de Autogrow
+      url: "/trident-use/create-autogrow-policy.html"
     - title: Configurar la clase de almacenamiento y la RVP
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
     - title: Despliegue la aplicación de muestra

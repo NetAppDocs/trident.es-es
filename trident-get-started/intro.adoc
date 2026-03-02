@@ -29,6 +29,19 @@ NOTE: Si es la primera vez que usa Kubernetes, deberá familiarizarse con el lin
 
 
 
+== Plataformas Kubernetes compatibles
+
+Trident es compatible con una amplia gama de distribuciones y plataformas de Kubernetes.
+
+Las plataformas compatibles incluyen:
+
+* Subida de Kubernetes
+* Red Hat OpenShift
+* SUSE Harvester 1.7.0 (ONTAP iSCSI)
+
+
+
+
 == Integración de Kubernetes con productos de NetApp
 
 La cartera de productos de almacenamiento de NetApp se integra con muchos aspectos de un clúster de Kubernetes, lo que ofrece capacidades de gestión de datos avanzadas que mejoran la funcionalidad, la capacidad, el rendimiento y la disponibilidad de la puesta en marcha de Kubernetes.
