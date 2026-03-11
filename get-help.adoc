@@ -33,6 +33,11 @@ Autosoporte:: La documentación de Trident está disponible durante los meses 25
 
 
  a| 
+link:https://docs.netapp.com/us-en/trident/index.html["26,02"^]
+| Febrero de 2026 | Febrero de 2027 | Febrero de 2028 
+
+
+ a| 
 link:https://docs.netapp.com/us-en/trident/index.html["25,10"^]
 | Octubre de 2026 | Octubre de 2027 | octubre de 2028 
 
