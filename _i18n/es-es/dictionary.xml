@@ -4884,16 +4884,12 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="579f2feb3d9edaa336d3ccb69c3fb855" category="list-text">Realice una conmutación por error del nuevo clúster de destino al nuevo clúster de origen, con el siguiente cambio:</block>
   <block id="23b4dec181e41ab3962cf73b28ffe58c" category="list-text">En el clúster de eliminación actual, elimine el CR de AppMirrorRelationship:</block>
   <block id="6935ea1d99a0c26f0e4cddb80f444849" category="summary">Si utiliza Red Hat OpenShift, puede instalar Trident con un operador.</block>
-  <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">Cambie de operador comunitario Trident a operador certificado OpenShift</block>
-  <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">Para pasar del Operador de Trident de la Comunidad de NetApp al Operador de Trident Certificado de Red Hat OpenShift, deberá desinstalar el Operador de la Comunidad e instalar el Operador certificado mediante el Centro de operadores.</block>
   <block id="cec1c482e499b4748371d5e19359dacd" category="inline-link-macro">Preparar el entorno para la instalación de Trident</block>
-  <block id="82c3da1e712e572f424c3b7bf7dafcaf" category="section-title">Desinstale el operador de la comunidad NetApp Trident</block>
   <block id="ae76609b28371ddbc9f46be837040994" category="list-text">Utilice la consola de OpenShift para navegar hasta OperatorHub.</block>
   <block id="349838fb1d851d3e2014b9fe39203275" category="image-alt">Instale</block>
   <block id="2d8d10c295f87a1f17d2f37a4df9688d" category="list-text">Busque al operador de la comunidad NetApp Trident.</block>
   <block id="e1b3a07c6ba67335c1564ff539f1f885" category="admonition">No seleccione *Eliminar todas las instancias de operando de este operador*.</block>
   <block id="615da270425b5ecb4fe6ddeed9358880" category="list-text">Haga clic en *Desinstalar*.</block>
-  <block id="c7afcce8432c7e249a80e803d2a81180" category="section-title">Instale el operador certificado de OpenShift</block>
   <block id="6eaf33f9c2387a07f89fc20e19acffaa" category="list-text">Vaya a Red Hat OperatorHub.</block>
   <block id="cccebca328e4674a8888d5dc22f61e0d" category="list-text">Busque y seleccione el operador de NetApp Trident.</block>
   <block id="9872de8cf3e5ac67cae81e5c17eaa5cc" category="list-text">Siga las instrucciones que aparecen en pantalla para instalar el operador.</block>
@@ -4908,7 +4904,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">Si no selecciona la casilla de verificación *Eliminar todas las instancias de operando de este operador*, Trident no se desinstalará.</block>
   <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">Realice la instalación mediante el operador certificado de OpenShift</block>
   <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">Instale Trident mediante OpenShift OperatorHub</block>
-  <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">Cambie del operador de la comunidad Trident al operador certificado de OpenShift</block>
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Puede configurar el clonado de volúmenes en unos pocos pasos.</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident crea el VP y su volumen de almacenamiento de back-end.</block>
   <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">Antes de comenzar la instalación, <block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>.</block>
@@ -6727,4 +6722,18 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="f6742c05233fa63959541b8dde0d38c6" category="list-text"><block ref="b60c14c79386a1c34022777459be2c8d" prefix="" category="inline-code"></block> si tu imagen de Trident está en un registro diferente al de tus imágenes CSI.</block>
   <block id="1005b3a0632a1617ff4b8822375abb93" category="list-text">Usa el <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> comando donde <block ref="5949043f5e5709138a63b4badf24d7cc" prefix=" " category="inline-code"></block> refleja la versión a la que quieres actualizar.</block>
   <block id="fb40eaf6d704634f11299ec916862c3b" category="list-text">Se agregó soporte manual de QoS al controlador ANF, haciéndolo listo para producción en Trident 26.02; esta mejora experimental se introdujo en Trident 25.06.</block>
+  <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">Si usas Red Hat OpenShift, puedes cambiar al operador certificado de Trident desde el operador de la comunidad, una instalación basada en Helm o un operador desplegado manualmente.</block>
+  <block id="9e7ed03c18ddecce0aa7a5623628fe1a" category="doc">Cambia al operador Trident certificado OpenShift</block>
+  <block id="00e22a4bea8f6d3bb56845f5728a38f9" category="paragraph">Puedes cambiar al operador Trident certificado de Red Hat OpenShift desde el operador de la comunidad, una instalación basada en Helm o un operador desplegado manualmente. El proceso para cada método implica desinstalar el operador existente y luego instalar el operador certificado usando el OperatorHub.</block>
+  <block id="e0fb7e598cd3d0a8e5e0f6c10e11f31a" category="admonition">No elimines el<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> recurso personalizado (CR) durante el proceso de desinstalación. El<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR conserva tu configuración de backend y clase de almacenamiento, que se necesita después de instalar el operador certificado.</block>
+  <block id="7d8dfdf990860db5c02cc533b2569b8f" category="section-title">Cambia desde el operador comunitario</block>
+  <block id="b55982405dde4490383f45006a38bdb9" category="inline-xref">Instala el operador certificado OpenShift</block>
+  <block id="8fe087a922a6808c951c0594b69828c8" category="list-text">Después de que termine la desinstalación, sigue con <block ref="40f1b93fbc056c81e4746efd0b19f07f" category="inline-xref-macro-rx"></block>.</block>
+  <block id="d208c568b03c6f135b7ff8a6d7278bc5" category="section-title">Cambia desde una instalación de operador basada en Helm</block>
+  <block id="bdcb884239945a51a171877bdd8f44cf" category="list-text">Muestra la versión de Helm para tu instalación de Trident:</block>
+  <block id="563c22175d543b518951ea32e50aabaa" category="list-text">Desinstala la versión de Helm:</block>
+  <block id="a7377c371690a5509c042cfa7cdab7f3" category="section-title">Cambiar desde un operador desplegado manualmente</block>
+  <block id="5a450639fa89231b036826f5af7d71cd" category="paragraph">Si instalaste Trident desplegando manualmente el operador usando un<block ref="0d472c887b61206765c1caa63a9290ec" prefix=" " category="inline-code"></block> del paquete de instalación, elimínalo borrando el mismo manifiesto.</block>
+  <block id="038293ff84b09b1a0092a33fdf412425" category="list-text">Elimina el despliegue del operador usando el manifiesto del bundle:</block>
+  <block id="f5c23abe35c557b95db4b3fce1038b0e" category="sidebar">Cambia al operador certificado de Trident de OpenShift</block>
 </blocks>
