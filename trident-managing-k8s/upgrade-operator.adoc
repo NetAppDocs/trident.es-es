@@ -85,7 +85,7 @@ helm mapkubeapis trident  --namespace trident
 
 
 .Pasos
-. Si link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["Trident instalado usando Helm"]utiliza `helm upgrade trident netapp-trident/trident-operator --version 100.2506.0` para actualizar en un solo paso. Si no ha añadido el repositorio Helm o no puede utilizarlo para actualizar:
+. Si link:../trident-get-started/kubernetes-deploy-helm.html#deploy-the-trident-operator-and-install-trident-using-helm["Trident instalado usando Helm"], puedes usar  `helm upgrade trident netapp-trident/trident-operator --version 100.2602.0` para actualizar en un solo paso. Si no agregaste el repositorio de Helm o no puedes usarlo para actualizar:
 +
 .. Descargue la versión más reciente de Trident en link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
 .. Usa el  `helm upgrade` comando donde  `trident-operator-26.02.0.tgz` refleja la versión a la que quieres actualizar.
