@@ -184,7 +184,7 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | `unixPermissions` | Modo para volúmenes nuevos | «777» para volúmenes NFS; vacío (no aplicable) para volúmenes SMB 
 
 
-| `snapshotDir` | Controla el acceso al `.snapshot` directorio | “True” para NFSv4 “false” para NFSv3 
+| `snapshotDir` | Controla el acceso al `.snapshot` directorio | `true`, `false` (establecer explícitamente). 
 
 
 | `exportPolicy` | Política de exportación que se va a utilizar | "predeterminado" 
@@ -657,7 +657,7 @@ parameters:
   selector: "app=mysqldb"
   fsType: "ext4"
 ----
-* T. `protection-silver-creditpoints-20k` StorageClass se asignará al tercer pool virtual del `ontap-nas-flexgroup` back-end. Este es el único pool que ofrece protección de nivel plata y 20000 puntos de crédito.
+* El `protection-silver-creditpoints-20k` StorageClass se asignará al tercer pool virtual en el `ontap-nas-flexgroup` backend. Este es el único pool que ofrece protección de nivel plata y 20000 puntos de crédito.
 +
 [source, yaml]
 ----

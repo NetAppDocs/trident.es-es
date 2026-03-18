@@ -166,7 +166,7 @@ Puedes controlar el aprovisionamiento de volúmenes predeterminados especificand
 `exportRule` Debe ser una lista separada por comas con cualquier combinación de direcciones IPv4 o subredes IPv4 en notación CIDR. Ignorada para volúmenes de SMB. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Controla la visibilidad del directorio .snapshot | “True” para NFSv4 “false” para NFSv3 
+| `snapshotDir` | Acceso a la `.snapshot` directorio | `true`, `false` (establecer explícitamente). 
 
 
 | `size` | El tamaño predeterminado de los volúmenes nuevos | "100 G" 

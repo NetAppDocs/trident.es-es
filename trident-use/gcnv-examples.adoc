@@ -86,7 +86,7 @@ Es posible controlar el aprovisionamiento de volúmenes predeterminado en la `de
 | `exportRule` | Las reglas de exportación de nuevos volúmenes. Debe ser una lista separada por comas de cualquier combinación de direcciones IPv4. | "0.0.0.0/0" 
 
 
-| `snapshotDir` | Acceso a la `.snapshot` directorio | “True” para NFSv4 “false” para NFSv3 
+| `snapshotDir` | Acceso a la `.snapshot` directorio | `true`, `false` (el comportamiento por defecto puede variar. Establece explícitamente) "false" para NFSv3 
 
 
 | `snapshotReserve` | Porcentaje de volumen reservado para las Snapshot | '' (aceptar valor por defecto de 0) 
