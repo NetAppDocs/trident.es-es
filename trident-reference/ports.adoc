@@ -86,7 +86,7 @@ Estos puertos son para daemonsets de nodos CSI y montajes de pods. Los puertos d
 | TCP 8443 | Salida | HTTPS a E-Series Web Services Proxy | E-Series (iSCSI) | Como arriba. 
 
 
-| TCP/UDP 111 | Salida | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obligatorio para v3; opcional para v4 (firewall offload); restringe si usas -only. 
+| TCP/UDP 111 | Salida | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Obligatorio para v3; opcional para v4 (firewall offload); restringir si usas solo NFSv4. 
 
 
 | TCP/UDP 2049 | Salida | Demonio NFS | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Datos básicos; bien conocidos; usa TCP para fiabilidad. 

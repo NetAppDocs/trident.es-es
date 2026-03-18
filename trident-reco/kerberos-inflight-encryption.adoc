@@ -16,7 +16,7 @@ Con el cifrado en tiempo real de Kerberos, puede mejorar la seguridad de acceso 
 
 Trident es compatible con el cifrado Kerberos para ONTAP como back-end de almacenamiento:
 
-* *On-premise ONTAP* - Trident admite el cifrado Kerberos sobre NFSv3 y conexiones desde Red Hat OpenShift y clústeres upstream de Kubernetes a volúmenes ONTAP on-premise.
+* *ONTAP local* - Trident admite el cifrado Kerberos sobre conexiones NFSv3 y NFSv4 desde Red Hat OpenShift y clústeres Kubernetes upstream a volúmenes ONTAP locales.
 
 
 Puede crear, eliminar, cambiar el tamaño, copiar, clonar, Clone de solo lectura e importe volúmenes que usen cifrado NFS.
@@ -35,7 +35,7 @@ NOTE: El cifrado de Kerberos para el tráfico NFS con back-ends de almacenamient
 * Asegúrese de tener acceso de administrador al back-end de almacenamiento de ONTAP.
 * Asegúrese de conocer el nombre del volumen o los volúmenes que compartirá desde el back-end de almacenamiento ONTAP.
 * Asegúrese de haber preparado la máquina virtual de almacenamiento de ONTAP para admitir el cifrado de Kerberos para los volúmenes de NFS. Consulte https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["Habilite Kerberos en una LIF de datos"^] para obtener instrucciones.
-* Asegúrate de que cualquier volumen que uses con cifrado Kerberos esté configurado correctamente. Consulta la sección de configuración de dominio de NetApp (página 13) del https://www.netapp.com/media/16398-tr-3580.pdf["Guía de mejoras y mejores prácticas de NetApp"^].
+* Asegúrate de que cualquier volumen NFSv4 que uses con cifrado Kerberos esté configurado correctamente. Consulta la sección NetApp NFSv4 Domain Configuration (página 13) de https://www.netapp.com/media/16398-tr-3580.pdf["NetApp NFSv4 mejoras y guía de mejores prácticas"^].
 
 
 
@@ -45,7 +45,7 @@ NOTE: El cifrado de Kerberos para el tráfico NFS con back-ends de almacenamient
 Tiene que agregar reglas a políticas de exportación de ONTAP existentes o crear nuevas políticas de exportación que sean compatibles con el cifrado de Kerberos para el volumen raíz de la máquina virtual de almacenamiento de ONTAP, así como para cualquier volumen de ONTAP compartido con el clúster de Kubernetes ascendente. Las reglas de políticas de exportación que añada, o las nuevas políticas de exportación que cree, deben admitir los siguientes protocolos de acceso y permisos de acceso:
 
 .Protocolos de acceso
-Configura la política de exportación con NFS, NFSv3 y protocolos de acceso.
+Configura la política de exportación con los protocolos de acceso NFS, NFSv3 y NFSv4.
 
 .Detalles de acceso
 Puede configurar una de tres versiones diferentes de cifrado de Kerberos, según las necesidades del volumen:
@@ -216,7 +216,7 @@ Puede habilitar el cifrado de Kerberos en el tráfico de almacenamiento entre su
 * Asegúrese de haber habilitado Trident en el clúster gestionado de Red Hat OpenShift.
 * Asegúrese de tener acceso a la `tridentctl` utilidad.
 * Asegúrese de haber preparado el back-end de almacenamiento de Azure NetApp Files para el cifrado Kerberos siguiendo los requisitos y siguiendo las instrucciones de https://learn.microsoft.com/en-us/azure/azure-netapp-files/configure-kerberos-encryption["Documentación de Azure NetApp Files"^].
-* Asegúrate de que cualquier volumen que uses con cifrado Kerberos esté configurado correctamente. Consulta la sección de configuración de dominio de NetApp (página 13) del https://www.netapp.com/media/16398-tr-3580.pdf["Guía de mejoras y mejores prácticas de NetApp"^].
+* Asegúrate de que cualquier volumen NFSv4 que uses con cifrado Kerberos esté configurado correctamente. Consulta la sección NetApp NFSv4 Domain Configuration (página 13) de https://www.netapp.com/media/16398-tr-3580.pdf["NetApp NFSv4 mejoras y guía de mejores prácticas"^].
 
 
 
