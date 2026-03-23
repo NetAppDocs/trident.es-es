@@ -122,7 +122,7 @@ Hay dos soluciones alternativas:
 
 
 
-== Novedades en 26.02
+== Novedades en 25.10
 
 Conozca las novedades de Trident y Trident Protect, incluidas mejoras, correcciones y obsolescencias.
 
