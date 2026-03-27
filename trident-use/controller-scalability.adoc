@@ -38,12 +38,16 @@ Trident admite la escalabilidad del controlador con diferentes niveles de madure
 
 Los siguientes drivers soportan la escalabilidad del controlador en disponibilidad general en Trident 26.02:
 
-* `san`
-* `nas`
-* `san-nvme`
+* `ontap-san`
+* `ontap-nas`
 * `google-cloud-netapp-volumes`
 
 
+[NOTE]
+====
+Los controladores `google-cloud-netapp-volumes` y `google-cloud-netapp-volumes-san` son diferentes. Solo `google-cloud-netapp-volumes` es compatible. No uses `google-cloud-netapp-volumes-san` en configuraciones backend ni en ejemplos.
+
+====
 
 
 == Habilita la escalabilidad del controlador
