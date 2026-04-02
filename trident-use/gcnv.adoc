@@ -8,12 +8,14 @@ summary: 'Configura Trident para aprovisionar volúmenes NAS (NFS y SMB) de Goog
 :allow-uri-read: 
 
 
-[role="lead lead"]
+[role="lead"]
 Puedes configurar Google Cloud NetApp Volumes como backend para que Trident aprovisione volúmenes de almacenamiento basados en archivos. Trident puede adjuntar volúmenes NFS y SMB usando un backend de Google Cloud NetApp Volumes.
 
-Trident utiliza backends separados para cargas de trabajo NAS y SAN en Google Cloud NetApp Volumes. El `google-cloud-netapp-volumes` backend admite solo protocolos basados en archivos y no se puede utilizar para aprovisionar volúmenes iSCSI.
 
-Para aprovisionar volúmenes de bloques iSCSI, usa el 
+NOTE: Trident utiliza backends separados para cargas de trabajo NAS y SAN en Google Cloud NetApp Volumes. El `google-cloud-netapp-volumes` backend admite solo protocolos basados en archivos y no se puede utilizar para aprovisionar volúmenes iSCSI.
+
+
+NOTE: Para aprovisionar volúmenes de bloques iSCSI, usa el 
 `google-cloud-netapp-volumes-san` backend, que es un tipo de backend independiente diseñado específicamente para cargas de trabajo SAN.
 
 

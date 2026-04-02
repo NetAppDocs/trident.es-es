@@ -13,7 +13,7 @@ summary: Configura la jerarquización automática de Google Cloud NetApp Volumes
 
 
 [role="lead"]
-Esta página describe cómo configurar el auto-tiering para Google Cloud NetApp Volumes usando Trident. El auto-tiering se configura a través de los parámetros de backend de Trident y las anotaciones de PersistentVolumeClaim durante el aprovisionamiento de volúmenes.
+La clasificación automática se configura a través de los parámetros de backend de Trident y las anotaciones de PersistentVolumeClaim durante el aprovisionamiento de volúmenes. Puedes configurar la clasificación automática para Google Cloud NetApp Volumes usando Trident.
 
 
 

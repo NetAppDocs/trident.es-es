@@ -12,20 +12,18 @@ summary: Aprenda a crear y utilizar controladores NAS de ONTAP con su instalaci�
 
 
 [role="lead"]
-Aprenda a crear y utilizar controladores NAS de ONTAP con su instalación de Trident. Esta sección proporciona ejemplos de configuración de backend y detalles para la asignación de back-ends a StorageClasses.
-
-A partir de la versión 25.10, NetApp Trident es compatible conlink:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistemas de almacenamiento NetApp AFX"^] . Los sistemas de almacenamiento NetApp AFX se diferencian de otros sistemas basados ​​en ONTAP(ASA, AFF y FAS) en la implementación de su capa de almacenamiento.
+Aprende a crear y usar controladores NAS de ONTAP con tu instalación de Trident. Esta sección ofrece ejemplos de configuración de backends y detalles para asignar backends a StorageClasses. A partir de la versión 25.10, NetApp Trident es compatible con link:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistemas de almacenamiento NetApp AFX"^]. Los sistemas de almacenamiento NetApp AFX se diferencian de otros sistemas basados en ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento.
 
 
 NOTE: Solo el `ontap-nas` El controlador (con protocolo NFS) es compatible con los sistemas NetApp AFX; el protocolo SMB no es compatible.
-
-En la configuración del backend de Trident , no es necesario especificar que su sistema sea un sistema de almacenamiento NetApp AFX. Cuando selecciona `ontap-nas` como el `storageDriverName` Trident detecta automáticamente el sistema de almacenamiento AFX. Algunos parámetros de configuración del backend no son aplicables a los sistemas de almacenamiento AFX, como se indica en la tabla siguiente.
 
 
 
 == Opciones de configuración del back-end
 
-Consulte la siguiente tabla para ver las opciones de configuración del back-end:
+En la configuración del backend de Trident, no necesitas especificar que tu sistema es un sistema de almacenamiento AFX de NetApp. Cuando seleccionas `ontap-nas` como `storageDriverName`, Trident detecta automáticamente el sistema de almacenamiento AFX. Algunos parámetros de configuración del backend no aplican a los sistemas de almacenamiento AFX.
+
+La siguiente tabla muestra las opciones de configuración del backend:
 
 [cols="1,3,2"]
 |===
