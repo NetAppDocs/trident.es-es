@@ -141,7 +141,7 @@ Es posible eliminar un volumen que se comparte en varios espacios de nombres. Tr
 
 == Uso `tridentctl get` para consultar volúmenes subordinados
 
-Con el[`tridentctl` puede ejecutar la `get` comando para obtener volúmenes subordinados. Para obtener más información, consulte el enlace:./trident-reference/tridentctl.html[`tridentctl` comandos y opciones].
+Usando la utilidad[`tridentctl`, puedes ejecutar el comando `get` para obtener volúmenes subordinados. Para más información, consulta el enlace:../trident-reference/trident-cl.html[`tridentctl` comandos y opciones].
 
 [listing]
 ----

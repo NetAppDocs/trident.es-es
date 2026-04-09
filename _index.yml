@@ -29,9 +29,9 @@ indexpage:
   - title: Ponga en marcha Trident
     links:
     - title: Realice puestas en marcha con el operador de Trident
-      url: "/trident-get-started/kubernetes-deploy-operator.html"
+      url: "/trident-install/kubernetes-deploy-operator.html"
     - title: Despliegue con trimentctl
-      url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+      url: "/trident-install/kubernetes-deploy-tridentctl.html"
     - title: Ponga en marcha Trident para Docker
       url: "/trident-docker/deploy-docker.html"
   - title: Actualice Trident

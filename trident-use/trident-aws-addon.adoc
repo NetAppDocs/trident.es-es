@@ -37,26 +37,26 @@ Asegúrese de tener lo siguiente antes de configurar el complemento Trident para
 . Asegúrese de crear el rol de IAM y el secreto de AWS para permitir que los pods de EKS accedan a los recursos de AWS. Para obtener instrucciones, consulte link:../trident-use/trident-fsx-iam-role.html["Cree un rol de IAM y AWS Secret"^].
 . En tu clúster de Kubernetes de EKS, navega a la pestaña *Add-ons*.
 +
-image::../media/aws-eks-01.png[aws llega a 01]
+image::../media/aws-eks-01.png[Pestaña Add-ons del clúster EKS]
 
 . Vaya a *AWS Marketplace add-ons* y elija la categoría _storage_.
 +
-image::../media/aws-eks-02.png[aws llega a 02]
+image::../media/aws-eks-02.png[Categoría de almacenamiento de complementos de AWS Marketplace]
 
 . Localice *NetApp Trident* y seleccione la casilla de verificación para el complemento Trident, y haga clic en *Siguiente*.
 . Elija la versión deseada del complemento.
 +
-image::../media/aws-eks-03.png[aws llega a 03]
+image::../media/aws-eks-03.png[Selección de la versión del add-on de Trident]
 
 . Configure los ajustes complementarios necesarios.
 +
-image::../media/aws-eks-04.png[aws llega a 04]
+image::../media/aws-eks-04.png[Ajustes de configuración del complemento Trident]
 
 . Si está utilizando IRSA (roles de IAM para cuentas de servicio), consulte los pasos de configuración adicionaleslink:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["aquí"] .
 . Seleccione *Crear*.
 . Compruebe que el estado del complemento es _Active_.
 +
-image::../media/aws-eks-05.png[aws llega a 05]
+image::../media/aws-eks-05.png[Estado activo del add-on Trident]
 
 . Ejecute el siguiente comando para comprobar que Trident está correctamente instalado en el clúster:
 +

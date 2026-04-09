@@ -73,7 +73,7 @@ Para determinar qué versión utilizaba para instalar originalmente Trident:
 
 == Paso 3: Seleccione un método de actualización
 
-Por lo general, debe actualizar utilizando el mismo método que utilizó para la instalación inicial, sin embargo, puede link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["desplazarse entre los métodos de instalación"]. Existen dos opciones para actualizar Trident.
+Generalmente, deberías actualizar usando el mismo método que usaste para la instalación inicial, aunque puedes link:../trident-install/kubernetes-deploy.html#moving-between-installation-methods["desplazarse entre los métodos de instalación"]. Hay dos opciones para actualizar Trident.
 
 * link:upgrade-operator.html["Actualice con el operador Trident"]
 +
