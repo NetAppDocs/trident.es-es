@@ -13,7 +13,17 @@ summary: 'Al usar Trident con Amazon FSx para NetApp ONTAP, puedes garantizar qu
 
 
 
-== Integración de controladores ONTAP SAN y NAS
+== Descripción general
+
+Antes de que puedas aprovisionar volúmenes usando Trident, necesitas integrar tu backend de almacenamiento con Trident creando una Trident Backend Configuration (TBC). La TBC define cómo Trident se conecta al backend de almacenamiento y proporciona la información necesaria para que Trident gestione los recursos de almacenamiento.
+
+
+
+== Crear una configuración de Trident Backend (TBC) para FSx for ONTAP
+
+Hay dos formas de configurar el backend de Trident para que utilice un sistema de archivos FSx para ONTAP: * Crea un StorageClass que aproveche la función de backend automático. * Crea el backend y StorageClass por separado.
+
+Los pasos de esta sección cubren cómo crear el backend por separado. Para obtener información sobre cómo utilizar la función Backend automático, consulta la sección xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[Configura StorageClass y PVC] para más información.
 
 Para crear un backend de almacenamiento, debe crear un archivo de configuración en formato JSON o YAML. El archivo debe especificar el tipo de almacenamiento que se desea (NAS o SAN), el sistema de archivos y SVM desde el que desea obtener el archivo y cómo se debe autenticar con él. El siguiente ejemplo muestra cómo definir el almacenamiento basado en NAS y cómo usar un secreto de AWS para almacenar las credenciales en la SVM que desea utilizar:
 
@@ -280,4 +290,4 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 
 == aprovisionamiento de volúmenes SMB
 
-Puede aprovisionar volúmenes SMB utilizando `ontap-nas` conductor. Antes de completar <<Integración de controladores ONTAP SAN y NAS>> Complete estos pasos: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"].
+Puede aprovisionar volúmenes SMB utilizando `ontap-nas` conductor. Antes de completar <<ONTAP SAN and NAS driver integration>> Complete estos pasos: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"].
