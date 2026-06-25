@@ -25,7 +25,7 @@ Antes de instalar Trident, debe revisar estos requisitos generales del sistema. 
 ====
 []
 =====
-* Kubernetes 1.35 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
+* Kubernetes 1.36 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -41,13 +41,13 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 Trident admite varios motores de contenedor y orquestadores, entre los que se incluyen los siguientes:
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
-* Kubernetes 1.27 - 1.35
+* Kubernetes 1.27 - 1.36
 * OpenShift 4.12, 4.14 - 4.21 (si planeas usar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1.)
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.35.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.36.x
 
 
 Trident también funciona con una gran cantidad de ofertas de Kubernetes totalmente gestionadas y autogestionadas, como Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) y la cartera de VMware Tanzu.
@@ -109,56 +109,56 @@ En la tabla siguiente se resumen las funciones disponibles con este lanzamiento 
 
 
 | Trident  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | Snapshots de volumen  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | RVP desde snapshots de volumen  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | Cambio de tamaño del VP de iSCSI  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | CHAP bidireccional de ONTAP  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | Políticas de exportación dinámicas  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | Operador de Trident  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
 
 
 | Topología CSI  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 No
 
@@ -223,7 +223,7 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0
