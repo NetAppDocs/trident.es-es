@@ -298,7 +298,7 @@ Elija `ontap-nas-flexgroup` el controlador para aumentar el paralelismo hacia un
 * No se admite la clonado para los volúmenes de FlexGroup.
 
 
-Para obtener información sobre las instancias de FlexGroup y las cargas de trabajo adecuadas para las instancias de FlexGroup, consulte la https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Prácticas recomendadas y guía de implementación de NetApp FlexGroup para volúmenes"^].
+Para obtener información sobre FlexGroups y las cargas de trabajo que son adecuadas para FlexGroups, consulta la  https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["Prácticas recomendadas y guía de implementación de NetApp FlexGroup para volúmenes"^].
 
 Para obtener características avanzadas y a gran escala en el mismo entorno, puede ejecutar varias instancias del complemento Docker Volume Plugin, con una usando `ontap-nas` y otra usando `ontap-nas-economy`.
 

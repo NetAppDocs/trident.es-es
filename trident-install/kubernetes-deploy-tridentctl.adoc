@@ -151,7 +151,7 @@ trident-controller-679648bd45-cv2mx   6/6     Running   0          5m29s
 trident-node-linux-vgc8n              2/2     Running   0          5m29s
 ----
 
-NOTE: Si el instalador no se completa correctamente o. `trident-controller-<generated id>` (`trident-csi-<generated id>` En versiones anteriores a 23.01) no tiene un estado *en ejecución*, la plataforma no estaba instalada. Uso `-d` para link:../troubleshooting.html#troubleshooting-an-unsuccessful-trident-deployment-using-tridentctl["activa el modo de depuración"] y solucionar el problema.
+NOTE: Si el instalador no se completa correctamente o `trident-controller-<generated id>` (`trident-csi-<generated id>` en versiones anteriores a 23.01) no tiene un estado *Running*, la plataforma no se instaló. Usa `-d` para link:../troubleshooting.html#unsuccessful-trident-deployment-using-tridentctl["activa el modo de depuración"] y solucionar el problema.
 
 
 

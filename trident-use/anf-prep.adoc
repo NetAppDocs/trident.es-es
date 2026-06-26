@@ -34,7 +34,7 @@ Cuando prepares tu entorno, asegúrate de que tu suscripción de Azure, la confi
 
 Si estás usando Azure NetApp Files por primera vez o en una nueva ubicación, necesitas hacer una configuración inicial para preparar Azure NetApp Files y crear un volumen NFS. Consulta https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
 
-Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, necesita lo siguiente:
+Para configurar y usar un  https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"^]backend, necesitas lo siguiente:
 
 [NOTE]
 ====

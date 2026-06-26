@@ -46,7 +46,7 @@ Los siguientes tres parámetros deben definirse al crear un StorageClass:
 
 ==== Especifica parámetros opcionales
 
-Puedes pasar parámetros opcionales de backend a través de StorageClass. Define todos los valores opcionales como cadenas en la sección StorageClass `parameters`. Para obtener una lista completa de los parámetros de backend, consulta: xref:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples[Configuración del backend de FSx para NetApp ONTAP].
+Puedes pasar parámetros opcionales de backend a través de StorageClass. Define todos los valores opcionales como cadenas en la sección StorageClass `parameters`. Para obtener una lista completa de los parámetros de backend, consulta: link:trident-fsx-storage-backend.html#backend-advanced-configuration-and-examples["Configuración del backend de FSx para NetApp ONTAP"].
 
 
 
@@ -449,7 +449,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 == aprovisionamiento de volúmenes SMB
 
-Puedes aprovisionar volúmenes SMB usando el controlador `ontap-nas`. Sin embargo, para hacerlo debes completar estos pasos: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"].
+Puedes aprovisionar volúmenes SMB usando el controlador `ontap-nas`. Sin embargo, para hacerlo debes completar estos pasos: link:worker-node-prep.html#prepare-to-provision-smb-volumes["Prepárese para aprovisionar los volúmenes de SMB"].
 
 
 
@@ -586,7 +586,7 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el nuevo volumen; los valores predeterminados son `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Trident será habilitado NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Trident con NVE y NAE"]. | `false` 
 
 
-| `luksEncryption` | Active el cifrado LUKS. Consulte link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Usar la configuración de clave unificada de Linux (LUKS)"]. Solo SAN. | "" 
+| `luksEncryption` | Activa el cifrado LUKS. Consulta link:../trident-reco/security-luks.html["Usar la configuración de clave unificada de Linux (LUKS)"]. Solo para SAN. | "" 
 
 
 | `tieringPolicy` | Política de organización en niveles para utilizar	`none` |  

@@ -33,7 +33,7 @@ NOTE: Trident es compatible con todos los modelos de puesta en marcha de ONTAP m
 
 == Cloud Volumes ONTAP
 
-http://cloud.netapp.com/ontap-cloud?utm_source=GitHub&utm_campaign=Trident["Cloud Volumes ONTAP"^] Es un dispositivo de almacenamiento exclusivamente de software que ejecuta el software para la gestión de datos ONTAP en el cloud. Puede utilizar Cloud Volumes ONTAP para cargas de trabajo de producción, recuperación ante desastres, DevOps, recursos compartidos de archivos y gestión de bases de datos. Amplía el almacenamiento empresarial al cloud ofreciendo eficiencias del almacenamiento, alta disponibilidad, replicación de datos, organización en niveles de los datos y consistencia de las aplicaciones.
+Cloud Volumes ONTAP es un dispositivo de almacenamiento exclusivamente de software que ejecuta el software de gestión de datos ONTAP en la nube. Puedes usar Cloud Volumes ONTAP para cargas de trabajo de producción, recuperación ante desastres, DevOps, recursos compartidos de archivos y gestión de bases de datos. Extiende el almacenamiento empresarial a la nube al ofrecer eficiencias de almacenamiento, alta disponibilidad, replicación de datos, organización de datos por niveles y consistencia de aplicaciones.
 
 
 
@@ -59,10 +59,10 @@ Trident es totalmente compatible con NetApp HCI. Trident puede aprovisionar y ge
 
 == Azure NetApp Files
 
-https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] Es un servicio de recursos compartidos de archivos de Azure de clase empresarial con la tecnología de NetApp. Puede ejecutar sus cargas de trabajo basadas en archivos más exigentes de forma nativa en Azure, con el rendimiento y la gestión de datos enriquecidos que espera de NetApp.
+https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"^] es un servicio para compartir archivos de clase empresarial de Azure, impulsado por NetApp. Puedes ejecutar tus cargas de trabajo basadas en archivos más exigentes en Azure de forma nativa, con el rendimiento y la gestión de datos avanzada que esperas de NetApp.
 
 
 
 == NetApp Volumes para Google Cloud
 
-https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=GitHub&utm_campaign=Trident["NetApp Volumes para Google Cloud"^] Es un servicio de archivos nativo del cloud que proporciona volúmenes NAS mediante NFS con un rendimiento all-flash. Este servicio permite que se ejecute cualquier carga de trabajo, incluidas las aplicaciones heredadas, en la nube de GCP. Proporciona un servicio totalmente gestionado que ofrece alto rendimiento consistente, clonado instantáneo, protección de datos y acceso seguro a instancias de Google Compute Engine (GCE).
+https://www.netapp.com/google-cloud/netapp-volumes/["NetApp Volumes para Google Cloud"^] es un servicio de archivos nativo de la nube que proporciona volúmenes NAS a través de NFS con rendimiento all-flash. Este servicio permite que cualquier carga de trabajo, incluidas las aplicaciones heredadas, se ejecute en la nube de GCP. Ofrece un servicio totalmente gestionado que proporciona un alto rendimiento constante, clonación instantánea, protección de datos y acceso seguro a las instancias de Google Compute Engine (GCE).

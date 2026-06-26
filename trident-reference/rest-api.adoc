@@ -12,7 +12,7 @@ summary: Puede usar el extremo REST directamente si prefiere interactuar con la 
 
 
 [role="lead"]
-Si bien link:tridentctl.html["comandos y opciones de trimentctl"] es la forma más sencilla de interactuar con la API DE REST DE Trident, puede usar el extremo de REST directamente, si lo prefiere.
+Si bien link:../trident-managing-k8s/tridentctl.html["comandos y opciones de trimentctl"] son la forma más sencilla de interactuar con la API de REST de Trident, puedes usar el endpoint REST directamente si lo prefieres.
 
 
 

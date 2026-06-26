@@ -108,7 +108,7 @@ Nota al pie de página: Yesfootnote:1[]: No gestionado por Trident Yesfootnote:2
 
 === Controladores de entorno de administración Azure NetApp Files
 
-Trident utiliza `azure-netapp-files` el controlador para administrar link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^]el servicio.
+Trident utiliza el  `azure-netapp-files` driver para gestionar el link:https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Files"^] service.
 
 Puede encontrar más información sobre este controlador y cómo configurarlo en link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuración de backend de Trident para Azure NetApp Files"^].
 

@@ -38,12 +38,12 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 
 == Despliegue el operador Trident e instale Trident usando Helm
 
-Usando el Tridentlink:https://netapp.github.io/trident-helm-chart["Carta del timón"^] Puede implementar el operador Trident e instalar Trident en un solo paso.
+Usar Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Carta del timón"^] Es posible poner en marcha el operador de Trident e instalar Trident en un paso.
 
 Revisa link:kubernetes-deploy.html["descripción general de la instalación"] para asegurarte de que cumpliste los requisitos previos de instalación y seleccionaste la opción de instalación correcta para tu entorno.
 
 .Antes de empezar
-Además de link:kubernetes-deploy.html#before-you-deploy["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
+Además de link:kubernetes-deploy.html#before-you-begin["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
 
 
 IMPORTANT: Al instalar Trident en un repositorio privado, si está utilizando el `imageRegistry` conmutador para especificar la ubicación del repositorio, no lo utilice `/netapp/` en la ruta de acceso del repositorio.

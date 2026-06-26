@@ -43,7 +43,7 @@ Usar Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-op
 Revisa link:kubernetes-deploy.html["descripción general de la instalación"] para asegurarte de que cumpliste los requisitos previos de instalación y seleccionaste la opción de instalación correcta para tu entorno.
 
 .Antes de empezar
-Además de link:kubernetes-deploy.html#before-you-deploy["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
+Además de link:kubernetes-deploy.html#before-you-begin["requisitos previos a la implementación"] tú necesitas link:https://v3.helm.sh/["Versión timón 3"^].
 
 .Pasos
 . Añada el repositorio Helm de Trident:

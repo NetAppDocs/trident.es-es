@@ -64,7 +64,7 @@ image::../media/aws-eks-05.png[Estado activo del add-on Trident]
 ----
 kubectl get pods -n trident
 ----
-. Continúe con la configuración y configure el back-end de almacenamiento. Para obtener más información, consulte link:../trident-use/trident-fsx-storage-backend.html["Configure el backend de almacenamiento"^].
+. Continúa con la configuración y configura el backend de almacenamiento. Para más información, consulta link:trident-fsx-storage-backend.html["Configure el backend de almacenamiento"].
 
 
 
