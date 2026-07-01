@@ -62,7 +62,7 @@ No. No hay cambios en lo que respecta a la experiencia del usuario y las funcion
 
 === ¿Trident admite una instalación sin conexión desde un registro privado?
 
-Sí, Trident puede instalarse sin conexión. Consulta link:../trident-install/kubernetes-deploy.html["Obtenga información acerca de la instalación de Trident"^].
+Sí, Trident puede instalarse sin conexión. Consulta link:./trident-install/kubernetes-deploy.html["Obtenga información acerca de la instalación de Trident"].
 
 
 

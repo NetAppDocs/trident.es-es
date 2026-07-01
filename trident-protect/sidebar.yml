@@ -36,12 +36,16 @@ entries:
     entries:
     - title: Restaurar aplicaciones usando Trident Protect
       url: "/trident-protect/trident-protect-restore-apps.html"
-    - title: Utilice la configuración avanzada
+    - title: Usa opciones avanzadas de restauración
       url: "/trident-protect/trident-protect-restore-settings.html"
+    - title: Modificar recursos durante la restauración
+      url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: Replicar aplicaciones con NetApp SnapMirror
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: Migrar aplicaciones
     url: "/trident-protect/trident-protect-migrate-apps.html"
+  - title: Protege las máquinas virtuales de KubeVirt
+    url: "/trident-protect/trident-protect-kubevirt-vms.html"
   - title: Administrar ganchos de ejecución con Trident Protect
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
 - title: Desinstalar Trident Protect

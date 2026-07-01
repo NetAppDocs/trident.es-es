@@ -290,6 +290,12 @@ spec:
 .Identidad de nube para GKE
 [%collapsible]
 ====
+Al instalar Trident con una identidad en la nube de GKE, los backends se autentican como una identidad de carga de trabajo y omiten el bloque `apiKey`. La identidad en la nube se configura de la misma manera para ambos controladores de Google Cloud NetApp Volumes. La única diferencia es el valor de `storageDriverName`: usa `google-cloud-netapp-volumes` para volúmenes NAS (NFS o SMB) y `google-cloud-netapp-volumes-san` para volúmenes SAN (iSCSI block).
+
+
+NOTE: La compatibilidad con identidades en la nube para el  `google-cloud-netapp-volumes-san` driver requiere Trident 26.06 o una versión posterior. Los volúmenes SAN se aprovisionan desde los grupos de almacenamiento Flex Unified, así que configura  `serviceLevel` en  `flex`.
+
+.Controlador NAS (<code>google-cloud-netapp-volumes</code>)
 [source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
@@ -304,6 +310,22 @@ spec:
   location: us-west2
   serviceLevel: Premium
   storagePool: pool-premium1
+----
+.Controlador SAN (<code>google-cloud-netapp-volumes-san</code>)
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcp-gcnv-san
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes-san
+  projectNumber: '012345678901'
+  network: gcnv-network
+  location: us-west2
+  serviceLevel: flex
+  storagePool: pool-flex1
 ----
 ====
 .Configuración de topologías admitidas

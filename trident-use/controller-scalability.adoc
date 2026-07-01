@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, nas-eco, san-eco 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
 summary: Entiende la escalabilidad del controlador, el comportamiento de la concurrencia y la madurez de las funciones. 
 ---
 = Escalabilidad del controlador
@@ -12,7 +12,9 @@ summary: Entiende la escalabilidad del controlador, el comportamiento de la conc
 
 
 [role="lead"]
-Trident introduce la escalabilidad del controlador mediante una mejor concurrencia entre varios controladores de almacenamiento. Los clientes pueden identificar qué controladores de Trident admiten la escalabilidad del controlador en disponibilidad general y cuáles están disponibles como vista previa técnica en Trident 26.02. Esto permite tomar decisiones informadas de implementación y una gestión de riesgos adecuada para entornos Kubernetes escalables.
+Trident mejora la escalabilidad del controlador gracias a una mayor concurrencia entre múltiples controladores de almacenamiento. Al habilitar la escalabilidad del controlador, el controlador de Trident procesa las operaciones de almacenamiento en paralelo en lugar de hacerlo en serie, lo que aumenta el rendimiento en entornos de Kubernetes con numerosas operaciones simultáneas.
+
+Antes de realizar la implementación, comprueba qué controladores de Trident admiten la escalabilidad del controlador en su versión de disponibilidad general y cuáles están disponibles como vista previa técnica en Trident 26.06. Esto te ayuda a tomar decisiones de implementación fundamentadas y a gestionar el riesgo. La escalabilidad del controlador está desactivada de forma predeterminada.
 
 
 
@@ -22,51 +24,113 @@ Trident introduce la escalabilidad del controlador mediante una mejor concurrenc
 
 === Escalabilidad del controlador
 
-La escalabilidad del controlador se refiere a la capacidad del controlador Trident para procesar múltiples operaciones de almacenamiento en paralelo en lugar de serializarlas detrás de un único bloqueo. Estas operaciones incluyen la creación, eliminación, redimensionamiento de volúmenes, la creación y eliminación de instantáneas, la publicación y despublicación de volúmenes y la gestión de backend.
+La escalabilidad del controlador se refiere a la capacidad del controlador Trident para procesar múltiples operaciones de almacenamiento en paralelo, en lugar de serializarlas tras un único bloqueo. Estas operaciones incluyen la creación, eliminación y cambio de tamaño de volúmenes; la creación y eliminación de instantáneas; la publicación y retirada de volúmenes; y la gestión del backend.
 
-Cuando la escalabilidad del controlador está activada, las operaciones en diferentes volúmenes y backends se realizan de forma concurrente. Esto aumenta el rendimiento y reduce el tiempo de operación de extremo a extremo en entornos con un gran número de PersistentVolumeClaim y VolumeSnapshot operaciones concurrentes.
+Al habilitar la escalabilidad del controlador, las operaciones en diferentes volúmenes y backends se ejecutan de forma simultánea. Esto aumenta el rendimiento y reduce el tiempo de ejecución de principio a fin en entornos con un elevado número de operaciones simultáneas de PersistentVolumeClaim y VolumeSnapshot.
+
+
+
+== Comportamiento predeterminado (modo serie)
+
+De forma predeterminada, el controlador Trident procesa las operaciones una por una. Cada solicitud de creación, eliminación, cambio de tamaño o instantánea se completa antes de que Trident inicie la siguiente. El modo serie es el valor predeterminado compatible con todas las instalaciones y no requiere configuración alguna.
+
+El modo serie es suficiente para la mayoría de las cargas de trabajo. Activa la escalabilidad del controlador solo cuando el volumen de operaciones genere un retraso en el procesamiento en serie.
 
 
 
 == Compatibilidad con la escalabilidad del controlador
 
-Trident admite la escalabilidad del controlador con diferentes niveles de madurez según el controlador de almacenamiento.
+Trident admite la escalabilidad de los controladores en distintos niveles de madurez para diferentes controladores de almacenamiento.
 
 
 
 === Disponibilidad general
 
-Los siguientes drivers soportan la escalabilidad del controlador en disponibilidad general en Trident 26.02:
+Los siguientes drivers soportan la escalabilidad del controlador en disponibilidad general en Trident 26.06:
 
 * `ontap-san`
 * `ontap-nas`
+* `ontap-nas-economy`
+* `ontap-san-economy`
 * `google-cloud-netapp-volumes`
+* `azure-netapp-files`
+* `solidfire-san`
 
 
 [NOTE]
 ====
-Los controladores `google-cloud-netapp-volumes` y `google-cloud-netapp-volumes-san` son diferentes. Solo `google-cloud-netapp-volumes` es compatible. No uses `google-cloud-netapp-volumes-san` en configuraciones backend ni en ejemplos.
+Los controladores `google-cloud-netapp-volumes` y `google-cloud-netapp-volumes-san` son diferentes. Trident solo es compatible con `google-cloud-netapp-volumes`. No utilices `google-cloud-netapp-volumes-san` en las configuraciones del backend ni en los ejemplos.
 
 ====
 
 
+=== Avance técnico
+
+El siguiente controlador admite la escalabilidad del controlador como función de vista previa técnica en Trident 26.06:
+
+* `asa-r2` (SAN y NVMe)
+
+
+Este controlador presenta las siguientes limitaciones:
+
+* La concurrencia de controladores está disponible únicamente para evaluación y pruebas.
+* El comportamiento puede variar de una versión a otra.
+* NetApp no recomienda su uso en entornos de producción.
+
+
+
+
+== Cómo funciona enableConcurrency
+
+Cuando configuras  `enableConcurrency` en  `true`, Trident aplica el procesamiento simultáneo en todos los backends que gestiona el controlador. La configuración se aplica a todos los backends a la vez. No puedes habilitarlo para backends individuales ni para drivers individuales.
+
+Cada backend configurado debe utilizar un controlador que figure en la lista de disponibilidad general o de vista previa técnica. Si algún backend utiliza un controlador no compatible, Trident no se inicia y Trident no añade un backend que utilice un controlador no compatible.
+
+Para restablecer el arranque, elimina o reconfigura cualquier backend que utilice un controlador no compatible o desactiva la escalabilidad del controlador.
+
+
+
+== Antes de activar
+
+[IMPORTANT]
+====
+Antes de habilitar la escalabilidad del controlador, comprueba que todos los backends configurados utilicen un controlador que figure en la lista de disponibilidad general o de vista previa técnica. Si algún backend utiliza un controlador no compatible, Trident no se inicia después de habilitar la función.
+
+====
+Utiliza la siguiente tabla para decidir si deseas habilitar la escalabilidad del controlador.
+
+[cols="1,1"]
+|===
+| Si tu entorno | Entonces 
+
+
+| Utiliza únicamente controladores compatibles y presenta un retraso en las operaciones del controlador | Habilita la escalabilidad del controlador. 
+
+
+| Utiliza cualquier controlador no compatible | Mantén el modo serie predeterminado. No actives la escalabilidad del controlador. 
+
+
+| Gestiona un volumen de operaciones bajo sin acumular retrasos | Mantén el modo serie predeterminado. 
+|===
+
+
 == Habilita la escalabilidad del controlador
 
-La escalabilidad del controlador se controla mediante la  `enableConcurrency` opción de configuración. Esta opción debe habilitarse explícitamente durante la instalación de Trident o actualizando una implementación existente.
+La opción de configuración  `enableConcurrency` controla la escalabilidad del controlador. Debes habilitar esta opción de forma explícita durante la instalación de Trident o cuando actualices una implementación existente.
 
 
 
 === Despliegue del operador Trident
 
-Para habilitar la escalabilidad del controlador con el operador Trident, establece  `enableConcurrency` en  `true` en el recurso personalizado  `TridentOrchestrator`.
+Para habilitar la escalabilidad del controlador con el operador Trident, configura  `enableConcurrency` en  `true` en el recurso personalizado (CR)  `TridentOrchestrator`.
 
 
 
 ==== Nueva instalación
 
-Crea o edita el `TridentOrchestrator` CR con `enableConcurrency` configurado en `true`:
+Crea o edita el  `TridentOrchestrator` CR y establece  `enableConcurrency` en  `true`:
 
-[source]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -78,7 +142,7 @@ spec:
 ----
 Aplicar el CR:
 
-[source]
+[source, console]
 ----
 kubectl apply -f tridentorchestrator_cr.yaml
 ----
@@ -88,13 +152,13 @@ kubectl apply -f tridentorchestrator_cr.yaml
 
 Aplica un parche a la `TridentOrchestrator` CR existente para habilitar la escalabilidad del controlador:
 
-[source]
+[source, console]
 ----
 kubectl patch torc trident --type=merge -p '{"spec":{"enableConcurrency":true}}'
 ----
-Verifica que se haya aplicado el ajuste:
+Comprueba que Trident haya aplicado la configuración:
 
-[source]
+[source, console]
 ----
 kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableConcurrency}'
 ----
@@ -108,7 +172,7 @@ Para activar la escalabilidad del controlador con Helm, establece el valor `enab
 
 ==== Nueva instalación
 
-[source]
+[source, console]
 ----
 helm install trident netapp-trident/trident-operator --namespace trident --create-namespace --set enableConcurrency=true
 ----
@@ -116,20 +180,20 @@ helm install trident netapp-trident/trident-operator --namespace trident --creat
 
 ==== Instalación existente
 
-[source]
+[source, console]
 ----
 helm upgrade trident netapp-trident/trident-operator --namespace trident --set enableConcurrency=true
 ----
 Como alternativa, establece `enableConcurrency` en `true` en un archivo `values.yaml` personalizado:
 
-[source]
+[source, yaml]
 ----
 # values.yaml
 enableConcurrency: true
 ----
-Luego instala o actualiza usando el archivo de valores:
+Luego instala o actualiza con el archivo de valores:
 
-[source]
+[source, console]
 ----
 helm install trident netapp-trident/trident-operator --namespace trident --create-namespace -f values.yaml
 ----
@@ -143,7 +207,7 @@ Para habilitar la escalabilidad del controlador con `tridentctl`, pasa la bander
 
 ==== Nueva instalación
 
-[source]
+[source, console]
 ----
 tridentctl install -n trident --enable-concurrency
 ----
@@ -151,96 +215,68 @@ tridentctl install -n trident --enable-concurrency
 
 ==== Instalación existente
 
-Para habilitar la escalabilidad del controlador en una implementación basada en `tridentctl`, desinstala y vuelve a instalar con el flag:
+Para habilitar la escalabilidad del controlador en una implementación existente `tridentctl`, desinstala Trident y vuelve a instalarlo con el parámetro:
 
-[source]
+[source, console]
 ----
 tridentctl uninstall -n trident
 tridentctl install -n trident --enable-concurrency
 ----
 
 
-=== Verifica que la escalabilidad del controlador esté activada
+=== Comprueba que la escalabilidad del controlador esté activada
 
-Después de habilitar la escalabilidad del controlador, verifica que el controlador Trident se está ejecutando con la concurrencia habilitada revisando los registros del pod del controlador:
+Una vez que habilites la escalabilidad del controlador, verifica que el controlador Trident se esté ejecutando con la concurrencia activada. Revisa los registros del pod del controlador:
 
-[source]
+[source, console]
 ----
 kubectl logs -n trident deploy/trident-controller | grep -i concurrency
 ----
-Deberías ver una entrada de registro que indica que la concurrencia está activada.
-
-
-
-=== Avance técnico
-
-Los siguientes drivers admiten la escalabilidad del controlador como vista previa técnica en Trident 26.02:
-
-* `nas-eco`
-* `san-eco`
-
-
-Para estos drivers:
-
-* La concurrencia de controladores está disponible para evaluación y pruebas
-* El comportamiento puede cambiar en futuras versiones
-* No se recomienda usarlo en entornos de producción
-
+La salida incluye una entrada en el registro que confirma que la concurrencia está habilitada.
 
 
 
 == Comportamiento de la concurrencia
 
-Cuando la escalabilidad del controlador está activada:
+Cuando se habilita la escalabilidad del controlador, el controlador Trident aplica el siguiente comportamiento:
 
-* Trident reemplaza el bloqueo global único por bloqueos detallados por recurso
-* Las operaciones que modifican el mismo recurso se serializan para mantener la coherencia de los datos
-* Las operaciones que solo leen de un recurso pueden realizarse simultáneamente con otras operaciones de lectura en ese recurso
-* Trident limita las solicitudes simultáneas de la API de ONTAP a 20 por LIF de gestión para evitar sobrecargar los sistemas de almacenamiento backend
-* Si varios backends comparten el mismo LIF de gestión, comparten este límite de 20 solicitudes
-
-
-
-
-== Limitaciones y consideraciones conocidas
-
-Las siguientes consideraciones aplican a la escalabilidad del controlador:
-
-* La concurrencia se gestiona internamente por el controlador Trident
-* En esta versión no hay límites de concurrencia configurables por el usuario
-* El rendimiento global depende de:
-+
-** El controlador de almacenamiento en uso
-** Capacidad de respuesta del backend
-** Rendimiento del servidor API de Kubernetes
-
-
-* Una alta concurrencia puede aumentar la carga en los sistemas de almacenamiento backend
+* Trident sustituye el bloqueo global único por un sistema de bloqueo más detallado, específico para cada recurso.
+* Trident serializa las operaciones que modifican el mismo recurso para mantener la coherencia de los datos.
+* Las operaciones que solo leen de un recurso se ejecutan de forma concurrente con otras operaciones de lectura en ese mismo recurso.
+* Trident limita a 20 el número de solicitudes simultáneas de la API de ONTAP por cada LIF de gestión para evitar la sobrecarga de los sistemas de almacenamiento backend.
+* Si varios backends comparten el mismo LIF de gestión, comparten este límite de 20 solicitudes.
 
 
 
 
 == Advertencias y limitaciones
 
-Las siguientes limitaciones se aplican en Trident 26.02:
+Las siguientes consideraciones se aplican a la escalabilidad de los controladores en Trident 26.06:
 
-* El comportamiento de la escalabilidad del controlador no es idéntico en todos los drivers
-* Los controladores de vista previa técnica pueden mostrar:
-+
-** Rendimiento inconsistente bajo carga alta
-** Cambios en el comportamiento entre versiones
-
-
-* La depuración de operaciones concurrentes puede ser más compleja debido a la ejecución paralela
-* Las métricas y los registros pueden mostrar la salida de operaciones intercaladas
+* La escalabilidad del controlador solo es compatible con los controladores que figuran en las listas de disponibilidad general y de vista previa técnica. Para obtener más información, consulta <<before-you-enable,Antes de activar>>.
+* El controlador Trident gestiona la concurrencia de forma interna. Esta versión no ofrece límites de concurrencia configurables por el usuario.
+* El rendimiento global depende del controlador de almacenamiento en uso, la capacidad de respuesta del backend y el rendimiento del servidor de la API de Kubernetes.
+* Una elevada concurrencia puede aumentar la carga en los sistemas de almacenamiento del backend.
+* El comportamiento de la escalabilidad del controlador no es idéntico en todos los drivers.
+* El controlador de la versión preliminar técnica puede presentar un rendimiento irregular bajo cargas elevadas y su comportamiento puede variar entre versiones.
+* La depuración de operaciones concurrentes puede resultar más compleja debido a la ejecución en paralelo. Las métricas y los registros pueden mostrar resultados de operaciones entremezclados.
 
 
 
 
 == Recomendaciones
 
-* Usa controladores de disponibilidad general (GA) para entornos de producción que requieran alta escalabilidad
-* Evalúa los controladores de technical preview en entornos que no sean de producción
-* Supervisa el rendimiento del backend y del controlador cuando trabajas a escala
-* Evita asumir el orden de las operaciones en los scripts de automatización
+Antes de habilitar la escalabilidad del controlador, completa los siguientes pasos:
+
+. Comprueba que todos los backends configurados utilicen un controlador que esté en la lista de disponibilidad general o de vista previa técnica.
+. Prueba el cambio en un clúster que no sea de producción antes de aplicarlo en el entorno de producción.
+. Comprueba que la escalabilidad del controlador esté activada después de aplicar el cambio.
+
+
+Aplica las siguientes recomendaciones generales cuando trabajes con la escalabilidad del controlador:
+
+* Utiliza controladores de disponibilidad general para entornos de producción que requieran alta escalabilidad.
+* Prueba el controlador de la versión preliminar técnica únicamente en entornos que no sean de producción.
+* Supervisa el rendimiento del backend y de los controladores cuando operas a gran escala.
+* No des por sentado el orden de las operaciones en los scripts de automatización.
 

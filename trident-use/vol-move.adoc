@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-move.html 
+keywords: trident, volume move, move volume, ontap-san, iscsi, tridentvolumemove, non-disruptive, aggregate, node, relocate 
+summary: Mueve sin interrupciones un volumen iSCSI a otro nodo ONTAP y agregado dentro del mismo clúster usando un recurso TridentVolumeMove. 
+---
+= Mover un volumen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A partir de Trident 26.06, un administrador de almacenamiento puede trasladar sin interrupciones un volumen iSCSI a otro nodo ONTAP y a otro agregado dentro del mismo clúster ONTAP, mientras la carga de trabajo que lo utiliza sigue ejecutándose. Solicitas la migración de forma declarativa con un `TridentVolumeMove` recurso personalizado o el `tridentctl` equivalente, y Trident coordina ONTAP y el host para que la E/S nunca se interrumpa.
+
+
+
+== Requisitos
+
+La función de desplazamiento de volúmenes se aplica solo al controlador  `ontap-san` para volúmenes iSCSI. No se admiten los protocolos NVMe ni NAS.
+
+Antes de mover un volumen, asegúrate de que se cumplan los siguientes requisitos:
+
+* El backend usa el controlador  `ontap-san` con la API de REST de ONTAP.
+* El clúster ONTAP tiene al menos dos nodos.
+* Dispones de uno de los siguientes conjuntos de credenciales:
++
+** ONTAP 9.19.1 o posterior si usas la función personalizada dedicada de ONTAP.
+** Credenciales de Cluster-admin en versiones anteriores de ONTAP.
+
+
+
+
+
+
+== Cómo funciona
+
+Trident traslada el volumen (LUN) entre dos ubicaciones dentro del mismo clúster de ONTAP. Antes de que se trasladen los datos, Trident añade nuevas rutas iSCSI al destino junto a las rutas existentes, de modo que el dispositivo multivía del host nunca pierda el acceso. Una vez que ONTAP ha completado el traslado, Trident elimina las rutas de origen obsoletas.
+
+Trident gestiona el traslado a través de una secuencia ordenada de estados que se pueden consultar en el recurso `TridentVolumeMove`, de modo que puedas seguir el progreso del traslado.
+
+
+
+== Mover un volumen
+
+
+
+=== Identifica el volumen y las ubicaciones
+
+. Busca el nombre del PV que quieres mover. El nombre del PV es también el nombre del recurso de movimiento.
+. Desde el clúster ONTAP, anota el nodo y el agregado actuales (de origen) de ese volumen y elige el nodo y el agregado de destino.
+
+
+
+
+=== Empieza la mudanza
+
+Utiliza cualquiera de los dos métodos. Ambos crean el mismo `TridentVolumeMove` recurso, cuyo nombre es el del PV.
+
+[role="tabbed-block"]
+====
+.Usando tridentctl
+--
+[source, console]
+----
+tridentctl create volume-move \
+  --volume      pvc-8a814d62-bd58-4253-b0d1-82f2885db671 \
+  --source-node ontap-node-01 \
+  --source-pool aggr1_node01 \
+  --target-node ontap-node-02 \
+  --target-pool aggr1_node02 \
+  -n trident
+----
+`tvm` es un alias de `volume-move`. Agrega `--delete-after-success 10m` para eliminar el recurso automáticamente después de que el traslado se complete con éxito.
+
+--
+.Uso de un recurso TridentVolumeMove
+--
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeMove
+metadata:
+  name: pvc-8a814d62-bd58-4253-b0d1-82f2885db671   # the PV to move
+  namespace: trident
+spec:
+  sourceNode: ontap-node-01
+  sourcePool: aggr1_node01
+  targetNode: ontap-node-02
+  targetPool: aggr1_node02
+  # deleteAfterSuccess: 10m   # optional
+----
+Aplica el recurso:
+
+[source, console]
+----
+kubectl apply -f tridentvolumemove.yaml
+----
+--
+====
+.Campos de especificaciones
+`sourceNode` / `targetNode`:: Nombres de los nodos ONTAP (no UUIDs).
+`sourcePool` / `targetPool`:: Nombres de agregados de ONTAP.
+`deleteAfterSuccess`:: Duración opcional, como `30s` o `10m`. Establece el valor en `0` para eliminar el recurso inmediatamente, u omítelo para conservar el recurso.
+
+
+
+
+=== Supervisa la mudanza
+
+Sigue el progreso usando el `tvm` nombre abreviado o `tridentvolumemove`:
+
+[source, console]
+----
+kubectl get tridentvolumemove -n trident
+----
+Para ver el estado actual y el progreso por nodo, describe el recurso:
+
+[source, console]
+----
+kubectl describe tridentvolumemove <pv-name> -n trident
+----
+El volumen puede tener conexiones simultáneas durante el estado  `Moving`, porque ONTAP puede tardar un tiempo en completar el traslado de un volumen de gran tamaño. Para garantizar un traslado sin interrupciones, Trident coordina entre el controlador Trident y el nodo Trident. Cada estado realiza los siguientes pasos en orden, terminando en  `Succeeded` o  `Failed`.
+
+[cols="1,2"]
+|===
+| Estado | Qué está pasando 
+
+
+| `Pending` | Trident acepta y valida la solicitud de traslado y recopila la información necesaria antes de que se inicien los cambios en el almacenamiento. 
+
+
+| `ControllerStaging` | Trident prepara la ubicación de destino. Asigna las interfaces de almacenamiento del nodo de destino al LUN y actualiza Kubernetes para que un futuro reinicio del nodo se vuelva a conectar a la ubicación correcta. 
+
+
+| `NodeStaging` | En cada host que tenga el volumen montado, Trident añade las nuevas rutas de almacenamiento del nodo de destino junto a las rutas existentes, de modo que las operaciones de E/S del pod continúen a través de ambos conjuntos de rutas. 
+
+
+| `Moving` | ONTAP copia y transfiere los datos del volumen al agregado de destino. Esta es la fase más larga, y ONTAP se encarga de todo mientras Trident realiza sondeos hasta que termina. Durante este estado se permiten nuevas publicaciones. 
+
+
+| `ControllerUnstaging` | La transferencia de datos ha finalizado. Trident actualiza Kubernetes para eliminar las rutas de origen del estado deseado y luego desvincula las interfaces de almacenamiento del nodo de origen del LUN. 
+
+
+| `NodeUnstaging` | En cada host, Trident elimina las rutas de origen obsoletas. El host solo conserva las rutas de destino y el dispositivo multivía sigue gestionando las operaciones de E/S sin interrupción. 
+
+
+| `Succeeded` | El volumen se ha trasladado por completo y ya está disponible en línea en el destino. Trident conserva el  `TridentVolumeMove` recurso, o lo elimina automáticamente si configuras  `deleteAfterSuccess`. 
+
+
+| `Failed` | Un error irrecuperable detuvo la operación de movimiento o impidió que comenzara. Trident restablece el estado del volumen para que las operaciones normales puedan reanudarse y mantiene el recurso con un mensaje de error. Revisa el mensaje, soluciona la causa raíz, elimina el recurso y vuelve a intentarlo. 
+|===
+La  `.status.attachments` lista muestra el progreso de cada nodo adjunto en su campo  `state`:
+
+[cols="1,2"]
+|===
+| Estado de adjunto | Significado 
+
+
+| `Pending` | Nodo identificado como conectado; aún no se ha iniciado el trabajo. 
+
+
+| `Bridged` | Se han añadido nuevas rutas de destino junto a las rutas existentes. 
+
+
+| `Migrated` | El tráfico ahora se sirve por las nuevas rutas. 
+
+
+| `Cleaned` | Se eliminaron las rutas de origen obsoletas del nodo. 
+
+
+| `Detached` | El nodo se desvinculó a mitad del movimiento y se excluyó de cualquier consideración posterior mientras Trident evalúa si la vinculación está lista para pasar al siguiente paso. 
+
+
+| `Failed` | Error de terminal en este nodo. Consulta el mensaje. 
+|===
+
+
+=== Limpia el recurso de traslado
+
+Si configuras `deleteAfterSuccess`, Trident elimina el recurso automáticamente. De lo contrario, puedes eliminarlo manualmente. Antes de solicitar otro traslado en el mismo volumen, asegúrate de que no exista ningún recurso `TridentVolumeMove` para ese volumen en estado `Succeeded` o `Failed`.
+
+[NOTE]
+====
+Trident nunca elimina automáticamente las operaciones fallidas. Trident conserva un  `Failed` recurso como registro de auditoría. Una vez que hayas solucionado la causa raíz, elimina el recurso manualmente antes de volver a intentarlo.
+
+====

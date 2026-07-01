@@ -9,7 +9,7 @@ summary: Administra la expansión automática de volúmenes usando las política
 
 
 [role="lead"]
-Después de crear las políticas de Autogrow, puedes verlas, actualizarlas y eliminarlas cuando lo necesites. También puedes monitorear qué volúmenes están usando una política determinada.
+Después de crear las políticas de Autogrow, puedes verlas, actualizarlas y eliminarlas. También puedes supervisar qué volúmenes usan una política determinada.
 
 
 
@@ -54,7 +54,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 Puedes modificar una política existente para cambiar su umbral, cantidad de crecimiento o tamaño máximo. Los cambios surten efecto de inmediato para todos los volúmenes que usan la política.
 
 
-IMPORTANT: Los cambios afectan a todos los volúmenes que actualmente usan la política. Prueba primero los cambios en un entorno de no producción cuando sea posible.
+IMPORTANT: Los cambios afectan a todos los volúmenes que utilizan la política. Cuando sea posible, prueba primero los cambios en un entorno que no sea de producción.
 
 .Pasos
 . Edita la política:
@@ -79,8 +79,8 @@ spec:
 
 === Consideraciones de actualización
 
-* *Efecto inmediato:* Todos los volúmenes que usan la política adoptan nuevos parámetros en la siguiente evaluación de crecimiento.
-* *No es necesario reiniciar el volumen:* Los cambios se aplican a la siguiente operación de crecimiento.
+* *Efecto inmediato:* Todos los volúmenes que usan la política adoptan los nuevos parámetros en la próxima evaluación de crecimiento.
+* *No es necesario reiniciar el volumen:* los cambios se aplican a la siguiente operación de crecimiento.
 * *Prueba primero:* Valida los cambios en un entorno que no sea de producción cuando sea posible.
 * *Comunica los cambios:* avisa a los equipos cuando modifiques las políticas compartidas.
 
@@ -89,7 +89,7 @@ spec:
 
 == Eliminar una política de Autogrow
 
-Las políticas de Autogrow usan la protección de finalizador para evitar el borrado accidental mientras los volúmenes las están usando activamente.
+Las políticas de Autogrow usan la protección del finalizador para evitar el borrado accidental mientras los volúmenes las usan activamente.
 
 .Pasos
 . Elimina la política:
@@ -98,7 +98,7 @@ Las políticas de Autogrow usan la protección de finalizador para evitar el bor
 ----
 kubectl delete tridentautogrowpolicy production-db-policy
 ----
-. Si los volúmenes siguen utilizando la política, la eliminación entra en un estado `Deleting`. Revisa qué volúmenes se ven afectados:
+. Si los volúmenes siguen utilizando la política, la eliminación pasa a un estado  `Deleting`. Comprueba qué volúmenes se ven afectados:
 +
 [source, console]
 ----
@@ -139,7 +139,7 @@ kubectl annotate pvc <pvc-name> \
 | Ningún volumen usa la política | La política se elimina inmediatamente. 
 
 
-| Los volúmenes están usando la política | La política entra `Deleting` en estado. Un finalizador bloquea la finalización hasta que se eliminan todos los volúmenes. 
+| Los volúmenes utilizan la política | La política entra `Deleting` en estado. Un finalizador bloquea la finalización hasta que se eliminan todos los volúmenes. 
 
 
 | Todos los volúmenes se eliminan de la política | Se eliminan los finalizadores y se elimina la política. 
@@ -189,10 +189,16 @@ NOTE: Para volúmenes SAN, si el  `growthAmount` configurado es de 50 MiB o meno
 
 
 
+== Backends compatibles
+
+Autogrow es compatible con los backends de ONTAP. Autogrow también es compatible con Google Cloud NetApp Volumes (GCNV) para volúmenes NAS y SAN.
+
+
+
 == Limitaciones conocidas
 
 * *Volúmenes de bloques sin procesar ONTAP NVMe:* Los volúmenes creados con versiones de ONTAP anteriores a 9.16.1 no admiten autogrow.
-* *Volúmenes existentes (implantaciones brownfield):* Es posible que Autogrow no funcione para los volúmenes existentes aunque se aplique una Autogrow Policy válida. Esto se debe a una migración en curso de publicaciones de volúmenes. Para confirmar que la migración ha terminado, revisa los registros del controlador Trident para mensajes de `"Migration completed"`.
+* *Volúmenes existentes (implementaciones en entornos ya existentes):* Es posible que la función de autogrow no funcione con los volúmenes existentes, incluso si se aplica una Autogrow Policy válida. Esta limitación se debe a una migración en curso de publicaciones de volúmenes. Para confirmar que la migración se ha completado, revisa los registros del controlador Trident en busca de mensajes de  `"Migration completed"`.
 
 
 
@@ -283,7 +289,7 @@ Trident utiliza `logs-policy` para `database-pvc`, no `standard-agp`.
 
 === ¿Cómo desactivo el autogrow para un volumen específico?
 
-Establece la anotación de PVC en `"none"`. Esto anula cualquier política de nivel StorageClass para ese volumen:
+Configura la anotación de PVC en  `"none"`. Esta configuración anula cualquier política a nivel de StorageClass para ese volumen:
 
 [source, console]
 ----
@@ -306,9 +312,9 @@ none
 
 === ¿Qué pasa cuando un volumen llega a maxSize?
 
-Trident deja de expandir el volumen. No se crean más solicitudes de redimensionamiento para ese volumen, incluso si el uso sigue aumentando más allá del `usedThreshold`.
+Trident deja de ampliar el volumen. No genera más solicitudes de redimensionamiento para ese volumen, aunque el uso siga aumentando más allá de `usedThreshold`.
 
-Por ejemplo, con esta política, Trident deja de aumentar el volumen una vez que llega a los 100 GiB:
+Por ejemplo, con esta política, Trident deja de ampliar el volumen una vez que alcanza los 100 GiB:
 
 [source, yaml]
 ----
@@ -337,7 +343,7 @@ spec:
 
 === ¿Puedo cambiar una política sin reiniciar los volúmenes?
 
-Sí. Cuando actualizas una política, todos los volúmenes que usan esa política adoptan los nuevos parámetros en la siguiente evaluación de crecimiento. No se requieren reinicios de volúmenes.
+Sí. Cuando actualizas una política, todos los volúmenes que usan esa política adoptan los nuevos parámetros en la siguiente evaluación de crecimiento. No es necesario reiniciar ningún volumen.
 
 Para actualizar una política en vigor:
 
@@ -386,7 +392,7 @@ kubectl apply -f autogrow-policy.yaml
 
 === ¿Por qué no puedo eliminar una policy?
 
-Las políticas utilizan la protección del finalizador. Si los volúmenes todavía están utilizando la política, la eliminación entra en un `Deleting` estado y espera hasta que todos los volúmenes se eliminen de la política.
+Las políticas utilizan la protección de finalizadores. Si los volúmenes siguen utilizando la política, la eliminación pasa a un estado  `Deleting` y queda en espera hasta que elimines todos los volúmenes de la política.
 
 Identifica los volúmenes afectados:
 
@@ -407,15 +413,17 @@ kubectl annotate pvc <pvc-name> \
 kubectl annotate pvc <pvc-name> \
   trident.netapp.io/autogrowPolicy-
 ----
-Después de que se eliminan todos los volúmenes, se libera el finalizador y se elimina la política.
+Después de que elimines todos los volúmenes, Trident libera el finalizador y elimina la política.
 
 
 
-=== ¿Funciona autogrow con todos los backends de ONTAP?
+=== ¿Qué backends admite la ampliación automática?
 
-Autogrow es compatible con NFS, iSCSI, FCP y los protocolos NVMe. Sin embargo, los volúmenes de bloques sin procesar NVMe requieren ONTAP 9.16.1 o una versión posterior.
+Autogrow es compatible con los backends de ONTAP. También es compatible con Google Cloud NetApp Volumes (GCNV) tanto para volúmenes NAS como SAN.
 
-Es posible que los volúmenes existentes en las implementaciones brownfield necesiten que la migración de publicación de volúmenes se complete antes de que el autogrow surta efecto. Verifica el estado de la migración revisando los registros del controlador Trident:
+Autogrow es compatible con los protocolos NFS, iSCSI, FCP y NVMe. Los volúmenes de bloques sin procesar NVMe requieren ONTAP 9.16.1 o una versión posterior.
+
+Es posible que los volúmenes existentes en implementaciones en entornos brownfield requieran que se complete la migración de la publicación de volúmenes antes de que el autogrow surta efecto. Para comprobar el estado de la migración, consulta los registros del controlador Trident:
 
 [source, console]
 ----

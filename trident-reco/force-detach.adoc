@@ -150,7 +150,7 @@ Los TNR pueden encontrarse en uno de los siguientes estados:
 
 
 
-NOTE: También puede utilizar métodos alternativos para detectar fallos de nodo, tal como se especifica en el<<Integrating Custom Node Health Check Solutions>> sección a continuación.
+NOTE: También puedes usar formas alternativas para detectar fallas de nodos como se especifica en la sección de <<Integración de soluciones personalizadas de comprobación del estado de los nodos>> abajo.
 
 Verlink:https://www.redhat.com/en/blog/node-health-check-operator["Operador de comprobación del estado del nodo"^] Para más información.
 

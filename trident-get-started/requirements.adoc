@@ -42,7 +42,7 @@ Trident admite varios motores de contenedor y orquestadores, entre los que se in
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
 * Kubernetes 1.27 - 1.36
-* OpenShift 4.12, 4.14 - 4.21 (si planeas usar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1.)
+* OpenShift 4.12, 4.14 - 4.22 (si planeas usar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1.)
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
@@ -96,6 +96,49 @@ Trident admite los siguientes controladores de ONTAP para KubeVirt y OpenShift V
 
 
 
+
+
+
+== Compatibilidad de Trident con Kubernetes en Kubernetes y con los planos de control alojados en OpenShift
+
+A partir de la versión 26.06, Trident califica completamente la topología de Kubernetes on Kubernetes. Clústeres de Kubernetes cuyos nodos se ejecutan como máquinas virtuales KubeVirt en un clúster de infraestructura (host). Esta topología respalda ofertas de planos de control alojados como los hosted control planes (HCP) de OpenShift en OpenShift Virtualization.
+
+
+NOTE: Esta configuración funcionaba en versiones anteriores, pero la certificación completa comienza con la 26.06.
+
+El clúster invitado (inquilino) utiliza el controlador CSI KubeVirt (`kubevirt-csi` como proveedor de almacenamiento. Cuando una carga de trabajo en el clúster invitado solicita un `PersistentVolumeClaim`, el controlador CSI KubeVirt crea un volumen correspondiente en el clúster de infraestructura. Trident aprovisiona el volumen desde ONTAP y el volumen se conecta en caliente a la VM del nodo invitado. Trident solo se ejecuta en el clúster de infraestructura. El clúster invitado consume almacenamiento ONTAP de forma indirecta a través del controlador CSI KubeVirt.
+
+.Requisitos:
+* Trident se instala en el clúster de infraestructura con un backend ONTAP compatible.
+* En el clúster de infraestructura existe una clase de almacenamiento Trident para que el controlador CSI de KubeVirt pueda asignar los volúmenes del clúster de invitados.
+* KubeVirt o OpenShift Virtualization se implementa en el clúster de infraestructura, y el controlador CSI KubeVirt se instala en cada clúster invitado.
+
+
+[cols="2,1"]
+|===
+| Componente | Versión 
+
+
+| Trident | 26,06 
+
+
+| Kubernetes (infraestructura y clúster invitado) | 1,36 
+
+
+| Virt de KubeVirt | 1.9.0-beta.0 
+
+
+| Importador de datos en contenedores (CDI) | 1,65 
+|===
+.Puntos que se deben tener en cuenta:
+* En el clúster invitado, los volúmenes aparecen como dispositivos de bloque conectados en caliente en las máquinas virtuales del nodo invitado.
+* El flujo de trabajo del controlador CSI de KubeVirt no requiere Trident en el clúster invitado. Configuras el backend de ONTAP y la clase de almacenamiento en el clúster de infraestructura.
+
+
+.Instala Trident directamente en el clúster invitado:
+También puedes instalar Trident directamente en el clúster invitado (inquilino). Instala Trident en el clúster invitado cuando necesites el conjunto completo de funciones de Trident, como instantáneas, clones, cambio de tamaño de volúmenes e importación, que `kubevirt-csi` no ofrece por sí solo.
+
+En el clúster de invitados, utiliza protocolos basados en IP: NFS, iSCSI y NVMe/TCP. El clúster de invitados no es compatible con Fibre Channel (FC) porque los nodos de invitados son máquinas virtuales sin conectividad FC directa.
 
 
 
@@ -223,7 +266,7 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0

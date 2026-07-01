@@ -21,6 +21,7 @@ Puede utilizar Trident Protect para restaurar su aplicación desde una instantá
 * Al restaurar una aplicación, todos los ganchos de ejecución configurados para la aplicación se restauran con la aplicación. Si hay un enlace de ejecución posterior a la restauración, se ejecuta automáticamente como parte de la operación de restauración.
 * Se permite restaurar desde una copia de seguridad a un espacio de nombres diferente o al original en volúmenes qtree. Sin embargo, no se permite restaurar desde una instantánea a un espacio de nombres diferente o al original en volúmenes qtree.
 * Puede utilizar la configuración avanzada para personalizar las operaciones de restauración. Para obtener más información, consulte link:../trident-protect/trident-protect-restore-settings.html["Utilice la configuración de restauración avanzada de Trident Protect"].
+* Para restaurar máquinas virtuales (VM) específicas de KubeVirt desde un archivo sin restaurar todos los recursos del espacio de nombres, usa el campo  `includedVirtualMachines` en un CR de restauración. Para CR compatibles, referencia de campos y ejemplos en YAML, consulta link:trident-protect-kubevirt-vms.html["Protege las máquinas virtuales de KubeVirt con Trident Protect"].
 
 
 ====
@@ -449,7 +450,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: SnapshotRestore
 metadata:
   name: my-cr-name
-  namespace: my-app-namespace
+  namespace: my-destination-namespace
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
@@ -571,7 +572,13 @@ Asegúrese de que la caducidad del token de sesión de AWS sea suficiente para l
 kubectl get snapshots <SNAPSHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 +
-[source, yaml]
++
+
+
+
+
+
+[listing]
 ----
 ---
 apiVersion: protect.trident.netapp.io/v1
@@ -583,28 +590,16 @@ spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
 ----
++ . (_Opcional_) Si necesitas seleccionar solo determinados recursos de la aplicación para restaurarlos, añade un filtro que incluya o excluya los recursos marcados con etiquetas concretas:
 
++ NOTA: Trident Protect selecciona automáticamente algunos recursos debido a su relación con los recursos que tú seleccionas. Por ejemplo, si seleccionas un recurso de reclamación de volumen persistente y este tiene un pod asociado, Trident Protect también restaurará el pod asociado.
 
-. (_Optional_) Si necesita seleccionar solo ciertos recursos de la aplicación para restaurar, agregue filtros que incluyan o excluyan recursos marcados con etiquetas particulares:
-+
++ * *resourceFilter.resourceSelectionCriteria*: (Obligatorio para el filtrado) Utiliza `Include` o `Exclude` para incluir o excluir un recurso definido en resourceMatchers. Agrega los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir: ** *resourceFilter.resourceMatchers*: Una matriz de objetos resourceMatcher. Si defines varios elementos en este array, se combinan como una operación OR, y los campos dentro de cada elemento (group, kind, version) se combinan como una operación AND. *** *resourceMatchers[].group*: (_Opcional_) Grupo del recurso que se va a filtrar. *** *resourceMatchers[].kind*: (_Opcional_) Tipo del recurso que se va a filtrar. *** *resourceMatchers[].version*: (_Opcional_) Versión del recurso que se va a filtrar. *** *resourceMatchers[].names*: (_Opcional_) Nombres en el campo metadata.name de Kubernetes del recurso que se va a filtrar. *** *resourceMatchers[].namespaces*: (_Opcional_) Namespaces en el campo metadata.name de Kubernetes del recurso que se va a filtrar. *** *resourceMatchers[].labelSelectors*: (_Opcional_) Cadena de selector de etiquetas en el campo metadata.name de Kubernetes del recurso, tal como se define en https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo: `"trident.netapp.io/os=linux"`.
 
-NOTE: Trident Protect selecciona algunos recursos automáticamente debido a su relación con los recursos que usted selecciona.  Por ejemplo, si selecciona un recurso de reclamo de volumen persistente y tiene un pod asociado, Trident Protect también restaurará el pod asociado.
-
-+
-** *ResourceFilter.resourceSelectionCriteria*: (Requerido para filtrar) Usar `Include` o `Exclude` incluir o excluir un recurso definido en resourceMatchers. Agregue los siguientes parámetros resourceMatchers para definir los recursos que se van a incluir o excluir:
-+
-*** *ResourceFilter.resourceMatchers*: Una matriz de objetos resourceMatcher. Si define varios elementos en esta matriz, coinciden como una OPERACIÓN OR y los campos dentro de cada elemento (grupo, tipo, versión) coinciden como una operación AND.
-+
-**** *ResourceMatchers[].group*: (_Optional_) Grupo del recurso a filtrar.
-**** *ResourceMatchers[].kind*: (_Optional_) Tipo de recurso a filtrar.
-**** *ResourceMatchers[].version*: (_Optional_) Versión del recurso que se va a filtrar.
-**** *ResourceMatchers[].names*: (_Optional_) Nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
-**** *ResourceMatchers[].namespaces*: (_Optional_) Espacios de nombres en el campo Kubernetes metadata.name del recurso que se va a filtrar.
-**** *ResourceMatchers[].labelSelectors*: (_Optional_) Cadena de selector de etiquetas en el campo Kubernetes metadata.name del recurso tal como se define en el https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentación de Kubernetes"^]. Por ejemplo `"trident.netapp.io/os=linux"`: .
-+
-Por ejemplo:
++ Por ejemplo:
 
 +
+
 [source, yaml]
 ----
 spec:
@@ -624,20 +619,14 @@ spec:
         namespaces: ["my-resource-namespaces"]
         labelSelectors: ["trident.netapp.io/os=linux"]
 ----
++ . Después de que completes el archivo  `trident-protect-snapshot-ipr-cr.yaml` con los valores correctos, aplica el CR:
 
-
-
-
-
-
-. Después de rellenar `trident-protect-snapshot-ipr-cr.yaml` el archivo con los valores correctos, aplique el CR:
 +
+
 [source, console]
 ----
 kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 ----
-
-
 --
 .Utilice la CLI
 --
