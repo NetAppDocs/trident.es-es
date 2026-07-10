@@ -16,7 +16,8 @@ Puede implementar manualmente el operador Trident para instalar Trident. Este pr
 
 
 
-== Información crítica sobre Trident 26.02
+[[critical-information-about-trident-26-06]]
+== Información crítica sobre Trident 26.06
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
@@ -25,7 +26,7 @@ Puede implementar manualmente el operador Trident para instalar Trident. Este pr
 ====
 []
 =====
-* Kubernetes 1.35 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
+* Kubernetes 1.36 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -36,6 +37,7 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Implemente manualmente el operador de Trident e instale Trident
 
 Revisa link:kubernetes-deploy.html["descripción general de la instalación"] para asegurarte de que cumpliste los requisitos previos de instalación y seleccionaste la opción de instalación correcta para tu entorno.
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === Paso 1: Descargue el paquete de instalación de Trident
 
 El paquete de instalación de Trident contiene todo lo necesario para implementar el operador Trident e instalar Trident. Descargue y extraiga la última versión del instalador de Trident de link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === Paso 2: Cree la `TridentOrchestrator` CRD
 
 Crea el `TridentOrchestrator` Definición de recurso personalizado (CRD). Crearás un `TridentOrchestrator` Recurso personalizado más adelante. Utilice la versión CRD YAML apropiada en `deploy/crds` Para crear el `TridentOrchestrator` CRD.
@@ -94,6 +98,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 ----
 
 
+[[step-3-deploy-the-trident-operator]]
 === Paso 3: Ponga en marcha el operador de Trident
 
 El instalador de Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados. El archivo bundle es una manera fácil de implementar el operador e instalar Trident usando una configuración predeterminada.
@@ -147,6 +152,7 @@ IMPORTANT: Solo debe haber *una instancia* del operador en un clúster de Kubern
 
 
 
+[[step-4-create-the-tridentorchestrator-and-install-trident]]
 === Paso 4: Cree el `TridentOrchestrator` E instale Trident
 
 Ahora puede crear `TridentOrchestrator` e instalar Trident. Opcionalmente, puede link:kubernetes-customize-deploy.html["Personalice su instalación de Trident"] utilizar los atributos de la `TridentOrchestrator` especificación.
@@ -174,7 +180,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:26.02
+    Autosupport Image:         netapp/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -184,10 +190,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:26.02.0
+    Trident Image:        netapp/trident:26.06.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v26.02.0
+  Version:                  v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -195,12 +201,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == Compruebe la instalación
 
 Existen varias formas de verificar su instalación.
 
 
 
+[[using-tridentorchestrator-status]]
 === Uso `TridentOrchestrator` estado
 
 El estado de `TridentOrchestrator` Indica si la instalación se realizó correctamente y muestra la versión de Trident instalada. Durante la instalación, el estado de `TridentOrchestrator` cambios de `Installing` para `Installed`. Si observa la `Failed` y el operador no puede recuperar por sí solo, link:../troubleshooting.html["compruebe los registros"].
@@ -233,6 +241,7 @@ El estado de `TridentOrchestrator` Indica si la instalación se realizó correct
 |===
 
 
+[[using-pod-creation-status]]
 === Uso del estado de creación de pod
 
 Puede confirmar si la instalación de Trident ha finalizado revisando el estado de los pods creados:
@@ -250,6 +259,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === Uso `tridentctl`
 
 Puede utilizar `tridentctl` para comprobar la versión de Trident instalada.
@@ -261,6 +271,6 @@ Puede utilizar `tridentctl` para comprobar la versión de Trident instalada.
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

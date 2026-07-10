@@ -16,6 +16,7 @@ Con Trident, puede crear nuevos volúmenes con volúmenes o copias de volúmenes
 
 
 
+[[prerequisites]]
 == Requisitos previos
 
 Antes de clonar volúmenes, asegúrese de que los back-ends de origen y de destino sean del mismo tipo y tengan la misma clase de almacenamiento.
@@ -25,6 +26,7 @@ NOTE: La clonación entre espacios de nombres solo se admite para `ontap-san` y 
 
 
 
+[[quick-start]]
 == Inicio rápido
 
 Puede configurar el clonado de volúmenes en unos pocos pasos.
@@ -47,6 +49,7 @@ El propietario del espacio de nombres de destino crea una RVP para clonar la RVP
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Configurar los espacios de nombres de origen y destino
 
 Para garantizar la seguridad, el clonado de volúmenes en espacios de nombres requiere la colaboración y acción del propietario del espacio de nombres de origen, el administrador del clúster y el propietario del espacio de nombres de destino. La función de usuario se designa en cada paso.
@@ -121,6 +124,7 @@ spec:
 
 
 
+[[limitations]]
 == Limitaciones
 
 * En el caso de las RVP aprovisionadas con controladores para el sector económico ONTAP-nas, no se admiten clones de solo lectura.

@@ -31,6 +31,7 @@ Debes asignar al menos un agregado a la máquina virtual de almacenamiento (SVM)
 
 
 
+[[supported-operations]]
 == Operaciones compatibles
 
 * Aprovisionamiento de volúmenes persistentes (PVs)
@@ -43,6 +44,7 @@ Debes asignar al menos un agregado a la máquina virtual de almacenamiento (SVM)
 
 
 
+[[unsupported-operations]]
 == Operaciones no admitidas
 
 * Cifrado LUKS

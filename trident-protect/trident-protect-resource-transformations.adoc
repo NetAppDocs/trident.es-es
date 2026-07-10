@@ -18,6 +18,7 @@ Las transformaciones de recursos te permiten modificar un recurso mientras se es
 
 
 
+[[how-resource-modification-works]]
 == Cómo funciona la modificación de recursos
 
 El campo  `transformations` en  `SnapshotRestore`,  `BackupRestore`,  `AppMirrorRelationship` y otros recursos de restauración te permite modificar los recursos de Kubernetes durante el proceso de restauración. Esto es útil cuando la aplicación restaurada necesita configurarse de manera diferente a la original, por ejemplo, cambiando nombres de host, URLs de registros, límites de recursos o variables de entorno.
@@ -54,6 +55,7 @@ spec:
 ----
 
 
+[[supported-resources]]
 == Recursos compatibles
 
 Puedes usar transformaciones de recursos con recursos que cumplan los siguientes criterios:
@@ -69,12 +71,14 @@ NOTE: Actualmente no es posible modificar PersistentVolumeClaims ni los espacios
 
 
 
+[[supported-operations]]
 == Operaciones compatibles
 
 Puedes utilizar las siguientes operaciones para modificar recursos: `add`, `copy`, `move`, `remove`, `replace`, y `test`.
 
 
 
+[[add-a-value-to-a-resource]]
 === Agrega un valor a un recurso
 
 Usa la operación `add` para añadir un nuevo campo o valor en la ruta especificada. Puedes añadir datos a objetos o arrays.
@@ -113,6 +117,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[copy-a-value-within-a-resource]]
 === Copia un valor dentro de un recurso
 
 Usa la operación `copy` para copiar un valor de una ruta a otra dentro del mismo recurso. El origen no se modifica.
@@ -149,6 +154,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[move-a-value-within-a-resource]]
 === Mover un valor dentro de un recurso
 
 Usa la operación `move` para mover un valor de una ruta a otra dentro del mismo recurso. El origen se elimina y el valor se coloca en el destino.
@@ -185,6 +191,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[remove-a-value-from-a-resource]]
 === Eliminar un valor de un recurso
 
 Usa la operación `remove` para eliminar un campo o valor en la ruta especificada.
@@ -223,6 +230,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[replace-a-value-within-a-resource]]
 === Sustituir un valor dentro de un recurso
 
 Usa la operación `replace` para reemplazar un valor existente dentro de un recurso en la ruta especificada. La ruta JSON ya debe existir.
@@ -260,6 +268,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[test-the-resource-modification]]
 === Probar la modificación de los recursos
 
 Utiliza la operación  `test` para comprobar que el valor de una ruta coincide con el valor esperado antes de que se apliquen las demás operaciones. Si la comprobación falla, se revierte toda la modificación.

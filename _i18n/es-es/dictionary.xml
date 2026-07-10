@@ -5922,11 +5922,9 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="1dba8f0975c45572eb495fa5122b37e8" category="cell">ONTAP (NFS/SMB con LDAP)</block>
   <block id="b7f43df36fb2e13c1c3d456da9ceba9e" category="cell">Similar; para resolución de nombres/auth; restringir a AD.</block>
   <block id="e447b6c9645ce6cd63337d813a552cd5" category="sidebar">Soporte de Trident para sistemas de almacenamiento ASA r2</block>
-  <block id="8d5731b8fc2479ac904701c0f079c178" category="paragraph">Si no estás ejecutando Trident 26.02, la documentación de las versiones anteriores está disponible según el <block ref="6d47e9235a19453f00cf246917b9e162" category="inline-link-macro-rx"></block>.</block>
   <block id="60706cc94c04d32db6c18b4fb8b21f21" category="inline-link">Trident 25.10</block>
   <block id="69a4986cbe93f4162ce953d8e917b215" category="list-text"><block ref="69a4986cbe93f4162ce953d8e917b215" category="inline-link-rx"></block></block>
   <block id="28b62bff68083dad22bdf1acf812f48a" category="list-text">Kubernetes 1.35 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.</block>
-  <block id="ac6cc7900e3d9478b2fcf3a73c070b29" category="section-title">Imágenes de contenedor requeridas para Trident 26.02</block>
   <block id="627219ce2083b03812e10846d1307811" category="list-text">*spec.runImmediately*: (_Opcional_) Establece en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> para activar una ejecución de línea de base única e inmediata (copia de seguridad y/o instantánea según la configuración de retención) cuando se crea el programa. Por defecto es<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>. Esto no modifica la recurrencia posterior.</block>
   <block id="b267d2c4b44dd537f81ddd4d1ca1cdd8" category="paragraph">Ejemplo YAML para programación con ejecución inmediata:</block>
   <block id="ea89dfc546da2da95449976a3262efd9" category="list-text">*Protección inicial inmediata*: Usa<block ref="40c288e5937b634afc8b0a225fcdb4cf" prefix=" " category="inline-code"></block> para crear una copia de seguridad o instantánea inicial inmediatamente cuando se crea la programación, en lugar de esperar a la primera hora de ejecución programada. El valor predeterminado es<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>.</block>
@@ -5938,9 +5936,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="4c563d04dfd50e6f3569cee14757b0d3" category="paragraph">Puedes restaurar una instantánea en el espacio de nombres original en cualquier momento. Cuando realizas una restaurar sin movimiento, Trident Protect gestiona automáticamente los programas de protección y las operaciones en curso para evitar puntos de recuperación no válidos:</block>
   <block id="d299403943c136e89dcdf76b975fa78e" category="paragraph">Las versiones de Trident Protect siguen una convención de nomenclatura<block ref="fb6921a005d395f9482cdac0306d4935" prefix=" " category="inline-code"></block> basada en fechas, donde "YY" son los dos últimos dígitos del año y "MM" es el mes. Las versiones de punto siguen una<block ref="d93ec759c4a0e8c1cf9c7653b2939656" prefix=" " category="inline-code"></block> convención, donde "X" es el nivel de parche. Vas a seleccionar la versión a la que quieres actualizar según la versión desde la que estás actualizando.</block>
   <block id="0f76ee20ab451b4f754d9e30cde19650" category="list-text">Puedes hacer una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones respecto a la versión que tienes instalada. Por ejemplo, puedes actualizar directamente de 24.10 (o cualquier versión puntual de 24.10) a 25.10.</block>
-  <block id="09a310b79e08f8c01b750026c4388289" category="list-text">Si estás actualizando desde una versión fuera del periodo de cuatro versiones, haz una actualización en varios pasos. Usa las instrucciones de actualización para la <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> de la que estás actualizando para pasar a la versión más reciente que entre en el periodo de cuatro versiones. Por ejemplo, si estás usando la versión 24.10 y quieres actualizar a la 26.02:</block>
   <block id="03a081c9536ffc6b50cecf173b0dbc2c" category="list-text">Primero actualiza de 24.10 a 25.02.</block>
-  <block id="c57146c5f38b336a75fd36e963d211fd" category="list-text">Luego actualiza de 25.02 a 26.02.</block>
   <block id="f65c06826afa8d10471cd5dee9af7426" category="section-title">Paso 2: actualizar Trident Protect</block>
   <block id="900b2ff0e4545565ae3f08238031bafd" category="section-title">Novedades en 26.02</block>
   <block id="15472a280efaab6ff08ec110afd8de46" category="paragraph">Descubre qué hay de nuevo en NetApp Trident y Trident Protect, incluyendo mejoras, correcciones y elementos obsoletos.</block>
@@ -5982,8 +5978,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="150fed11d160cf3a20a84935a6da6b2f" category="cell">Nombre personalizado para el backend de almacenamiento</block>
   <block id="9c8376d30ef5d31c007585fb05add5db" category="cell">Conjunto de funciones de VNet para un volumen, puede ser<block ref="972e73b7a882d0802a4e3a16946a2f94" prefix=" " category="inline-code"></block> o<block ref="eb6d8ae6f20283755b339c0dc273988b" prefix=" " category="inline-code"></block>. Network Features no está disponible en todas las regiones y podría tener que habilitarse en una suscripción. Especificar<block ref="b0fdc9c7b96e4249152c61b506703142" prefix=" " category="inline-code"></block> cuando la funcionalidad no está habilitada hace que falle el aprovisionamiento del volumen.</block>
   <block id="eceb18783ab7d857705973afb0ba5ff1" category="cell">Control detallado de las opciones de montaje de NFS. Ignorado para volúmenes SMB. Para montar volúmenes usando la versión de NFS 4.1, incluye<block ref="c72da907ddca73ee114d92e5e098ce0e" prefix=" " category="inline-code"></block> en la lista de opciones de montaje separadas por comas para elegir NFS v4.1. Las opciones de montaje establecidas en una definición de clase de almacenamiento reemplazan las opciones de montaje establecidas en la configuración de backend.</block>
-  <block id="ca4874fba63edd36a107178ef6510445" category="section-title">Considera los entornos cloud de Azure (26.02)</block>
-  <block id="584e93b9019a1308f5373f467e2fa893" category="paragraph">A partir de la versión 26.02, Trident admite la creación y gestión de backends de Azure NetApp Files en varios entornos cloud de Azure.</block>
   <block id="d20c4dcda0a96ffb3a3748cbe8aba81e" category="paragraph">Las nubes de Azure compatibles incluyen:</block>
   <block id="3dc82a397fa9254c0f558e04583621c3" category="list-text">Azure Commercial</block>
   <block id="e96e8d7b53ef3f92949dbe568dc848b6" category="list-text">Azure Government (Azure Government / MAG)</block>
@@ -6075,7 +6069,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="ef8eb050000e134fa5a2198e8ff5038e" category="summary">Configura la jerarquización automática de Google Cloud NetApp Volumes usando mecanismos nativos de Kubernetes con Trident.</block>
   <block id="dab9b285e93c136eba2e723beb8edd60" category="doc">Configura la jerarquización automática para Google Cloud NetApp Volumes</block>
   <block id="afb75f46d7710bfa697c616ccf2b5ea3" category="paragraph">La jerarquización automática permite a Trident aprovisionar volúmenes que mueven automáticamente los datos inactivos de un nivel de rendimiento a un nivel de capacidad. Esto reduce el coste de almacenamiento mientras se preserva el rendimiento para los datos a los que se accede con frecuencia.</block>
-  <block id="5915b91d7147475077383a0b6bb57408" category="paragraph">Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.02.</block>
   <block id="cb093658cef2560e46a3c54bec672cf8" category="section-title">Organización automática en niveles</block>
   <block id="7b7bab0024c6202ad5a192ef0445195e" category="paragraph">La jerarquización automática mueve los datos a los que se accede con poca frecuencia de un nivel de rendimiento a un nivel de capacidad según los patrones de acceso. El movimiento de datos ocurre de forma asíncrona y no es inmediato.</block>
   <block id="fabea8658161c3de0e08742a1ab72c7e" category="section-title">Política de tiering</block>
@@ -6095,13 +6088,10 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="5d22c20e3e02066c0600a840e879938a" category="list-text">Configuración del backend Trident</block>
   <block id="3f5370cf58488d1347e8b2db4da682b2" category="list-text">Valores predeterminados del pool de almacenamiento</block>
   <block id="0312731ce473db488b555d6e91acb13f" category="paragraph">Los ajustes definidos con mayor precedencia reemplazan los valores de nivel inferior.</block>
-  <block id="45a07962bc89c0ea5e586076b72ee4c1" category="section-title">Funcionalidad compatible en Trident 26.02</block>
-  <block id="8f74a1c598301b0fdd0dd57f04ccc8c4" category="paragraph">Trident 26.02 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:</block>
   <block id="684a5d1cd198a69c43c096d24b821491" category="list-text">Habilitar o deshabilitar la clasificación automática durante el aprovisionamiento de volúmenes</block>
   <block id="607c651949b262cfbdc3e4ee7b7fd396" category="list-text">Definir una política de niveles en la configuración del backend de Trident</block>
   <block id="75fee9b8deaef7c5c9a6e29cc9726463" category="list-text">Anular la política de niveles y los días de enfriamiento por volumen usando anotaciones de PVC</block>
   <block id="895e9c66fe1163df089f36df03d4ac52" category="list-text">Configurar los días de enfriamiento para los volúmenes con la jerarquización automática activada</block>
-  <block id="b2a4e6665c958003379aae04b8853635" category="section-title">Funcionalidad no soportada en Trident 26.02</block>
   <block id="a9983630391b773f642c371dc94873ea" category="paragraph">Las siguientes operaciones no son compatibles:</block>
   <block id="6b4626d056df29f9ddfb1347a6afd7e4" category="list-text">Modificar la configuración de auto-tiering después de crear el volumen</block>
   <block id="1bb954f7eb53754523d7c2c696ee6cb7" category="list-text">Cambio de las políticas de niveles en volúmenes existentes usando actualizaciones de Kubernetes</block>
@@ -6431,19 +6421,11 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="945c53097aed6aee6897384c32c13596" category="paragraph">Por ejemplo, esta política establece un<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> de<block ref="b3b9f60c2eb049d3bcbddd22d73210ce" prefix=" " category="inline-code"></block>, pero Trident aplica un crecimiento de 51 MB para cualquier volumen SAN que lo use:</block>
   <block id="a55370dbc1a259397316ceebdfed21b8" category="paragraph">Para evitar este ajuste automático, establece<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> en un valor mayor a 50 MiB:</block>
   <block id="b58eceaaba71c126318ed8daedaef74b" category="sidebar">Configura la jerarquización automática</block>
-  <block id="4711816ecf930de7bedb0fff0ed5f46a" category="list-text">docker.io/netapp/trident:26.02.0</block>
-  <block id="d9d8d43f99f88fa1757ca456d25bffdc" category="list-text">docker.io/netapp/trident-autosupport:26.02</block>
   <block id="93284b31b63cc86c59eeb4dcd6ba1751" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.1.0</block>
   <block id="f5345a3e1ca4c50ed544fae4c14150b1" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.0.0</block>
   <block id="ed2e3a3511b1047c788e7fd621778ee2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0</block>
-  <block id="62b6189a1ca283e5a1f0152c40a1d139" category="list-text">docker.io/netapp/trident-operator:26.02.0 (opcional)</block>
   <block id="0adb26270c00fc572774f5cb57d01573" category="inline-link-macro">26,02</block>
   <block id="e352a332a817691cf8394c9b1288306f" category="paragraph"><block ref="e352a332a817691cf8394c9b1288306f" category="inline-link-macro-rx"></block></block>
-  <block id="ae86b0bdf0b542a819fd22e434545766" category="cell"><block ref="1d7ac1b2b38a742e32aa51ad1489b0a7" prefix="" category="inline-code"></block></block>
-  <block id="c28a6ef170d50135b201634575bf11b4" category="section-title">Información crítica sobre Trident 26.02</block>
-  <block id="e2c49768b478259ae558315a6874896b" category="paragraph">En<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>, actualiza<block ref="b5184a708a9f3a0020e58d5d08445198" prefix=" " category="inline-code"></block> para reflejar la ubicación de tu registro de imágenes. Tu <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> puede estar en un registro o en registros diferentes, pero todas las imágenes CSI deben estar en el mismo registro. Por ejemplo:</block>
-  <block id="73321a84803ccb3eb0b3dc9281954ba7" category="list-text"><block ref="ca771b97d048ca724b0d35dbea604dba" prefix="" category="inline-code"></block> si tus imágenes están todas ubicadas en un registro.</block>
-  <block id="f6742c05233fa63959541b8dde0d38c6" category="list-text"><block ref="b60c14c79386a1c34022777459be2c8d" prefix="" category="inline-code"></block> si tu imagen de Trident está en un registro diferente al de tus imágenes CSI.</block>
   <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">Si usas Red Hat OpenShift, puedes cambiar al operador certificado de Trident desde el operador de la comunidad, una instalación basada en Helm o un operador desplegado manualmente.</block>
   <block id="9e7ed03c18ddecce0aa7a5623628fe1a" category="doc">Cambia al operador Trident certificado OpenShift</block>
   <block id="00e22a4bea8f6d3bb56845f5728a38f9" category="paragraph">Puedes cambiar al operador Trident certificado de Red Hat OpenShift desde el operador de la comunidad, una instalación basada en Helm o un operador desplegado manualmente. El proceso para cada método implica desinstalar el operador existente y luego instalar el operador certificado usando el OperatorHub.</block>
@@ -7254,4 +7236,27 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="53a1e3ed6dc9286a411ff4fdda7cb383" category="list-text">Usa el <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> comando donde <block ref="86ec79e27e8639c8433f7ff62822e38f" prefix=" " category="inline-code"></block> refleja la versión a la que quieres actualizar.</block>
   <block id="eec73d4903362fb244dc1fa04140d8c8" category="list-text">Evitar que los FlexVol se reduzcan durante la operación de cambio de tamaño para el controlador ONTAP-SAN-ECONOMY.</block>
   <block id="7a1819119b273216b59fab874ebf86e8" category="list-text">Se corrigió un problema por el que las aplicaciones de máquina virtual KubeVirt recreaban incorrectamente PersistentVolumeClaims durante las operaciones de reversa, resinc inversa y resinc de AppMirrorRelationship.</block>
+  <block id="91d1a0ad77ca7fe00dec0239a8194b82" category="paragraph">Si no estás ejecutando Trident 26.06, la documentación de las versiones anteriores está disponible según el <block ref="6d47e9235a19453f00cf246917b9e162" category="inline-link-macro-rx"></block>.</block>
+  <block id="f4dfb48579d3f90a417158e53e75204a" category="inline-link">Trident 26.02</block>
+  <block id="20c6994509b12de80a77f23b290b8bcd" category="list-text"><block ref="20c6994509b12de80a77f23b290b8bcd" category="inline-link-rx"></block></block>
+  <block id="648540f1a67ebba0071e70944d7527c2" category="paragraph"><block ref="648540f1a67ebba0071e70944d7527c2" category="inline-link-macro-rx"></block></block>
+  <block id="172ebadfc5f13c0aff9b7f172bc4fed4" category="cell">julio de 2027</block>
+  <block id="4aab0cfeaa9a8262994350900bdd20f2" category="cell">julio de 2028</block>
+  <block id="f6d7c73fe3fc66fa560e7262f79f60ae" category="section-title">Imágenes de contenedor requeridas para Trident 26.06</block>
+  <block id="f87a5c52c8ee3e84d33252d80679b335" category="list-text">docker.io/netapp/trident:26.06.0</block>
+  <block id="01d86b54453ee9aefd6e3ed4a3dc0dc2" category="list-text">docker.io/netapp/trident-autosupport:26.06</block>
+  <block id="9a3b823ceeb6fcbe9a5ac0a50b995ed0" category="list-text">docker.io/netapp/trident-operator:26.06.0 (opcional)</block>
+  <block id="c31dc22d9ccf9395630afa7de351d6bf" category="cell"><block ref="4e9f324b7febae0727b9d412cb49fa13" prefix="" category="inline-code"></block></block>
+  <block id="bcf817488b594e4daf83db1e5511242d" category="section-title">Información crítica sobre Trident 26.06</block>
+  <block id="a67a4c76b07caa7907851893a5518350" category="paragraph">En<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>, actualiza<block ref="6225334d80f70f493ad5e35aee5b3e8c" prefix=" " category="inline-code"></block> para reflejar la ubicación de tu registro de imágenes. Tu <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> puede estar en un registro o en registros diferentes, pero todas las imágenes CSI deben estar en el mismo registro. Por ejemplo:</block>
+  <block id="7559678ace63d5f03e465a5671cc7db3" category="list-text"><block ref="8e06db2260954a3b69d080710541061e" prefix="" category="inline-code"></block> si tus imágenes están todas ubicadas en un registro.</block>
+  <block id="ab4356213016ceded9dcaa8c910a0f8a" category="list-text"><block ref="b4b523778500749f975cd131bd70eaf0" prefix="" category="inline-code"></block> si tu imagen de Trident está en un registro diferente al de tus imágenes CSI.</block>
+  <block id="f651e630cf0f39102d38c494e842d244" category="list-text">Si estás actualizando desde una versión fuera de la ventana de cuatro versiones, realiza una actualización en varios pasos. Usa las instrucciones de actualización para la <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> de la que estás actualizando para pasar a la versión más reciente que entre en el periodo de cuatro versiones. Por ejemplo, si estás ejecutando 24.10 y quieres actualizar a 26.06:</block>
+  <block id="9cc871b3823d788a71b5fe7d98091be7" category="list-text">Luego actualiza de 25.02 a 26.06.</block>
+  <block id="1d34a26ee46532c4d8a716d8ce3315d8" category="section-title">Considera los entornos cloud de Azure (26.06)</block>
+  <block id="e4f47d019eda889a3f06c8ac6170ce36" category="paragraph">A partir de la versión 26.06, Trident admite la creación y gestión de backends de Azure NetApp Files en varios entornos cloud de Azure.</block>
+  <block id="3c5b5c17f7a5e32f4971a6c47e9bc73b" category="paragraph">Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.06.</block>
+  <block id="aa2d7ad72731a70cf1acfd5476327d88" category="section-title">Funcionalidad compatible en Trident 26.06</block>
+  <block id="a083a63746aa61c3da201d39ba7a4bc0" category="paragraph">Trident 26.06 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:</block>
+  <block id="e21cf8f8ea478f3204b9d99aa0b68e51" category="section-title">Funcionalidad no soportada en Trident 26.06</block>
 </blocks>

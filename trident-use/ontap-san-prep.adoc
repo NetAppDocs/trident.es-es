@@ -16,6 +16,7 @@ Conozca los requisitos y las opciones de autenticación para configurar un back-
 
 
 
+[[requirements]]
 == Requisitos
 
 Para todos los backends de ONTAP, Trident requiere que se asigne al menos un agregado al SVM.
@@ -29,6 +30,7 @@ Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas
 
 
 
+[[authenticate-the-ontap-backend]]
 == Autentique el backend de ONTAP
 
 Trident ofrece dos modos de autenticación de un backend ONTAP.
@@ -44,6 +46,7 @@ WARNING: Si intenta proporcionar *tanto credenciales como certificados*, la crea
 
 
 
+[[enable-credential-based-authentication]]
 === Habilite la autenticación basada en credenciales
 
 Trident requiere que las credenciales se comuniquen con un administrador de SVM o con el ámbito del clúster para que se comunique con el back-end de ONTAP. Se recomienda hacer uso de roles estándar, predefinidos como `admin` o `vsadmin`. Esto garantiza la compatibilidad con futuras versiones de ONTAP que podrían exponer API de funciones que podrán utilizarse en futuras versiones de Trident. Puede crearse y utilizarse un rol de inicio de sesión de seguridad personalizado con Trident, pero no se recomienda.
@@ -87,6 +90,7 @@ Tenga en cuenta que la definición de backend es el único lugar en el que las c
 
 
 
+[[enable-certificate-based-authentication]]
 === Habilitar la autenticación basada en certificados
 
 Los back-ends nuevos y existentes pueden utilizar un certificado y comunicarse con el back-end de ONTAP. Se necesitan tres parámetros en la definición de backend.
@@ -172,6 +176,7 @@ tridentctl create backend -f cert-backend.json -n trident
 
 
 
+[[update-authentication-methods-or-rotate-credentials]]
 === Actualice los métodos de autenticación o gire las credenciales
 
 Puede actualizar un back-end existente para utilizar un método de autenticación diferente o para rotar sus credenciales. Esto funciona de las dos maneras: Los back-ends que utilizan nombre de usuario/contraseña se pueden actualizar para usar certificados. Los back-ends que utilizan certificados pueden actualizarse a nombre de usuario/contraseña. Para ello, debe eliminar el método de autenticación existente y agregar el nuevo método de autenticación. A continuación, utilice el archivo backend.json actualizado que contiene los parámetros necesarios para ejecutarse `tridentctl backend update`.
@@ -205,6 +210,7 @@ La actualización de un back-end no interrumpe el acceso a los volúmenes que se
 
 
 
+[[create-custom-ontap-role-for-trident]]
 === Crear rol de ONTAP personalizado para Trident
 
 Puede crear un rol de clúster de ONTAP con un Privileges mínimo de modo que no tenga que utilizar el rol de administrador de ONTAP para realizar operaciones en Trident. Cuando incluye el nombre de usuario en una configuración de back-end de Trident, Trident utiliza el rol de clúster de ONTAP que creó para realizar las operaciones.
@@ -264,6 +270,7 @@ Consulte las siguientes páginas si quiere más información:
 
 
 
+[[authenticate-connections-with-bidirectional-chap]]
 == Autenticar conexiones con CHAP bidireccional
 
 Trident puede autenticar sesiones iSCSI con CHAP bidireccional para `ontap-san` los controladores y. `ontap-san-economy` Esto requiere la activación de `useCHAP` la opción en la definición de backend. Cuando se establece en `true`, Trident configura la seguridad del iniciador predeterminado de la SVM como CHAP bidireccional y establece el nombre de usuario y los secretos del archivo back-end. NetApp recomienda utilizar CHAP bidireccional para autenticar las conexiones. Consulte la siguiente configuración de ejemplo:
@@ -291,6 +298,7 @@ Además de `useCHAP=true`, la `chapInitiatorSecret`, `chapTargetInitiatorSecret`
 
 
 
+[[how-it-works]]
 === Cómo funciona
 
 Al configurarse `useCHAP` en true, el administrador de almacenamiento le ordena a Trident que configure CHAP en el back-end de almacenamiento. Esto incluye lo siguiente:
@@ -308,6 +316,7 @@ Después de crear el backend, Trident crea un CRD correspondiente `tridentbacken
 
 
 
+[[rotate-credentials-and-update-backends]]
 === Rotar credenciales y actualizar backends
 
 Para actualizar las credenciales de CHAP, se deben actualizar los parámetros de CHAP en `backend.json` archivo. Para ello, será necesario actualizar los secretos CHAP y utilizar el `tridentctl update` comando para reflejar estos cambios.

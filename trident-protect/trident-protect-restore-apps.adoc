@@ -27,6 +27,7 @@ Puede utilizar Trident Protect para restaurar su aplicación desde una instantá
 ====
 
 
+[[restore-from-a-backup-to-a-different-namespace]]
 == Restauración desde un backup a un espacio de nombres diferente
 
 Cuando restaura una copia de seguridad en un espacio de nombres diferente mediante un CR de BackupRestore, Trident Protect restaura la aplicación en un nuevo espacio de nombres y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree copias de seguridad o instantáneas bajo demanda, o establezca un programa de protección.
@@ -155,6 +156,7 @@ tridentctl-protect create backuprestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-backup-to-the-original-namespace]]
 == Restaure desde un backup al espacio de nombres original
 
 Puedes restaurar una copia de seguridad en el espacio de nombres original en cualquier momento. Cuando realizas una restaurar sin movimiento, Trident Protect gestiona automáticamente los programas de protección y las operaciones en curso para evitar puntos de recuperación no válidos:
@@ -279,6 +281,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-backup-to-a-different-cluster]]
 == Restauración desde un backup en otro clúster
 
 Puede restaurar un backup a otro clúster si hay un problema con el clúster original.
@@ -406,6 +409,7 @@ tridentctl-protect create backuprestore <restore_name> \
 ====
 
 
+[[restore-from-a-snapshot-to-a-different-namespace]]
 == Restauración desde una copia snapshot a un espacio de nombres diferente
 
 Puede restaurar datos desde una instantánea utilizando un archivo de recursos personalizados (CR) ya sea en un espacio de nombres diferente o en el espacio de nombres de origen original. Cuando restaura una instantánea a un espacio de nombres diferente mediante un CR de SnapshotRestore, Trident Protect restaura la aplicación en un nuevo espacio de nombres y crea un CR de aplicación para la aplicación restaurada. Para proteger la aplicación restaurada, cree copias de seguridad o instantáneas bajo demanda, o establezca un programa de protección.
@@ -539,6 +543,7 @@ tridentctl-protect create snapshotrestore <my_restore_name> \
 ====
 
 
+[[restore-from-a-snapshot-to-the-original-namespace]]
 == Restauración desde una copia Snapshot al espacio de nombres original
 
 Puedes restaurar una instantánea en el espacio de nombres original en cualquier momento. Cuando realizas una restaurar sin movimiento, Trident Protect gestiona automáticamente los programas de protección y las operaciones en curso para evitar puntos de recuperación no válidos:
@@ -645,6 +650,7 @@ tridentctl-protect create snapshotinplacerestore <my_restore_name> \
 ====
 
 
+[[check-the-status-of-a-restore-operation]]
 == Compruebe el estado de una operación de restauración
 
 Puede usar la línea de comandos para comprobar el estado de una operación de restauración en curso, que se completó o con errores.

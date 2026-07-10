@@ -20,6 +20,7 @@ Esta función es una Tech Preview en Trident 26.06. Las funciones Tech Preview n
 ====
 
 
+[[how-it-works]]
 == Cómo funciona
 
 Trident reutiliza la lógica existente de los controladores `ontap-san` y `ontap-nas` y redirige las llamadas REST de ONTAP a través de un endpoint proxy de GCNV. Este enfoque te permite aprovisionar y gestionar el almacenamiento en clústeres ONTAP alojados en GCNV mientras mantienes los mismos flujos de trabajo operativos que usas para un backend ONTAP directo. ONTAP-mode no introduce un nuevo controlador de almacenamiento. Lo habilitas por backend añadiendo un bloque de configuración `gcnv` a un backend `ontap-san` o `ontap-nas`.
@@ -30,6 +31,7 @@ La ruta de aprovisionamiento es la siguiente:
 
 
 
+[[supported-and-unsupported-scope]]
 == Ámbito compatible y no compatible
 
 Esta versión preliminar (Tech Preview) admite lo siguiente:
@@ -48,6 +50,7 @@ Lo siguiente queda fuera del alcance de esta versión preliminar técnica:
 
 
 
+[[prerequisites]]
 == Requisitos previos
 
 Antes de configurar un backend en modo ONTAP, asegúrate de que tienes lo siguiente:
@@ -61,6 +64,7 @@ Antes de configurar un backend en modo ONTAP, asegúrate de que tienes lo siguie
 
 
 
+[[configure-the-backend]]
 == Configura el backend
 
 Un  `TridentBackendConfig` requiere `credentials`. Para el modo ONTAP, ese secreto contiene las credenciales del proxy de GCP, no las de ONTAP `managementLIF` / `username` / `password`. `svm` es opcional: cada pool de GCNV en modo ONTAP actualmente tiene un SVM, y Trident lo obtiene del pool cuando se omite.

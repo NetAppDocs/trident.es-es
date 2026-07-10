@@ -16,6 +16,7 @@ Se necesitan varias instancias de Trident cuando se desean que varias configurac
 
 
 
+[[steps-for-docker-managed-plugin-version-1-1317-03-or-later]]
 == Pasos para el complemento gestionado de Docker (versión 1.13/17.03 o posterior)
 
 . Inicie la primera instancia que especifique un alias y un archivo de configuración.
@@ -51,6 +52,7 @@ docker volume create -d silver --name ntapSilver
 
 
 
+[[steps-for-traditional-version-1-12-or-earlier]]
 == Pasos para tradicional (versión 1.12 o anterior)
 
 . Inicie el plugin con una configuración NFS mediante un ID de controlador personalizado:

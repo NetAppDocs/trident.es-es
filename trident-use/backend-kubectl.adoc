@@ -16,6 +16,7 @@ Un back-end define la relación entre Trident y un sistema de almacenamiento. In
 
 
 
+[[tridentbackendconfig]]
 == `TridentBackendConfig`
 
 `TridentBackendConfig` (`tbc`, , `tbconfig` `tbackendconfig` ) Es una interfaz CRD con nombre que permite gestionar los backend de Trident mediante `kubectl`. Los administradores de Kubernetes y de almacenamiento ahora pueden crear y gestionar back-ends directamente mediante la CLI de Kubernetes sin necesidad de una utilidad de línea de comandos dedicada (`tridentctl`).
@@ -72,6 +73,7 @@ TIP: Los back-ends que se crearon con `tridentctl` no tienen un objeto asociado 
 
 
 
+[[steps-overview]]
 == Descripción general de los pasos
 
 Para crear un nuevo back-end mediante `kubectl`, debe hacer lo siguiente:
@@ -84,6 +86,7 @@ Después de crear un backend, puede observar su estado utilizando `kubectl get t
 
 
 
+[[step-1-create-a-kubernetes-secret]]
 == Paso 1: Cree un secreto de Kubernetes
 
 Cree un secreto que contenga las credenciales de acceso para el back-end. Esto es único para cada servicio/plataforma de almacenamiento. Veamos un ejemplo:
@@ -176,6 +179,7 @@ El secreto creado en este paso será referenciado en el `spec.credentials` del `
 
 
 
+[[step-2-create-the-tridentbackendconfig-cr]]
 == Paso 2: Cree la `TridentBackendConfig` CR
 
 Ya está listo para crear su `TridentBackendConfig` CR. En este ejemplo, un back-end que utiliza `ontap-san` el controlador se crea mediante `TridentBackendConfig` objeto mostrado a continuación:
@@ -202,6 +206,7 @@ spec:
 ----
 
 
+[[step-3-verify-the-status-of-the-tridentbackendconfig-cr]]
 == Paso 3: Compruebe el estado del `TridentBackendConfig` CR
 
 Ahora que creó la `TridentBackendConfig` CR, puede comprobar el estado. Consulte el siguiente ejemplo:
@@ -232,6 +237,7 @@ En esta fase, se ha creado un backend. Hay varias operaciones que se pueden real
 
 
 
+[[optional-step-4-get-more-details]]
 == (Opcional) Paso 4: Obtener más detalles
 
 Puede ejecutar el siguiente comando para obtener más información acerca de su entorno de administración:

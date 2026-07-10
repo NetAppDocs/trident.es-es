@@ -16,6 +16,7 @@ Las snapshots de volúmenes de Kubernetes de Persistent Volumes (VP) permiten co
 
 
 
+[[overview]]
 == Descripción general
 
 La instantánea de volumen es compatible con `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `azure-netapp-files` , y `google-cloud-netapp-volumes` conductores.
@@ -30,6 +31,7 @@ NOTE: No cree una controladora Snapshot si crea instantáneas de volumen bajo de
 
 
 
+[[create-a-volume-snapshot]]
 == Cree una copia de Snapshot de volumen
 
 .Pasos
@@ -114,6 +116,7 @@ Status:
 
 
 
+[[create-a-pvc-from-a-volume-snapshot]]
 == Cree una RVP a partir de una snapshot de volumen
 
 Puede utilizar `dataSource` Para crear una RVP con una Snapshot de volumen llamada `<pvc-name>` como la fuente de los datos. Una vez creada la RVP, se puede conectar a un pod y utilizarla como cualquier otro PVC.
@@ -147,6 +150,7 @@ spec:
 ----
 
 
+[[import-a-volume-snapshot]]
 == Importe una copia de Snapshot de volumen
 
 Trident admite link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Proceso de snapshot aprovisionado previamente de Kubernetes"^]para permitir que el administrador de clúster cree `VolumeSnapshotContent` un objeto e importe copias de Snapshot creadas fuera de Trident.
@@ -238,6 +242,7 @@ spec:
 
 
 
+[[recover-volume-data-using-snapshots]]
 == Recuperar datos de volumen mediante copias Snapshot
 
 El directorio de snapshots está oculto de forma predeterminada para facilitar la máxima compatibilidad de los volúmenes aprovisionados con el `ontap-nas` y.. `ontap-nas-economy` de windows Habilite el `.snapshot` directorio para recuperar datos de snapshots directamente.
@@ -253,6 +258,7 @@ NOTE: Cuando se restaura una copia Snapshot, se sobrescribe la configuración de
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == Restauración de volumen sin movimiento a partir de una copia de Snapshot
 
 Trident permite restaurar volumen rápida y in situ a partir de una snapshot mediante `TridentActionSnapshotRestore` (TASR) CR. Esta CR funciona como una acción imprescindible de Kubernetes y no persiste una vez que finaliza la operación.
@@ -352,12 +358,14 @@ metadata:
 ====
 
 
+[[delete-a-pv-with-associated-snapshots]]
 == Eliminar un VP con snapshots asociadas
 
 Cuando se elimina un volumen persistente con snapshots asociadas, el volumen Trident correspondiente se actualiza a un estado «Eliminado». Quite las copias de Snapshot de volumen para eliminar el volumen de Trident.
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == Implemente una controladora Snapshot de volumen
 
 Si su distribución de Kubernetes no incluye el controlador de snapshots y los CRD, puede implementarlos de la siguiente manera.
@@ -397,6 +405,7 @@ NOTE: Si es necesario, abra `deploy/kubernetes/snapshot-controller/rbac-snapshot
 
 
 
+[[related-links]]
 == Enlaces relacionados
 
 * link:../trident-concepts/snapshots.html["Copias de Snapshot de volumen"]

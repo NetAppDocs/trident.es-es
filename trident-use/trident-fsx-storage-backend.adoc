@@ -13,12 +13,14 @@ summary: 'Al usar Trident con Amazon FSx para NetApp ONTAP, puedes garantizar qu
 
 
 
+[[overview]]
 == Descripción general
 
 Antes de que puedas aprovisionar volúmenes usando Trident, necesitas integrar tu backend de almacenamiento con Trident creando una Trident Backend Configuration (TBC). La TBC define cómo Trident se conecta al backend de almacenamiento y proporciona la información necesaria para que Trident gestione los recursos de almacenamiento.
 
 
 
+[[create-a-trident-backend-configuration-tbc-for-fsx-for-ontap]]
 == Crear una configuración de Trident Backend (TBC) para FSx for ONTAP
 
 Hay dos formas de configurar el backend de Trident para que utilice un sistema de archivos FSx para ONTAP: * Crea un StorageClass que aproveche la función de backend automático. * Crea el backend y StorageClass por separado.
@@ -110,6 +112,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 
 
 
+[[fsx-for-ontap-driver-details]]
 == FSX para ONTAP detalles del controlador
 
 Puedes integrar Trident con Amazon FSx for NetApp ONTAP mediante los siguientes controladores:
@@ -142,6 +145,7 @@ backend-fsx-ontap-nas   backend-fsx-ontap-nas   7a551921-997c-4c37-a1d1-f2f4c87f
 ----
 
 
+[[backend-advanced-configuration-and-examples]]
 == Configuración avanzada de backend y ejemplos
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
@@ -242,6 +246,7 @@ No utilizar `debugTraceFlags` a menos que esté solucionando problemas y necesit
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Opciones de configuración de back-end para el aprovisionamiento de volúmenes
 
 Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
@@ -288,6 +293,7 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 |===
 
 
+[[provision-smb-volumes]]
 == aprovisionamiento de volúmenes SMB
 
 Puedes aprovisionar volúmenes SMB usando el controlador `ontap-nas`. Antes de completar link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["Integración de controladores SAN y NAS de ONTAP"] completa estos pasos: link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["Prepárese para aprovisionar los volúmenes de SMB"].

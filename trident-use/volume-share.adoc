@@ -16,6 +16,7 @@ Con Trident, es posible crear un volumen en un espacio de nombres primario y com
 
 
 
+[[features]]
 == Funciones
 
 TridentVolumeReference CR permite compartir de forma segura los volúmenes NFS ReadWriteMany (RWX) en uno o varios espacios de nombres de Kubernetes. Esta solución nativa de Kubernetes tiene las siguientes ventajas:
@@ -31,6 +32,7 @@ image::cross-namespace-sharing.png[Un diagrama conceptual del uso compartido ent
 
 
 
+[[quick-start]]
 == Inicio rápido
 
 Puede configurar el uso compartido del volumen NFS en unos pocos pasos.
@@ -53,6 +55,7 @@ El propietario del espacio de nombres de destino crea el PVC subordinado para ut
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Configurar los espacios de nombres de origen y destino
 
 Para garantizar la seguridad, el uso compartido entre espacios de nombres requiere la colaboración y la acción del propietario del espacio de nombres de origen, el administrador de clúster y el propietario del espacio de nombres de destino. La función de usuario se designa en cada paso.
@@ -133,12 +136,14 @@ Trident lee la `shareFromPVC` anotación en la RVP de destino y crea el VP de de
 
 
 
+[[delete-a-shared-volume]]
 == Elimine un volumen compartido
 
 Es posible eliminar un volumen que se comparte en varios espacios de nombres. Trident eliminará el acceso al volumen en el espacio de nombres de origen y mantendrá el acceso a otros espacios de nombres que compartan el volumen. Cuando se eliminan todos los espacios de nombres que hacen referencia al volumen, Trident lo elimina.
 
 
 
+[[use-tridentctl-get-to-query-subordinate-volumes]]
 == Uso `tridentctl get` para consultar volúmenes subordinados
 
 Usando la utilidad[`tridentctl`, puedes ejecutar el comando `get` para obtener volúmenes subordinados. Para más información, consulta el enlace:../trident-reference/trident-cl.html[`tridentctl` comandos y opciones].
@@ -157,6 +162,7 @@ Indicadores:
 
 
 
+[[limitations]]
 == Limitaciones
 
 * Trident no puede evitar que los espacios de nombres de destino se escriban en el volumen compartido. Se debe usar el bloqueo de archivos u otros procesos para evitar la sobrescritura de datos de volúmenes compartidos.
@@ -166,6 +172,7 @@ Indicadores:
 
 
 
+[[for-more-information]]
 == Si quiere más información
 
 Para obtener más información sobre el acceso de volúmenes entre espacios de nombres:

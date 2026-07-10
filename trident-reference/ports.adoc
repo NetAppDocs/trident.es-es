@@ -16,6 +16,7 @@ Obtenga más información sobre los puertos que Trident utiliza para la comunica
 
 
 
+[[overview]]
 == Descripción general
 
 Trident utiliza varios puertos para la comunicación dentro de clústeres de Kubernetes y con storage backends. A continuación tienes un resumen de los puertos clave, sus propósitos y consideraciones de seguridad.
@@ -34,6 +35,7 @@ Trident utiliza varios puertos para la comunicación dentro de clústeres de Kub
 
 
 
+[[ports-for-controller-nodes]]
 === Puertos para nodos controladora
 
 Estos puertos son principalmente para el operador de Trident (gestión de backend). Todos los puertos internos son de nivel pod; permite en los nodos solo si el firewall del host interfiere con CNI.
@@ -59,6 +61,7 @@ Estos puertos son principalmente para el operador de Trident (gestión de backen
 |===
 
 
+[[ports-for-worker-nodes]]
 === Puertos para nodos worker
 
 Estos puertos son para daemonsets de nodos CSI y montajes de pods. Los puertos de datos son salientes hacia los LIF de datos de almacenamiento; incluye extras de NFSv3 si usas NFSv3 (opcional para NFSv4).

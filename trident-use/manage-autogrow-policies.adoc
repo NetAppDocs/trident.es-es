@@ -13,10 +13,12 @@ Después de crear las políticas de Autogrow, puedes verlas, actualizarlas y eli
 
 
 
+[[view-autogrow-policies]]
 == Ver políticas de Autogrow
 
 
 
+[[list-all-policies]]
 === Lista todas las políticas
 
 Usa `kubectl` para listar todas las Autogrow Policies en tu cluster:
@@ -33,6 +35,7 @@ tridentctl get autogrowpolicy
 ----
 
 
+[[view-policy-details]]
 === Ver detalles de la policy
 
 Para ver la especificación completa y el estado de una política:
@@ -49,6 +52,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 ----
 
 
+[[update-an-autogrow-policy]]
 == Actualiza una política de Autogrow
 
 Puedes modificar una política existente para cambiar su umbral, cantidad de crecimiento o tamaño máximo. Los cambios surten efecto de inmediato para todos los volúmenes que usan la política.
@@ -77,6 +81,7 @@ spec:
 
 
 
+[[update-considerations]]
 === Consideraciones de actualización
 
 * *Efecto inmediato:* Todos los volúmenes que usan la política adoptan los nuevos parámetros en la próxima evaluación de crecimiento.
@@ -87,6 +92,7 @@ spec:
 
 
 
+[[delete-an-autogrow-policy]]
 == Eliminar una política de Autogrow
 
 Las políticas de Autogrow usan la protección del finalizador para evitar el borrado accidental mientras los volúmenes las usan activamente.
@@ -129,6 +135,7 @@ kubectl annotate pvc <pvc-name> \
 
 
 
+[[deletion-behavior]]
 === Comportamiento de borrado
 
 [cols="1,2"]
@@ -146,10 +153,12 @@ kubectl annotate pvc <pvc-name> \
 |===
 
 
+[[monitor-autogrow-policy-usage]]
 == Supervisa el uso de la política Autogrow
 
 
 
+[[check-volumes-using-a-policy]]
 === Comprobar volúmenes usando una política
 
 [source, console]
@@ -158,6 +167,7 @@ tridentctl get autogrowpolicy production-db-policy -o json | jq '.volumes'
 ----
 
 
+[[find-which-policy-a-volume-uses]]
 === Averigua qué política usa un volumen
 
 [source, console]
@@ -166,6 +176,7 @@ kubectl get pvc database-pvc -o jsonpath='{.metadata.annotations.trident\.netapp
 ----
 
 
+[[monitor-policy-events]]
 === Supervisa los eventos de políticas
 
 [source, console]
@@ -174,6 +185,7 @@ kubectl get events --field-selector involvedObject.kind=TridentAutogrowPolicy
 ----
 
 
+[[supported-protocols]]
 == Protocolos compatibles
 
 Autogrow es compatible con los siguientes protocolos de almacenamiento:
@@ -189,12 +201,14 @@ NOTE: Para volúmenes SAN, si el  `growthAmount` configurado es de 50 MiB o meno
 
 
 
+[[supported-backends]]
 == Backends compatibles
 
 Autogrow es compatible con los backends de ONTAP. Autogrow también es compatible con Google Cloud NetApp Volumes (GCNV) para volúmenes NAS y SAN.
 
 
 
+[[known-limitations]]
 == Limitaciones conocidas
 
 * *Volúmenes de bloques sin procesar ONTAP NVMe:* Los volúmenes creados con versiones de ONTAP anteriores a 9.16.1 no admiten autogrow.
@@ -203,10 +217,12 @@ Autogrow es compatible con los backends de ONTAP. Autogrow también es compatibl
 
 
 
+[[frequently-asked-questions]]
 == Preguntas frecuentes
 
 
 
+[[when-does-trident-evaluate-the-threshold]]
 === ¿Cuándo evalúa Trident el umbral?
 
 Trident supervisa continuamente el uso del volumen. Cuando la capacidad utilizada supera el `usedThreshold`, Trident crea una solicitud interna de redimensionamiento y amplía el volumen por la `growthAmount` configurada.
@@ -226,6 +242,7 @@ spec:
 ----
 
 
+[[can-i-apply-a-policy-after-volumes-are-already-provisioned]]
 === ¿Puedo aplicar una política después de que los volúmenes ya estén aprovisionados?
 
 Sí. Puedes crear una Autogrow Policy en cualquier momento y aplicarla a los PVC existentes añadiendo o actualizando la anotación  `trident.netapp.io/autogrowPolicy`. No necesitas volver a crear el PVC ni el StorageClass.
@@ -248,6 +265,7 @@ kubectl annotate storageclass ontap-gold \
 ----
 
 
+[[what-happens-if-i-set-an-autogrow-policy-on-both-the-storageclass-and-the-pvc]]
 === ¿Qué pasa si configuro una Autogrow Policy tanto en el StorageClass como en el PVC?
 
 La anotación de PVC siempre tiene prioridad. Si un PVC tiene la  `trident.netapp.io/autogrowPolicy` anotación, Trident usa ese valor sin importar lo que especifique StorageClass. Consulta link:automatic-volume-expansion.html#policy-precedence["Precedencia de políticas"] para más detalles.
@@ -287,6 +305,7 @@ Trident utiliza `logs-policy` para `database-pvc`, no `standard-agp`.
 
 
 
+[[how-do-i-disable-autogrow-for-a-specific-volume]]
 === ¿Cómo desactivo el autogrow para un volumen específico?
 
 Configura la anotación de PVC en  `"none"`. Esta configuración anula cualquier política a nivel de StorageClass para ese volumen:
@@ -310,6 +329,7 @@ none
 ----
 
 
+[[what-happens-when-a-volume-reaches-maxsize]]
 === ¿Qué pasa cuando un volumen llega a maxSize?
 
 Trident deja de ampliar el volumen. No genera más solicitudes de redimensionamiento para ese volumen, aunque el uso siga aumentando más allá de `usedThreshold`.
@@ -341,6 +361,7 @@ spec:
 ----
 
 
+[[can-i-change-a-policy-without-restarting-volumes]]
 === ¿Puedo cambiar una política sin reiniciar los volúmenes?
 
 Sí. Cuando actualizas una política, todos los volúmenes que usan esa política adoptan los nuevos parámetros en la siguiente evaluación de crecimiento. No es necesario reiniciar ningún volumen.
@@ -374,6 +395,7 @@ production-db-policy   75%              20%             Success
 ----
 
 
+[[why-is-my-policy-in-a-failed-state]]
 === ¿Por qué mi policy está en estado Failed?
 
 Un estado `Failed` indica que la especificación de la política contiene errores de validación. Ejecuta el siguiente comando para ver los detalles del error:
@@ -390,6 +412,7 @@ kubectl apply -f autogrow-policy.yaml
 ----
 
 
+[[why-cant-i-delete-a-policy]]
 === ¿Por qué no puedo eliminar una policy?
 
 Las políticas utilizan la protección de finalizadores. Si los volúmenes siguen utilizando la política, la eliminación pasa a un estado  `Deleting` y queda en espera hasta que elimines todos los volúmenes de la política.
@@ -417,6 +440,7 @@ Después de que elimines todos los volúmenes, Trident libera el finalizador y e
 
 
 
+[[which-backends-does-autogrow-support]]
 === ¿Qué backends admite la ampliación automática?
 
 Autogrow es compatible con los backends de ONTAP. También es compatible con Google Cloud NetApp Volumes (GCNV) tanto para volúmenes NAS como SAN.
@@ -463,6 +487,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[what-is-the-minimum-growth-amount-for-san-volumes]]
 === ¿Cuál es la cantidad mínima de crecimiento para los volúmenes SAN?
 
 Para volúmenes SAN, la cantidad mínima de crecimiento efectivo es de 51 MB. Si configuras un `growthAmount` de 50 MiB o menos, Trident aumenta automáticamente el crecimiento a 51 MB para la operación de redimensionamiento.

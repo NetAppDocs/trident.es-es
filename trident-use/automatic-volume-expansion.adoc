@@ -21,6 +21,7 @@ NOTE: Los volúmenes aumentan de tamaño automáticamente cuando se supera el um
 
 
 
+[[requirements]]
 == Requisitos
 
 Antes de configurar la expansión automática de volumen, asegúrate de que se cumplen los siguientes requisitos:
@@ -40,6 +41,7 @@ Antes de configurar la expansión automática de volumen, asegúrate de que se c
 
 
 
+[[limitations]]
 == Limitaciones
 
 * Los volúmenes de bloques sin procesar ONTAP Non-Volatile Memory Express anteriores a ONTAP 9.16.1 no admiten la expansión automática.
@@ -58,6 +60,7 @@ Antes de configurar la expansión automática de volumen, asegúrate de que se c
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == Provisiona volúmenes con la política de crecimiento automático
 
 La política de Autogrow puede configurarse a dos niveles:
@@ -68,6 +71,7 @@ La política de Autogrow puede configurarse a dos niveles:
 
 
 
+[[create-an-autogrow-policy]]
 == Crear una política de Autogrow
 
 Las políticas de crecimiento automático permiten la expansión automática de volúmenes cuando los volúmenes alcanzan un umbral de capacidad definido.
@@ -92,6 +96,7 @@ Esta flexibilidad te permite introducir la expansión automática sin recrear lo
 
 
 
+[[autogrow-policy-specifications]]
 === Especificaciones de la política Autogrow
 
 Las políticas de crecimiento automático son recursos personalizados de Kubernetes definidos como sigue:
@@ -114,6 +119,7 @@ Las políticas de crecimiento automático son recursos personalizados de Kuberne
 |===
 
 
+[[create-an-autogrow-policy]]
 == Crear una política de Autogrow
 
 .Pasos
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == Política establece
 
 Después de crear una política, Trident valida la especificación y asigna uno de los siguientes estados:
@@ -172,6 +179,7 @@ Después de crear una política, Trident valida la especificación y asigna uno 
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == Asocia una política con un StorageClass
 
 Puedes asociar una política de crecimiento automático con un StorageClass usando la anotación `trident.netapp.io/autogrowPolicy`. Todos los volúmenes aprovisionados desde ese StorageClass heredan la política.
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == Precedencia de políticas
 
 Cuando se establecen anotaciones de Autogrow Policy tanto en un StorageClass como en un PVC, Trident aplica las siguientes reglas de precedencia:
@@ -248,12 +257,14 @@ Cuando se establecen anotaciones de Autogrow Policy tanto en un StorageClass com
 |===
 
 
+[[configuration-examples]]
 == Ejemplos de configuración
 
 Los siguientes ejemplos muestran configuraciones comunes de Autogrow Policy para diferentes casos de uso.
 
 
 
+[[conservative-policy-for-production-databases]]
 === Política conservadora para bases de datos de producción
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === Almacenamiento de logs con incrementos de crecimiento fijos
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === Política mínima con valores predeterminados
 
 Cuando omites `growthAmount` y `maxSize`, Trident usa los valores predeterminados (`10%` crecimiento, tamaño ilimitado):
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === Política con un maxSize personalizado y growthAmount predeterminado
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === Crecimiento agresivo con maxSize ilimitado
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === Política con porcentajes fraccionarios
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: Se admiten porcentajes fraccionarios. Si especificas más de tres decimale
 
 
 
+[[nas-storageclass-with-autogrow]]
 === NAS StorageClass con Autogrow
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === SAN StorageClass con Autogrow
 
 [source, yaml]

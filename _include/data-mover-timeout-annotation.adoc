@@ -4,6 +4,7 @@
 
 
 
+[[data-mover-timeout-annotation]]
 == Anotación de tiempo de espera del transportador de datos
 
 Durante las operaciones de copia de seguridad y restauración, puede utilizar la anotación  `protect.trident.netapp.io/data-mover-timeout-sec` Para configurar el tiempo de espera para las operaciones de transferencia de datos. Esta anotación especifica el tiempo máximo, en segundos, que un transportador de datos debe esperar para que se complete una operación específica antes de agotar el tiempo de espera. Es especialmente útil en situaciones donde problemas de red u otros factores podrían causar la interrupción de las operaciones de transferencia de datos. Ayuda a detectar y gestionar operaciones bloqueadas, en lugar de establecer un tiempo de espera general para todo el proceso. Por ejemplo, si no se avanza en la restauración de datos de volumen debido a problemas de red, la operación agotará el tiempo de espera según la duración especificada.

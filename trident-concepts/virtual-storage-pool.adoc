@@ -16,6 +16,7 @@ Los pools virtuales proporcionan una capa de abstracción entre los back-ends de
 
 
 
+[[learn-about-virtual-pools]]
 == Más información sobre los pools virtuales
 
 El administrador de almacenamiento puede definir pools virtuales en cualquiera de los back-ends de Trident en un archivo de definición JSON o YAML.

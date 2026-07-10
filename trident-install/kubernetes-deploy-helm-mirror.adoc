@@ -16,7 +16,8 @@ Puede desplegar el operador Trident e instalar Trident con Helm. Este proceso se
 
 
 
-== Información crítica sobre Trident 26.02
+[[critical-information-about-trident-26-06]]
+== Información crítica sobre Trident 26.06
 
 *Debe leer la siguiente información crítica sobre Trident.*
 
@@ -25,7 +26,7 @@ Puede desplegar el operador Trident e instalar Trident con Helm. Este proceso se
 ====
 []
 =====
-* Kubernetes 1.35 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
+* Kubernetes 1.36 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -36,6 +37,7 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == Despliegue el operador Trident e instale Trident usando Helm
 
 Usar Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Carta del timón"^] Es posible poner en marcha el operador de Trident e instalar Trident en un paso.
@@ -70,7 +72,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set i
 --
 [source, console]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.02.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.02 --set tridentImage=<your-registry>/trident:26.02.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
+helm install <name> netapp-trident/trident-operator --version 100.2602.0 --set imageRegistry=<your-registry> --set operatorImage=<your-registry>/trident-operator:26.06.0 --set tridentAutosupportImage=<your-registry>/trident-autosupport:26.06 --set tridentImage=<your-registry>/trident:26.06.0 --create-namespace --namespace <trident-namespace> --set nodePrep={iscsi}
 ----
 --
 ====
@@ -84,6 +86,7 @@ Puede utilizar `helm list` para revisar detalles de la instalación como nombre,
 
 
 
+[[pass-configuration-data-during-install]]
 == Pasar los datos de configuración durante la instalación
 
 Existen dos formas de pasar los datos de configuración durante la instalación:
@@ -116,6 +119,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0  --crea
 ----
 
 
+[[configuration-options]]
 == Opciones de configuración
 
 Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporciona la lista de claves y sus valores predeterminados.

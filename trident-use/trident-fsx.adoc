@@ -16,6 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 
 
+[[requirements]]
 == Requisitos
 
 Además link:../trident-get-started/requirements.html["Requisitos de Trident"]de , para integrar FSx para ONTAP con Trident, necesita:
@@ -31,6 +32,7 @@ NOTE: Asegúrese de seguir los pasos de preparación de nodos necesarios para Am
 
 
 
+[[considerations]]
 == Consideraciones
 
 * Volúmenes SMB:
@@ -49,6 +51,7 @@ NOTE: Si especifica un rol de IAM en Trident, puede omitir la especificación de
 
 
 
+[[simultaneous-usage-of-trident-saniscsi-and-ebs-csi-driver]]
 === Uso simultáneo del controlador Trident SAN/iSCSI y EBS-CSI
 
 Si planea usar controladores ontap-san (por ejemplo, iSCSI) con AWS (EKS, ROSA, EC2 o cualquier otra instancia), la configuración de múltiples rutas requerida en los nodos podría entrar en conflicto con el controlador CSI de Amazon Elastic Block Store (EBS).  Para garantizar que las funciones de rutas múltiples funcionen sin interferir con los discos EBS en el mismo nodo, debe excluir EBS en su configuración de rutas múltiples.  Este ejemplo muestra una `multipath.conf` archivo que incluye las configuraciones Trident requeridas mientras excluye los discos EBS de las rutas múltiples:
@@ -67,6 +70,7 @@ blacklist {
 ----
 
 
+[[authentication]]
 == Autenticación
 
 Trident ofrece dos modos de autenticación.
@@ -87,6 +91,7 @@ Para obtener más información sobre cómo habilitar la autenticación, consulte
 
 
 
+[[tested-amazon-machine-images-amis]]
 == Imágenes de máquina de Amazon probadas (AMI)
 
 El clúster EKS admite varios sistemas operativos, pero AWS ha optimizado ciertas imágenes de máquinas de Amazon (AMI) para contenedores y EKS. Las siguientes AMI se han probado con NetApp Trident 25.02.
@@ -137,6 +142,7 @@ NOTE: Si su AMI deseado no aparece aquí, no significa que no sea compatible; si
 
 
 
+[[find-more-information]]
 == Obtenga más información
 
 * https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Documentación de Amazon FSX para ONTAP de NetApp"^]

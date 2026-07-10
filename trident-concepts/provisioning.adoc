@@ -16,12 +16,14 @@ El aprovisionamiento en Trident tiene dos fases principales. La primera fase aso
 
 
 
+[[storage-class-association]]
 == Asociación de clase de almacenamiento
 
 La asociación de pools de almacenamiento de backend con una clase de almacenamiento depende tanto de los atributos solicitados de la clase de almacenamiento como de sus `storagePools` listas , `additionalStoragePools` y. `excludeStoragePools` Al crear una clase de almacenamiento, Trident compara los atributos y pools que ofrecen cada uno de sus back-ends con los solicitados por la clase de almacenamiento. Si los atributos y el nombre de un pool de almacenamiento coinciden con todos los atributos y nombres de pools solicitados, Trident agrega ese pool de almacenamiento al conjunto de pools de almacenamiento adecuados para esa clase de almacenamiento. Además, Trident añade a ese conjunto todos los pools de almacenamiento mostrados en `additionalStoragePools` la lista, aunque sus atributos no cumplan todos o ninguno de los atributos solicitados de la clase de almacenamiento. Debe usar la `excludeStoragePools` lista para anular y quitar pools de almacenamiento del uso para una clase de almacenamiento. Trident realiza un proceso similar cada vez que agrega un nuevo back-end, comprobando si sus pools de almacenamiento satisfacen las de las clases de almacenamiento existentes y eliminando las que se hayan marcado como excluidas.
 
 
 
+[[volume-creation]]
 == Creación del volumen
 
 A continuación, Trident utiliza las asociaciones entre las clases de almacenamiento y los pools de almacenamiento para determinar dónde aprovisionar volúmenes. Al crear un volumen, Trident obtiene primero el conjunto de pools de almacenamiento para la clase de almacenamiento de ese volumen y, si especifica un protocolo para el volumen, Trident quita los pools de almacenamiento que no pueden proporcionar el protocolo solicitado (por ejemplo, un back-end NetApp HCI/SolidFire no puede proporcionar un volumen basado en archivos, mientras que un back-end NAS de ONTAP no puede ofrecer un volumen basado en bloques). Trident aleatoriza el orden de este conjunto resultante para facilitar una distribución uniforme de los volúmenes y, luego, repite a través del mismo, intentando aprovisionar el volumen en cada pool de almacenamiento. Si se produce correctamente en una, vuelve con éxito y registra los fallos encontrados en el proceso. Trident devuelve un fallo *solo si* no proporciona en *all* los pools de almacenamiento disponibles para la clase de almacenamiento y el protocolo solicitados.

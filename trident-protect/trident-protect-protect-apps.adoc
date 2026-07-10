@@ -21,6 +21,7 @@ NOTE: Puede configurar Trident Protect para congelar y descongelar sistemas de a
 
 
 
+[[create-an-on-demand-snapshot]]
 == Crear una snapshot bajo demanda
 
 Puede crear una snapshot bajo demanda en cualquier momento.
@@ -84,6 +85,7 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 ====
 
 
+[[create-an-on-demand-backup]]
 == Cree un backup bajo demanda
 
 Puede realizar una copia de seguridad de una aplicación en cualquier momento.
@@ -168,6 +170,7 @@ Opcionalmente, puede utilizar `--full-backup` el indicador para especificar si u
 ====
 
 
+[[supported-backup-annotations]]
 === Anotaciones de respaldo admitidas
 
 La siguiente tabla describe las anotaciones que puede utilizar al crear una copia de seguridad de CR:
@@ -193,6 +196,7 @@ La siguiente tabla describe las anotaciones que puede utilizar al crear una copi
 |===
 
 
+[[create-a-data-protection-schedule]]
 == Cree un programa de protección de datos
 
 Una política de protección protege una aplicación mediante la creación de instantáneas, copias de seguridad o ambas según un cronograma definido.  Puede elegir crear instantáneas y copias de seguridad cada hora, día, semana o mes, y puede especificar la cantidad de copias que desea conservar.  Puede programar una copia de seguridad completa no incremental mediante la anotación full-backup-rule.  De forma predeterminada, todas las copias de seguridad son incrementales.  Realizar una copia de seguridad completa periódicamente, junto con copias de seguridad incrementales entre ellas, ayuda a reducir el riesgo asociado con las restauraciones.
@@ -378,6 +382,7 @@ NOTE: El `--full-backup-rule` La bandera no funciona con granularidad horaria, s
 ====
 
 
+[[supported-schedule-annotations]]
 === Anotaciones de programación admitidas
 
 La siguiente tabla describe las anotaciones que puede utilizar al crear una solicitud de cambio de programación:
@@ -403,6 +408,7 @@ La siguiente tabla describe las anotaciones que puede utilizar al crear una soli
 |===
 
 
+[[delete-a-snapshot]]
 == Eliminar una copia de Snapshot
 
 Elimine las snapshots programadas o bajo demanda que ya no necesite.
@@ -418,6 +424,7 @@ kubectl delete snapshot <snapshot_name> -n my-app-namespace
 
 
 
+[[delete-a-backup]]
 == Eliminar una copia de seguridad
 
 Elimine los backups programados o bajo demanda que ya no necesita.
@@ -436,6 +443,7 @@ kubectl delete backup <backup_name> -n my-app-namespace
 
 
 
+[[check-the-status-of-a-backup-operation]]
 == Compruebe el estado de una operación de backup
 
 Puede usar la línea de comandos para comprobar el estado de una operación de backup que está en curso, se completa o tiene errores.
@@ -451,6 +459,7 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 
 
+[[enable-backup-and-restore-for-azure-netapp-files-anf-operations]]
 == Permita el backup y la restauración para las operaciones de azure-NetApp-files (ANF)
 
 Si ha instalado Trident Protect, puede habilitar la funcionalidad de copia de seguridad y restauración que ahorra espacio para los backends de almacenamiento que usan la clase de almacenamiento azure-netapp-files y se crearon antes de Trident 24.06. Esta funcionalidad funciona con volúmenes NFSv4 y no consume espacio adicional del grupo de capacidad.

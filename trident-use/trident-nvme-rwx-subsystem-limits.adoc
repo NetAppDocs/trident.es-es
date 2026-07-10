@@ -16,6 +16,7 @@ ReadWriteMany (RWX) volúmenes que usan el protocolo NVMe tienen un límite de e
 
 
 
+[[understand-the-64-node-limit]]
 == Entiende el límite de 64 nodos
 
 Si planeas usar volúmenes ReadWriteMany (RWX) con el protocolo NVMe, un solo volumen RWX NVMe no puede ser montado por más de 64 nodos en un clúster de Kubernetes.
@@ -26,10 +27,12 @@ Esta limitación solo se aplica a los volúmenes RWX que usan el protocolo NVMe.
 
 
 
+[[understand-nvme-subsystem-models]]
 == Entiende los modelos de subsistemas NVMe
 
 
 
+[[per-volume-subsystem-model-trident-releases-earlier-than-26-02]]
 === Modelo de subsistema por volumen (Trident releases earlier than 26.02)
 
 En las versiones de Trident anteriores a 26.02, los volúmenes RWX NVMe se aprovisionan utilizando un modelo de subsistema por volumen. Cada volumen RWX NVMe se asigna a su propio subsistema NVMe dedicado en ONTAP.
@@ -38,6 +41,7 @@ Este modelo es sencillo, pero tiene un límite de escalabilidad inferior. En cl�
 
 
 
+[[super-subsystem-model-introduced-in-trident-26-02]]
 === Modelo de super-subsystem (introducido en Trident 26.02)
 
 A partir de Trident 26.02, los volúmenes RWX NVMe utilizan un modelo de super-subsubsistema compartido. Varios volúmenes RWX NVMe comparten el mismo subsistema NVMe.
@@ -48,6 +52,7 @@ Cada volumen RWX NVMe admite hasta 64 nodos.
 
 
 
+[[identify-error-symptoms]]
 == Identifica los síntomas de error
 
 Si creas o adjuntas volúmenes RWX NVMe a escala, podrías ver errores similares a los siguientes:
@@ -60,12 +65,14 @@ Este error indica que se ha alcanzado el límite del controlador del subsistema 
 
 
 
+[[resolve-subsystem-limit-errors]]
 == Soluciona errores de límite de subsistema
 
 Para superar las limitaciones de los subsistemas por volumen y aprovechar el modelo de supersubsistema, actualiza a Trident 26.02 o posterior.
 
 
 
+[[upgrade-trident-to-apply-the-super-subsystem-model]]
 == Actualiza Trident para aplicar el modelo de super-subsystem
 
 Para aplicar el modelo de super-subsistema para volúmenes RWX NVMe:

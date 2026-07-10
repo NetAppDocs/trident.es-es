@@ -16,6 +16,7 @@ Puede personalizar la configuración predeterminada de Trident Protect para sati
 
 
 
+[[specify-trident-protect-container-resource-limits]]
 == Especificar los límites de recursos del contenedor Trident Protect
 
 Puede utilizar un archivo de configuración para especificar límites de recursos para los contenedores de Trident Protect después de instalar Trident Protect.  Establecer límites de recursos le permite controlar qué cantidad de recursos del clúster consumen las operaciones de Trident Protect.
@@ -87,6 +88,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 
+[[customize-security-context-constraints]]
 == Personalizar restricciones de contexto de seguridad
 
 Puede utilizar un archivo de configuración para modificar la restricción de contexto de seguridad (SCC) de OpenShift para los contenedores de Trident Protect después de instalar Trident Protect. Estas restricciones definen las limitaciones de seguridad para los pods en un clúster de Red Hat OpenShift.
@@ -134,6 +136,7 @@ Esto reemplazará los valores predeterminados por los especificados en el `sccco
 
 
 
+[[configure-additional-trident-protect-helm-chart-settings]]
 == Configurar ajustes adicionales del gráfico de timón Trident Protect
 
 Puedes personalizar la configuración de AutoSupport, el filtrado de espacios de nombres y la gestión de certificados de webhooks de OpenShift para adaptarlos a tus necesidades específicas. En la siguiente tabla se describen los parámetros de configuración disponibles:
@@ -209,6 +212,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 ====
 
 
+[[restrict-trident-protect-pods-to-specific-nodes]]
 == Restringir los pods de Trident Protect a nodos específicos
 
 Puede utilizar la restricción de selección de nodos nodeSelector de Kubernetes para controlar cuáles de sus nodos son elegibles para ejecutar pods de Trident Protect, según las etiquetas de los nodos.  De forma predeterminada, Trident Protect está restringido a los nodos que ejecutan Linux. Puedes personalizar aún más estas restricciones según tus necesidades.

@@ -16,6 +16,7 @@ La función de desconexión forzada de Trident permite desconectar automáticame
 
 
 
+[[details-about-force-detach]]
 == Detalles acerca de forzar separación
 
 La separación forzada está disponible para `ontap-san` , `ontap-san-economy` , `ontap-nas` , y `ontap-nas-economy` solo. Antes de habilitar la desconexión forzada, se debe habilitar el apagado de nodo no elegante (NGNS) en el clúster de Kubernetes. NGNS está habilitado de forma predeterminada para Kubernetes 1.28 y superiores. Para obtener más información, consulte link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Cierre de nodo sin gracia"^] .
@@ -44,12 +45,14 @@ Cuando se restaure el estado del nodo y se elimine el tinte, Trident:
 
 
 
+[[details-about-automated-failover]]
 == Detalles sobre la conmutación por error automatizada
 
 Puedes automatizar el proceso de desconexión forzada mediante la integración conlink:https://github.com/medik8s/node-healthcheck-operator["operador de comprobación del estado del nodo (NHC)"^] . Cuando se produce un fallo en un nodo, NHC activa la remediación de nodos Trident (TNR) y la desconexión forzada automáticamente mediante la creación de un CR TridentNodeRemediation en el espacio de nombres de Trident que define el nodo que ha fallado. El TNR se crea únicamente en caso de fallo del nodo y el NHC lo elimina una vez que el nodo vuelve a estar en línea o se elimina el nodo.
 
 
 
+[[failed-node-pod-removal-process]]
 === Falló el proceso de eliminación del pod del nodo.
 
 La conmutación por error automatizada selecciona las cargas de trabajo que se eliminarán del nodo que ha fallado. Cuando se crea un TNR, el controlador TNR marca el nodo como modificado, impidiendo cualquier publicación de nuevos volúmenes y comenzando a eliminar los pods compatibles con desconexión forzada y sus conexiones de volumen.
@@ -88,6 +91,7 @@ Estas anotaciones se pueden aplicar a cualquier pod.
 ====
 
 
+[[tridentnoderemediation-cr]]
 === CR de remediación de nodos Trident
 
 El CR TridentNodeRemediation (TNR) define un nodo fallido. El nombre del TNR es el nombre del nodo que falló.
@@ -135,6 +139,7 @@ Los TNR pueden encontrarse en uno de los siguientes estados:
 
 
 
+[[enabling-automated-failover]]
 === Habilitación de la conmutación por error automática
 
 *Requisitos previos*:
@@ -198,6 +203,7 @@ Para obtener opciones de configuración adicionales, consultelink:https://github
 
 
 
+[[additional-setup-information]]
 === Información de configuración adicional
 
 Cuando Trident se instala con la opción de desconexión forzada habilitada, se crean automáticamente dos recursos adicionales en el espacio de nombres de Trident para facilitar la integración con NHC: TridentNodeRemediationTemplate (TNRT) y ClusterRole.
@@ -246,6 +252,7 @@ rules:
 ----
 
 
+[[k8s-cluster-upgrades-and-maintenance]]
 === Actualizaciones y mantenimiento de clústeres K8s
 
 Para evitar cualquier conmutación por error, pause la conmutación por error automatizada durante el mantenimiento o las actualizaciones de K8s, cuando se espera que los nodos se desconecten o se reinicien. Puedes pausar el CR del NHC (descrito anteriormente) parcheando su CR:
@@ -256,6 +263,7 @@ Esto pausa el proceso de conmutación por error automática. Para volver a habil
 
 
 
+[[limitations]]
 === Limitaciones
 
 * Las operaciones de E/S se impiden únicamente en los nodos fallidos para los volúmenes compatibles con force-detach. Solo se eliminan automáticamente los pods que utilizan volúmenes/PVC compatibles con force-detach.
@@ -264,6 +272,7 @@ Esto pausa el proceso de conmutación por error automática. Para volver a habil
 
 
 
+[[integrating-custom-node-health-check-solutions]]
 === Integración de soluciones personalizadas de comprobación del estado de los nodos
 
 Puede reemplazar el operador de comprobación de estado del nodo con herramientas alternativas de detección de fallos de nodo para activar la conmutación por error automática. Para garantizar la compatibilidad con el mecanismo de conmutación por error automatizado, su solución personalizada debe:

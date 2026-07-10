@@ -16,6 +16,7 @@ Busque información sobre problemas conocidos y limitaciones cuando use Trident 
 
 
 
+[[upgrading-trident-docker-volume-plugin-to-20-10-and-later-from-older-versions-results-in-upgrade-failure-with-the-no-such-file-or-directory-error]]
 == Si se actualiza el complemento Trident Docker Volume Plugin a 20.10 y versiones posteriores, se produce un error de actualización sin dicho archivo o directorio.
 
 .Solución alternativa
@@ -41,6 +42,7 @@ docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-per
 
 
 
+[[volume-names-must-be-a-minimum-of-2-characters-in-length]]
 == Los nombres de volumen deben tener una longitud mínima de 2 caracteres.
 
 
@@ -48,6 +50,7 @@ NOTE: Esta es una limitación de cliente de Docker. El cliente interpretará un 
 
 
 
+[[docker-swarm-has-certain-behaviors-that-prevent-trident-from-supporting-it-with-every-storage-and-driver-combination]]
 == Docker Swarm tiene ciertos comportamientos que impiden que Trident ofrezca compatibilidad con cada combinación de almacenamiento y controladores.
 
 * Docker Swarm actualmente utiliza el nombre del volumen en lugar del ID de volumen como su identificador de volumen único.
@@ -61,4 +64,5 @@ NetApp ha proporcionado comentarios al equipo de Docker, pero no tiene ningún i
 
 
 
+[[if-a-flexgroup-is-being-provisioned-ontap-does-not-provision-a-second-flexgroup-if-the-second-flexgroup-has-one-or-more-aggregates-in-common-with-the-flexgroup-being-provisioned]]
 == Si se está provisionando un FlexGroup, ONTAP no aprovisiona una segunda FlexGroup si el segundo FlexGroup tiene uno o más agregados en común con el FlexGroup que se está aprovisionando.

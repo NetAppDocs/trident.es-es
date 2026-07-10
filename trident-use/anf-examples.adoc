@@ -16,6 +16,7 @@ Obtenga más información sobre las opciones de configuración de back-end NFS y
 
 
 
+[[backend-configuration-options]]
 == Opciones de configuración del back-end
 
 Trident utiliza tu configuración de backend (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en pools de capacidad que están disponibles en la ubicación solicitada y coinciden con el nivel de servicio y la subred solicitados.
@@ -107,9 +108,10 @@ NOTE: Para obtener más información sobre las funciones de red, consulte link:h
 
 
 
-== Considera los entornos cloud de Azure (26.02)
+[[consider-azure-cloud-environments-26-06]]
+== Considera los entornos cloud de Azure (26.06)
 
-A partir de la versión 26.02, Trident admite la creación y gestión de backends de Azure NetApp Files en varios entornos cloud de Azure.
+A partir de la versión 26.06, Trident admite la creación y gestión de backends de Azure NetApp Files en varios entornos cloud de Azure.
 
 Las nubes de Azure compatibles incluyen:
 
@@ -121,6 +123,7 @@ Cuando despliegas Trident o creas un backend de Azure NetApp Files, asegúrate d
 
 
 
+[[required-permissions-and-resources]]
 === Permisos y recursos necesarios
 
 Si recibes el error "No capacity pools found" al crear un PVC, es probable que el registro de tu aplicación no tenga los permisos y recursos necesarios (subred, red virtual, capacity pool) asociados. Si la depuración está activada, Trident registra los recursos de Azure descubiertos cuando se crea el backend. Verifica que se esté usando un rol adecuado.
@@ -153,6 +156,7 @@ Los  `resourceGroups`, `netappAccounts`, y `capacityPools` valores son filtros q
 |===
 
 
+[[volume-provisioning]]
 === Aprovisionamiento de volúmenes
 
 Puedes controlar el aprovisionamiento de volúmenes predeterminados especificando las siguientes opciones en una sección especial del archivo de configuración. Consulta <<Configuraciones de ejemplo>> para más detalles.
@@ -176,6 +180,7 @@ Puedes controlar el aprovisionamiento de volúmenes predeterminados especificand
 |===
 
 
+[[example-configurations]]
 == Configuraciones de ejemplo
 
 Los siguientes ejemplos muestran configuraciones básicas que dejan la mayoría de los parámetros en sus valores predeterminados. Esta es la forma más fácil de definir un backend.
@@ -415,12 +420,14 @@ supportedTopologies:
 ====
 
 
+[[storage-class-definitions]]
 == Definiciones de clases de almacenamiento
 
 Lo siguiente `StorageClass` las definiciones hacen referencia a los pools de almacenamiento anteriores.
 
 
 
+[[example-definitions-using-parameter-selector-field]]
 === Definiciones de ejemplo mediante `parameter.selector` campo
 
 Usando `parameter.selector` puedes especificar para cada `StorageClass`el pool virtual que se usa para alojar un volumen. El volumen tendrá los aspectos definidos en el pool elegido.
@@ -459,6 +466,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[example-definitions-for-smb-volumes]]
 === Definiciones de ejemplo de volúmenes SMB
 
 Usando  `nasType`,  `node-stage-secret-name` y  `node-stage-secret-namespace`, puedes especificar un volumen SMB y proporcionar las credenciales de Active Directory necesarias.
@@ -520,6 +528,7 @@ NOTE: `nasType: smb`filtros para grupos que admiten volúmenes SMB.
 
 
 
+[[create-the-backend]]
 == Cree el back-end
 
 Después de crear el archivo de configuración del back-end, ejecute el siguiente comando:

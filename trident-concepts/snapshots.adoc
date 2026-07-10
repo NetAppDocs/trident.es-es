@@ -16,6 +16,7 @@ Obtenga más información sobre cómo Trident maneja la creación de snapshots d
 
 
 
+[[learn-about-volume-snapshot-creation]]
 == Obtenga información acerca de la creación de snapshots de volúmenes
 
 * Para el `ontap-nas` , `ontap-san` , y `azure-netapp-files` En cada controlador, cada volumen persistente (PV) se asigna a un FlexVol volume . Como resultado, las instantáneas de volumen se crean como instantáneas de NetApp . La tecnología de instantáneas de NetApp ofrece mayor estabilidad, escalabilidad, capacidad de recuperación y rendimiento que las tecnologías de instantáneas de la competencia. Estas copias instantáneas son extremadamente eficientes tanto en el tiempo necesario para crearlas como en el espacio de almacenamiento.

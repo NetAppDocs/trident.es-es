@@ -18,6 +18,7 @@ Un enlace de ejecución es una acción personalizada que puede configurar para q
 
 
 
+[[types-of-execution-hooks]]
 == Tipos de enlaces de ejecución
 
 Trident Protect admite los siguientes tipos de ganchos de ejecución, según cuándo se puedan ejecutar:
@@ -32,6 +33,7 @@ Trident Protect admite los siguientes tipos de ganchos de ejecución, según cu�
 
 
 
+[[order-of-execution]]
 === Orden de ejecución
 
 Cuando se ejecuta una operación de protección de datos, los eventos de enlace de ejecución tienen lugar en el siguiente orden:
@@ -62,6 +64,7 @@ NOTE: Si un gancho de ejecución previo a la instantánea agrega, cambia o elimi
 
 
 
+[[important-notes-about-custom-execution-hooks]]
 == Notas importantes sobre los enlaces de ejecución personalizados
 
 Tenga en cuenta lo siguiente al planificar enlaces de ejecución para sus aplicaciones.
@@ -77,6 +80,7 @@ NOTE: Debido a que los enlaces de ejecución a menudo reducen o desactivan por c
 
 
 
+[[execution-hook-filters]]
 == Filtros de gancho de ejecución
 
 Al agregar o editar un enlace de ejecución para una aplicación, puede agregar filtros al enlace de ejecución para gestionar qué contenedores coincidirá el enlace. Los filtros son útiles para aplicaciones que usan la misma imagen de contenedor en todos los contenedores, pero pueden usar cada imagen para un propósito diferente (como Elasticsearch). Los filtros le permiten crear escenarios donde los enlaces de ejecución se ejecutan en algunos, pero no necesariamente todos los contenedores idénticos. Si crea varios filtros para un único enlace de ejecución, se combinan con un operador y lógico. Puede tener hasta 10 filtros activos por gancho de ejecución.
@@ -88,6 +92,7 @@ NOTE: Si se agrega un filtro de espacio de nombres a un enlace de ejecución que
 
 
 
+[[execution-hook-examples]]
 == Ejemplos de gancho de ejecución
 
 Visite el https://github.com/NetApp/Verda["Proyecto Verda GitHub de NetApp"] para descargar ganchos de ejecución reales para aplicaciones populares como Apache Cassandra y Elasticsearch. También puede ver ejemplos y obtener ideas para estructurar sus propios enlaces de ejecución personalizados.
@@ -97,6 +102,7 @@ NOTE: Los scripts del repositorio de Verda se proporcionan «tal cual» y no cue
 
 
 
+[[create-an-execution-hook]]
 == Cree un enlace de ejecución
 
 Puede crear un gancho de ejecución personalizado para una aplicación usando Trident Protect. Necesitas tener permisos de Propietario, Administrador o Miembro para crear ganchos de ejecución.
@@ -205,6 +211,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 ====
 
 
+[[manually-run-an-execution-hook]]
 == Ejecute manualmente un enlace de ejecución
 
 Puede ejecutar manualmente un enlace de ejecución para fines de prueba o si necesita volver a ejecutar el enlace manualmente después de un fallo. Debe tener permisos de Propietario, Administrador o Miembro para ejecutar manualmente los ganchos de ejecución.

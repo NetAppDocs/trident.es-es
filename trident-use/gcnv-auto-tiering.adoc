@@ -17,24 +17,28 @@ La clasificación automática se configura a través de los parámetros de backe
 
 
 
+[[overview]]
 == Descripción general
 
 La jerarquización automática permite a Trident aprovisionar volúmenes que mueven automáticamente los datos inactivos de un nivel de rendimiento a un nivel de capacidad. Esto reduce el coste de almacenamiento mientras se preserva el rendimiento para los datos a los que se accede con frecuencia.
 
-Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.02.
+Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.06.
 
 
 
+[[concepts]]
 == Conceptos
 
 
 
+[[auto-tiering]]
 === Organización automática en niveles
 
 La jerarquización automática mueve los datos a los que se accede con poca frecuencia de un nivel de rendimiento a un nivel de capacidad según los patrones de acceso. El movimiento de datos ocurre de forma asíncrona y no es inmediato.
 
 
 
+[[tiering-policy]]
 === Política de tiering
 
 La política de jerarquización determina si la jerarquización automática está habilitada para un volumen.
@@ -43,16 +47,19 @@ Se admiten las siguientes políticas: * `auto`: permite la jerarquización autom
 
 
 
+[[cooling-days]]
 === Días de refrigeración
 
 Los días de enfriamiento especifican el número mínimo de días que un bloque de datos debe permanecer inactivo antes de que sea elegible para la clasificación por niveles. Los días de enfriamiento se aplican solo cuando la política de clasificación por niveles se establece en `auto`.
 
 
 
+[[configuration-model]]
 == Modelo de configuración
 
 
 
+[[configuration-scopes]]
 === Ámbitos de configuración
 
 La jerarquización automática puede configurarse en varios ámbitos:
@@ -65,6 +72,7 @@ Trident determina la configuración efectiva según dónde se defina cada ajuste
 
 
 
+[[configuration-precedence]]
 === Precedencia de la configuración
 
 Cuando se define la misma configuración en varios ámbitos, Trident aplica el siguiente orden de precedencia:
@@ -78,9 +86,10 @@ Los ajustes definidos con mayor precedencia reemplazan los valores de nivel infe
 
 
 
-== Funcionalidad compatible en Trident 26.02
+[[supported-functionality-in-trident-26-06]]
+== Funcionalidad compatible en Trident 26.06
 
-Trident 26.02 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:
+Trident 26.06 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:
 
 * Habilitar o deshabilitar la clasificación automática durante el aprovisionamiento de volúmenes
 * Definir una política de niveles en la configuración del backend de Trident
@@ -90,7 +99,8 @@ Trident 26.02 es compatible con las siguientes funciones de auto-tiering para Go
 
 
 
-== Funcionalidad no soportada en Trident 26.02
+[[unsupported-functionality-in-trident-26-06]]
+== Funcionalidad no soportada en Trident 26.06
 
 Las siguientes operaciones no son compatibles:
 
@@ -101,6 +111,7 @@ Las siguientes operaciones no son compatibles:
 
 
 
+[[backend-configuration-parameters]]
 == Parámetros de configuración del backend
 
 Los siguientes parámetros controlan el comportamiento del auto-tiering cuando se definen en la configuración del backend de Trident:
@@ -117,10 +128,12 @@ Los siguientes parámetros controlan el comportamiento del auto-tiering cuando s
 |===
 
 
+[[volume-level-overrides-using-persistentvolumeclaim-annotations]]
 == Anulaciones a nivel de volumen usando anotaciones de PersistentVolumeClaim
 
 
 
+[[supported-annotations]]
 === Anotaciones admitidas
 
 Las anotaciones de PersistentVolumeClaim permiten anular por volumen la configuración de auto-tiering.
@@ -137,6 +150,7 @@ Las anotaciones de PersistentVolumeClaim permiten anular por volumen la configur
 |===
 
 
+[[example-persistentvolumeclaim-with-auto-tiering-overrides]]
 === Ejemplo: PersistentVolumeClaim con anulaciones de auto-tiering
 
 [source, yaml]
@@ -158,10 +172,12 @@ spec:
 ----
 
 
+[[behavior-and-limitations]]
 == Comportamiento y limitaciones
 
 
 
+[[provisioning-behavior]]
 === Comportamiento del aprovisionamiento
 
 * Los ajustes de clasificación automática se evalúan y aplican solo en el momento de la creación del volumen.
@@ -171,6 +187,7 @@ spec:
 
 
 
+[[platform-limitations]]
 === Limitaciones de la plataforma
 
 * La jerarquización automática solo es compatible con volúmenes NAS (NFS y SMB).
@@ -180,6 +197,7 @@ spec:
 
 
 
+[[supported-values]]
 === Valores admitidos
 
 * Rango válido para `tieringMinimumCoolingDays`: 2 a 183

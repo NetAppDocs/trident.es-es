@@ -16,6 +16,7 @@ Puede actualizar Trident para Docker de forma segura sin afectar a los volúmene
 
 
 
+[[upgrade]]
 == Renovar
 
 Realice los siguientes pasos para actualizar Trident para Docker.
@@ -77,6 +78,7 @@ IMPORTANT: Si va a actualizar desde una versión anterior de Trident (anterior a
 
 
 
+[[uninstall]]
 == Desinstalar
 
 Siga los pasos que se indican a continuación para desinstalar Trident para Docker.

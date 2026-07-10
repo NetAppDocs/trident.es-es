@@ -19,6 +19,7 @@ NOTE: Ignore esta sección si está utilizando CHAP, que se recomienda para simp
 
 
 
+[[learn-about-volume-access-groups]]
 == Obtenga información acerca de los grupos de acceso de volúmenes
 
 Trident puede usar grupos de acceso de volúmenes para controlar el acceso a los volúmenes que aprovisiona. Si CHAP está deshabilitado, espera encontrar un grupo de acceso llamado `trident` a menos que especifique uno o más ID de grupo de acceso en la configuración.

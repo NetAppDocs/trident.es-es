@@ -15,6 +15,7 @@ A partir de Trident 26.06, un administrador de almacenamiento puede trasladar si
 
 
 
+[[requirements]]
 == Requisitos
 
 La función de desplazamiento de volúmenes se aplica solo al controlador  `ontap-san` para volúmenes iSCSI. No se admiten los protocolos NVMe ni NAS.
@@ -33,6 +34,7 @@ Antes de mover un volumen, asegúrate de que se cumplan los siguientes requisito
 
 
 
+[[how-it-works]]
 == Cómo funciona
 
 Trident traslada el volumen (LUN) entre dos ubicaciones dentro del mismo clúster de ONTAP. Antes de que se trasladen los datos, Trident añade nuevas rutas iSCSI al destino junto a las rutas existentes, de modo que el dispositivo multivía del host nunca pierda el acceso. Una vez que ONTAP ha completado el traslado, Trident elimina las rutas de origen obsoletas.
@@ -41,10 +43,12 @@ Trident gestiona el traslado a través de una secuencia ordenada de estados que 
 
 
 
+[[move-a-volume]]
 == Mover un volumen
 
 
 
+[[identify-the-volume-and-locations]]
 === Identifica el volumen y las ubicaciones
 
 . Busca el nombre del PV que quieres mover. El nombre del PV es también el nombre del recurso de movimiento.
@@ -53,6 +57,7 @@ Trident gestiona el traslado a través de una secuencia ordenada de estados que 
 
 
 
+[[start-the-move]]
 === Empieza la mudanza
 
 Utiliza cualquiera de los dos métodos. Ambos crean el mismo `TridentVolumeMove` recurso, cuyo nombre es el del PV.
@@ -106,6 +111,7 @@ kubectl apply -f tridentvolumemove.yaml
 
 
 
+[[monitor-the-move]]
 === Supervisa la mudanza
 
 Sigue el progreso usando el `tvm` nombre abreviado o `tridentvolumemove`:
@@ -176,6 +182,7 @@ La  `.status.attachments` lista muestra el progreso de cada nodo adjunto en su c
 |===
 
 
+[[clean-up-the-move-resource]]
 === Limpia el recurso de traslado
 
 Si configuras `deleteAfterSuccess`, Trident elimina el recurso automáticamente. De lo contrario, puedes eliminarlo manualmente. Antes de solicitar otro traslado en el mismo volumen, asegúrate de que no exista ningún recurso `TridentVolumeMove` para ese volumen en estado `Succeeded` o `Failed`.

@@ -18,6 +18,7 @@ Puede personalizar las operaciones de restauración utilizando configuraciones a
 
 
 
+[[namespace-annotations-and-labels-during-restore-and-failover-operations]]
 == Etiquetas y anotaciones del espacio de nombres durante las operaciones de restauración y conmutación al nodo de respaldo
 
 Durante las operaciones de restauración y conmutación al nodo de respaldo, se realizan etiquetas y anotaciones en el espacio de nombres de destino que coincidan con las etiquetas y anotaciones en el espacio de nombres de origen. Se añaden etiquetas o anotaciones del espacio de nombres origen que no existen en el espacio de nombres destino, y las etiquetas o anotaciones que ya existan se sobrescriben para que coincidan con el valor del espacio de nombres origen. Las etiquetas o anotaciones que sólo existen en el espacio de nombres de destino permanecen sin cambios.
@@ -40,6 +41,7 @@ Si instalaste la aplicación de origen usando Helm con el `--create-namespace` b
 
 
 
+[[example]]
 === Ejemplo
 
 El siguiente ejemplo presenta un espacio de nombres de origen y destino, cada uno con anotaciones y etiquetas diferentes. Puede ver el estado del espacio de nombres de destino antes y después de la operación, así como cómo las anotaciones y etiquetas se combinan o sobrescriben en el espacio de nombres de destino.
@@ -102,12 +104,14 @@ En la siguiente tabla se muestra el estado del espacio de nombres de destino de 
 |===
 
 
+[[supported-fields]]
 == Campos admitidos
 
 Esta sección describe campos adicionales disponibles para operaciones de restauración.
 
 
 
+[[storage-class-mapping]]
 === Mapeo de clases de almacenamiento
 
 El `spec.storageClassMapping` El atributo define una asignación de una clase de almacenamiento presente en la aplicación de origen a una nueva clase de almacenamiento en el clúster de destino.  Puede usar esto al migrar aplicaciones entre clústeres con diferentes clases de almacenamiento o al cambiar el backend de almacenamiento para operaciones de BackupRestore.
@@ -124,6 +128,7 @@ storageClassMapping:
 ----
 
 
+[[supported-annotations]]
 == Anotaciones admitidas
 
 Esta sección enumera las anotaciones compatibles para configurar diversos comportamientos en el sistema. Si el usuario no configura una anotación explícitamente, el sistema utilizará el valor predeterminado.
