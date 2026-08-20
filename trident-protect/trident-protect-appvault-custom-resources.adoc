@@ -517,7 +517,7 @@ Consulte la siguiente tabla para conocer las opciones de configuración del prov
 | `providerConfig.s3.secure` | Habilite la comunicación HTTPS segura con el punto final S3. | verdadero | "verdadero", "falso" 
 
 
-| `providerConfig.s3.proxyURL` | Especifique la URL del servidor proxy utilizado para conectarse a S3. | Ninguno | http://proxy.example.com:8080[] 
+| `providerConfig.s3.proxyURL` | Especifique la URL del servidor proxy utilizado para conectarse a S3. | Ninguno | \http://proxy.example.com:8080 
 
 
 | `providerConfig.s3.rootCA` | Proporcione un certificado CA raíz personalizado para la verificación SSL/TLS. | Ninguno | "CN=MiCAPersonalizada" 

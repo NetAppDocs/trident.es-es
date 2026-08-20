@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-balanced-placement.html 
+keywords: trident backend, ontap, balanced placement, useBalancedPlacement, aggregates, afx, unified, provisioning, storage pools 
+summary: Trident es compatible con la asignación equilibrada de ONTAP, que delega la selección de agregados a ONTAP cuando Trident aprovisiona volúmenes en los backends de ONTAP. 
+---
+= Utiliza la distribución equilibrada con los backends de ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:linkattrs: 
+:relative_path: ./
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes habilitar la distribución equilibrada de ONTAP en los backends de ONTAP. Con la distribución equilibrada, ONTAP selecciona el agregado óptimo para cada nuevo volumen, así que no necesitas gestionar la asignación de agregados en Trident.
+
+
+
+[[how-balanced-placement-works]]
+== Cómo funciona la asignación equilibrada
+
+De forma predeterminada, Trident detecta los agregados asignados a una SVM, trata cada agregado como un grupo de almacenamiento y selecciona un agregado al aprovisionar un volumen.
+
+Cuando activas la ubicación equilibrada:
+
+* Trident muestra todo el SVM como un único grupo de almacenamiento en lugar de mostrar los agregados de forma individual.
+* ONTAP selecciona el agregado para cada nuevo volumen y distribuye los volúmenes entre los agregados disponibles.
+* Trident crea volúmenes mediante la API de REST de ONTAP `/application/containers`.
+
+
+La distribución equilibrada está disponible para los sistemas ONTAP unificados (AFF, FAS y ASA) y los sistemas de almacenamiento AFX de NetApp.
+
+
+
+[[requirements]]
+== Requisitos
+
+* El backend debe utilizar ONTAP 9.19.1 o una versión posterior.
+* Trident debe comunicarse con ONTAP mediante REST. La distribución equilibrada no está disponible con ZAPI.
+* La configuración del backend no debe especificar agregados. No puedes combinar la distribución equilibrada con la selección explícita de agregados.
+
+
+
+
+[[default-values]]
+== Valores por defecto
+
+El valor por defecto de  `useBalancedPlacement` depende del sistema de almacenamiento:
+
+[cols="1,1,2"]
+|===
+| Sistema de almacenamiento | Predeterminado | Notas 
+
+
+| ONTAP unificado (AFF, FAS, ASA) | `false` | Trident selecciona los agregados a menos que actives la colocación equilibrada. 
+
+
+| NetApp AFX (ONTAP 9.19.1 o posterior) | `true` | Es necesario que la ubicación sea equilibrada. Establecer `useBalancedPlacement` en `false` hace que la validación del backend falle. 
+
+
+| NetApp AFX (anterior a ONTAP 9.19.1) | `false` | La asignación equilibrada no está disponible. 
+|===
+
+
+[[configuration-option]]
+== Opción de configuración
+
+[cols="1,2,1"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `useBalancedPlacement` | Delegar la selección de agregados para nuevos volúmenes en ONTAP. Configura esta opción en la raíz de la configuración del backend o en grupos virtuales individuales. | `false`; `true` para AFX en ONTAP 9.19.1 o versiones posteriores 
+|===
+
+
+[[balanced-placement-with-virtual-pools]]
+== Asignación equilibrada con grupos virtuales
+
+La asignación equilibrada funciona tanto con como sin grupos virtuales:
+
+* Sin grupos de almacenamiento virtuales, Trident informa el SVM como un único grupo de almacenamiento y crea todos los nuevos volúmenes utilizando una distribución equilibrada.
+* Con los grupos virtuales, Trident informa los grupos virtuales y asigna los volúmenes a ellos como de costumbre. Si el grupo virtual coincidente tiene habilitada la distribución equilibrada, ONTAP selecciona el agregado para el volumen.
+
+
+Establece  `useBalancedPlacement` en la raíz de la configuración del backend para aplicarlo a todos los grupos virtuales, o configúralo en grupos virtuales concretos para habilitarlo de forma selectiva.
+
+
+
+[[examples]]
+== Ejemplos
+
+El siguiente ejemplo permite un reparto equilibrado en un backend ONTAP unificado:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: cluster-admin
+password: <password>
+useBalancedPlacement: true
+----
+El siguiente ejemplo permite una distribución equilibrada utilizando  `TridentBackendConfig`:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: nas-balanced-placement
+  managementLIF: 10.0.0.1
+  svm: trident_svm
+  useBalancedPlacement: true
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+El siguiente ejemplo habilita la distribución equilibrada únicamente en el `gold` grupo virtual. Trident sigue seleccionando agregados para los volúmenes que coinciden con el `bronze` grupo virtual:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-virtual-pools
+managementLIF: 10.0.0.1
+svm: trident_svm
+username: cluster-admin
+password: <password>
+storage:
+- labels:
+    performance: gold
+  useBalancedPlacement: true
+- labels:
+    performance: bronze
+----
+
+
+[[backend-validation-errors]]
+== Errores de validación del backend
+
+La creación o actualización del backend falla en los siguientes casos:
+
+[cols="2,2"]
+|===
+| Configuración | Resultado 
+
+
+| `useBalancedPlacement: true` en ONTAP anterior a 9.19.1 | La validación ha fallado. Actualiza a ONTAP 9.19.1 o una versión posterior. 
+
+
+| `useBalancedPlacement: true` en un backend que utiliza ZAPI | Error de validación. Configura el backend para que utilice REST. 
+
+
+| `useBalancedPlacement: true` en combinación con agregados específicos | La validación falla. Elimina la configuración del agregado o desactiva la distribución equilibrada. 
+
+
+| `useBalancedPlacement: false` en AFX con ONTAP 9.19.1 o posterior | La validación falló. Se requiere una distribución equilibrada para AFX en ONTAP 9.19.1 o posterior. 
+|===

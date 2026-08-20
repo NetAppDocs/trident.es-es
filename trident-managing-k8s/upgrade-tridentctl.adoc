@@ -18,7 +18,7 @@ Puede actualizar fácilmente una instalación existente de Trident usando `tride
 La desinstalación y la reinstalación de Trident actúa como una actualización. Al desinstalar Trident, la reclamación de volumen persistente (RVP) y el volumen persistente (PV) que utiliza la implementación de Trident no se eliminan. Los VP que ya se hayan aprovisionado permanecerán disponibles mientras Trident esté desconectado, y Trident aprovisionará volúmenes para cualquier RVP que se creen en ese momento tras su nuevo funcionamiento.
 
 .Antes de empezar
-Revisar link:upgrade-trident.html#select-an-upgrade-method["Seleccione un método de actualización"] antes de actualizar mediante `tridentctl`.
+Revisa link:upgrade-trident.html#step-3-select-an-upgrade-method["Seleccione un método de actualización"] antes de actualizar usando `tridentctl`.
 
 .Pasos
 . Ejecute el comando uninstall en `tridentctl` para eliminar todos los recursos asociados con Trident, excepto los CRD y los objetos relacionados.

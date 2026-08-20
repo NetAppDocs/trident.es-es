@@ -319,7 +319,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 ----
 
 
-Para más información sobre otras opciones de configuración, consulta la sección <<Backend-advanced-configuration-and-examples>> a continuación.
+Para más información sobre otras opciones de configuración, consulta la sección <<first-link,Configuración avanzada del backend y ejemplos>> a continuación.
 
 
 
@@ -459,8 +459,8 @@ Puedes aprovisionar volúmenes SMB usando el controlador `ontap-nas`. Sin embarg
 
 
 
-[[backend-advanced-configuration-and-examples]]
-== Configuración avanzada de backend y ejemplos
+[[first-linkbackend-advanced-configuration-and-examples]]
+== [[first-link]]Configuración avanzada del backend y ejemplos
 
 Consulte la siguiente tabla para ver las opciones de configuración del back-end:
 
