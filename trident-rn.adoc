@@ -19,6 +19,44 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
+[[whats-new-in-26-06-1]]
+== Novedades de 26.06.1
+
+Descubre qué hay de nuevo en NetApp Trident y Trident Protect, incluyendo mejoras, correcciones y elementos obsoletos.
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== Soluciones
+
+* *Kubernetes*:
++
+** Se corrigió un conflicto entre la publicación de CSI y el traslado de un volumen que podía provocar que se adjuntara un volumen utilizando información de acceso obsoleta.
+** Se ha corregido un problema de carrera por el que NodeGetInfo podía devolver etiquetas de topología vacías antes de que se completara el registro de los nodos, lo que provocaba errores en el aprovisionamiento basado en la topología.
+** Se corrigió un raro conflicto de desconexión de NVMe que podía provocar la desactivación de un subsistema compartido mientras otro pod aún se estaba conectando.
+** Se solucionaron los errores de publicación de clones PVC de NVMe (y la asignación incorrecta del espacio de nombres principal) al crear clones de un volumen montado bajo concurrencia.
+** Se solucionaron los errores en la creación de instantáneas para los PVC en backends ONTAP-SAN-Economy que usan un nameTemplate.
+
+
+
+
+
+
+==== Mejoras
+
+* *Kubernetes*:
++
+** Se añadió el parámetro opcional  `storageAPITimeout` (segundos) en la configuración del backend de ONTAP para establecer los tiempos de espera de los clientes de las API REST y ZAPI por backend.
+
+
+
+
+
+
 [[whats-new-in-26-06]]
 == Novedades en 26.06
 

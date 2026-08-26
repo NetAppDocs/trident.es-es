@@ -7319,4 +7319,11 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="d25a42bf8872d5c2742f43937586ad40" category="inline-xref">Configuración avanzada del backend y ejemplos</block>
   <block id="f3bbb160e5770652e96a6a7ce5e4aaa9" category="paragraph">Para más información sobre otras opciones de configuración, consulta la sección <block ref="24ff2177ac2d3277f1e79fe1615781ee" category="inline-xref-macro-rx"></block> a continuación.</block>
   <block id="3929c8e22750fae0b1b6ca0e82f82fd3" category="section-title">[[first-link]]Configuración avanzada del backend y ejemplos</block>
+  <block id="c3bd78da5a8e8ae22bd50629327c0c26" category="section-title">Novedades de 26.06.1</block>
+  <block id="0063db86c3042093f4b48db59ca75d87" category="list-text">Se corrigió un conflicto entre la publicación de CSI y el traslado de un volumen que podía provocar que se adjuntara un volumen utilizando información de acceso obsoleta.</block>
+  <block id="99bc89ae140f34c4ef13f436b3578358" category="list-text">Se ha corregido un problema de carrera por el que NodeGetInfo podía devolver etiquetas de topología vacías antes de que se completara el registro de los nodos, lo que provocaba errores en el aprovisionamiento basado en la topología.</block>
+  <block id="8141a9378a82f2d156fbd38ada6c3466" category="list-text">Se corrigió un raro conflicto de desconexión de NVMe que podía provocar la desactivación de un subsistema compartido mientras otro pod aún se estaba conectando.</block>
+  <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Se solucionaron los errores de publicación de clones PVC de NVMe (y la asignación incorrecta del espacio de nombres principal) al crear clones de un volumen montado bajo concurrencia.</block>
+  <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Se solucionaron los errores en la creación de instantáneas para los PVC en backends ONTAP-SAN-Economy que usan un nameTemplate.</block>
+  <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Se añadió el parámetro opcional <block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (segundos) en la configuración del backend de ONTAP para establecer los tiempos de espera de los clientes de las API REST y ZAPI por backend.</block>
 </blocks>
