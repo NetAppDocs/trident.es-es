@@ -1,13 +1,15 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-nas-examples.html 
+keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster 
+summary: Aprende cómo crear y usar controladores ONTAP NAS con tu instalación de Trident. Esta sección ofrece ejemplos de configuración de backends y detalles sobre cómo asignar backends a StorageClasses. 
+---
 = Opciones y ejemplos de configuración NAS de ONTAP
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
 
-
-'''
-sidebar: sidebar permalink: trident-use/ontap-nas-examples.html keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx, metrocluster summary: Descubre cómo crear y usar controladores ONTAP NAS con tu instalación de Trident. Esta sección ofrece ejemplos de configuración de backends y detalles sobre cómo asignar backends a StorageClasses. ---
-
-
-
-= Opciones y ejemplos de configuración NAS de ONTAP
 
 [role="lead"]
 Crea y utiliza controladores NAS de ONTAP con tu instalación de Trident. Esta sección ofrece ejemplos de configuración de backends y detalles para asignar backends a StorageClasses. A partir de la versión 25.10, NetApp Trident es compatible con link:https://docs.netapp.com/us-en/ontap-afx/index.html["Sistemas de almacenamiento NetApp AFX"^]. NetApp AFX los sistemas de almacenamiento se diferencian de otros sistemas basados en ONTAP (ASA, AFF y FAS) en la implementación de su capa de almacenamiento.
