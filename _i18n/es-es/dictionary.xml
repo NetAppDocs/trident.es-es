@@ -4326,8 +4326,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">Promocione la RVP secundaria durante una conmutación al respaldo planificada</block>
   <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">Durante una conmutación al respaldo planificada (migración), realice los siguientes pasos para promocionar la RVP secundaria:</block>
   <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">En el clúster de Kubernetes principal, cree una snapshot de la RVP y espere hasta que se cree la snapshot.</block>
-  <block id="8b17b79902950942165541a8ab704363" category="list-text">En el clúster de Kubernetes principal, cree SnapshotInfo CR para obtener información interna.</block>
-  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">En el clúster de Kubernetes secundario, actualice el campo _spec.state_ de _TridentMirrorRelationship_ CR a _promoted_ y _spec.promotedSnapshotHandle_ para que sea InternalName de la snapshot.</block>
   <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">En un clúster de Kubernetes secundario, confirme el estado (campo status.state) de TridentMirrorRelationship a Promoted.</block>
   <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">Restaure una relación de mirroring después de una conmutación al nodo de respaldo</block>
   <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">Antes de restaurar una relación de reflejo, elija el lado que desea realizar como el nuevo primario.</block>
@@ -6619,7 +6617,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="7d6abad6d9b0cb2c17d374eb60cfd549" category="paragraph">A continuación se muestran ejemplos de configuraciones de Storage Class para su uso con Trident y FSx for ONTAP.</block>
   <block id="79aed0c0cab8f60748d97cff824e71d8" category="section-title">Clase de almacenamiento para NFS</block>
   <block id="1aeaba8f713cb76c3933e520e71db58b" category="paragraph">Puedes usar este ejemplo para configurar StorageClass para volúmenes que usan NFS (consulta la sección de atributos de Trident a continuación para la lista completa de atributos):</block>
-  <block id="3c2af55b3b722b8e55112e627dcfa582" category="section-title">Storage Calss para iSCSI</block>
   <block id="157051d3c2492a3589f7ef937c9a3380" category="paragraph">Usa este ejemplo para configurar StorageClass para volúmenes que usan iSCSI:</block>
   <block id="5182a799b5d9bfc055f426543bab1173" category="section-title">Clase de almacenamiento con NFSv3 y AWS Bottlerocket</block>
   <block id="d95d0aae1fadec77938feae823d4861b" category="section-title">Atributos de Trident StorageClass</block>
@@ -7326,4 +7323,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Se solucionaron los errores de publicación de clones PVC de NVMe (y la asignación incorrecta del espacio de nombres principal) al crear clones de un volumen montado bajo concurrencia.</block>
   <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Se solucionaron los errores en la creación de instantáneas para los PVC en backends ONTAP-SAN-Economy que usan un nameTemplate.</block>
   <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Se añadió el parámetro opcional <block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (segundos) en la configuración del backend de ONTAP para establecer los tiempos de espera de los clientes de las API REST y ZAPI por backend.</block>
+  <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">Clase de almacenamiento para iSCSI</block>
+  <block id="791aed607ce65a32c8115590f604749d" category="list-text">En el clúster principal de Kubernetes, crea el TridentTridentSnapshotInfoCR para obtener información interna.</block>
+  <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">En el clúster secundario de Kubernetes, actualiza el campo _spec.state_ del CR _TridentMirrorRelationship_ a _promoted_ y _spec.volumeMappings[].promotedSnapshotHandle_ para que sea el internalName de la instantánea.</block>
 </blocks>

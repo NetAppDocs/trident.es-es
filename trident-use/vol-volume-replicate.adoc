@@ -233,19 +233,22 @@ Durante una conmutación al respaldo planificada (migración), realice los sigui
 
 .Pasos
 . En el clúster de Kubernetes principal, cree una snapshot de la RVP y espere hasta que se cree la snapshot.
-. En el clúster de Kubernetes principal, cree SnapshotInfo CR para obtener información interna.
+. En el clúster principal de Kubernetes, crea el TridentTridentSnapshotInfoCR para obtener información interna.
 +
 .Ejemplo
 [source, yaml]
 ----
-kind: SnapshotInfo
+kind: TridentSnapshotInfo
 apiVersion: trident.netapp.io/v1
 metadata:
   name: csi-nas
 spec:
-  snapshot-name: csi-nas-snapshot
+  snapshotName csi-nas-snapshot
 ----
-. En el clúster de Kubernetes secundario, actualice el campo _spec.state_ de _TridentMirrorRelationship_ CR a _promoted_ y _spec.promotedSnapshotHandle_ para que sea InternalName de la snapshot.
++
+.. En el clúster secundario de Kubernetes, actualiza el campo _spec.state_ del CR _TridentMirrorRelationship_ a _promoted_ y _spec.volumeMappings[].promotedSnapshotHandle_ para que sea el internalName de la instantánea.
+
+
 . En un clúster de Kubernetes secundario, confirme el estado (campo status.state) de TridentMirrorRelationship a Promoted.
 
 
