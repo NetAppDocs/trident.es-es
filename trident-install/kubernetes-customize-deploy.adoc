@@ -140,14 +140,11 @@ El límite de consultas por segundo (QPS) utilizado por el controlador mientras 
 
 
 | `enableConcurrency`  a| 
-Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento.
+Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento. Para obtener más información sobre los controladores compatibles, consulta el enlace: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+| `resources` 
 
 
-NOTE: *Vista previa técnica*: Esta función es experimental y actualmente admite flujos de trabajo paralelos limitados con los controladores ONTAP-NAS (solo NFS) y ONTAP-SAN (NVMe para unified ONTAP 9), además de la vista previa técnica existente para el controlador ONTAP-SAN (protocolos iSCSI y FCP en unified ONTAP 9).
-| falso 
-
-
-| `resources`  a| 
+ a| 
 Establece los límites de recursos y las solicitudes de Kubernetes para el controlador Trident y los pods de nodos. Puedes configurar la CPU y la memoria para cada contenedor y sidecar para gestionar la asignación de recursos en Kubernetes.
 
 Para obtener más información sobre la configuración de solicitudes y límites de recursos, consultelink:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestión de recursos para pods y contenedores"^] .
@@ -252,15 +249,10 @@ resources:
         limits:
           cpu:
           memory:
-----
+----| `httpsMetrics` 
 
 
-| `httpsMetrics` | Habilita HTTPS para el punto de conexión de métricas de Prometheus. | falso 
-
-
-| `hostNetwork`  a| 
-Habilita la conexión en red del host para el controlador Trident . Esto resulta útil cuando se desea separar el tráfico del frontend del tráfico del backend en una red multihome.
-| falso 
+| Habilita HTTPS para el punto de conexión de métricas de Prometheus. | falso | `hostNetwork` 
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del pod, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
