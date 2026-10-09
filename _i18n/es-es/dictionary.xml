@@ -914,7 +914,6 @@
   <block id="29b4db879e4cc96a6b71bc763367624b" category="list-text">Configuración de CHAP en la SVM:</block>
   <block id="13e0c564d5e1fbd33279fb276166653d" category="list-text">Configurar el iniciador de CHAP, el nombre de usuario y los secretos de destino; estas opciones deben especificarse en la configuración del back-end (como se muestra más arriba).</block>
   <block id="a7fe005c9f49619f4438aac8932fb361" category="paragraph">Para actualizar las credenciales de CHAP, se deben actualizar los parámetros de CHAP en<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> archivo. Para ello, será necesario actualizar los secretos CHAP y utilizar el<block ref="2849e93e1b3790bcd408a4f7ea580dbb" prefix=" " category="inline-code"></block> comando para reflejar estos cambios.</block>
-  <block id="19eb1a22d8687def5fb4904d3402728a" category="doc">Comparta un volumen NFS en espacios de nombres</block>
   <block id="98f770b0af18ca763421bac22b4b6805" category="section-title">Funciones</block>
   <block id="6b456f0abe4c4d2f0beb62e5985136cf" category="list-text">Varios niveles de control de acceso para garantizar la seguridad</block>
   <block id="6e5d93bf8e8aaaa4795a50f012bc8fea" category="list-text">Funciona con todos los controladores de volúmenes NFS de Trident</block>
@@ -962,7 +961,6 @@
   <block id="29db8b676d0a02f8179869506102c8ce" category="inline-link-macro">Configurar un back-end con controladores SAN ONTAP o Cloud Volumes ONTAP</block>
   <block id="df7d9b009cdb0a2623872cb3f905e161" category="list-text"><block ref="df7d9b009cdb0a2623872cb3f905e161" category="inline-link-macro-rx"></block></block>
   <block id="72a5926b7fb086fe87e93771f6620556" category="summary">Obtenga información sobre cómo realizar operaciones de administración de back-end mediante<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>.</block>
-  <block id="748a22b5f1312291ad55429ba4b809a0" category="doc">Realizar la administración de back-end con trimentctl</block>
   <block id="aeeb03235358f0f4bf3be628bed08721" category="section-title">Cree un back-end</block>
   <block id="34746f7a1d24170eeebf5510a045d43d" category="inline-link-macro">archivo de configuración del back-end</block>
   <block id="99b7232073a67a8c82304f979e3dc83f" category="paragraph">Después de crear un <block ref="03c0b6ed8698193668e92f56e9be3efa" category="inline-link-macro-rx"></block>, ejecute el siguiente comando:</block>
@@ -2851,7 +2849,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="ae7206c28f1d0ee5f9f116f1cfe22c54" category="cell">Plantilla para crear nombres de volúmenes personalizados.</block>
   <block id="b797b4560e6c4ae4e13d035bbce23b4d" category="example-title">Ejemplo de configuración de backend con nameTemplate</block>
   <block id="f1b9eac8c1d92956d7734db32c5e55d9" category="list-text">Cierre correcto o sin complicaciones de los K8s nodos (24,06)</block>
-  <block id="3c49604e542827bab74a3fdc9c521379" category="doc">Personalizar nombres y etiquetas de volúmenes</block>
   <block id="52929ef06c83a3071dc677c6076f8eb3" category="paragraph">Nombres de volumen y etiquetas personalizables admiten:</block>
   <block id="ba7ad86bd3d0a50a4a04306d941e6c28" category="list-text">Operaciones de creación, importación y clonado de volúmenes.</block>
   <block id="4c71628145ace597229ccf6ca6fdc8bf" category="section-title">Comportamientos clave de los nombres de volúmenes personalizables</block>
@@ -3374,7 +3371,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="9cf6e031ec85179307403b10689113c9" category="paragraph">Luego, es posible importar los volúmenes recuperados a Trident con <block ref="b0a81d9cb6f9ea994a428f959b11d3c6" category="inline-link-macro-rx"></block>.</block>
   <block id="3c520ff745f4964007340c06ce483d92" category="summary">Utilice las recomendaciones que se enumeran aquí al implementar Trident.</block>
   <block id="4ac9935cf245d076d6ef4babd8659321" category="paragraph"><block ref="c41296e544cd0faaa4fe4e8b22535287" category="inline-link-rx"></block> proporcionar separación administrativa entre diferentes aplicaciones y constituyen una barrera para el uso compartido de recursos. Por ejemplo, una RVP de un espacio de nombres no se puede consumir de otro. Trident proporciona recursos PV a todos los espacios de nombres del clúster de Kubernetes y, en consecuencia, aprovecha una cuenta de servicio que ha elevado el número de Privileges.</block>
-  <block id="f53e7cca65962add5f429193e9cbdb7c" category="doc">Integre Trident</block>
   <block id="ef77c788fd33425198e77cd3ce7c4525" category="paragraph">Para integrar Trident, los siguientes elementos de diseño y arquitectura requieren integración: Selección y puesta en marcha de controladores, diseño de la clase de almacenamiento, diseño de pools virtuales, reclamación de volumen persistente (RVP) impactos en el aprovisionamiento de almacenamiento, operaciones de volúmenes y puesta en marcha de servicios OpenShift mediante Trident.</block>
   <block id="9586fb9f48cc64f580092d7123d5acad" category="paragraph">Tenga en cuenta que, en las siguientes tablas, no todas las capacidades se exponen a través de Trident. El administrador de almacenamiento debe aplicar algunas después del aprovisionamiento si se desea disponer de esta funcionalidad. Las notas al pie de la superíndice distinguen la funcionalidad por característica y controlador.</block>
   <block id="5b003b29dfd53276a5b816a47ab32348" category="paragraph">Trident ofrece 2 controladores SAN para ONTAP, cuyas funcionalidades se muestran a continuación.</block>
@@ -5283,8 +5279,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="d11ec52e40490f88487a9042fdcfbce4" category="list-text">Para el<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ,<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> , y<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> En cada controlador, cada volumen persistente (PV) se asigna a un FlexVol volume . Como resultado, las instantáneas de volumen se crean como instantáneas de NetApp . La tecnología de instantáneas de NetApp ofrece mayor estabilidad, escalabilidad, capacidad de recuperación y rendimiento que las tecnologías de instantáneas de la competencia. Estas copias instantáneas son extremadamente eficientes tanto en el tiempo necesario para crearlas como en el espacio de almacenamiento.</block>
   <block id="493d70b01045b3860d249e304254b4c7" category="paragraph">Con Trident, puedes usar VolumeSnapshots para crear nuevos PV a partir de ellos. La creación de PV a partir de estas instantáneas se realiza utilizando la tecnología FlexClone para backends ONTAP compatibles. Al crear un PV a partir de una instantánea, el volumen de respaldo es un FlexClone del volumen principal de la instantánea. El<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> El controlador utiliza clones de volumen de software Element para crear PV a partir de instantáneas. Aquí se crea un clon a partir de la instantánea del elemento.</block>
   <block id="25f96c73018ecdf4416a2540508d0a38" category="paragraph">Al usar el<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> ,<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> , y<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> Los controladores de almacenamiento, Trident puede clonar volúmenes. Al usar el<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> o<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> controladores, la clonación no es compatible. La creación de un nuevo volumen a partir de un volumen existente dará como resultado la creación de una nueva instantánea.</block>
-  <block id="04405dc8db6e17d7853c7b251f054223" category="list-text">registro.k8s.io/sig-storage/csi-attacher:v4.10.0</block>
-  <block id="d49d35d0964102edd30044f046d62050" category="list-text">registro.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0</block>
   <block id="a3bfe8b87df4b85184ac2c726bd7b15e" category="list-text"><block ref="1a368feb8bb72ef66bb194b43d0a15b3" prefix="" category="inline-code"></block>*</block>
   <block id="e344165681ff8191ed4faed24ded7cc3" category="paragraph">Trident se ejecuta como un único pod de controlador y un pod de nodo en cada nodo de trabajo del clúster. El pod del nodo debe estar ejecutándose en cualquier host donde se desee potencialmente montar un volumen Trident .</block>
   <block id="2cfd796902655e533881e53b6b9743ed" category="inline-link-macro">Automatización de la conmutación por error de aplicaciones con estado con Trident</block>
@@ -6392,9 +6386,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="945c53097aed6aee6897384c32c13596" category="paragraph">Por ejemplo, esta política establece un<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> de<block ref="b3b9f60c2eb049d3bcbddd22d73210ce" prefix=" " category="inline-code"></block>, pero Trident aplica un crecimiento de 51 MB para cualquier volumen SAN que lo use:</block>
   <block id="a55370dbc1a259397316ceebdfed21b8" category="paragraph">Para evitar este ajuste automático, establece<block ref="b8975976fc99a32ebfa6029b743acee3" prefix=" " category="inline-code"></block> en un valor mayor a 50 MiB:</block>
   <block id="b58eceaaba71c126318ed8daedaef74b" category="sidebar">Configura la jerarquización automática</block>
-  <block id="93284b31b63cc86c59eeb4dcd6ba1751" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.1.0</block>
-  <block id="f5345a3e1ca4c50ed544fae4c14150b1" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.0.0</block>
-  <block id="ed2e3a3511b1047c788e7fd621778ee2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0</block>
   <block id="0adb26270c00fc572774f5cb57d01573" category="inline-link-macro">26,02</block>
   <block id="e352a332a817691cf8394c9b1288306f" category="paragraph"><block ref="e352a332a817691cf8394c9b1288306f" category="inline-link-macro-rx"></block></block>
   <block id="f1462e5be0262f51cdc6fb6c3b5027dc" category="summary">Si usas Red Hat OpenShift, puedes cambiar al operador certificado de Trident desde el operador de la comunidad, una instalación basada en Helm o un operador desplegado manualmente.</block>
@@ -6633,10 +6624,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Runtime de Go: <block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
   <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109</block>
   <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">Dependencias adicionales: <block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
-  <block id="1f07946fee6ac5cb85e38a3da3d8db2e" category="list-text">Kubernetes 1.36 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.</block>
-  <block id="4713d9468516722d04cb8a63424d6222" category="list-text">Kubernetes 1.27 - 1.36</block>
-  <block id="203760c50a5659765fa822dc460e7e7b" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.36.x</block>
-  <block id="f3157f5bea9295ba633b817f5c01eba4" category="paragraph">1.27 - 1.36</block>
   <block id="bd36045805a85f9665960a0f6f9e955f" category="list-text"><block ref="bd36045805a85f9665960a0f6f9e955f" category="inline-link-macro-rx"></block></block>
   <block id="7244beaf9a5f0b906f65ac443dbf07a0" category="paragraph">Para obtener información sobre FlexGroups y las cargas de trabajo que son adecuadas para FlexGroups, consulta la <block ref="02927f5d2a03bd36432bf247f38d70d3" category="inline-link-rx"></block>.</block>
   <block id="714ad635b7b855ea6b214ed7b344a93a" category="paragraph">Cloud Volumes ONTAP es un dispositivo de almacenamiento exclusivamente de software que ejecuta el software de gestión de datos ONTAP en la nube. Puedes usar Cloud Volumes ONTAP para cargas de trabajo de producción, recuperación ante desastres, DevOps, recursos compartidos de archivos y gestión de bases de datos. Extiende el almacenamiento empresarial a la nube al ofrecer eficiencias de almacenamiento, alta disponibilidad, replicación de datos, organización de datos por niveles y consistencia de aplicaciones.</block>
@@ -6690,7 +6677,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="ab69d9120992b9296c38d9e4447f1558" category="paragraph-title">Instala Trident directamente en el clúster invitado:</block>
   <block id="d09686be8886e8eaf49a77f8b1785c59" category="paragraph">También puedes instalar Trident directamente en el clúster invitado (inquilino). Instala Trident en el clúster invitado cuando necesites el conjunto completo de funciones de Trident, como instantáneas, clones, cambio de tamaño de volúmenes e importación, que<block ref="9b2a6a8c098cece12ac0a8f284a1a269" prefix=" " category="inline-code"></block> no ofrece por sí solo.</block>
   <block id="f02d97ba74a486c6f9a21ae16d123b52" category="paragraph">En el clúster de invitados, utiliza protocolos basados en IP: NFS, iSCSI y NVMe/TCP. El clúster de invitados no es compatible con Fibre Channel (FC) porque los nodos de invitados son máquinas virtuales sin conectividad FC directa.</block>
-  <block id="3cbfe5af574efdb4391d1d3e321c8cee" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0</block>
   <block id="e9d36c266026dc04d43783120d0a2d1d" category="paragraph">Inicia sesión en el host Linux y verifica que está gestionando un servidor que funciona y <block ref="958ebeab180637e89445160bac2d22e7" category="inline-link-macro-rx"></block> y que tienes los privilegios necesarios.</block>
   <block id="0d8f30017a3c82df9a5d969fa5e4586f" category="paragraph">Antes de comenzar la instalación, inicia sesión en el host Linux y verifica que está gestionando un servidor en funcionamiento, <block ref="f546aa86570a808d23361d7f4e2a08c3" category="inline-link-macro-rx"></block> y que tienes los privilegios necesarios.</block>
   <block id="4badcdbd19fc30efbca0c1955df11f87" category="list-text">Kubernetes ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.</block>
@@ -7206,10 +7192,7 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="648540f1a67ebba0071e70944d7527c2" category="paragraph"><block ref="648540f1a67ebba0071e70944d7527c2" category="inline-link-macro-rx"></block></block>
   <block id="172ebadfc5f13c0aff9b7f172bc4fed4" category="cell">julio de 2027</block>
   <block id="4aab0cfeaa9a8262994350900bdd20f2" category="cell">julio de 2028</block>
-  <block id="f6d7c73fe3fc66fa560e7262f79f60ae" category="section-title">Imágenes de contenedor requeridas para Trident 26.06</block>
-  <block id="f87a5c52c8ee3e84d33252d80679b335" category="list-text">docker.io/netapp/trident:26.06.0</block>
   <block id="01d86b54453ee9aefd6e3ed4a3dc0dc2" category="list-text">docker.io/netapp/trident-autosupport:26.06</block>
-  <block id="9a3b823ceeb6fcbe9a5ac0a50b995ed0" category="list-text">docker.io/netapp/trident-operator:26.06.0 (opcional)</block>
   <block id="c31dc22d9ccf9395630afa7de351d6bf" category="cell"><block ref="4e9f324b7febae0727b9d412cb49fa13" prefix="" category="inline-code"></block></block>
   <block id="bcf817488b594e4daf83db1e5511242d" category="section-title">Información crítica sobre Trident 26.06</block>
   <block id="a67a4c76b07caa7907851893a5518350" category="paragraph">En<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>, actualiza<block ref="6225334d80f70f493ad5e35aee5b3e8c" prefix=" " category="inline-code"></block> para reflejar la ubicación de tu registro de imágenes. Tu <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> puede estar en un registro o en registros diferentes, pero todas las imágenes CSI deben estar en el mismo registro. Por ejemplo:</block>
@@ -7334,4 +7317,56 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="ff7ba160cdd39f6a0b7fe88ef8878c45" category="paragraph">No se puede modificar una vez creado. Para actualizar este parámetro, debes crear un nuevo backend.</block>
   <block id="ce29b5f6c6b616b686e7705a75655bb6" category="cell">Nombre del controlador de almacenamiento. No se puede modificar después de la creación. Para actualizar este parámetro, debes crear un nuevo backend.</block>
   <block id="aa7fcf992c04e66c97a2ecaecf8e9079" category="cell"><block ref="47cb44be55a0dffa15dfc900a4c687be" prefix="" category="inline-code"></block> NOTA: Los parámetros de configuración del backend que afectan a la identidad del backend y a la nomenclatura de los volúmenes, como<block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> y<block ref="ed66bef2b107983b6e4066fddf8c45c3" prefix=" " category="inline-code"></block>, no se pueden modificar después de la creación. Para actualizarlos, debes crear un nuevo backend.</block>
+  <block id="93fbc816e8bf100e5538c460cbfded25" category="doc">Proceso de aprovisionamiento de volúmenes de Trident</block>
+  <block id="7abc4557b186fa5fe308fb648a0c1759" category="doc">Creación de una instantánea de volumen de Trident</block>
+  <block id="4d701192205744a3a09c06efb968dc59" category="doc">Configuración del pool de almacenamiento virtual de Trident</block>
+  <block id="92cde28a49290d108fcbcc24221bac54" category="doc">Gestión de grupos de acceso a volúmenes de Trident</block>
+  <block id="59d40127a6af11747a793d61df5338e5" category="doc">Integración de Trident y Kubernetes con los productos de NetApp</block>
+  <block id="0aa4c54ee2846cd1ee10e094f05cfa48" category="list-text">Kubernetes 1.37 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.</block>
+  <block id="fb969327dd7c5284cf39ef2077642427" category="list-text">Kubernetes 1.27 - 1.37</block>
+  <block id="1f8bad982c95fa13c1c3b93510b02a5e" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x</block>
+  <block id="d03983e9fca4277cf0919e8bea0c196c" category="paragraph">1.27 - 1.37</block>
+  <block id="ba8ebafc2389dabfa3286dbc34aec82b" category="section-title">Imágenes de contenedor necesarias para Trident 26.06.2</block>
+  <block id="df499232b0659c7b92a4bb7def65662d" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0</block>
+  <block id="add431fb6c7231214d4cc5b3f76a2a96" category="list-text">docker.io/netapp/trident:26.06.2</block>
+  <block id="2c3f6f002722bde0c2e5610ddd0a46b8" category="list-text">docker.io/netapp/trident-operator:26.06.2 (opcional)</block>
+  <block id="39b839ecfa8ad2cd1a2a661969868248" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4.11.0</block>
+  <block id="a24cc2fae2df54a2712abf546e031441" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0</block>
+  <block id="d61443f5de6e680d2193b40d5e49f950" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v6.3.0</block>
+  <block id="ed11c5a031bd827baa31f76e4b76e814" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v2.1.0</block>
+  <block id="6aa4aa1c57132c60ac255cec26f70cf2" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0</block>
+  <block id="9e2275a440e88168522f5dec7521d5b2" category="doc">Personaliza la instalación de tridentctl de Trident</block>
+  <block id="66a65e8f59856ace86e7d0ab11d6ee2f" category="doc">Comprende el flujo de trabajo de actualización del operador Trident</block>
+  <block id="835d266e43d7fc9ad169db97e5f68bb6" category="doc">Actualiza Trident con tridentctl</block>
+  <block id="17bc6151a1580a16ea3a0bb054635da1" category="doc">Protección de datos y recuperación ante desastres de Trident</block>
+  <block id="b6e5e8475937d3c120e40df57517dc2b" category="doc">Recomendaciones para el despliegue de Trident</block>
+  <block id="d3eb63882efa67a778e4946e3f147dbe" category="doc">Integrar Trident con Kubernetes</block>
+  <block id="6765fc072b17914d8078ae519719dac3" category="doc">Cifrado en tránsito de Trident Kerberos</block>
+  <block id="85c3ba6a32bf7bad0c1de9edded9a5c9" category="doc">Trident Linux Unified Key Setup (LUKS)</block>
+  <block id="d51e7b5d90845c1a14a02bc8865f816a" category="doc">Recomendaciones de seguridad de Trident</block>
+  <block id="11c409432b2783da745e2f3c5305a019" category="doc">Prácticas recomendadas para la configuración del almacenamiento de Trident</block>
+  <block id="0aa58f379bc7aae0f4d89e420ac722aa" category="section-title">Novedades de 26.06.2</block>
+  <block id="9fed2c5f98e24bcd80d1becb14f7b9b9" category="list-text">Se añadió soporte para Kubernetes 1.37.</block>
+  <block id="fb40a6ba370ad5533a7ce3c5414b2332" category="inline-link-macro">Problema #1166</block>
+  <block id="f97a774ca034ed32bdbb15bc881ffb74" category="inline-link-macro">Problema #1179</block>
+  <block id="8ad55c17d13f4d9d068c35356fccb76e" category="list-text">Se corrigió el problema por el que las reglas de la política de exportación de ONTAP-NAS se eliminaban de forma silenciosa cuando se reiniciaba el controlador Trident o se actualizaba un<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> mientras<block ref="b061e443e106870da185a3681948cf1b" prefix=" " category="inline-code"></block> estaba configurado en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>. Esto podía dejar inaccesibles los volúmenes ya montados (<block ref="2f681c0904e60dd8ca3ac232198e1fde" category="inline-link-macro-rx"></block>, <block ref="2bde1c55e1c876ea9a5b30e5998e20a4" category="inline-link-macro-rx"></block>).</block>
+  <block id="1ff7a86a442328eb4c73362f63bafe93" category="list-text">Se corrigieron las actualizaciones del backend que ejecutaban un análisis de elementos huérfanos por volumen para detectar cambios no sustanciales, como credenciales y QoS, lo que podía bloquear las operaciones de CSI durante horas en backends grandes. Ahora, el análisis solo se ejecuta cuando cambia el SVM o el prefijo de almacenamiento.</block>
+  <block id="4cd96d766317606681a187daeabb7e65" category="list-text">Se han corregido las credenciales que aparecían en los registros de depuración de Trident, incluidos los volcados de solicitudes gRPC de CSI, el volcado del entorno de inicio y las especificaciones<block ref="913a4b06671d1e04e6582a85afe3abbe" prefix=" " category="inline-code"></block> registradas por el controlador CRD. El volcado del entorno de inicio ahora solo registra los valores de las variables propias de Trident<block ref="9587dd0b7e1ce8ba3ecc5647ca653baf" prefix=" " category="inline-code"></block> y enumera las demás variables por su nombre.</block>
+  <block id="878e26ce593b81438793485a524bfdd4" category="doc">Gestiona los backends de Trident con kubectl</block>
+  <block id="ef729a4d7079ef5170ca33d7a2b2ff5b" category="doc">Gestiona los backends de Trident con tridentctl</block>
+  <block id="b0fdb9fb8ca9c19b8f0e60918e66c855" category="doc">Elige un método de gestión del backend de Trident</block>
+  <block id="f94175d68584fa6fbcca90393df1f78c" category="doc">Configurar los backends de Trident</block>
+  <block id="efbe44f08e5bb483af8587f9aa173ffb" category="doc">Crear una clase de almacenamiento Trident</block>
+  <block id="95f086d73ced21ab39864fbcdafc5593" category="doc">Gestionar las clases de almacenamiento de Trident</block>
+  <block id="3262a5dac33954f8bce5abaf56b06897" category="doc">Supervisar las operaciones de almacenamiento de Trident</block>
+  <block id="ce8c3a3d9a1addd78a106ad7348abd3b" category="doc">Clonar volúmenes Trident entre espacios de nombres</block>
+  <block id="4c4aeb85b1b22846a524105b5bf4631f" category="doc">Personalizar los nombres y las etiquetas de los volúmenes de Trident</block>
+  <block id="53ec4d965298dbd0a7cd7654f4cffcda" category="doc">Amplía los volúmenes de Trident</block>
+  <block id="26dc9e2c8cafa5e40766157e25e3db26" category="doc">Trabajar con instantáneas de grupos de volúmenes de Trident</block>
+  <block id="451317abd90ea542d26ebad3c7e3b63a" category="doc">Importar volúmenes de Trident</block>
+  <block id="4f180ac6611922295d16ff6c0c4c68a6" category="doc">Realiza operaciones de volumen de Trident</block>
+  <block id="dc5de362a9aac689498b3450bb50f2d1" category="doc">Aprovisiona un volumen de Trident</block>
+  <block id="e52c3cee59da6b9b8b87a9baa0cd4b45" category="doc">Trabajar con instantáneas de Trident</block>
+  <block id="2e521bb61d9127d4460f3262267cd834" category="doc">Compartir un volumen Trident NFS entre espacios de nombres</block>
+  <block id="64fc6c7cb21b21d1926676a7cc84c9cf" category="doc">Prepara el nodo de trabajo de Trident</block>
 </blocks>

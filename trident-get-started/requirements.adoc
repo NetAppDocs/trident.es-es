@@ -4,7 +4,7 @@ permalink: trident-get-started/requirements.html
 keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
 summary: Antes de instalar Trident, debe revisar estos requisitos generales del sistema. Es posible que los back-ends específicos tengan requisitos adicionales. 
 ---
-= Requisitos
+= Requisitos de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -26,7 +26,7 @@ Antes de instalar Trident, debe revisar estos requisitos generales del sistema. 
 ====
 []
 =====
-* Kubernetes 1.36 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
+* Kubernetes 1.37 ya es compatible con Trident. Actualiza Trident antes de actualizar Kubernetes.
 * Trident aplica estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -43,13 +43,13 @@ Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `fi
 Trident admite varios motores de contenedor y orquestadores, entre los que se incluyen los siguientes:
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
-* Kubernetes 1.27 - 1.36
+* Kubernetes 1.27 - 1.37
 * OpenShift 4.12, 4.14 - 4.22 (si planeas usar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1.)
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.36.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x
 
 
 Trident también funciona con una gran cantidad de ofertas de Kubernetes totalmente gestionadas y autogestionadas, como Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) y la cartera de VMware Tanzu.
@@ -158,56 +158,56 @@ En la tabla siguiente se resumen las funciones disponibles con este lanzamiento 
 
 
 | Trident  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | Snapshots de volumen  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | RVP desde snapshots de volumen  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | Cambio de tamaño del VP de iSCSI  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | CHAP bidireccional de ONTAP  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | Políticas de exportación dinámicas  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | Operador de Trident  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
 
 
 | Topología CSI  a| 
-1.27 - 1.36
+1.27 - 1.37
  a| 
 No
 
@@ -270,23 +270,23 @@ En el caso de instalaciones de aire acondicionado, la siguiente lista es una ref
 
 
 
-[[container-images-required-for-trident-26-06]]
-=== Imágenes de contenedor requeridas para Trident 26.06
+[[container-images-required-for-trident-26-06-2]]
+=== Imágenes de contenedor necesarias para Trident 26.06.2
 
 [cols="2"]
 |===
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
-* docker.io/netapp/trident:26.06.0
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+* docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
-* registry.k8s.io/sig-storage/csi-provisioner:v6.1.0
-* registro.k8s.io/sig-storage/csi-attacher:v4.10.0
-* registry.k8s.io/sig-storage/csi-resizer:v2.0.0
-* registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0
-* registro.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0
-* docker.io/netapp/trident-operator:26.06.0 (opcional)
+* docker.io/netapp/trident-operator:26.06.2 (opcional)
+* registry.k8s.io/sig-storage/csi-attacher:v4.11.0
+* registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.18.0
+* registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
+* registry.k8s.io/sig-storage/csi-resizer:v2.1.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.6.0
 
 
 |===

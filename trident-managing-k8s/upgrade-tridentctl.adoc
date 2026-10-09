@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-tridentctl.html
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
 summary: 'Puede actualizar fácilmente una instalación existente de Trident mediante `tridentctl`.' 
 ---
-= Actualice con trimentctl
+= Actualiza Trident con tridentctl
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

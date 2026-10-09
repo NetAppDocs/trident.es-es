@@ -4,7 +4,7 @@ permalink: trident-use/vol-provision.html
 keywords: volumes, pvc, pv, persistentvolume, persistentvolumeclaim, mount, pod, provision 
 summary: 'Cree un volumen persistente (VP) y una reclamación de volumen persistente (RVP) que utilice el tipo de almacenamiento de Kubernetes configurado para solicitar acceso al VP. A continuación, puede montar el VP en un pod.' 
 ---
-= Aprovisione un volumen
+= Aprovisiona un volumen de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

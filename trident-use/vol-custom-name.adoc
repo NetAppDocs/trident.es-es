@@ -4,7 +4,7 @@ permalink: trident-use/vol-custom-name.html
 keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
 summary: 'Trident admite la asignación de nombres y etiquetas significativos a los volúmenes creados para que sea más fácil identificar, supervisar la gestión y asignar fácilmente los volúmenes a los respectivos recursos de Kubernetes (RVP).' 
 ---
-= Personalizar nombres y etiquetas de volúmenes
+= Personalizar los nombres y las etiquetas de los volúmenes de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
