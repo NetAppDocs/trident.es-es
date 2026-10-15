@@ -25,6 +25,7 @@ Las nubes de Azure compatibles incluyen:
 
 * Azure Commercial
 * Azure Government (Azure Government / MAG)
+* Azure China
 
 
 Cuando prepares tu entorno, asegúrate de que tu suscripción de Azure, la configuración de identidad y los recursos de Azure NetApp Files se creen en el entorno de cloud de Azure adecuado.
