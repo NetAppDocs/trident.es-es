@@ -51,6 +51,7 @@ NOTE: Para definir una aplicación con ámbito de máquina virtual (VM) que prot
 **** *LabelSelector*: (_Optional_) Filtra los recursos de ámbito de cluster en función de sus etiquetas.
 
 
+*** *spec.volumeGroups*: (_opcional_) utiliza este atributo para crear instantáneas de los volúmenes relacionados juntos como instantáneas de grupo de volúmenes consistentes ante fallos. Para obtener más información, consulta link:trident-protect-volume-group-snapshots.html["Usa instantáneas de grupos de volúmenes con Trident Protect"].
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Opcional_) Esta anotación solo es aplicable a aplicaciones definidas desde máquinas virtuales, como en entornos KubeVirt, donde las congelaciones del sistema de archivos ocurren antes de las instantáneas. Especifique si esta aplicación puede escribir en el sistema de archivos durante una instantánea. Si se establece en verdadero, la aplicación ignora la configuración global y puede escribir en el sistema de archivos durante una instantánea. Si se establece en falso, la aplicación ignora la configuración global y el sistema de archivos se congela durante una instantánea. Si se especifica pero la aplicación no tiene máquinas virtuales en la definición de la aplicación, la anotación se ignora. Si no se especifica, la aplicación sigue el procedimiento establecido.link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Configuración de congelación global de Trident Protect"] .
 +
 [NOTE]

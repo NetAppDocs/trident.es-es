@@ -1,10 +1,10 @@
 ---
 indexpage:
-  title: Documentación de Trident 26.06
+  title: Documentación de Trident 26.10
   summary: Trident es un orquestador y gestor de aprovisionamiento de código abierto
     mantenido por NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones
     en contenedores gestionadas por Docker y Kubernetes.
-  keywords: trident, 2602, documentation, release notes, get started, deploy, upgrade,
+  keywords: trident, 2610, documentation, release notes, get started, deploy, upgrade,
     use, data management, protection, demos, tutorials, blogs, community
   lead: Trident es un orquestador y gestor de aprovisionamiento de código abierto
     mantenido por NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones

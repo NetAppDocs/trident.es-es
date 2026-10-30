@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/refresh-nvme-data-lifs.html 
+keywords: Trident, NVMe, NVMe/TCP, data LIF, ONTAP SAN, ASA r2 
+summary: Configura Trident para que actualice los LIF de datos NVMe de los volúmenes publicados. 
+---
+= Actualizar los LIF de datos de NVMe
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Activa la actualización de los LIF de datos NVMe para permitir que los volúmenes NVMe publicados usen los LIF que se añadan, se eliminen o reciban una nueva dirección sin volver a crear el backend ni reiniciar Trident.
+
+
+
+[[overview]]
+== Descripción general
+
+Cuando añades un backend SAN de ONTAP, Trident detecta las LIF de datos NVMe para la SVM. De forma predeterminada, Trident conserva ese conjunto de LIF hasta que añades el backend de nuevo o reinicias Trident.
+
+Establece `enableDataLIFRefresh` en `true` para actualizar los LIF de datos NVMe mientras Trident está en ejecución. Los volúmenes NVMe publicados usan entonces los LIF que se añaden, se eliminan o a los que se asigna una nueva dirección.
+
+Esta opción es un parámetro de instalación, no un parámetro de configuración del backend. Está desactivada de forma predeterminada.
+
+La actualización del LIF de datos NVMe está disponible a partir de Trident 26.10.
+
+Esta función se aplica a:
+
+* `ontap-san` con  `sanType: nvme` en ONTAP unificado.
+* `ontap-san` uso de NVMe/TCP en ASA r2.
+
+
+[CAUTION]
+====
+Eliminar o sustituir todos los LIF de datos a la vez provoca interrupciones. Si planeas eliminar o sustituir todos los LIF de datos, asegúrate primero de que haya un LIF de sustitución en su sitio para que no se interrumpa el acceso a los datos.
+
+====
+
+
+[[enable-nvme-data-lif-refresh]]
+== Habilita la actualización de LIF de datos NVMe
+
+
+
+[[trident-operator]]
+=== Operador de Trident
+
+Para una instalación nueva, configura `enableDataLIFRefresh` en la especificación `TridentOrchestrator`:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableDataLIFRefresh: true
+----
+Aplica el manifiesto:
+
+[source, console]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+En el caso de una instalación ya existente, aplica el parche `TridentOrchestrator`:
+
+[source, console]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableDataLIFRefresh":true}}'
+----
+Comprueba el valor aplicado:
+
+[source, console]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableDataLIFRefresh}'
+----
+
+
+[[helm]]
+=== Timón
+
+Para una nueva instalación, configura el valor de Helm:
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --namespace trident --create-namespace \
+  --set enableDataLIFRefresh=true
+----
+Para una instalación de Helm existente, actualiza la release con el valor enabled:
+
+[source, console]
+----
+helm upgrade trident netapp-trident/trident-operator \
+  --namespace trident \
+  --reuse-values \
+  --set enableDataLIFRefresh=true
+----
+También puedes establecer `enableDataLIFRefresh: true` en un archivo de valores de Helm y pasarlo a `helm upgrade` con `-f <values-file>`.
+
+
+
+[[tridentctl]]
+=== tridentctl
+
+Para una instalación nueva, utiliza la marca  `--enable-datalif-refresh`:
+
+[source, console]
+----
+tridentctl install --enable-datalif-refresh -n trident
+----
+Para activar la opción en una instalación existente de `tridentctl` desinstala Trident y vuelve a instalarlo con el indicador. Sigue las precauciones indicadas en link:../trident-managing-k8s/uninstall-trident.html["Desinstale Trident"] antes de desinstalarlo.
+
+[source, console]
+----
+tridentctl uninstall -n trident
+tridentctl install --enable-datalif-refresh -n trident
+----
+
+NOTE: La marca  `--enable-datalif-refresh` es una opción de instalación y no se muestra en  `tridentctl install --help`.

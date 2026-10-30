@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-kubevirt-vms.html 
-keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines 
-summary: Protege las máquinas virtuales de KubeVirt en OpenShift Virtualization con Trident Protect. Haz copias de seguridad de todas las máquinas virtuales en un espacio de nombres o selecciona máquinas virtuales específicas por nombre. Restaura de forma selectiva máquinas virtuales individuales desde una copia de seguridad o un archivo de instantánea. 
+keywords: kubevirt, openshift virtualization, virtual machine, vm, backup, restore, includedvirtualmachines, mac address, retain-mac-address 
+summary: Protege las máquinas virtuales de KubeVirt en OpenShift Virtualization con Trident Protect. Realiza copias de seguridad de todas las máquinas virtuales de un espacio de nombres o selecciona máquinas virtuales específicas por nombre. Restaura de forma selectiva máquinas virtuales individuales a partir de una copia de seguridad o de un archivo de instantánea.--- 
 ---
 = Protege las máquinas virtuales de KubeVirt con Trident Protect
 :hardbreaks:
@@ -41,9 +41,13 @@ Ambos modos admiten filtros adicionales:
 * Utiliza  `includedClusterScopedResources` para incluir recursos compatibles con el ámbito del clúster, como objetos  `StorageClass`.
 
 
+[NOTE]
+====
+* Trident Protect puede congelar y descongelar los sistemas de archivos de las máquinas virtuales de KubeVirt durante las operaciones de protección de datos para garantizar la coherencia. Para obtener detalles de configuración, consulta link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Protección de datos con máquinas virtuales de KubeVirt"].
+* Para realizar una instantánea de todos los discos de una VM en un momento específico, utiliza las instantáneas de grupos de volúmenes. Consulta link:trident-protect-volume-group-snapshots.html["Usa instantáneas de grupos de volúmenes con Trident Protect"].
 
-NOTE: Trident Protect puede congelar y descongelar los sistemas de archivos de las máquinas virtuales de KubeVirt durante las operaciones de protección de datos para garantizar la coherencia. Para obtener detalles de configuración, consulta link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Protección de datos con máquinas virtuales de KubeVirt"].
 
+====
 
 
 [[resources-collected-during-backup-and-snapshot]]
@@ -182,9 +186,13 @@ Durante la restauración, Trident Protect aplica transformaciones compatibles co
 
 | Pod (`virt-launcher`) | Se omite cuando el pod tiene la etiqueta  `kubevirt.io=virt-launcher`. 
 |===
+[NOTE]
+====
+* Trident Protect restaura los recursos de KubeVirt en un orden definido para evitar problemas de dependencia. CDI DataVolumes (`cdi.kubevirt.io`) se restauran primero para que los datos del disco de la máquina virtual estén disponibles antes de que se creen los objetos de la máquina virtual. Después de eso, VirtualMachines (`kubevirt.io`) se restauran antes que VirtualMachineInstances.
+* De forma predeterminada, Trident Protect elimina la dirección MAC de la primera interfaz de red de cada máquina virtual restaurada. Para conservarla, utiliza la anotación  `protect.trident.netapp.io/retain-mac-address`. Consulta link:trident-protect-restore-settings.html#supported-annotations["Utilice la configuración de restauración avanzada de Trident Protect"].
 
-NOTE: Trident Protect restaura los recursos de KubeVirt en un orden definido para evitar problemas de dependencia. CDI DataVolumes (`cdi.kubevirt.io`) se restauran primero para que los datos del disco de la máquina virtual estén disponibles antes de que se creen los objetos de la máquina virtual. Después de eso, VirtualMachines (`kubevirt.io`) se restauran antes que VirtualMachineInstances.
 
+====
 
 
 [[dynamic-vm-protection-with-label-selectors]]
@@ -583,6 +591,7 @@ tridentctl-protect create application <application_name> \
 * link:trident-protect-protect-apps.html["Proteja las aplicaciones"]
 * link:trident-protect-restore-apps.html["Restaurar aplicaciones usando Trident Protect"]
 * link:trident-protect-restore-settings.html["Usa opciones avanzadas de restauración"]
+* link:trident-protect-use-snapmirror-replication.html["Replicar aplicaciones utilizando NetApp SnapMirror y Trident Protect"]
 * link:trident-protect-cli.html["Instalar el complemento CLI de Trident Protect"]
 * link:trident-protect-appvault-custom-resources.html["Utilice objetos de AppVault para gestionar buckets"]
 

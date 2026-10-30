@@ -22,7 +22,7 @@ La clasificación automática se configura a través de los parámetros de backe
 
 La jerarquización automática permite a Trident aprovisionar volúmenes que mueven automáticamente los datos inactivos de un nivel de rendimiento a un nivel de capacidad. Esto reduce el coste de almacenamiento mientras se preserva el rendimiento para los datos a los que se accede con frecuencia.
 
-Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.06.
+Trident aplica la configuración de auto-tiering solo en el momento de la creación del volumen. Los cambios posteriores al aprovisionamiento no son compatibles con Trident 26.10.
 
 
 
@@ -86,10 +86,10 @@ Los ajustes definidos con mayor precedencia reemplazan los valores de nivel infe
 
 
 
-[[supported-functionality-in-trident-26-06]]
-== Funcionalidad compatible en Trident 26.06
+[[supported-functionality-in-trident-26-10]]
+== Funcionalidad compatible en Trident 26.10
 
-Trident 26.06 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:
+Trident 26.10 es compatible con las siguientes funciones de auto-tiering para Google Cloud NetApp Volumes:
 
 * Habilitar o deshabilitar la clasificación automática durante el aprovisionamiento de volúmenes
 * Definir una política de niveles en la configuración del backend de Trident
@@ -99,8 +99,8 @@ Trident 26.06 es compatible con las siguientes funciones de auto-tiering para Go
 
 
 
-[[unsupported-functionality-in-trident-26-06]]
-== Funcionalidad no soportada en Trident 26.06
+[[unsupported-functionality-in-trident-26-10]]
+== Funcionalidad no soportada en Trident 26.10
 
 Las siguientes operaciones no son compatibles:
 

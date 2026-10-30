@@ -28,10 +28,14 @@ entries:
   entries:
   - title: Utilice objetos de AppVault para gestionar buckets
     url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: Cifrar los metadatos de AppVault
+    url: "/trident-protect/trident-protect-encrypt-appvault-metadata.html"
   - title: Defina una aplicación para la gestión
     url: "/trident-protect/trident-protect-manage-applications.html"
   - title: Proteja las aplicaciones
     url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: Usa instantáneas de grupo de volúmenes
+    url: "/trident-protect/trident-protect-volume-group-snapshots.html"
   - title: Restaure las aplicaciones
     entries:
     - title: Restaurar aplicaciones usando Trident Protect
@@ -41,7 +45,11 @@ entries:
     - title: Modificar recursos durante la restauración
       url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: Replicar aplicaciones con NetApp SnapMirror
-    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    entries:
+    - title: Configurar y gestionar la replicación de aplicaciones
+      url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    - title: Cambiar a una instantánea anterior en caso de error
+      url: "/trident-protect/trident-protect-failover-older-snapshot.html"
   - title: Migrar aplicaciones
     url: "/trident-protect/trident-protect-migrate-apps.html"
   - title: Protege las máquinas virtuales de KubeVirt

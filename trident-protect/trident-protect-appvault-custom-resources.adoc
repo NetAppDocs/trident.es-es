@@ -40,6 +40,9 @@ Cuando crea objetos de AppVault utilizando CR o el complemento CLI de Trident Pr
 
 
 
+NOTE: Para cifrar los metadatos de instantáneas y copias de seguridad o para cambiar la contraseña del almacén, utiliza el campo  `spec.vaultPasswordSecretRef`. Consulta link:trident-protect-encrypt-appvault-metadata.html["Cifrar los metadatos de AppVault para las instantáneas y copias de seguridad de Trident Protect"].
+
+
 
 ==== Cree un secreto de contraseña del repositorio de Data Mover
 

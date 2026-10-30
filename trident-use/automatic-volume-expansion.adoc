@@ -16,6 +16,8 @@ La expansión automática de volúmenes permite que los Volúmenes Persistentes 
 * El tamaño máximo que puede alcanzar el volumen
 
 
+Las políticas de Trident Autogrow amplían el PVC. Esto difiere de link:ontap-autosize.html["Ajuste automático del tamaño de los volúmenes de ONTAP"], que amplía el FlexVol de respaldo sin cambiar el tamaño del PVC.
+
 
 NOTE: Los volúmenes aumentan de tamaño automáticamente cuando se supera el umbral de utilización definido. Los volúmenes nunca se reducen automáticamente.
 

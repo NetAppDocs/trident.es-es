@@ -44,7 +44,7 @@ kubectl version
 Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:50:19Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.3", GitCommit:"1e11e4a2108024935ecfcb2912226cedeafd99df", GitTreeState:"clean", BuildDate:"2020-10-14T12:41:49Z", GoVersion:"go1.15.2", Compiler:"gc", Platform:"linux/amd64"}
 ----
-* Los nodos del clúster deben tener etiquetas que introduzcan el reconocimiento de topología (`topology.kubernetes.io/region`y `topology.kubernetes.io/zone`). Estas etiquetas *deben estar presentes en los nodos del cluster* antes de instalar Trident para que Trident tenga en cuenta la topología.
+* Los nodos del clúster deben tener etiquetas que introduzcan reconocimiento de topología  `topology.kubernetes.io/region` y `topology.kubernetes.io/zone`). La etiqueta `topology.kubernetes.io/region` es obligatoria para el aprovisionamiento con reconocimiento de topología en Trident. Estas etiquetas deben estar presentes en los nodos antes de instalar Trident. Si añades o cambias las etiquetas de topología después de la instalación, basta con reiniciar los pods del nodo de Trident para que Trident detecte los cambios.
 +
 [listing]
 ----

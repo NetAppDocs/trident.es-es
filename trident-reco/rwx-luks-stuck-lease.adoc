@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/rwx-luks-stuck-lease.html 
+keywords: LUKS, RWX, Lease, cryptsetup, troubleshooting, remediation 
+summary: 'Identifica y corrige de forma segura un Lease de Kubernetes atascado para un volumen ReadWriteMany (RWX) Linux Unified Key Setup (LUKS).' 
+---
+= Soluciona un Lease atascado para volúmenes RWX Linux Unified Key Setup (LUKS)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un volumen LUKS (Linux Unified Key Setup) de ReadWriteMany (RWX) puede bloquearse si un nodo falla mientras mantiene su Lease de Kubernetes. Asegúrate de que no `cryptsetup` haya ninguna operación en curso antes de eliminar el Lease; eliminarlo durante una operación puede poner en riesgo la cabecera de LUKS.
+
+
+
+[[understand-the-lease]]
+== Comprende el contrato de alquiler
+
+Trident utiliza un Lease de Kubernetes para garantizar que solo un nodo a la vez ejecute `cryptsetup` comandos en un volumen LUKS RWX. Los Leases se crean en el espacio de nombres de Trident, y el nombre del Lease es el nombre de PersistentVolume (PV). La identidad del titular identifica el nodo que ejecuta la operación.
+
+Trident elimina el Lease tras una operación correcta. Si una operación falla, Trident conserva el Lease para que solo el mismo nodo pueda volver a intentarla. Los Lease no caducan ni se renuevan automáticamente. Un evento de advertencia con el motivo `LeaseRetained` incluye detalles sobre una operación fallida.
+
+
+
+[[identify-a-potentially-stuck-lease]]
+== Identificar un Lease que podría estar bloqueado
+
+Los síntomas pueden incluir pods atascados en `ContainerCreating` o `Terminating`, fallos en la expansión del volumen o errores de bloqueo transitorios.
+
+. Averigua qué PVC usa un pod afectado:
++
+[source, console]
+----
+kubectl get pod -n <app-namespace> <pod-name> \
+  -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}'
+----
+. Encuentra el PV vinculado al PVC:
++
+[source, console]
+----
+kubectl get pvc -n <app-namespace> <pvc-name> \
+  -o jsonpath='{.spec.volumeName}'
+----
+. Enumera los arrendamientos en el espacio de nombres de Trident e identifica el arrendamiento con el nombre del PV:
++
+[source, console]
+----
+kubectl get lease -n <trident-namespace>
+----
+. Revisa el Lease correspondiente, incluido su holder, antigüedad y eventos:
++
+[source, console]
+----
+kubectl describe lease -n <trident-namespace> <pv-name>
+----
+
+
+`cryptsetup` Las operaciones suelen completarse en cuestión de segundos. Un Lease con más de 5 a 10 minutos de antigüedad puede indicar un interbloqueo. Comprueba los `LeaseRetained` eventos en busca de errores repetidos, identifica el nodo propietario y comprueba el estado del nodo:
+
+[source, console]
+----
+kubectl get nodes
+kubectl get pods -A -o wide --field-selector spec.nodeName=<lease-holder-node>
+----
+Si el nodo funciona correctamente y Lease no presenta eventos de advertencia, revisa los registros del pod del nodo de Trident en el nodo titular antes de concluir que Lease está bloqueado:
+
+[source, console]
+----
+kubectl get pods -n <trident-namespace> -o wide \
+  --field-selector spec.nodeName=<lease-holder-node>
+kubectl logs -n <trident-namespace> <trident-node-pod> -c trident-main
+----
+Si es posible solucionar el problema subyacente del nodo o de la red, hazlo primero. El Lease puede resolverse cuando Trident complete con éxito la operación.
+
+
+
+[[safely-resolve-the-stuck-lease]]
+== Resolver de forma segura el Lease bloqueado
+
+[IMPORTANT]
+====
+No elimines un Lease mientras su titular aún pueda estar ejecutando una `cryptsetup` operación. Los comandos simultáneos `cryptsetup` de distintos nodos que no estén coordinados por el Lease pueden dañar la cabecera de LUKS.
+
+====
+Utiliza la medida correctiva que se ajuste al estado del nodo:
+
+* **El nodo titular ha fallado y está apagado:** identifica los Leases que posee ese nodo y elimina el Lease afectado. Si el nodo se recupera antes de que se reprogramen sus cargas de trabajo, deja que Trident termine su operación y libere el Lease. Si las cargas de trabajo ya se han trasladado, espera a que sus pods en el nodo recuperado se cierren por completo, confirma que el bloqueo persiste y, a continuación, elimina el Lease obsoleto.
+* **El nodo propietario ha perdido la conectividad con el plano de control:** es posible que el nodo siga ejecutando cargas de trabajo. Es preferible apagar el nodo antes de eliminar el Lease. Si el nodo sigue siendo accesible, detén el contenedor de nodo de Trident en ese nodo o comprueba en sus registros que no puede adquirir ni eliminar el Lease y que no está en ejecución `cryptsetup`. Trident necesita acceso a la API de Kubernetes para adquirir el Lease antes de cada operación; una vez perdida la conectividad, no puede iniciar otra operación. Espera al menos cinco minutos desde la creación del Lease antes de plantearte su eliminación, para permitir que finalice cualquier comando que esté en curso.
+* **El nodo holder y la red están en buen estado:** revisa los eventos de advertencia de Lease y los registros del nodo Trident para identificar la operación que está fallando. Si necesitas mover la carga de trabajo afectada a otro nodo, aplica cordon al nodo holder, elimina los pods de la aplicación afectados sin forzar la eliminación, espera a que se terminen y quita el cordon del nodo. Elimina el Lease solo después de confirmar que la operación original ya no se está ejecutando.
+
+
+Elimina el Lease solo después de confirmar que es seguro hacerlo:
+
+[source, console]
+----
+kubectl delete lease -n <trident-namespace> <pv-name>
+----
+Supervisa los pods afectados y las operaciones de volumen tras la corrección. Si el Lease vuelve a retenerse, investiga el error de cryptsetup que se indica en los eventos de Lease y resuelve el problema subyacente.

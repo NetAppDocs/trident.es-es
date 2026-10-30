@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-failover-older-snapshot.html 
+keywords: trident protect, netapp, snapmirror, failover, older snapshot, recovery point, ransomware, AppMirrorRelationship, promotedSnapshot 
+summary: Realiza una conmutación por error de una aplicación replicada a una instantánea anterior, lo que te permite recuperarla desde un momento anterior a que los datos se dañaran o se vieran comprometidos. 
+---
+= Haz la conmutación por error a una instantánea anterior con Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utiliza Trident Protect para realizar una conmutación por error de una aplicación replicada a una instantánea anterior, lo que te permite recuperarla desde un momento concreto anterior a que los datos se dañaran o se vieran comprometidos. De forma predeterminada, una conmutación por error utiliza la instantánea transferida más recientemente.
+
+
+CAUTION: La conmutación por error a una instantánea anterior hace que ONTAP SnapMirror elimine las instantáneas del clúster de destino que son más recientes que la instantánea seleccionada, porque ya no son válidas. Añade la anotación en este procedimiento solo si esta pérdida de datos es aceptable.
+
+.Antes de empezar
+* Existe un AppMirrorRelationship y está en el  `Established` estado. Para crear uno, consulta link:trident-protect-use-snapmirror-replication.html#set-up-a-replication-relationship["Configurar una relación de replicación"]. Para comprobar el estado, ejecuta `kubectl get amr -n <namespace> <relationship_name> -o=jsonpath='{.status}'`.
+* Los clústeres de origen y destino utilizan backends de almacenamiento ONTAP con replicación SnapMirror. No se admiten Azure NetApp Files ni otros backends que no sean ONTAP. Consulta link:trident-protect-requirements.html#requirements-for-snapmirror-replication["Requisitos para la replicación de SnapMirror"].
+* Existe una programación de snapshots en la aplicación de origen (con  `snapshotRetention` superior a 1).
+
+
+
+
+[[identify-the-snapshot]]
+== Identificar la instantánea
+
+Cada instantánea tiene una hora de finalización, por lo que puedes elegir el momento concreto que quieras.
+
+.Pasos
+. En el clúster de origen, muestra la lista de instantáneas:
++
+[source, console]
+----
+kubectl get snapshots -n my-app-namespace
+----
+. Busca la instantánea a la que realizar la conmutación por error. Utiliza el valor  `completionTimestamp` para seleccionar el momento específico.
+. Obtén la ruta del archivo de esa instantánea:
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+. Anota la última parte de la ruta, es decir, todo lo que viene después de la última barra. Esta parte es el _basename_. Por ejemplo:
++
+[listing]
+----
+20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
+----
++
+
+NOTE: Utiliza basename, no el nombre del recurso personalizado de la instantánea.
+
+
+
+.Resultado
+Se registra el nombre base de la instantánea seleccionada.
+
+
+
+[[fail-over-to-the-selected-snapshot]]
+== Conmutar por error a la instantánea seleccionada
+
+Especifica la instantánea que deseas promover y confirma la pérdida de datos añadiendo una anotación.
+
+.Pasos
+. En el clúster de destino, añade la anotación a AppMirrorRelationship. Sin la anotación, una conmutación por error solo puede utilizar la instantánea transferida más recientemente.
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n my-app-namespace protect.trident.netapp.io/allow-promotion-with-older-snapshots="true"
+----
+. Edita el archivo CR AppMirrorRelationship (por ejemplo, `trident-protect-relationship.yaml`):
++
+** Establece *spec.desiredState* en `Promoted`.
+** Establece *spec.promotedSnapshot* en el nombre base que anotaste en <<Identificar la instantánea>>.
++
+Por ejemplo:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: <relationship_name>
+  namespace: <namespace>
+  annotations:
+    protect.trident.netapp.io/allow-promotion-with-older-snapshots: "true"
+spec:
+  desiredState: Promoted
+  promotedSnapshot: <basename>
+----
+
+
+. Aplicar el CR:
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. Comprueba el estado de la relación:
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship_name> -o=jsonpath='{.status}' | jq
+----
+
+
+.Resultado
+La relación pasa al estado  `Promoted`, y la aplicación se ejecuta en el clúster de destino con los datos de la instantánea seleccionada.
+
+Si la relación permanece en el estado  `Promoting` y  `status.error` muestra  `The snapshot provided is invalid or older than the most recently transferred snapshot`, significa que falta la anotación o que no está configurada como  `true`. Añade la anotación e inténtalo de nuevo.
+
+.El futuro
+Para volver al clúster original, realiza una link:trident-protect-use-snapmirror-replication.html#reverse-resync-a-failed-over-replication-relationship["resincronización inversa"] y luego link:trident-protect-use-snapmirror-replication.html#reverse-application-replication-direction["invertir la dirección de la replicación"].
+
+
+CAUTION: Para volver al clúster original, no realices una resincronización normal. Una resincronización normal descarta la aplicación con conmutación por error y restablece la relación con la instantánea de origen más reciente.
+
+
+
+[[related-information]]
+== Información relacionada
+
+* link:trident-protect-use-snapmirror-replication.html["Configurar y gestionar la replicación de aplicaciones mediante Trident Protect"]
+* link:trident-protect-use-snapmirror-replication.html#fail-over-to-destination-cluster["Conmutación por error al clúster de destino"]
+* link:trident-protect-use-snapmirror-replication.html#resync-a-failed-over-replication-relationship["Resincronizar una relación de replicación con fallo"]
+* link:trident-protect-use-snapmirror-replication.html#fail-back-applications-to-the-original-source-cluster["Conmutación tras error de las aplicaciones al clúster de origen original"]
+* link:trident-protect-protect-apps.html#create-a-data-protection-schedule["Cree un programa de protección de datos"]
+

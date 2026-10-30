@@ -384,7 +384,7 @@ La protección contra RVP se habilita automáticamente en Kubernetes a partir de
 [[can-i-grow-nfs-pvcs-that-were-created-by-trident]]
 === ¿Puedo aumentar los RVP de NFS creados por Trident?
 
-Sí. Puede expandir una RVP creada por Trident. Tenga en cuenta que el crecimiento automático del volumen es una función de ONTAP que no se aplica a Trident.
+Sí. Puedes ampliar un PVC de NFS creado por Trident. Las políticas de crecimiento automático de Trident pueden ampliar automáticamente los PVC en función de los umbrales de capacidad. El ajuste automático del tamaño del volumen de ONTAP es independiente y se aplica a los controladores SAN de ONTAP compatibles: aumenta el FlexVol de respaldo sin cambiar el tamaño del PVC. Para obtener más información, consulta link:trident-use/ontap-autosize.html["Ajuste automático del tamaño de los volúmenes de ONTAP"^].
 
 
 

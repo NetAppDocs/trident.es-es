@@ -18,6 +18,17 @@ Los siguientes problemas conocidos afectan a la versión actual:
 
 
 
+[[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
+== Los volúmenes siguen adjuntos tras actualizar desde Trident 22.10 o una versión anterior
+
+Este problema afecta a los clientes que actualizan directamente de Trident 22.10 o versiones anteriores a Trident 26.10 mientras hay volúmenes conectados. Las actualizaciones desde Trident 23.01 o posterior no presentan este problema.
+
+Tras la actualización, es posible que los volúmenes afectados no se desconecten. Los Pods que usan volúmenes ReadWriteOnce (RWO) no pueden moverse a otro nodo y pueden mostrar un error de conexión múltiple. Eliminar el PersistentVolume (PV) también podría bloquearse.
+
+Para solucionar este problema, en el nodo que tiene la asociación de volumen obsoleta, elimina el archivo  `volumePublishInfo.json` restante del directorio  `globalmount` de ese volumen.
+
+
+
 [[volumesnapshots-not-reaching-readytouse-state]]
 == VolumeSnapshots no alcanza el estado ReadyToUse
 

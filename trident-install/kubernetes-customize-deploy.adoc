@@ -51,6 +51,11 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | `enableForceDetach` | `ontap-san`, `ontap-san-economy` , `ontap-nas` , y `ontap-nas-economy` solo. Funciona con Kubernetes Non-Graceful Node Shutdown (NGNS) para brindar a los administradores del clúster la capacidad de migrar de forma segura las cargas de trabajo con volúmenes montados a nuevos nodos en caso de que un nodo deje de funcionar correctamente. Para obtener más información, consultelink:../trident-reco/force-detach.html["Automatización de la conmutación por error de aplicaciones con estado con Trident"] . | `false` 
 
 
+| `enableDataLIFRefresh`  a| 
+Permite actualizar los LIF de datos NVMe de los volúmenes publicados cuando se añaden, se eliminan o se asigna una nueva dirección a los LIF. Se aplica a `ontap-san` con `sanType: nvme` en ONTAP unificado y NVMe/TCP en ASA r2. Para obtener más información, consulta link:../trident-use/refresh-nvme-data-lifs.html["Actualizar los LIF de datos de NVMe"].
+| `false` 
+
+
 | `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | `false` 
 
 
@@ -62,6 +67,9 @@ Establecer como `"Azure"` cuando se utilizan identidades gestionadas o una ident
 | `cloudIdentity`  a| 
 Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx») cuando utilice la identidad de cloud en un clúster de AKS. Establezca el rol de AWS IAM ('eks.amazonaws.com/role-arn: arn:aws:iam::123456:ROLE/Trident-ROLE') cuando utilice la identidad de cloud en un clúster de EKS. Se establece en la identidad de la nube («iam.gke.io/gcp-service-account: xxxx@mygcpproject.iam.gserviceaccount.com») cuando se utiliza la identidad de la nube en un clúster de GKE.
 | `""` 
+
+
+| `gcpWIFAudience` | Audiencia del token de cuenta de servicio proyectado que se utiliza con Google Cloud Workload Identity Federation en OpenShift. Usa el nombre canónico del recurso del proveedor. Para obtener más información, consulta link:../trident-use/gcnv.html#openshift-wif["Configura Google Cloud NetApp Volumes con Workload Identity Federation"]. | `""` 
 
 
 | `IPv6` | Instale Trident sobre IPv6 | falso 
@@ -79,7 +87,7 @@ NOTE: El `k8sTimeout` El parámetro solo se aplica a la instalación de Trident 
 automáticamente | `false` 
 
 
-| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport10"` 
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:26.10"` 
 
 
 | `autosupportProxy` | La dirección/puerto de un proxy para enviar AutoSupport
@@ -92,7 +100,7 @@ Telemetría | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato de registro Trident que se va a utilizar [text,json] | `"text"` 
 
 
-| `tridentImage` | Imagen Trident para instalar | `"netapp/trident:26.06"` 
+| `tridentImage` | Imagen Trident para instalar | `"netapp/trident:26.10.0"` 
 
 
 | `imageRegistry` | Ruta de acceso al registro interno, del formato
@@ -141,7 +149,12 @@ El límite de consultas por segundo (QPS) utilizado por el controlador mientras 
 
 | `enableConcurrency`  a| 
 Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento. Para obtener más información sobre los controladores compatibles, consulta el enlace: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
-| `resources` 
+| `enableCOSI` 
+
+
+ a| 
+Habilita la interfaz de almacenamiento de objetos de contenedor (COSI) de Trident. Requiere que `enableConcurrency` esté configurado en `true`. Trident COSI no puede ejecutarse junto con el controlador COSI de la comunidad. Para obtener más información, consulta link:../trident-use/cosi.html["Aprovisiona almacenamiento de objetos con COSI"].
+| `false` | `resources` 
 
 
  a| 

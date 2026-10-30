@@ -130,6 +130,15 @@ Nota al pie de página: YesFootnote:1[]: No administrado por Trident
 
 
 
+[[google-cloud-netapp-volumes-backend-drivers]]
+=== Controladores de backend de Google Cloud NetApp Volumes
+
+Trident admite el controlador  `google-cloud-netapp-volumes` para cargas de trabajo NAS y  `google-cloud-netapp-volumes-san` para cargas de trabajo SAN (iSCSI). En los clústeres de OpenShift que se ejecutan en GCP, ambos controladores admiten Google Cloud Workload Identity Federation a partir de Trident 26.10. Esto incluye OpenShift Container Platform autogestionado (OCP, incluidas las implementaciones IPI) y OpenShift Dedicated (OSD).
+
+Para obtener información sobre la configuración del backend y los requisitos previos de WIF, consulta link:../trident-use/gcnv.html["Configura Google Cloud NetApp Volumes"] y link:../trident-use/gcnv-block.html["Configura Google Cloud NetApp Volumes para cargas de trabajo SAN"].
+
+
+
 [[storage-class-design]]
 == Diseño de clase de almacenamiento
 
