@@ -18,6 +18,13 @@ Los siguientes problemas conocidos afectan a la versión actual:
 
 
 
+[[trident-node-pods-might-detach-in-use-volumes-during-upgrade-to-26-10-0]]
+== Los pods de nodo de Trident podrían desconectar los volúmenes en uso durante la actualización a la versión 26.10.0
+
+No actualices a Trident 26.10.0 desde Trident 25.10 ni desde ninguna versión anterior. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún estén en uso. Los pods afectados podrían fallar con el error `volume ... is not staged`. Se está desarrollando una corrección. Espera a que se publique una versión que incluya la corrección antes de actualizar.
+
+
+
 [[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
 == Los volúmenes siguen adjuntos tras actualizar desde Trident 22.10 o una versión anterior
 
