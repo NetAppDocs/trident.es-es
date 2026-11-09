@@ -21,11 +21,6 @@ A partir de la versión 24,02, Trident sigue una cadencia de lanzamiento de cuat
 
 Al actualizar a la versión más reciente de Trident, tenga en cuenta lo siguiente:
 
-[WARNING]
-====
-No actualices a Trident 26.10.0 desde Trident 25.10 ni desde ninguna versión anterior. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún están en uso. Los pods afectados podrían fallar con el error `volume ... is not staged`. Este problema se aplica incluso cuando la actualización está dentro del intervalo compatible de cuatro versiones. Espera a una versión que incluya la corrección antes de actualizar. Para obtener más información, consulta link:../known-issues.html["problemas conocidos"].
-
-====
 * Solo debe haber una instancia de Trident instalada en todos los espacios de nombres de un clúster de Kubernetes determinado.
 * Trident 23,07 y versiones posteriores requieren v1 copias Snapshot de volumen y ya no admite instantáneas alfa o beta.
 * Al actualizar, es importante que proporcione `parameter.fsType` el `StorageClasses` que utiliza Trident. Puede eliminar y volver a crear `StorageClasses` sin interrumpir los volúmenes existentes anteriores.
@@ -52,9 +47,6 @@ Las versiones de Trident siguen una convención de nomenclatura basada en fechas
 
 
 
-
-
-NOTE: Cuando se actualice con el operador Trident en OpenShift Container Platform, debe actualizar a Trident 21.01.1 o una versión posterior. El operador Trident publicado con 21.01.0 contiene un problema conocido que se ha solucionado en 21.01.1. Si quiere más detalles, consulte la https://github.com/NetApp/trident/issues/517["Detalles del problema en GitHub"^].
 
 
 
