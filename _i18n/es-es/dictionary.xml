@@ -1458,20 +1458,6 @@
   <block id="588d2fe1c60271cde75dbeba32e0b25b" category="list-text">Asegúrese de que esté configurado NFS y/o iSCSI para su sistema.</block>
   <block id="03fe5b0d58270efa87041677cac72ad7" category="list-text">Instale y configure el complemento NetApp Docker Volume Plugin:</block>
   <block id="f45f5a64dae951d3e37c9bd382201b06" category="list-text">Descargue y desembale la aplicación:</block>
-  <block id="b255d9e06a4ca8e9f5bc31c9198426ad" category="list-text">Desplazarse a una ubicación en la ruta de la bandeja:</block>
-  <block id="e3dec3f86b9a3b1be209ab63855ce432" category="list-text">Cree un volumen:</block>
-  <block id="5ff2e3e853922fdb84ef21b85ffdac2e" category="list-text">Aprovisione un volumen de Docker al iniciar un contenedor:</block>
-  <block id="8f6a91f5f21d0478e3fd89095fc28ab9" category="list-text">Quite un volumen de Docker:</block>
-  <block id="0350980c728940d67af063bb5d711f0f" category="paragraph">Puede encontrar un archivo de ejemplo de unidad para sistemas basados en el sistema en<block ref="50a97f9b0dec64cc53ca48406c60fe4d" prefix=" " category="inline-code"></block> En el Git repo. Para utilizar el archivo con RHEL, realice lo siguiente:</block>
-  <block id="5b51496da86e5a2073e0c618390c3d2a" category="list-text">Copie el archivo en la ubicación correcta.</block>
-  <block id="44103de0a164f687d305ad91e919d8ee" category="paragraph">Debe utilizar nombres únicos para los archivos de unidad si tiene más de una instancia en ejecución.</block>
-  <block id="3223aadc84a3ccb4a3473ba01c895184" category="list-text">Edite el archivo, cambie la descripción (línea 2) para que coincida con el nombre del controlador y la ruta del archivo de configuración (línea 9) para reflejar su entorno.</block>
-  <block id="1edae3931401a32d7dd7dd6e0a2ad563" category="list-text">Vuelva a cargar systemd para que procese los cambios:</block>
-  <block id="db38a93e27eba57d507611d002ad612f" category="list-text">Active el servicio.</block>
-  <block id="c7e0a4deeebe264aa7d5f7f3ca3ef77f" category="paragraph">Este nombre varía en función de lo que haya nombrado el archivo en el<block ref="dce2a9642217836d54f614dfd625b753" prefix=" " category="inline-code"></block> directorio.</block>
-  <block id="baa04490a79e9e8de7fa4cd44e2c6fbb" category="list-text">Inicie el servicio.</block>
-  <block id="93c7574cf83c1f01b04891cf2d826cea" category="list-text">Ver el estado.</block>
-  <block id="f4f15418284ae7a01b27fccc1af0463a" category="admonition">Siempre que modifique el archivo de unidad, ejecute el<block ref="269b117015efb12595eebf74692e5cbc" prefix=" " category="inline-code"></block> comando para que tenga en cuenta los cambios.</block>
   <block id="0e9e734e557a02db30a20e5ac259cfb9" category="summary">Cada controlador de almacenamiento tiene un conjunto diferente de opciones que se pueden especificar al crear un volumen para personalizar el resultado. Consulte a continuación las opciones que se aplican al sistema de almacenamiento configurado.</block>
   <block id="11e1b165c1d718d825f4bb9aaf0b884e" category="doc">Opciones de volumen específicas del controlador</block>
   <block id="bca0712c590c8d3c228bf1044aed730b" category="paragraph">Usar estas opciones durante la operación de creación de volúmenes es simple. Proporcione la opción y el valor con<block ref="b2ed43620b7fff2689035f1e99c24ded" prefix=" " category="inline-code"></block> Operador durante el funcionamiento de la CLI. Estos sustituyen cualquier valor equivalente al archivo de configuración JSON.</block>
@@ -2299,7 +2285,6 @@ SMB</block>
   <block id="7646000ea978570e919e657f5ec9aa57" category="paragraph"><block ref="7646000ea978570e919e657f5ec9aa57" category="inline-link-macro-rx"></block></block>
   <block id="abefc87b0c4c459aa6fdb12d98caf984" category="paragraph">Ahora puede añadir back-ends adicionales, gestionar clases de almacenamiento, gestionar back-ends y realizar operaciones de volumen.</block>
   <block id="ca3c25915a30bef4ec583f6082477acf" category="paragraph">Si está modificando la configuración desde una que esté utilizando el valor predeterminado<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> Incluya el ID de para uno que utilice también otros<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> grupo de acceso de la lista.</block>
-  <block id="b2edeceecc054572188ee3b08cd58c64" category="list-text">Después de colocar el binario y crear el archivo de configuración, inicie el daemon de Trident con el archivo de configuración que desee.</block>
   <block id="b4f83b03956523a39e8bbbd0895f0f29" category="inline-link-macro">Cloud Insights</block>
   <block id="63bfc0691d397470e5b0b05f2a9bcbe4" category="inline-link-macro">Problema n.o 740</block>
   <block id="c8af8b49eb3be9ce411280db66de8a12" category="list-text">Se ha corregido la actualización de Trident para ignorar los pods antiguos atascados en estado de finalización (<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>).</block>
@@ -2434,7 +2419,6 @@ SMB</block>
   <block id="de9e7e8f2c463ef15bebdbf8d2d1aa6d" category="inline-link-macro">Controladores de SAN</block>
   <block id="9aa82da0cffe247b84587c1cc8e32746" category="cell">"predeterminado"</block>
   <block id="dfb6135042da6e8fbf367d9cf13431ef" category="paragraph">Restricción opcional de los tamaños de volumen. Valor por defecto: '' (no forzado)</block>
-  <block id="4846d107d8ddb5051591d14dcbddba8c" category="admonition">A menos que se especifique, el nombre predeterminado para el controlador de volumen es NetApp.</block>
   <block id="5ab207578468b7bbc201024492654253" category="list-text">Se ha añadido compatibilidad con las funciones de red al controlador Azure NetApp Files. (<block ref="e0e89f8bd936a5eb3adce74cac88eab0" category="inline-link-macro-rx"></block>)</block>
   <block id="302e5f91d375f03821f8fd6340563539" category="list-text">Se solucionó el problema en el que el controlador Azure NetApp Files no pudo clonar un volumen con varias reglas de exportación.</block>
   <block id="1d61f4e1411b6940bc918fb56346f64d" category="list-text">Se corrigió el controlador Azure NetApp Files para permitir nombres de recursos duplicados y limitar operaciones a una sola ubicación.</block>
@@ -3077,7 +3061,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="58391bc76e8c1c5635a11134b3e4083d" category="admonition">Si ha utilizado Trident pre Docker 1,13/17,03 en el método de daemon tradicional, asegúrese de detener el proceso de Trident y reiniciar el daemon de Docker antes de utilizar el método de complemento gestionado.</block>
   <block id="8554af307cedea04e0e39362f35175f4" category="list-text">Inicie Trident utilizando el sistema de complementos gestionados. Reemplace<block ref="3d689bd3819ead35ed794427bd12f459" prefix=" " category="inline-code"></block> por la versión del plugin (xxx.xx.x) que está utilizando.</block>
   <block id="8020e7c6d37db1ac7100b3b117f46cfd" category="list-text">Comience a utilizar Trident para consumir almacenamiento del sistema configurado.</block>
-  <block id="b48e6203239c93859800f96924a39ed7" category="section-title">Inicie Trident al iniciar el sistema</block>
   <block id="a5a6bc232526faaa8ab11bd5f46a069c" category="summary">Busque información sobre problemas conocidos al usar Trident con Docker.</block>
   <block id="44110fddc560d626db733ac60924ea7c" category="paragraph">Busque información sobre problemas conocidos y limitaciones cuando use Trident con Docker.</block>
   <block id="442b5623691118072cf6342e3614f21a" category="section-title">Docker Swarm tiene ciertos comportamientos que impiden que Trident ofrezca compatibilidad con cada combinación de almacenamiento y controladores.</block>
@@ -4718,7 +4701,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">Puede establecer la marca de cifrado de NVE<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block> para crear volúmenes con la función NAE habilitada.</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">Si NAE no está habilitado en el back-end, cualquier volumen aprovisionado en Trident será NVE habilitado a menos que la marca de cifrado de NVE esté establecida en<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> (el valor predeterminado) en la configuración del back-end.</block>
   <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">Cuando se crean la clase de almacenamiento y la RVP, puede montar el PV en un pod. Esta sección enumera el comando de ejemplo y la configuración para adjuntar el PV a un pod.</block>
-  <block id="f253a45a33bc62e467efd426699d9025" category="paragraph">Una vez iniciado el daemon, puede crear y gestionar volúmenes mediante la interfaz de la CLI de Docker.</block>
   <block id="a0ba0b0d751124c646a352594c7e9d7b" category="paragraph">El resto de los pilotos están sujetos a problemas como condiciones de carrera que pueden resultar en la creación de un gran número de volúmenes para una sola solicitud sin un claro “ganador”; por ejemplo, Element tiene una característica que permite que los volúmenes tengan el mismo nombre pero diferentes ID.</block>
   <block id="8904f6454065d44212063d39eeae5f07" category="paragraph">Control detallado de las opciones de montaje de NFS; se define de forma predeterminada en «-o nfsvers=3». *Disponible solo para los<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> conductores y<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>*.<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>.</block>
   <block id="6a3f2fe5a221ff5e914123b7d1d207ac" category="paragraph">El porcentaje de reserva de Snapshot, el valor predeterminado es « » para aceptar el valor predeterminado de ONTAP</block>
@@ -7959,6 +7941,20 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="32e050df1ec85a2f1e5df0a5f58268ec" category="list-text">Usa el <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> comando donde <block ref="a4b3c2e901b9e596a96af375fe1d5a7c" prefix=" " category="inline-code"></block> refleja la versión a la que quieres actualizar.</block>
   <block id="65eb82fddd05e92e211e0d77aeb0e4e1" category="section-title">Novedades de 26.10.1</block>
   <block id="24ab713b78d3325367406612bac11467" category="list-text">Se ha solucionado el problema por el que los pods de nodo de Trident desconectaban por la fuerza los volúmenes en uso al iniciarse tras actualizar desde Trident 25.10 o versiones anteriores, lo que provocaba que los pods fallaran con<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>.</block>
-  <block id="08a653a879b277b1ab0d81324b64565e" category="paragraph">No actualices a Trident 26.10.1. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún están en uso. Los pods afectados podrían fallar con el error<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>. Este problema se ha solucionado en Trident 26.10.1. En su lugar, actualiza a Trident 26.10.1 o una versión posterior.</block>
   <block id="90e0d67f77c8a5ec012e93f3be5c8331" category="list-text">El servicio de Azure<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> que contiene al menos un<block ref="c5f14b2142014dc234282a513132bad4" category="inline-link-rx"></block>. El parámetro<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> es obligatorio en el nivel superior del archivo de configuración del backend. Se ignoran los valores de ubicación especificados en los pools virtuales.</block>
+  <block id="784329f85fd663964c68f0a0708c6a94" category="paragraph">sudo mv trident-installer/extras/bin/trident /usr/local/bin/ sudo chown root:root /usr/local/bin/trident sudo chmod 755 /usr/local/bin/trident</block>
+  <block id="5dd8f815786ef70394bd3584d3a83edb" category="paragraph">sudo mkdir -p /etc/netappdvp</block>
+  <block id="e3390f4eb37ee288a1506cb1c597aa95" category="paragraph">cat &lt;&lt; EOF &gt; /etc/netappdvp/ontap-nas.json</block>
+  <block id="adc4dd00e378338b858aca4e95957991" category="paragraph">{ "version": 1, "storageDriverName": "ontap-nas", "managementLIF": "10.0.0.1", "dataLIF": "10.0.0.2", "svm": "svm_nfs", "username": "vsadmin", "password": "password", "aggregate": "aggr1" } EOF</block>
+  <block id="59eded362480a8bf2a93749d766232f5" category="paragraph">sudo trident --config=/etc/netappdvp/ontap-nas.json</block>
+  <block id="d61aa82a9c4cc0306260158ad8814a0f" category="paragraph">docker volume create -d netapp --name trident_1</block>
+  <block id="23eec71379bdec8968a87c5d8d0ce0a0" category="paragraph">docker run --rm -it --volume-driver netapp --volume trident_2:/my_vol alpine ash</block>
+  <block id="1a3c38b86779ead156135d6d6117f9e0" category="paragraph">docker volume rm trident_1</block>
+  <block id="8e77e19e4710951abc111ddaa1a9700a" category="paragraph">docker volume rm trident_2</block>
+  <block id="6e764ace6033355001647dc536a222e2" category="paragraph">cp contrib/trident.service.example /usr/lib/systemd/system/trident.service</block>
+  <block id="269b117015efb12595eebf74692e5cbc" category="paragraph">systemctl daemon-reload</block>
+  <block id="906e1aecd65b40017e38c9165527f849" category="paragraph">systemctl enable trident</block>
+  <block id="0bb25bc3cf1d0c26ca853353a2dd7109" category="paragraph">systemctl start trident</block>
+  <block id="f2f8542f9f112ea6545bf028e893aadc" category="paragraph">systemctl status trident</block>
+  <block id="4e7dcfae0cbac5529245e0641c2da2e4" category="paragraph">No actualices a Trident 26.10.0. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún están en uso. Los pods afectados podrían fallar con el error<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>. Este problema se ha solucionado en Trident 26.10.1. En su lugar, actualiza a Trident 26.10.1 o una versión posterior.</block>
 </blocks>

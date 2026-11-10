@@ -49,7 +49,7 @@ Descubre qué hay de nuevo en NetApp Trident y Trident Protect, incluyendo mejor
 
 [WARNING]
 ====
-No actualices a Trident 26.10.1. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún están en uso. Los pods afectados podrían fallar con el error `volume ... is not staged`. Este problema se ha solucionado en Trident 26.10.1. En su lugar, actualiza a Trident 26.10.1 o una versión posterior.
+No actualices a Trident 26.10.0. Durante el arranque, es posible que los pods de nodo de Trident desconecten volúmenes que aún están en uso. Los pods afectados podrían fallar con el error `volume ... is not staged`. Este problema se ha solucionado en Trident 26.10.1. En su lugar, actualiza a Trident 26.10.1 o una versión posterior.
 
 ====
 
