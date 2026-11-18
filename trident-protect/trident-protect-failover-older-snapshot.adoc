@@ -30,33 +30,56 @@ CAUTION: La conmutación por error a una instantánea anterior hace que ONTAP Sn
 [[identify-the-snapshot]]
 == Identificar la instantánea
 
-Cada instantánea tiene una hora de finalización, por lo que puedes elegir el momento concreto que quieras.
+Cada instantánea tiene una hora de finalización. Obtén la ruta de su archivo con  `kubectl` en el clúster de origen o con la CLI.
 
-.Pasos
-. En el clúster de origen, muestra la lista de instantáneas:
+
+NOTE: Utiliza la CLI cuando el clúster de origen esté inactivo o el recurso personalizado de instantánea no esté disponible. Ejecuta el comando en el clúster de destino o en cualquier clúster que tenga el AppVault de origen.
+
+[role="tabbed-block"]
+====
+.Utiliza kubectl
+--
+Utiliza  `kubectl` en el clúster de origen para obtener la ruta del archivo.
+
+. En el clúster de origen, muestra la lista de instantáneas y anota el `completionTimestamp`de la instantánea que quieras:
 +
 [source, console]
 ----
 kubectl get snapshots -n my-app-namespace
 ----
-. Busca la instantánea a la que realizar la conmutación por error. Utiliza el valor  `completionTimestamp` para seleccionar el momento específico.
-. Obtén la ruta del archivo de esa instantánea:
+. Obtén la ruta del archivo:
 +
 [source, console]
 ----
 kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
-. Anota la última parte de la ruta, es decir, todo lo que viene después de la última barra. Esta parte es el _basename_. Por ejemplo:
-+
+
+
+--
+.Utilice la CLI
+--
+Utiliza la CLI de Trident Protect para obtener la ruta del archivo. En el clúster de destino, o en cualquier clúster que tenga el AppVault de origen, muestra la lista de instantáneas. `TIMESTAMP` es la hora de finalización y `PATH` es la ruta del archivo.
+
+[source, console]
+----
+tridentctl-protect get appvaultcontent <source_appvault_name> \
+--app <app_name> \
+--show-resources snapshot \
+--show-paths
+----
+
+NOTE: El AppVault CR de la aplicación de origen debe existir en el clúster en el que ejecutas el comando, y tu entorno debe poder conectarse al bucket de almacenamiento de objetos definido en el AppVault CR. Si las restricciones de red impiden el acceso, ejecuta la CLI desde dentro de un pod en el clúster.
+
+--
+====
+El nombre base es todo lo que hay después de la última barra en la ruta. Por ejemplo:
+
 [listing]
 ----
 20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
 ----
-+
 
 NOTE: Utiliza basename, no el nombre del recurso personalizado de la instantánea.
-
-
 
 .Resultado
 Se registra el nombre base de la instantánea seleccionada.
