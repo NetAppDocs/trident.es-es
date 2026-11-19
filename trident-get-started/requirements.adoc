@@ -44,12 +44,14 @@ Trident admite varios motores de contenedor y orquestadores, entre los que se in
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
 * Kubernetes 1.27 - 1.37
+* OpenShift 5.0
 * OpenShift 4.12, 4.14 - 4.22 (si planeas usar la preparación de nodos iSCSI con OpenShift 4.19, la versión mínima de Trident compatible es 25.06.1.)
 +
 
 NOTE: Trident continúa brindando soporte para versiones anteriores de OpenShift en consonancia con lalink:https://access.redhat.com/support/policy/updates/openshift["Ciclo de vida de lanzamiento de Red Hat Extended Update Support (EUS)"] , incluso si dependen de versiones de Kubernetes que ya no reciben soporte oficial.  Al instalar Trident en estos casos, puede ignorar con seguridad cualquier mensaje de advertencia sobre la versión de Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x
+* SUSE Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x
+* Virtualización de SUSE (Harvester) 1.8.x - 1.9.x (NFS, iSCSI, NVMe/TCP y FC)
 * Talos OS para NFSv4, iSCSI y NVMe/TCP. Se requieren las siguientes extensiones del sistema Talos para cada protocolo; confirma estos requisitos con Sidero Labs.
 +
 ** NFSv4: `siderolabs/nfs-utils`
@@ -84,15 +86,22 @@ Para utilizar Trident, se necesitan uno o varios de los siguientes back-ends adm
 
 
 
-[[trident-support-for-kubevirt-and-openshift-virtualization]]
-== Compatibilidad de Trident con KubeVirt y OpenShift Virtualization
+[[trident-support-for-kubevirt-openshift-virtualization-and-suse-virtualization]]
+== Compatibilidad de Trident con KubeVirt, OpenShift Virtualization y SUSE Virtualization
 
 .Controladores de almacenamiento compatibles:
-Trident admite los siguientes controladores de ONTAP para KubeVirt y OpenShift Virtualization:
+Trident admite los siguientes controladores ONTAP para KubeVirt, OpenShift Virtualization y SUSE Virtualization:
 
 * ontap-nas
 * ONTAP-san (iSCSI, FCP, NVMe sobre TCP)
 * Economía ONTAP-san (solo iSCSI)
+
+
+.Informes de certificación de SUSE Virtualization
+Las siguientes configuraciones de Trident 26.10 se validaron con SUSE Virtualization. Las pruebas fueron cortesía de Suresh Thoppay:
+
+* link:https://netapp-my.sharepoint.com/:w:/p/lrico/IQAF9GNKmi64SKJIhoBo4QcOASK58qAyI3j-Gm5QCd4fHa8?e=Z8G3cO["Trident 26.10 con SUSE Virtualization 1.8.2"^]
+* link:https://netapp-my.sharepoint.com/:w:/p/lrico/IQCwh98Enw7CTYcbu_fRhSS0AVN__iDN_jYFTvVrELgxNYI?e=dLNcqx["Trident 26.10 con SUSE Virtualization 1.9.1"^]
 
 
 .Puntos que se deben tener en cuenta:
@@ -287,7 +296,7 @@ La siguiente lista de imágenes de Trident 26.10 incluye las imágenes para Kube
 | Versiones de Kubernetes | Imagen de contenedor 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+| v1.37.0  a| 
 * docker.io/netapp/trident:26.10.1
 * docker.io/netapp/trident-autosupport:26.10
 * docker.io/netapp/trident-operator:26.10.1 (opcional)

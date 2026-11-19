@@ -19,10 +19,20 @@ El  https://kubernetes.io/docs/concepts/storage/storage-classes/["Objeto de Kube
 [[create-a-storageclass-object]]
 == Crear un objeto StorageClass
 
-Cuando creas un StorageClass para FSx for ONTAP, Trident creará automáticamente la configuración del backend.
+Cuando creas una StorageClass para FSx for ONTAP, Trident puede crear automáticamente la configuración del backend.
+
+Para configurar manualmente el backend de almacenamiento, consulta <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> para obtener instrucciones sobre cómo crear por separado el backend de Trident y StorageClass.
 
 
-NOTE: Si quieres configurar manualmente el backend de almacenamiento, consulta la sección <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> para saber cómo crear el backend Trident y la clase de almacenamiento por separado.
+NOTE: En OpenShift, debes crear por separado el backend de Trident y StorageClass.
+
+
+
+==== Entiende cómo funciona la configuración automática del backend
+
+Trident obtiene la configuración del backend a partir de la definición de StorageClass. Cuando aplicas la StorageClass, Trident valida los parámetros necesarios, crea el backend y anota la StorageClass con el estado.
+
+Trident crea el VolumeSnapshotClass solo una vez. Trident reutiliza el mismo VolumeSnapshotClass para los siguientes StorageClasses.
 
 
 
@@ -42,7 +52,7 @@ Los siguientes tres parámetros deben definirse al crear un StorageClass:
 | `storageDriverName` | Sí | cadena | Controlador de almacenamiento Trident (por ejemplo, `ontap-nas` o `ontap-san`) 
 
 
-| `credentialsName` | Sí | cadena | Nombre del secreto de Kubernetes que contiene FSx for ONTAP credenciales 
+| `credentialsName` | Sí | cadena | Nombre del secreto de Kubernetes o del ARN del secreto de AWS Secrets Manager que contiene las credenciales de FSx for ONTAP 
 |===
 
 
@@ -193,14 +203,6 @@ Si quieres crear el backend de Trident y StorageClass por separado, entonces sig
 
 
 
-==== Entiende cómo funciona la configuración automática del backend
-
-Trident obtiene la configuración del backend a partir de la definición de StorageClass. Cuando aplicas la StorageClass, Trident valida los parámetros necesarios, crea el backend y anota la StorageClass con el estado.
-
-Trident crea el VolumeSnapshotClass solo una vez. Trident reutiliza el mismo VolumeSnapshotClass para los siguientes StorageClasses.
-
-
-
 [[create-the-trident-backend]]
 === Crear el backend Trident
 
@@ -219,11 +221,14 @@ metadata:
   namespace: trident
 spec:
   version: 1
+  defaults:
+    skipRecoveryQueue: "true"
   storageDriverName: ontap-nas
   backendName: tbc-ontap-nas
   svm: svm-name
   aws:
     fsxFilesystemID: fs-xxxxxxxxxx
+    apiRegion: us-west-2
   credentials:
     name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
     type: awsarn
@@ -243,13 +248,16 @@ spec:
   },
   "spec": {
     "version": 1,
+    "defaults": {
+      "skipRecoveryQueue": "true"
+    },
     "storageDriverName": "ontap-nas",
     "backendName": "tbc-ontap-nas",
     "svm": "svm-name",
     "aws": {
-      "fsxFilesystemID": "fs-xxxxxxxxxx"
+      "fsxFilesystemID": "fs-xxxxxxxxxx",
+      "apiRegion": "us-west-2"
     },
-    "managementLIF": null,
     "credentials": {
       "name": "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name",
       "type": "awsarn"
@@ -314,7 +322,6 @@ Kubectl get tbc -n trident
 [listing]
 ----
 NAME                         BACKEND NAME         BACKEND UUID                           PHASE   STATUS
-
 backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d916ac5e9   Bound   Success
 ----
 
@@ -341,6 +348,9 @@ kind: StorageClass
 metadata:
   name: ontap-gold
 provisioner: csi.trident.netapp.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
 parameters:
   backendType: "ontap-nas"
   provisioningType: "thin"
@@ -448,7 +458,6 @@ kubectl get sc basic-csi
 ----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
 ----
 
 
