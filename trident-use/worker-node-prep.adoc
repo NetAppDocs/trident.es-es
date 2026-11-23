@@ -149,7 +149,7 @@ Instale las herramientas iSCSI mediante los comandos del sistema operativo.
 ----
 sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
 ----
-* Cuando utilice nodos de trabajo que ejecuten RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con VP iSCSI, especifique `discard` mountOption en StorageClass para realizar la recuperación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de Red Hat"^].
+* Cuando utilices nodos trabajadores que ejecutan RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con iSCSI PVs, especifica el `discard` mountOption en la StorageClass para realizar la reclamación de espacio en línea. Consulta https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de Red Hat"^].
 * Asegúrese de haber actualizado a la última versión del  `multipath-tools` .
 
 
@@ -389,7 +389,7 @@ Consulte la siguiente documentación de ONTAP para obtener más detalles:
 
 Instale las herramientas de FC mediante los comandos del sistema operativo.
 
-* Cuando se utilicen nodos de trabajo que ejecuten RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con VP FC, especifique `discard` mountOption en StorageClass para realizar la recuperación de espacio inline. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de Red Hat"^].
+* Cuando uses nodos trabajadores que ejecutan RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) con FC PVs, especifica el `discard` mountOption en la StorageClass para realizar la reclamación de espacio en línea. Consulta https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentación de Red Hat"^].
 
 
 [role="tabbed-block"]
