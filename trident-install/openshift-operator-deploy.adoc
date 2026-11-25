@@ -40,48 +40,18 @@ NOTE: Asegúrese de seleccionar la versión más reciente del operador.
 +
 image::../media/openshift-operator-03.png[Instale]
 
-. Haga clic en *Ver operador* para ver los detalles del operador.
+. Haz clic en *View Operator* para ver los detalles de Operator. Selecciona la pestaña *Trident Orchestrator* y, a continuación, haz clic en *Create instance*.
+. En el formulario de creación, selecciona *Vista YAML* y edita el `TridentOrchestrator` ejemplo que proporciona la interfaz de usuario. No lo sustituyas por una configuración completa independiente.
 +
-image::../media/openshift-operator-07.png[Instalado]
+Para habilitar la concurrencia, añade `enableConcurrency: true` debajo de la sección existente `spec:`:
 
-. Haga clic en *Vista YAML* y pegue lo siguiente en el formulario:
 +
 [source, yaml]
 ----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-  namespace: openshift-operators
-spec:
-  IPv6: false
-  debug: false
-  nodePrep:
-  - iscsi
-  imageRegistry: ''
-  k8sTimeout: 180s
-  namespace: trident
-  silenceAutosupport: false
+  enableConcurrency: true
 ----
-+
-[NOTE]
-====
-La interfaz de usuario proporciona un ejemplo por defecto. Puedes editarlo directamente en lugar de copiar una configuración completa.
-
-====
 
 
-[NOTE]
-====
-Opcional: activar la concurrencia
-
-Para activar la concurrencia, agrega el siguiente campo a la especificación:
-
-[source, yaml]
-----
-enableConcurrency: true
-----
-====
 [NOTE]
 ====
 * Red Hat Enterprise Linux CoreOS (RHCOS) no tiene iSCSI habilitado ni configurado.

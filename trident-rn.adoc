@@ -1433,7 +1433,7 @@ Se ha agregado una nueva link:https://docs.netapp.com/us-en/trident/trident-refe
 [[changes-in-22-04]]
 == Cambios en 22.04
 
-NetApp mejora y mejora continuamente sus productos y servicios. Estas son algunas de las últimas características en Trident. Para versiones anteriores, consulte https://docs.netapp.com/us-en/trident/earlier-versions.html["Versiones anteriores de la documentación"] .
+NetApp está continuamente mejorando y perfeccionando sus productos y servicios. Estas son algunas de las últimas características de Trident.
 
 
 IMPORTANT: Si actualiza desde cualquier versión de Trident anterior y utiliza Azure NetApp Files, el ``location`` el parámetro config es ahora un campo obligatorio singleton.

@@ -257,7 +257,12 @@ WARNING: No elimine la afinidad predeterminada del archivo values.yaml. Cuando d
 
 
 | `enableConcurrency`  a| 
-Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento. Para obtener más información sobre los controladores compatibles, consulta el enlace: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+Permite operaciones simultáneas del controlador Trident para mejorar el rendimiento.
+
+
+WARNING: Debes habilitar esta opción de forma explícita durante la instalación de Trident o cuando actualices una implementación existente.
+
+Para obtener más información sobre los controladores compatibles, consulta el enlace: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | falso 
 
 

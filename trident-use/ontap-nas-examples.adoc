@@ -190,10 +190,16 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 | `splitOnClone` | Divida un clon de su elemento principal al crearlo | "falso" 
 
 
+| `cloneSplitDelay` | Segundos de espera antes de que Trident empiece a dividir un clon que mantiene una snapshot ocupada durante la eliminación de la snapshot. El valor predeterminado es de `86400` segundos (24 horas). Con el valor predeterminado o uno superior, Trident aplica backoff exponencial a partir de 5 minutos y con un límite de 1 hora cuando ONTAP devuelve un error "snapshot busy"; los reintentos dentro de un intervalo no llaman a ONTAP. Por debajo de `86400`, Trident llama a ONTAP en cada reintento de CSI y no usa backoff. | `86400` 
+
+
 | `encryption` | Activa NetApp Volume Encryption (NVE) en el nuevo volumen; el valor predeterminado es  `false`. NVE debe estar licenciado y habilitado en el clúster para usar esta opción. Si NAE está habilitado en el backend, cualquier volumen aprovisionado en Trident tendrá NAE habilitado. Para más información, consulta: link:../trident-reco/security-reco.html["Cómo funciona Trident con NVE y NAE"]. | "falso" 
 
 
 | `tieringPolicy` | Política de organización en niveles para utilizar ninguna |  
+
+
+| `skipRecoveryQueue` | Durante la eliminación de un volumen, omita la cola de recuperación en el almacenamiento y elimine el volumen inmediatamente. | `""` 
 
 
 | `unixPermissions` | Modo para volúmenes nuevos | «777» para volúmenes NFS; vacío (no aplicable) para volúmenes SMB 
